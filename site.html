@@ -646,6 +646,57 @@
     .results-layout { grid-template-columns: 1fr; gap: 3rem; }
   }
 
+  /* ============== MAP + CHIPS (Proven Results) ============== */
+  .map-frame {
+    margin-top: 3rem;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -25px rgba(15,23,42,0.25);
+    border: 1px solid var(--border);
+  }
+  .map-frame img {
+    width: 100%; height: auto; display: block;
+  }
+  .results-chips {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+  .results-chip {
+    padding: 1.8rem 1.6rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    display: flex; flex-direction: column; gap: 0.35rem;
+    transition: all 0.2s ease;
+  }
+  .results-chip:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .chip-num {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+    color: var(--red); letter-spacing: -0.025em;
+    line-height: 1;
+  }
+  .results-chip:nth-child(2) .chip-num { color: var(--blue-bright); }
+  .results-chip:nth-child(3) .chip-num { color: var(--red); }
+  .results-chip:nth-child(4) .chip-num { color: var(--blue); }
+  .chip-label {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+    margin-top: 0.4rem;
+    letter-spacing: -0.01em;
+  }
+  .chip-sub {
+    font-size: 0.82rem; color: var(--text-2);
+    letter-spacing: 0;
+  }
+  @media (max-width: 880px) { .results-chips { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .results-chips { grid-template-columns: 1fr; } }
+
   /* ============== CUSTOMER VOICE ============== */
   .quotes-grid {
     margin-top: 3.5rem; display: grid;
@@ -1488,46 +1539,34 @@
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">Proven results</span>
-      <h2 class="display h2">200+ communities <span class="accent">live.</span></h2>
-      <p class="lede">Across 21 states and 27 metros. Multifamily, student housing, mixed-use — every property type. Operating 24/7/365 with onsite ambassadors handling exceptions.</p>
+      <h2 class="display h2">200+ communities, <span class="accent">coast to coast.</span></h2>
+      <p class="lede">Across 21 states and 27 metro areas. Multifamily, student housing, HOA, mixed-use — every property type. Operating 24/7/365 with onsite ambassadors handling exceptions.</p>
     </div>
 
-    <div class="results-layout">
-      <div class="reveal">
-        <div class="big-stat-num">200<span class="plus">+</span></div>
-        <div class="big-stat-label">Communities live.</div>
-        <p class="big-stat-body">New properties going live every week. Multi-property portfolios deployed in waves of 5–10 at a time with a named CSM per portfolio.</p>
-      </div>
+    <div class="map-frame reveal">
+      <img src="partners-map.jpg" alt="HelloPackage's nationwide footprint — 200+ communities live across 21 states and 27 metro areas" />
+    </div>
 
-      <div class="benefits reveal">
-        <div class="benefit">
-          <div>
-            <div class="benefit-title">Package density</div>
-            <div class="benefit-sub">Versus traditional lockers</div>
-          </div>
-          <span class="benefit-arrow">4×</span>
-        </div>
-        <div class="benefit">
-          <div>
-            <div class="benefit-title">Check-in &amp; retrieval</div>
-            <div class="benefit-sub">Average speed improvement</div>
-          </div>
-          <span class="benefit-arrow">↑ 52%</span>
-        </div>
-        <div class="benefit">
-          <div>
-            <div class="benefit-title">Driver participation</div>
-            <div class="benefit-sub">No more "dump and go"</div>
-          </div>
-          <span class="benefit-arrow">98.7%</span>
-        </div>
-        <div class="benefit">
-          <div>
-            <div class="benefit-title">Cost-effective</div>
-            <div class="benefit-sub">Versus traditional labor</div>
-          </div>
-          <span class="benefit-arrow">↓ 80%</span>
-        </div>
+    <div class="results-chips">
+      <div class="results-chip reveal">
+        <span class="chip-num">4×</span>
+        <span class="chip-label">Package density</span>
+        <span class="chip-sub">Versus traditional lockers</span>
+      </div>
+      <div class="results-chip reveal">
+        <span class="chip-num">↑ 52%</span>
+        <span class="chip-label">Check-in &amp; retrieval</span>
+        <span class="chip-sub">Average speed improvement</span>
+      </div>
+      <div class="results-chip reveal">
+        <span class="chip-num">98.7%</span>
+        <span class="chip-label">Driver participation</span>
+        <span class="chip-sub">No more "dump and go"</span>
+      </div>
+      <div class="results-chip reveal">
+        <span class="chip-num">↓ 80%</span>
+        <span class="chip-label">Cost-effective</span>
+        <span class="chip-sub">Versus traditional labor</span>
       </div>
     </div>
   </div>
