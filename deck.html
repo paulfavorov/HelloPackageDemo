@@ -398,7 +398,55 @@
     margin-top: 4px;
   }
 
-  /* ============== SLIDE 7: WHY HP — 5 REASONS ============== */
+  /* ============== SLIDES 7-8: VIDEO DEMOS ============== */
+  .video-demo-layout {
+    flex: 1; display: flex; gap: 56px; align-items: center;
+    margin-top: 20px;
+  }
+  .video-demo-player {
+    flex: 1.3; border-radius: 16px; overflow: hidden;
+    border: 2px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    background: #000;
+  }
+  .video-demo-player video {
+    width: 100%; height: 100%; display: block;
+    object-fit: cover;
+  }
+  .video-demo-info {
+    flex: 0.7; display: flex; flex-direction: column;
+    justify-content: center;
+  }
+  .video-demo-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    color: var(--text-3);
+  }
+  .video-demo-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 44px; font-weight: 900;
+    line-height: 1.08; letter-spacing: -0.04em;
+    color: var(--text); margin-top: 16px;
+  }
+  .video-demo-title .accent { color: var(--red); font-style: italic; }
+  .video-demo-desc {
+    font-size: 19px; line-height: 1.7;
+    color: var(--text-2); margin-top: 20px;
+  }
+  .video-demo-chips {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px;
+  }
+  .video-demo-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    padding: 8px 16px; border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft); color: var(--text-2);
+  }
+
+  /* ============== SLIDE 9: WHY HP — 5 REASONS ============== */
   .why-grid {
     flex: 1; display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -433,7 +481,7 @@
     margin-top: 14px;
   }
 
-  /* ============== SLIDE 8: PROVEN RESULTS ============== */
+  /* ============== SLIDE 10: PROVEN RESULTS ============== */
   .results-layout {
     flex: 1; display: grid;
     grid-template-columns: 1fr 0.85fr;
@@ -524,7 +572,7 @@
     color: var(--text-2); line-height: 1.4;
   }
 
-  /* ============== SLIDE 9: CUSTOMER LOGOS ============== */
+  /* ============== SLIDE 11: CUSTOMER LOGOS ============== */
   .logo-wall-deck {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -580,7 +628,7 @@
     margin-top: 26px;
   }
 
-  /* ============== SLIDE 10: CUSTOMER VOICE ============== */
+  /* ============== SLIDE 12: CUSTOMER VOICE ============== */
   .quotes-grid {
     flex: 1; display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -628,7 +676,7 @@
   }
   .quote-role { font-size: 15px; color: var(--text-2); margin-top: 4px; line-height: 1.35; }
 
-  /* ============== SLIDE 11: COMPETITION ============== */
+  /* ============== SLIDE 13: COMPETITION ============== */
   .compete-wrap {
     flex: 1; margin-top: 50px;
     background: var(--bg-card); border: 1px solid var(--border);
@@ -686,7 +734,7 @@
   .pill-med { background: #FEF3C7; color: #A16207; }
   .pill-high { background: #FEE2E2; color: #B91C1C; }
 
-  /* ============== SLIDE 12: PRICING — 4 TIERS ============== */
+  /* ============== SLIDE 14: PRICING — 4 TIERS ============== */
   .price-grid {
     flex: 1; display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -795,7 +843,7 @@
     line-height: 1.7;
   }
 
-  /* ============== SLIDE 13: SPACE CONFIGURATOR ============== */
+  /* ============== SLIDE 15: SPACE CONFIGURATOR ============== */
   .space-grid-deck {
     display: grid; grid-template-columns: repeat(3, 1fr);
     gap: 36px; margin-top: 44px; flex: 1;
@@ -828,7 +876,7 @@
     color: var(--text-2); margin-top: 12px;
   }
 
-  /* ============== SLIDE 14: CLOSING ============== */
+  /* ============== SLIDE 16: CLOSING ============== */
   .closing-content {
     flex: 1; display: flex; flex-direction: column;
     justify-content: center; align-items: flex-start;
@@ -987,7 +1035,7 @@
 
         <div class="foot">
           <span>HelloPackage · Atlanta</span>
-          <span>01 / 14</span>
+          <span>01 / 16</span>
         </div>
       </div>
 
@@ -1041,7 +1089,7 @@
 
         <div class="foot">
           <span>The market</span>
-          <span>02 / 14</span>
+          <span>02 / 16</span>
         </div>
       </div>
 
@@ -1102,7 +1150,7 @@
 
         <div class="foot">
           <span>The problem</span>
-          <span>03 / 14</span>
+          <span>03 / 16</span>
         </div>
       </div>
 
@@ -1154,7 +1202,7 @@
 
         <div class="foot">
           <span>Three objectives</span>
-          <span>04 / 14</span>
+          <span>04 / 16</span>
         </div>
       </div>
 
@@ -1209,7 +1257,7 @@
 
         <div class="foot">
           <span>How it works</span>
-          <span>05 / 14</span>
+          <span>05 / 16</span>
         </div>
       </div>
 
@@ -1273,7 +1321,7 @@
 
         <div class="foot">
           <span>The platform</span>
-          <span>06 / 14</span>
+          <span>06 / 16</span>
         </div>
       </div>
 
@@ -1292,7 +1340,93 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 7: WHY HP ====== -->
+    <!-- ====== SLIDE 7: VIDEO — NO-CODE DRIVER ACCESS ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>Product Demo</span></div>
+        </div>
+
+        <div class="video-demo-layout">
+          <div class="video-demo-player fragment fade-up" data-fragment-index="0">
+            <video muted loop playsinline>
+              <source src="Slide4.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="video-demo-info fragment fade-up" data-fragment-index="1">
+            <div class="video-demo-label">Component demo</div>
+            <div class="video-demo-title">No-code <span class="accent">driver access.</span></div>
+            <p class="video-demo-desc">Delivery drivers access the package room without codes, keys, or staff intervention. The system identifies, authenticates, and guides every carrier automatically.</p>
+            <div class="video-demo-chips">
+              <span class="video-demo-chip">No codes or keys</span>
+              <span class="video-demo-chip">Auto-authenticate</span>
+              <span class="video-demo-chip">Guided drop-off</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>Product demo — Driver access</span>
+          <span>07 / 16</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Watch this. This is the driver experience — no codes, no keys, no staff needed.
+
+        The driver walks up to the door. The system identifies them automatically — camera-based recognition, no fob, no PIN. The door unlocks. On the kiosk inside, they get a guided drop-off flow: scan the package, see exactly which shelf to place it on, confirm placement.
+
+        This is what we mean by "no-code access." Every other solution requires the driver to remember a code, get a key, or wait for someone to let them in. We eliminated that entirely. The result: 98.7% driver participation. When you make it easy, they use it.
+
+        Click to play the video — this is a real carrier session captured at a live property.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 8: VIDEO — AUTOMATED DRIVER MANAGEMENT ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>Product Demo</span></div>
+        </div>
+
+        <div class="video-demo-layout">
+          <div class="video-demo-info fragment fade-up" data-fragment-index="0">
+            <div class="video-demo-label">Component demo</div>
+            <div class="video-demo-title">Automated driver <span class="accent">management.</span></div>
+            <p class="video-demo-desc">Every delivery session is tracked, monitored, and scored in real time. The AI manages driver training, flags exceptions, and ensures compliance — without staff involvement.</p>
+            <div class="video-demo-chips">
+              <span class="video-demo-chip">Session tracking</span>
+              <span class="video-demo-chip">Real-time monitoring</span>
+              <span class="video-demo-chip">Automated training</span>
+            </div>
+          </div>
+          <div class="video-demo-player fragment fade-up" data-fragment-index="1">
+            <video muted loop playsinline>
+              <source src="Slide5.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>Product demo — Driver management</span>
+          <span>08 / 16</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Now watch what happens behind the scenes. This is the management layer.
+
+        Every delivery session generates a complete record — who entered, when, what they delivered, where they placed it, how long they were in the room. The AI scores each session against compliance rules. If a driver skips a step or mishandles a package, the system flags it instantly.
+
+        Training is automated. New drivers get the guided flow. Repeat drivers get a streamlined version. Problem drivers get re-trained or escalated. All without your staff doing anything.
+
+        This is what "Delivery Driver Management" means — not just letting drivers in, but managing the entire lifecycle. Training, monitoring, compliance, exception handling. The 98.7% participation rate comes from this system making it easy AND holding drivers accountable.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 9: WHY HP ====== -->
     <section>
       <div class="frame">
         <div class="head">
@@ -1335,7 +1469,7 @@
 
         <div class="foot">
           <span>Why HelloPackage</span>
-          <span>07 / 14</span>
+          <span>09 / 16</span>
         </div>
       </div>
 
@@ -1349,7 +1483,7 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 8: PROVEN RESULTS ====== -->
+    <!-- ====== SLIDE 10: PROVEN RESULTS ====== -->
     <section>
       <div class="frame">
         <div class="head">
@@ -1387,7 +1521,7 @@
 
         <div class="foot">
           <span>Proven results</span>
-          <span>08 / 14</span>
+          <span>10 / 16</span>
         </div>
       </div>
 
@@ -1406,7 +1540,7 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 9: CUSTOMER LOGOS ====== -->
+    <!-- ====== SLIDE 11: CUSTOMER LOGOS ====== -->
     <section>
       <div class="frame" style="background:#111827;">
         <div class="head">
@@ -1447,7 +1581,7 @@
 
         <div class="foot" style="color:rgba(255,255,255,0.35);border-color:rgba(255,255,255,0.1);">
           <span>Customer base</span>
-          <span>09 / 14</span>
+          <span>11 / 16</span>
         </div>
       </div>
 
@@ -1462,7 +1596,7 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 10: CUSTOMER VOICE ====== -->
+    <!-- ====== SLIDE 12: CUSTOMER VOICE ====== -->
     <section>
       <div class="frame">
         <div class="head">
@@ -1512,7 +1646,7 @@
 
         <div class="foot">
           <span>Customer voice</span>
-          <span>10 / 14</span>
+          <span>12 / 16</span>
         </div>
       </div>
 
@@ -1525,7 +1659,7 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 11: COMPETITION ====== -->
+    <!-- ====== SLIDE 13: COMPETITION ====== -->
     <section>
       <div class="frame">
         <div class="head">
@@ -1613,7 +1747,7 @@
 
         <div class="foot">
           <span>The competition</span>
-          <span>11 / 14</span>
+          <span>13 / 16</span>
         </div>
       </div>
 
@@ -1632,7 +1766,7 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 12: PRICING ====== -->
+    <!-- ====== SLIDE 14: PRICING ====== -->
     <section>
       <div class="frame">
         <div class="head">
@@ -1731,7 +1865,7 @@
 
         <div class="foot">
           <span>Pricing</span>
-          <span>12 / 14</span>
+          <span>14 / 16</span>
         </div>
       </div>
 
@@ -1750,7 +1884,7 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 13: SPACE CONFIGURATOR ====== -->
+    <!-- ====== SLIDE 15: SPACE CONFIGURATOR ====== -->
     <section>
       <div class="frame">
         <div class="head">
@@ -1792,7 +1926,7 @@
 
         <div class="foot">
           <span>Room configurations</span>
-          <span>13 / 14</span>
+          <span>15 / 16</span>
         </div>
       </div>
 
@@ -1809,7 +1943,7 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 14: CLOSING ====== -->
+    <!-- ====== SLIDE 16: CLOSING ====== -->
     <section data-transition="fade">
       <div class="frame closing-frame">
         <div class="head">
@@ -1846,7 +1980,7 @@
 
         <div class="foot">
           <span>HelloPackage · packagesolutions.com</span>
-          <span>14 / 14</span>
+          <span>16 / 16</span>
         </div>
       </div>
 
@@ -1867,7 +2001,7 @@
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
   </button>
   <div class="nav-dots" id="navDots"></div>
-  <span class="nav-counter" id="navCounter">01 / 14</span>
+  <span class="nav-counter" id="navCounter">01 / 16</span>
   <button class="nav-btn" id="navNext" aria-label="Next">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
   </button>
@@ -1932,6 +2066,15 @@
   }
   deck.on('slidechanged', updateNav);
   deck.on('ready', updateNav);
+
+  // ============== VIDEO AUTO-PLAY ==============
+  deck.on('slidechanged', (event) => {
+    // Pause all videos
+    document.querySelectorAll('.video-demo-player video').forEach(v => { v.pause(); v.currentTime = 0; });
+    // Play video on current slide
+    const vid = event.currentSlide.querySelector('.video-demo-player video');
+    if (vid) vid.play().catch(() => {});
+  });
 
   // ============== PLATFORM HOOKS ==============
   // Escape → close fullscreen (overrides Reveal's overview mode)
