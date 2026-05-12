@@ -213,22 +213,21 @@
 
   /* ============== LOGO MARQUEE ============== */
   .logo-wall-section {
-    padding: 3.5rem 0;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
+    padding: 4rem 0 3.5rem;
+    background: #111827;
   }
   .logo-wall-heading {
     text-align: center;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    color: var(--text-3);
+    color: rgba(255,255,255,0.5);
     margin-bottom: 2.5rem;
     padding: 0 2rem;
     line-height: 1.6;
   }
-  .logo-wall-heading strong { color: var(--text); font-weight: 600; }
+  .logo-wall-heading strong { color: #fff; font-weight: 700; }
   .logo-marquee {
     overflow: hidden; position: relative; width: 100%;
     -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
@@ -256,20 +255,20 @@
     max-height: 40px;
     max-width: 140px;
     object-fit: contain;
-    filter: grayscale(1);
+    filter: brightness(0) invert(1);
     opacity: 0.55;
-    transition: filter 0.3s ease, opacity 0.3s ease;
+    transition: opacity 0.3s ease;
   }
-  .logo-tile:hover img { filter: grayscale(0); opacity: 1; }
+  .logo-tile:hover img { opacity: 1; }
   .logo-fallback {
     font-family: 'Manrope', sans-serif;
     font-weight: 700;
     font-size: 0.95rem;
-    color: var(--text-3);
+    color: rgba(255,255,255,0.45);
     letter-spacing: -0.01em;
     white-space: nowrap;
   }
-  .logo-tile:hover .logo-fallback { color: var(--text); }
+  .logo-tile:hover .logo-fallback { color: #fff; }
   @media (prefers-reduced-motion: reduce) {
     .logo-track { animation: none; transform: translateX(0); }
   }
@@ -1269,7 +1268,7 @@
 <!-- ============== LOGO MARQUEE ============== -->
 <section class="logo-wall-section" id="customers-logos">
   <p class="logo-wall-heading">
-    Trusted by <strong>12 of the NMHC Top 20</strong> <span style="color:var(--border-strong); margin:0 0.6em;">·</span> HOA &amp; commercial deployments
+    Trusted by <strong>12 of the NMHC Top 20</strong> <span style="color:rgba(255,255,255,0.3); margin:0 0.6em;">·</span> luxury · student · HOA · commercial deployments
   </p>
   <div class="logo-marquee">
     <div class="logo-track">
