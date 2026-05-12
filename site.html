@@ -994,39 +994,42 @@
   /* ============== SPACE CONFIGURATOR ============== */
   .space-grid {
     margin-top: 3.5rem; display: grid;
-    grid-template-columns: repeat(6, 1fr); gap: 0.8rem;
+    grid-template-columns: repeat(3, 1fr); gap: 1.6rem;
   }
   .space-card {
-    padding: 1.4rem 1.2rem;
     background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 12px;
-    display: flex; flex-direction: column; align-items: center;
-    text-align: center;
-    transition: all 0.2s ease;
+    border-radius: 16px; overflow: hidden;
+    transition: all 0.25s ease;
   }
-  .space-card:hover { border-color: var(--red); transform: translateY(-3px); }
-  .space-units {
+  .space-card:hover { border-color: var(--red); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+  .space-card-img {
+    width: 100%; aspect-ratio: 4/3; object-fit: contain;
+    background: #f8f8f8; border-bottom: 1px solid var(--border);
+  }
+  .space-card-body {
+    padding: 1.6rem 1.4rem 1.8rem;
+  }
+  .space-card-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem; font-weight: 600;
     text-transform: uppercase; letter-spacing: 0.16em;
     color: var(--text-2);
   }
-  .space-sqft {
+  .space-card-title {
     font-family: 'Manrope', sans-serif;
-    font-size: clamp(1.4rem, 2vw, 1.8rem);
-    font-weight: 800; color: var(--red);
+    font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+    font-weight: 800; color: var(--text);
     letter-spacing: -0.025em;
-    margin-top: 0.6rem; line-height: 1;
+    margin-top: 0.5rem; line-height: 1.15;
   }
-  .space-sqft small {
-    font-size: 0.55em; font-weight: 600; color: var(--text-3);
-    margin-left: 0.2rem;
+  .space-card-title span { color: var(--red); }
+  .space-card-details {
+    margin-top: 0.8rem;
+    font-size: 0.92rem; line-height: 1.6;
+    color: var(--text-2);
   }
   @media (max-width: 980px) {
-    .space-grid { grid-template-columns: repeat(3, 1fr); }
-  }
-  @media (max-width: 600px) {
-    .space-grid { grid-template-columns: repeat(2, 1fr); }
+    .space-grid { grid-template-columns: 1fr; max-width: 32rem; margin-inline: auto; }
   }
 
   /* ============== FAQ ============== */
@@ -2004,33 +2007,33 @@
     <div class="section-head reveal">
       <span class="eyebrow">Plan your space</span>
       <h2 class="display h2">Sized to your <span class="accent">portfolio.</span></h2>
-      <p class="lede">A rough guide for the square footage you'll need based on unit count and average delivery volume. The space configurator on the demo will give you exact numbers.</p>
+      <p class="lede">Every HelloPackage room is custom-designed for your property. Here are three common configurations — from compact conversions to full-size dedicated rooms.</p>
     </div>
 
     <div class="space-grid">
       <div class="space-card reveal">
-        <div class="space-units">150–210 units</div>
-        <div class="space-sqft">150 <small>sqft</small></div>
+        <img class="space-card-img" src="room-standard.jpg" alt="Standard room layout — 185 sq ft">
+        <div class="space-card-body">
+          <div class="space-card-label">Standard Room</div>
+          <div class="space-card-title"><span>185</span> sq ft</div>
+          <p class="space-card-details">Ideal for 200–270 unit communities. 3 smart racks plus oversized storage, fridge, resident &amp; carrier kiosks, full camera coverage.</p>
+        </div>
       </div>
       <div class="space-card reveal">
-        <div class="space-units">210–270 units</div>
-        <div class="space-sqft">185 <small>sqft</small></div>
+        <img class="space-card-img" src="room-midsize.jpg" alt="Mid-size room layout — 229 sq ft">
+        <div class="space-card-body">
+          <div class="space-card-label">Mid-Size Room</div>
+          <div class="space-card-title"><span>229</span> sq ft</div>
+          <p class="space-card-details">Built for 270–370 unit properties. 3 racks with dual oversized zones, double-door fridge, and expanded carrier staging area.</p>
+        </div>
       </div>
       <div class="space-card reveal">
-        <div class="space-units">270–370 units</div>
-        <div class="space-sqft">229 <small>sqft</small></div>
-      </div>
-      <div class="space-card reveal">
-        <div class="space-units">370–470 units</div>
-        <div class="space-sqft">257 <small>sqft</small></div>
-      </div>
-      <div class="space-card reveal">
-        <div class="space-units">470–570 units</div>
-        <div class="space-sqft">293 <small>sqft</small></div>
-      </div>
-      <div class="space-card reveal">
-        <div class="space-units">570+ units</div>
-        <div class="space-sqft">448 <small>sqft</small></div>
+        <img class="space-card-img" src="room-fullsize.jpg" alt="Full-size room layout — 257 sq ft">
+        <div class="space-card-body">
+          <div class="space-card-label">Full-Size Room</div>
+          <div class="space-card-title"><span>257</span> sq ft</div>
+          <p class="space-card-details">Designed for 370–500+ unit communities. 5 racks plus oversized zone, fridge, full DDM camera array, and dedicated carrier workflow lane.</p>
+        </div>
       </div>
     </div>
   </div>
