@@ -471,8 +471,18 @@
   @media (max-width: 880px) { .obj-grid { grid-template-columns: 1fr; } }
 
   /* ============== HOW IT WORKS — 4 STEPS ============== */
+  .how-video-wrap {
+    margin-top: 3rem;
+    border-radius: 16px; overflow: hidden;
+    border: 2px solid var(--border);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+    background: #000;
+  }
+  .how-video-wrap video {
+    width: 100%; display: block;
+  }
   .steps-grid {
-    margin-top: 3.5rem; display: grid;
+    margin-top: 2.5rem; display: grid;
     grid-template-columns: repeat(4, 1fr); gap: 1.4rem;
   }
   .step-card {
@@ -1427,6 +1437,12 @@
       <span class="eyebrow">How it works</span>
       <h2 class="display h2">Four steps, <span class="accent">every package.</span></h2>
       <p class="lede">A consistent, automated workflow from the moment a driver scans a parcel to the moment a resident walks out with it. No staff intervention required.</p>
+    </div>
+
+    <div class="how-video-wrap reveal">
+      <video autoplay muted loop playsinline>
+        <source src="NoCode.mp4" type="video/mp4" />
+      </video>
     </div>
 
     <div class="steps-grid">
