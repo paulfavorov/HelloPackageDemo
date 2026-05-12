@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HelloPackage — Get your deliveries sorted.</title>
+<meta name="description" content="AI-powered package management for multifamily and student housing. 200+ communities, 70,000+ residents, 4.5/5 rating. BBB A+ since 2020." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-soft: #F8FAFC;
+    --bg-card: #FAFBFD;
+    --bg-dark: #0B1220;
+    --text: #0B1220;
+    --text-2: #475569;
+    --text-3: #94A3B8;
+    --red: #E71D25;
+    --red-hover: #C81920;
+    --red-soft: #FEF2F2;
+    --blue: #0080A5;
+    --blue-bright: #00AED5;
+    --blue-soft: #F0FAFD;
+    --green: #16A34A;
+    --border: #E2E8F0;
+    --border-strong: #CBD5E1;
+    --container: 1280px;
+    --container-wide: 1440px;
+    --section-y: 7.5rem;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-feature-settings: 'ss01', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  img, video { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 2rem; }
+  .container-wide { max-width: var(--container-wide); margin: 0 auto; padding: 0 2rem; }
+
+  /* ============== TYPOGRAPHY ============== */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .eyebrow::before { content: ''; width: 32px; height: 1.5px; background: var(--red); flex-shrink: 0; }
+  .eyebrow.cyan { color: var(--blue); }
+  .eyebrow.cyan::before { background: var(--blue); }
+  .eyebrow.muted { color: var(--text-3); }
+  .eyebrow.muted::before { background: var(--text-3); }
+  .eyebrow.light { color: rgba(255,255,255,0.85); }
+  .eyebrow.light::before { background: rgba(255,255,255,0.85); }
+
+  .display {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.035em; line-height: 1;
+    color: var(--text);
+  }
+  .display .accent { color: var(--red); font-style: italic; }
+  .display .accent-cyan { color: var(--blue); font-style: italic; }
+
+  .h2 { font-size: clamp(2.6rem, 5.4vw, 4.8rem); }
+  .h3 { font-size: clamp(2rem, 3.6vw, 3rem); }
+
+  .lede {
+    font-size: clamp(1.1rem, 1.35vw, 1.3rem);
+    color: var(--text-2); font-weight: 400;
+    line-height: 1.55; max-width: 60ch;
+  }
+
+  /* ============== BUTTONS ============== */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.95rem 1.6rem; border-radius: 999px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    letter-spacing: -0.01em;
+    transition: all 0.18s ease; white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--red); color: #fff;
+    box-shadow: 0 10px 30px -10px rgba(231, 29, 37, 0.4);
+  }
+  .btn-primary:hover { background: var(--red-hover); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--text);
+    border: 1.5px solid var(--border-strong);
+  }
+  .btn-secondary:hover { border-color: var(--text); background: var(--bg-soft); }
+  .btn-arrow { transition: transform 0.2s ease; }
+  .btn:hover .btn-arrow { transform: translateX(3px); }
+  .btn-sm { padding: 0.55rem 1.15rem; font-size: 0.9rem; }
+
+  /* ============== NAV ============== */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid transparent; transition: border-color 0.2s ease;
+  }
+  .nav.scrolled { border-bottom-color: var(--border); }
+  .nav-inner {
+    max-width: var(--container-wide); margin: 0 auto;
+    padding: 1.05rem 2rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  }
+  .nav-logo {
+    width: 168px; height: 48px;
+    background-image: url('Logo.jpg');
+    background-size: contain; background-repeat: no-repeat;
+    background-position: left center;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 2rem; list-style: none;
+  }
+  .nav-link {
+    font-size: 0.95rem; font-weight: 500; color: var(--text-2);
+    transition: color 0.15s ease;
+  }
+  .nav-link:hover { color: var(--text); }
+  .nav-cta { display: flex; align-items: center; gap: 0.7rem; }
+  @media (max-width: 920px) {
+    .nav-links { display: none; }
+    .nav-cta .btn:not(.btn-primary) { display: none; }
+  }
+
+  /* ============== HERO ============== */
+  .hero { padding: 5rem 0 0; position: relative; }
+  .hero-grid {
+    max-width: var(--container-wide); margin: 0 auto;
+    padding: 0 2rem;
+    display: grid; grid-template-columns: 1.1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .hero-headline {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(3rem, 6.4vw, 6.4rem);
+    font-weight: 800; line-height: 0.96;
+    letter-spacing: -0.045em; color: var(--text);
+    margin-top: 1.5rem;
+  }
+  .hero-headline .accent { color: var(--red); font-style: italic; }
+  .hero-divider { width: 96px; height: 3px; background: var(--text); margin: 2.2rem 0 1.5rem; }
+  .hero-sub {
+    font-size: clamp(1.15rem, 1.5vw, 1.45rem);
+    color: var(--text-2); line-height: 1.55;
+    max-width: 52ch;
+  }
+  .hero-ctas { margin-top: 2.5rem; display: flex; gap: 0.7rem; flex-wrap: wrap; }
+  .hero-badges {
+    margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.6rem;
+  }
+  .trust-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--bg-soft); border: 1px solid var(--border);
+    padding: 0.5rem 0.9rem; border-radius: 100px;
+    font-size: 0.78rem; color: var(--text); font-weight: 500;
+  }
+  .trust-badge.gold { background: #FEF3C7; border-color: #FCD34D; }
+  .trust-badge svg { color: var(--red); }
+
+  .hero-visual {
+    position: relative; aspect-ratio: 1.05 / 1; border-radius: 22px; overflow: hidden;
+    box-shadow: 0 40px 100px -30px rgba(2, 132, 199, 0.35);
+    border: 1px solid rgba(34, 171, 224, 0.18); background: #000;
+  }
+  .hero-visual video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-hud {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    display: flex; align-items: center; gap: 0.6rem;
+    background: rgba(11, 18, 32, 0.85);
+    border: 1px solid rgba(34, 171, 224, 0.3);
+    padding: 0.5rem 1rem; border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    color: #22ABE0; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .hero-hud-dot {
+    width: 7px; height: 7px; background: #22D3EE; border-radius: 50%;
+    box-shadow: 0 0 10px #22D3EE; animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+  .hero-counter {
+    position: absolute; bottom: 1.2rem; left: 1.2rem;
+    background: rgba(11, 18, 32, 0.88);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.85rem 1.2rem; border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hero-counter-num { font-size: 1.5rem; font-weight: 700; color: white; line-height: 1; }
+  .hero-counter-label {
+    font-size: 0.62rem; color: #94A3B8;
+    text-transform: uppercase; letter-spacing: 0.22em; margin-top: 5px;
+  }
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-visual { aspect-ratio: 4 / 3; }
+  }
+
+  /* ============== TRUST STRIP ============== */
+  .trust {
+    margin-top: 6rem; border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border); background: var(--bg-soft);
+  }
+  .trust-inner {
+    max-width: var(--container-wide); margin: 0 auto;
+    padding: 2.2rem 2rem;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2rem; align-items: center;
+  }
+  .trust-item { border-left: 1px solid var(--border); padding-left: 1.6rem; }
+  .trust-item:first-child { border-left: none; padding-left: 0; }
+  .trust-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+    font-weight: 800; color: var(--text);
+    line-height: 1; letter-spacing: -0.03em;
+  }
+  .trust-num .plus { color: var(--red); }
+  .trust-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--text-2);
+    margin-top: 0.6rem; line-height: 1.4;
+  }
+  @media (max-width: 720px) {
+    .trust-inner { grid-template-columns: repeat(2, 1fr); }
+    .trust-item:nth-child(3) { border-left: none; padding-left: 0; }
+  }
+
+  /* ============== SECTION ============== */
+  .section { padding: var(--section-y) 0; }
+  .section.alt { background: var(--bg-soft); }
+  .section.dark { background: var(--bg-dark); color: #fff; position: relative; overflow: hidden; }
+  .section.dark::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(34, 171, 224, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(231, 29, 37, 0.06) 0%, transparent 50%);
+  }
+  .section.dark .container { position: relative; z-index: 2; }
+  .section.dark .display { color: #fff; }
+  .section.dark .lede { color: #CBD5E1; }
+  .section-head { max-width: 64rem; }
+  .section-head .display { margin-top: 1rem; }
+  .section-head .lede { margin-top: 1.4rem; }
+
+  /* ============== MARKET STAT GRID ============== */
+  .market-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(3, 1fr); gap: 1.6rem;
+  }
+  .market-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 18px; overflow: hidden;
+    display: flex; flex-direction: column;
+    position: relative;
+    transition: all 0.25s ease;
+  }
+  .market-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 4px;
+    background: var(--accent, var(--red));
+    z-index: 3;
+  }
+  .market-card.red { --accent: var(--red); }
+  .market-card.cyan { --accent: var(--blue-bright); }
+  .market-card.dark { --accent: var(--text); }
+  .market-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -25px rgba(15,23,42,0.15); }
+  .market-image {
+    width: 100%; aspect-ratio: 16 / 10;
+    background-size: cover; background-position: center;
+    background-color: #0F172A;
+  }
+  .market-body {
+    padding: 2rem 1.9rem 2.2rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .market-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2.4rem, 4.2vw, 3.8rem);
+    font-weight: 900; line-height: 0.9;
+    letter-spacing: -0.04em; color: var(--text);
+  }
+  .market-card.red .market-num { color: var(--red); }
+  .market-card.cyan .market-num { color: var(--blue); }
+  .market-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--text-2); margin-top: 0.6rem;
+  }
+  .market-copy {
+    margin-top: 0.9rem; color: var(--text-2);
+    font-size: 0.94rem; line-height: 1.55;
+  }
+  @media (max-width: 880px) { .market-grid { grid-template-columns: 1fr; } }
+
+  /* ============== PROBLEM SPLIT ============== */
+  .problem-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .pain-list {
+    margin-top: 2rem; display: flex; flex-direction: column;
+  }
+  .pain-item {
+    display: flex; align-items: baseline;
+    gap: 1.5rem; padding: 1.3rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pain-item:last-child { border-bottom: none; }
+  .pain-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--red); min-width: 36px;
+  }
+  .pain-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-weight: 700; color: var(--text);
+    letter-spacing: -0.025em; line-height: 1.1;
+  }
+  .chaos-visual {
+    aspect-ratio: 1 / 1; border-radius: 22px; position: relative;
+    overflow: hidden;
+    box-shadow: 0 40px 80px -30px rgba(15,23,42,0.4);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .chaos-photo {
+    position: absolute; inset: 0;
+    background-image: url('chaos.jpg');
+    background-size: cover; background-position: center;
+  }
+  .chaos-overlay {
+    position: relative; z-index: 2; text-align: center;
+    padding: 2.4rem 3rem;
+    background: rgba(11,18,32,0.78); backdrop-filter: blur(10px);
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .chaos-stat {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(4rem, 7vw, 6rem);
+    font-weight: 900; color: white; line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .chaos-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.22em; color: #FCA5A5;
+    margin-top: 0.8rem;
+  }
+  @media (max-width: 980px) {
+    .problem-grid { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  /* ============== THREE OBJECTIVES ============== */
+  .obj-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(3, 1fr); gap: 1.6rem;
+  }
+  .obj-card {
+    padding: 2.8rem 2.4rem; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 18px;
+    position: relative; overflow: hidden;
+    transition: all 0.25s ease;
+  }
+  .obj-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 4px; background: var(--accent, var(--red));
+  }
+  .obj-card.red { --accent: var(--red); }
+  .obj-card.cyan { --accent: var(--blue-bright); }
+  .obj-card.dark { --accent: var(--text); }
+  .obj-card:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+  .obj-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .obj-card.cyan .obj-num { color: var(--blue); }
+  .obj-card.dark .obj-num { color: var(--text); }
+  .obj-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+    font-weight: 800; letter-spacing: -0.025em;
+    color: var(--text); margin: 0.9rem 0 1rem;
+    line-height: 1.05;
+  }
+  .obj-body {
+    color: var(--text-2); line-height: 1.55; font-size: 0.98rem;
+  }
+  @media (max-width: 880px) { .obj-grid { grid-template-columns: 1fr; } }
+
+  /* ============== HOW IT WORKS — 4 STEPS ============== */
+  .steps-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(4, 1fr); gap: 1.4rem;
+  }
+  .step-card {
+    padding: 2.2rem 1.8rem;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 16px; position: relative;
+    transition: all 0.2s ease;
+  }
+  .step-card:hover { border-color: var(--border-strong); }
+  .step-num-pill {
+    display: inline-block; padding: 0.35rem 0.75rem;
+    background: var(--red-soft); color: var(--red);
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.16em;
+  }
+  .step-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+    font-weight: 800; letter-spacing: -0.025em;
+    color: var(--text); margin-top: 1.4rem;
+    line-height: 1.1;
+  }
+  .step-body {
+    margin-top: 0.7rem;
+    font-size: 0.93rem;
+    color: var(--text-2); line-height: 1.55;
+  }
+  @media (max-width: 980px) { .steps-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .steps-grid { grid-template-columns: 1fr; } }
+
+  /* ============== SYSTEM COMPONENTS ============== */
+  .system-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(2, 1fr); gap: 1.6rem;
+  }
+  .system-card {
+    padding: 2.4rem 2.2rem; background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--red);
+    border-radius: 16px;
+    display: flex; flex-direction: column; gap: 0.7rem;
+    transition: all 0.2s ease;
+  }
+  .system-card.cyan { border-left-color: var(--blue); }
+  .system-card:hover { border-color: var(--border-strong); border-left-color: var(--red); }
+  .system-card.cyan:hover { border-left-color: var(--blue); }
+  .system-card .icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--red-soft); color: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.4rem;
+  }
+  .system-card.cyan .icon { background: var(--blue-soft); color: var(--blue); }
+  .system-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .system-card.cyan .system-num { color: var(--blue); }
+  .system-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.4rem, 2vw, 1.7rem);
+    font-weight: 800; letter-spacing: -0.025em;
+    color: var(--text); line-height: 1.05;
+  }
+  .system-desc {
+    font-size: 0.95rem;
+    color: var(--text-2); line-height: 1.55;
+    margin-top: 0.3rem;
+  }
+  @media (max-width: 880px) { .system-grid { grid-template-columns: 1fr; } }
+
+  /* ============== WHY HP — 5 REASONS ============== */
+  .why-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(5, 1fr); gap: 1.2rem;
+  }
+  .why-card {
+    padding: 2.2rem 1.6rem; background: var(--bg-card);
+    border-top: 4px solid var(--red);
+    border-radius: 12px;
+    display: flex; flex-direction: column;
+  }
+  .why-card:nth-child(2) { border-top-color: var(--blue); }
+  .why-card:nth-child(3) { border-top-color: var(--text); }
+  .why-card:nth-child(4) { border-top-color: var(--red); }
+  .why-card:nth-child(5) { border-top-color: var(--blue); }
+  .why-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--text-3);
+  }
+  .why-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    font-weight: 800; letter-spacing: -0.025em;
+    color: var(--text); margin-top: 0.9rem;
+    line-height: 1.1;
+  }
+  .why-body {
+    font-size: 0.88rem;
+    color: var(--text-2); line-height: 1.5;
+    margin-top: 0.6rem;
+  }
+  @media (max-width: 980px) {
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .why-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ============== PROVEN RESULTS ============== */
+  .results-layout {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: 1fr 0.85fr; gap: 5rem;
+    align-items: center;
+  }
+  .big-stat-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(10rem, 20vw, 18rem);
+    font-weight: 900; line-height: 0.85;
+    letter-spacing: -0.07em;
+    background: linear-gradient(135deg, var(--text) 0%, var(--red) 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .big-stat-num .plus { color: var(--red); -webkit-text-fill-color: var(--red); }
+  .big-stat-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2rem, 3.4vw, 2.8rem);
+    font-weight: 800; color: var(--text);
+    margin-top: 1rem;
+    letter-spacing: -0.03em; line-height: 1;
+  }
+  .big-stat-body {
+    margin-top: 1.4rem; color: var(--text-2);
+    max-width: 36ch; line-height: 1.55;
+  }
+  .benefits {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .benefit {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1.5rem; padding: 1.7rem 2rem;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .benefit-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.3rem, 1.9vw, 1.6rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.025em; line-height: 1;
+  }
+  .benefit-sub {
+    font-size: 0.82rem; color: var(--text-2);
+    margin-top: 0.3rem;
+  }
+  .benefit-arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(1.3rem, 1.9vw, 1.6rem);
+    font-weight: 700; color: var(--red);
+    white-space: nowrap;
+  }
+  @media (max-width: 980px) {
+    .results-layout { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  /* ============== CUSTOMER VOICE ============== */
+  .quotes-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .quote-card {
+    padding: 2.2rem 1.9rem 2rem;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 18px;
+    display: flex; flex-direction: column;
+    transition: all 0.2s ease;
+  }
+  .quote-card:hover { border-color: var(--border-strong); }
+  .quote-card::before {
+    content: '"';
+    font-family: 'Manrope', sans-serif;
+    font-size: 3.5rem; font-weight: 800;
+    color: var(--red); line-height: 0.5;
+    margin-bottom: 0.5rem;
+  }
+  .quote-card.cyan::before { color: var(--blue); }
+  .quote-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(0.96rem, 1.15vw, 1.1rem);
+    font-weight: 600; color: var(--text);
+    line-height: 1.4; letter-spacing: -0.01em;
+    flex: 1;
+  }
+  .quote-meta {
+    margin-top: 1.8rem; padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: 38px 1fr; gap: 0.7rem;
+    align-items: center;
+  }
+  .quote-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--red), #C81920);
+    color: white; display: flex; align-items: center; justify-content: center;
+    font-family: 'Manrope', sans-serif; font-weight: 700;
+    font-size: 0.8rem;
+  }
+  .quote-card.cyan .quote-avatar { background: linear-gradient(135deg, var(--blue), var(--blue-bright)); }
+  .quote-author {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; color: var(--text);
+    font-size: 0.88rem; letter-spacing: -0.01em;
+  }
+  .quote-role { font-size: 0.76rem; color: var(--text-2); margin-top: 2px; line-height: 1.3; }
+  @media (max-width: 980px) {
+    .quotes-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ============== COMPETITION ============== */
+  .compete-wrap {
+    margin-top: 3.5rem; overflow-x: auto;
+    border-radius: 18px;
+    border: 1px solid var(--border); background: var(--bg);
+  }
+  .compete-table {
+    width: 100%; border-collapse: collapse; min-width: 720px;
+  }
+  .compete-table th, .compete-table td {
+    padding: 1rem 1.2rem; text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .compete-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--text-2); background: var(--bg-soft);
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .compete-table th:first-child {
+    text-align: left;
+    font-family: 'Manrope', sans-serif;
+    text-transform: none; letter-spacing: -0.01em;
+    font-size: 0.92rem; color: var(--text); font-weight: 700;
+  }
+  .compete-table th.hp-head {
+    background: var(--red); color: white;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800; text-transform: none;
+    letter-spacing: -0.01em; font-size: 0.92rem;
+  }
+  .compete-table td:first-child {
+    text-align: left;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; color: var(--text); font-size: 0.94rem;
+  }
+  .compete-table td.hp-col {
+    background: rgba(231, 29, 37, 0.03); font-weight: 700;
+  }
+  .compete-table tr:last-child td { border-bottom: none; }
+  .compete-pill {
+    display: inline-flex; padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .pill-great { background: #DCFCE7; color: #15803D; }
+  .pill-poor { background: #FEE2E2; color: #B91C1C; }
+  .pill-mixed { background: #FEF3C7; color: #A16207; }
+  .pill-unknown { background: var(--bg-soft); color: var(--text-3); }
+  .pill-yes { background: #DCFCE7; color: #15803D; }
+  .pill-no { background: #FEE2E2; color: #B91C1C; }
+  .pill-low { background: #DCFCE7; color: #15803D; }
+  .pill-med { background: #FEF3C7; color: #A16207; }
+  .pill-high { background: #FEE2E2; color: #B91C1C; }
+
+  /* ============== PRICING — 4 TIERS ============== */
+  .price-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
+  }
+  .price-card {
+    padding: 2.4rem 1.8rem; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 18px;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+    transition: all 0.25s ease;
+  }
+  .price-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 4px; background: var(--accent, var(--red));
+  }
+  .price-card.t1 { --accent: var(--red); }
+  .price-card.t2 { --accent: var(--blue); }
+  .price-card.t3 { --accent: var(--blue-bright); }
+  .price-card.t4 { --accent: var(--text); }
+  .price-card:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+  .price-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .price-card.t2 .price-eyebrow,
+  .price-card.t3 .price-eyebrow { color: var(--blue); }
+  .price-card.t4 .price-eyebrow { color: var(--text); }
+  .price-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.3rem, 1.8vw, 1.55rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.025em; line-height: 1;
+    margin: 0.7rem 0 0.8rem;
+  }
+  .price-desc {
+    font-size: 0.92rem; color: var(--text-2);
+    line-height: 1.5; flex: 1;
+  }
+  .price-amounts {
+    margin-top: 1.4rem; padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+  }
+  .price-cap {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .price-monthly {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.02em; margin-top: 0.3rem;
+  }
+  .price-monthly small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; font-weight: 500;
+    color: var(--text-3);
+    text-transform: uppercase; letter-spacing: 0.16em;
+  }
+  .price-footnotes {
+    margin-top: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; color: var(--text-3);
+    text-transform: uppercase; letter-spacing: 0.14em;
+    line-height: 1.7;
+  }
+  @media (max-width: 980px) { .price-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .price-grid { grid-template-columns: 1fr; } }
+
+  /* ============== CASE STUDIES ============== */
+  .case-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+  .case {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: all 0.25s ease;
+  }
+  .case:hover { border-color: var(--border-strong); transform: translateY(-3px);
+    box-shadow: 0 30px 60px -25px rgba(15, 23, 42, 0.15); }
+  .case-header {
+    background: var(--red); color: white;
+    padding: 1.1rem 1.6rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem;
+  }
+  .case-header.dark { background: var(--text); }
+  .case-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.2rem; font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.1;
+  }
+  .case-sub {
+    font-size: 0.78rem; opacity: 0.9; margin-top: 3px;
+  }
+  .case-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; padding: 0.3rem 0.7rem;
+    background: rgba(255,255,255,0.15); color: white;
+    border-radius: 100px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+  .case-body {
+    padding: 1.7rem 1.6rem 2rem; flex: 1;
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.3rem;
+  }
+  .case-col-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--text-3);
+    margin-bottom: 0.7rem;
+  }
+  .case-list {
+    list-style: none; display: flex; flex-direction: column; gap: 0.45rem;
+  }
+  .case-list li {
+    font-size: 0.83rem; color: var(--text-2); line-height: 1.45;
+    padding-left: 0.9rem; position: relative;
+  }
+  .case-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.55rem;
+    width: 4px; height: 4px; border-radius: 50%; background: var(--red);
+  }
+  .case-list.cyan li::before { background: var(--blue); }
+  .case-list.green li {
+    color: var(--text); font-weight: 500;
+  }
+  .case-list.green li::before { background: var(--green); }
+  @media (max-width: 980px) {
+    .case-grid { grid-template-columns: 1fr; }
+    .case-body { grid-template-columns: 1fr; gap: 1.2rem; }
+  }
+
+  /* ============== SPACE CONFIGURATOR ============== */
+  .space-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(6, 1fr); gap: 0.8rem;
+  }
+  .space-card {
+    padding: 1.4rem 1.2rem;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+  .space-card:hover { border-color: var(--red); transform: translateY(-3px); }
+  .space-units {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--text-2);
+  }
+  .space-sqft {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    font-weight: 800; color: var(--red);
+    letter-spacing: -0.025em;
+    margin-top: 0.6rem; line-height: 1;
+  }
+  .space-sqft small {
+    font-size: 0.55em; font-weight: 600; color: var(--text-3);
+    margin-left: 0.2rem;
+  }
+  @media (max-width: 980px) {
+    .space-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .space-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ============== FAQ ============== */
+  .faq-list { margin-top: 3.5rem; max-width: 56rem; }
+  .faq { border-bottom: 1px solid var(--border); }
+  .faq-q {
+    width: 100%; text-align: left; padding: 1.6rem 0;
+    display: flex; justify-content: space-between; align-items: center; gap: 2rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    font-weight: 700; color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .faq-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--red-soft); color: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: transform 0.2s ease;
+    font-weight: 700; font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem; line-height: 1;
+  }
+  .faq.open .faq-icon { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+  .faq.open .faq-a { max-height: 500px; padding: 0 0 1.8rem; }
+  .faq-a p { color: var(--text-2); font-size: 0.98rem; line-height: 1.6; max-width: 56ch; }
+
+  /* ============== FINAL CTA ============== */
+  .final-cta {
+    padding: 7rem 0; background: var(--bg-dark);
+    color: white; position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: url('staffing.jpg');
+    background-size: cover; background-position: center;
+    opacity: 0.18; filter: blur(2px);
+  }
+  .final-cta::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(11,18,32,0.88) 0%, rgba(15,43,61,0.94) 100%);
+  }
+  .final-cta-inner {
+    max-width: var(--container); margin: 0 auto;
+    padding: 0 2rem; position: relative; z-index: 2;
+  }
+  .final-cta-headline {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 900;
+    line-height: 0.9; letter-spacing: -0.05em;
+    color: white; max-width: 16ch; margin-top: 1rem;
+  }
+  .final-cta-headline .accent { color: var(--red); font-style: italic; }
+  .final-cta-sub {
+    margin-top: 2rem;
+    font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+    color: #CBD5E1; max-width: 52ch; line-height: 1.55;
+  }
+  .final-cta-btns { margin-top: 2.5rem; display: flex; gap: 0.7rem; flex-wrap: wrap; }
+  .final-cta-meta {
+    margin-top: 3rem; padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+    color: #94A3B8; letter-spacing: 0.1em;
+  }
+  .final-cta-meta strong {
+    display: block; color: white;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; font-size: 1.05rem;
+    text-transform: none; letter-spacing: -0.01em;
+    margin-top: 0.5rem;
+  }
+  .final-cta-meta a { color: var(--blue-bright); }
+  .final-cta-meta a:hover { color: white; }
+  @media (max-width: 720px) {
+    .final-cta-meta { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+
+  /* ============== FOOTER ============== */
+  .footer { background: #06101D; color: #94A3B8; padding: 4.5rem 0 2rem; }
+  .footer-grid {
+    max-width: var(--container-wide); margin: 0 auto; padding: 0 2rem;
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 3rem;
+  }
+  .footer-brand .footer-logo {
+    width: 180px; height: 56px;
+    background-image: url('Logo.jpg');
+    background-size: contain; background-repeat: no-repeat;
+    background-position: left center;
+    background-color: #fff;
+    padding: 0.4rem 1rem 0.4rem 0.6rem;
+    border-radius: 8px; display: inline-block;
+  }
+  .footer-tagline {
+    margin-top: 1.5rem;
+    font-size: 0.93rem; line-height: 1.6;
+    max-width: 28ch; color: #CBD5E1;
+  }
+  .footer-col h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: #fff; margin-bottom: 1.3rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+  .footer-col a {
+    font-size: 0.93rem; color: #94A3B8;
+    transition: color 0.15s ease;
+  }
+  .footer-col a:hover { color: #fff; }
+  .footer-bottom {
+    max-width: var(--container-wide); margin: 3.5rem auto 0;
+    padding: 1.8rem 2rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.16em; color: #64748B;
+  }
+  .footer-bottom .red-dot { color: var(--red); margin: 0 0.4rem; }
+  @media (max-width: 880px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-brand { grid-column: 1 / -1; }
+  }
+
+  /* ============== REVEAL ============== */
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo" aria-label="HelloPackage home"></a>
+    <ul class="nav-links">
+      <li><a href="#platform" class="nav-link">Platform</a></li>
+      <li><a href="#how" class="nav-link">How it works</a></li>
+      <li><a href="#customers" class="nav-link">Customers</a></li>
+      <li><a href="#pricing" class="nav-link">Pricing</a></li>
+      <li><a href="#space" class="nav-link">Configurator</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-secondary btn-sm">Sign in</a>
+      <a href="#contact" class="btn btn-primary btn-sm">Book a demo
+        <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section class="hero" id="top">
+  <div class="hero-grid">
+    <div class="reveal">
+      <span class="eyebrow">Tech-driven package management</span>
+      <h1 class="hero-headline">
+        Get your deliveries <span class="accent">sorted.</span>
+      </h1>
+      <div class="hero-divider"></div>
+      <p class="hero-sub">
+        AI-powered package management for multifamily and student housing. 200+ communities, 70,000+ residents, 4.5 / 5 rating. The modern way to run the mailroom.
+      </p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary">Book a demo
+          <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#how" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          See how it works
+        </a>
+      </div>
+      <div class="hero-badges">
+        <span class="trust-badge gold">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15 8.5 22 9.3 17 14.2 18.2 21 12 17.8 5.8 21 7 14.2 2 9.3 9 8.5 12 2"/></svg>
+          BBB A+ since 2020
+        </span>
+        <span class="trust-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          1 U.S. patent issued
+        </span>
+        <span class="trust-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          24/7/365 support
+        </span>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <video autoplay muted loop playsinline preload="auto" poster="destinations.jpg">
+        <source src="Slide4.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-hud">
+        <span class="hero-hud-dot"></span>
+        <span>HP-Vision · Live</span>
+      </div>
+      <div class="hero-counter">
+        <div class="hero-counter-num">70,000+ residents</div>
+        <div class="hero-counter-label">Live on the platform</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== TRUST STRIP ============== -->
+<section class="trust">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <div class="trust-num">200<span class="plus">+</span></div>
+      <div class="trust-label">Communities live</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">70K<span class="plus">+</span></div>
+      <div class="trust-label">Residents on HP</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">21 <span style="font-size:0.55em; color: var(--text-2);">states</span></div>
+      <div class="trust-label">27 metro areas</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">4.5<span style="font-size:0.5em;color:var(--text-2);"> / 5</span></div>
+      <div class="trust-label">Resident rating</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== THE MARKET ============== -->
+<section class="section" id="market">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The market</span>
+      <h2 class="display h2">A package problem at <span class="accent">national scale.</span></h2>
+      <p class="lede">Only 30% of U.S. apartments have a structured package management system. The other 70% still rely on closets, lockers, or staff. The math doesn't work anymore — and residents are noticing.</p>
+    </div>
+
+    <div class="market-grid">
+      <div class="market-card red reveal">
+        <div class="market-image" style="background-image:url('destinations.jpg');"></div>
+        <div class="market-body">
+          <div class="market-num">70K<span style="font-size:0.5em;">+</span></div>
+          <div class="market-label">Residents</div>
+          <p class="market-copy">Live on HelloPackage today, across 200+ communities in 21 states and 27 metros.</p>
+        </div>
+      </div>
+      <div class="market-card cyan reveal">
+        <div class="market-image" style="background-image:url('realtime.jpg');"></div>
+        <div class="market-body">
+          <div class="market-num">4.5<span style="font-size:0.5em;color:var(--text-2);"> / 5</span></div>
+          <div class="market-label">Resident rating</div>
+          <p class="market-copy">Average across operator surveys — and rising. BBB Online A+ rated continuously since March 2020.</p>
+        </div>
+      </div>
+      <div class="market-card dark reveal">
+        <div class="market-image" style="background-image:url('staffing.jpg');"></div>
+        <div class="market-body">
+          <div class="market-num">30<span style="font-size:0.6em;">%</span></div>
+          <div class="market-label">Of U.S. apartments</div>
+          <p class="market-copy">Have a structured package management system. The rest rely on closets, lockers, or staff.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PROBLEM ============== -->
+<section class="section alt" id="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="reveal">
+        <span class="eyebrow">The problem</span>
+        <h2 class="display h2">Volumes changed. So did <span class="accent">expectations.</span></h2>
+        <p class="lede" style="margin-top:1.4rem;">Apartments built for the world before Prime are buckling. The cracks show up everywhere — overflow, theft, complaints, churn.</p>
+
+        <div class="pain-list">
+          <div class="pain-item">
+            <span class="pain-num">01</span>
+            <div class="pain-text">Lockers overflow.</div>
+          </div>
+          <div class="pain-item">
+            <span class="pain-num">02</span>
+            <div class="pain-text">Closets are unsecured.</div>
+          </div>
+          <div class="pain-item">
+            <span class="pain-num">03</span>
+            <div class="pain-text">Manual labor is not scalable.</div>
+          </div>
+          <div class="pain-item">
+            <span class="pain-num">04</span>
+            <div class="pain-text">Frustration causing turnover.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chaos-visual reveal">
+        <div class="chaos-photo"></div>
+        <div class="chaos-overlay">
+          <div class="chaos-stat">+11%</div>
+          <div class="chaos-stat-label">E-commerce growth · annual</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== THREE OBJECTIVES ============== -->
+<section class="section" id="objectives">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Built around three objectives</span>
+      <h2 class="display h2">Operators want different <span class="accent">things.</span></h2>
+      <p class="lede">HelloPackage was built so a property manager, an asset director, and a leasing agent can each point to the part that solves their problem — without negotiating.</p>
+    </div>
+
+    <div class="obj-grid">
+      <div class="obj-card red reveal">
+        <span class="obj-num">Objective 01</span>
+        <h3 class="obj-title">Elevate the resident.</h3>
+        <p class="obj-body">Make package pickup fast, secure, and frustration-free. 24/7 access. App notifications. Secure pickup codes. The package experience finally matches the rest of the amenity.</p>
+      </div>
+      <div class="obj-card cyan reveal">
+        <span class="obj-num">Objective 02</span>
+        <h3 class="obj-title">Reduce the workload.</h3>
+        <p class="obj-body">Free staff from sorting packages, fielding complaints, or chasing down boxes. The leasing team gets 10–20 hours per week back — for the job they were hired to do.</p>
+      </div>
+      <div class="obj-card dark reveal">
+        <span class="obj-num">Objective 03</span>
+        <h3 class="obj-title">Bring AI to the mailroom.</h3>
+        <p class="obj-body">Real-time tracking, secure access, connected technology. Cuts costs and keeps operations smooth. The same automation real estate operators get nowhere else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== HOW IT WORKS ============== -->
+<section class="section alt" id="how">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="display h2">Four steps, <span class="accent">every package.</span></h2>
+      <p class="lede">A consistent, automated workflow from the moment a courier scans a parcel to the moment a resident walks out with it. No staff intervention required.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <span class="step-num-pill">Step 01</span>
+        <div class="step-title">Delivery check-in.</div>
+        <p class="step-body">Drivers follow a guided process and log every package as they arrive. 98.7% driver participation — no more "dump and go".</p>
+      </div>
+      <div class="step-card reveal">
+        <span class="step-num-pill">Step 02</span>
+        <div class="step-title">Logged &amp; stored.</div>
+        <p class="step-body">Computer vision tracks every drop-off in real time. Stored in the secure, access-controlled room with cameras on.</p>
+      </div>
+      <div class="step-card reveal">
+        <span class="step-num-pill">Step 03</span>
+        <div class="step-title">Resident alerts.</div>
+        <p class="step-body">Pickup instructions sent automatically. 24/7 secure access with a personal code. Resident picks up on their schedule.</p>
+      </div>
+      <div class="step-card reveal">
+        <span class="step-num-pill">Step 04</span>
+        <div class="step-title">Pick up &amp; tracking.</div>
+        <p class="step-body">Every interaction recorded. Full chain-of-custody. Volume and dwell-time visible to property in the Dashboard.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== THE PLATFORM ============== -->
+<section class="section" id="platform">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The platform</span>
+      <h2 class="display h2">Four pieces. One <span class="accent">platform.</span></h2>
+      <p class="lede">The connected system that replaces the mailroom. Each piece works on its own — together they handle every drop-off, every alert, every pickup.</p>
+    </div>
+
+    <div class="system-grid">
+      <div class="system-card reveal">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+        <span class="system-num">Component 01</span>
+        <div class="system-name">The Package Room.</div>
+        <p class="system-desc">Peace of mind, around the clock. Packages stored safely and picked up on residents' time. 4× density vs. lockers. Access-controlled. Always recording.</p>
+      </div>
+      <div class="system-card cyan reveal">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <span class="system-num">Component 02</span>
+        <div class="system-name">Resident App.</div>
+        <p class="system-desc">Pickups made simple. Instant updates the moment a package arrives. 24/7 collection with a personal secure code. No staff hand-off.</p>
+      </div>
+      <div class="system-card reveal">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <span class="system-num">Component 03</span>
+        <div class="system-name">Courier Access.</div>
+        <p class="system-desc">In and out without interrupting the day. Couriers drop off in seconds. Every action logged. 52% faster check-in &amp; retrieval vs. legacy systems.</p>
+      </div>
+      <div class="system-card cyan reveal">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        </div>
+        <span class="system-num">Component 04</span>
+        <div class="system-name">Property Dashboard.</div>
+        <p class="system-desc">Deliveries managed without lifting a finger. Volume, dwell time, satisfaction trends — all in one place. Portfolio rollups for asset directors.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== WHY HELLOPACKAGE — 5 REASONS ============== -->
+<section class="section alt" id="why">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why HelloPackage</span>
+      <h2 class="display h2">Five things lockers <span class="accent">can't do.</span></h2>
+      <p class="lede">Lockers solve a piece. HelloPackage runs the room.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <span class="why-num">Reason 01</span>
+        <div class="why-title">No more overflow.</div>
+        <p class="why-body">Rooms structured to scale with delivery, not against it. 25% of packages naturally use floor for overflow + oversize — by design.</p>
+      </div>
+      <div class="why-card reveal">
+        <span class="why-num">Reason 02</span>
+        <div class="why-title">No daily staff work.</div>
+        <p class="why-body">Your team stops sorting. We take it from here. 10–20 staff hours per week, back.</p>
+      </div>
+      <div class="why-card reveal">
+        <span class="why-num">Reason 03</span>
+        <div class="why-title">Alerts built in.</div>
+        <p class="why-body">Every package logged. Every pickup tracked. Automatically. Sub-minute notification to resident.</p>
+      </div>
+      <div class="why-card reveal">
+        <span class="why-num">Reason 04</span>
+        <div class="why-title">Secure by design.</div>
+        <p class="why-body">Access-controlled rooms. Always-on cameras. Complete digital chain of custody.</p>
+      </div>
+      <div class="why-card reveal">
+        <span class="why-num">Reason 05</span>
+        <div class="why-title">Flexible by design.</div>
+        <p class="why-body">Convert the space you already have — or have us bring a modular room. No retrofits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PROVEN RESULTS ============== -->
+<section class="section" id="results">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Proven results</span>
+      <h2 class="display h2">200+ communities <span class="accent">live.</span></h2>
+      <p class="lede">Across 21 states and 27 metros. Multifamily, student housing, mixed-use — every property type. Operating 24/7/365 with onsite ambassadors handling exceptions.</p>
+    </div>
+
+    <div class="results-layout">
+      <div class="reveal">
+        <div class="big-stat-num">200<span class="plus">+</span></div>
+        <div class="big-stat-label">Communities live.</div>
+        <p class="big-stat-body">New properties going live every week. Multi-property portfolios deployed in waves of 5–10 at a time with a named CSM per portfolio.</p>
+      </div>
+
+      <div class="benefits reveal">
+        <div class="benefit">
+          <div>
+            <div class="benefit-title">Package density</div>
+            <div class="benefit-sub">Versus traditional lockers</div>
+          </div>
+          <span class="benefit-arrow">4×</span>
+        </div>
+        <div class="benefit">
+          <div>
+            <div class="benefit-title">Check-in &amp; retrieval</div>
+            <div class="benefit-sub">Average speed improvement</div>
+          </div>
+          <span class="benefit-arrow">↑ 52%</span>
+        </div>
+        <div class="benefit">
+          <div>
+            <div class="benefit-title">Driver participation</div>
+            <div class="benefit-sub">No more "dump and go"</div>
+          </div>
+          <span class="benefit-arrow">98.7%</span>
+        </div>
+        <div class="benefit">
+          <div>
+            <div class="benefit-title">Cost-effective</div>
+            <div class="benefit-sub">Versus traditional labor</div>
+          </div>
+          <span class="benefit-arrow">↓ 80%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CUSTOMERS / VOICE ============== -->
+<section class="section alt" id="customers">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">What operators say</span>
+      <h2 class="display h2">Trusted across <span class="accent">portfolios.</span></h2>
+      <p class="lede">Six real quotes from community managers, leasing teams, and asset directors running buildings on HelloPackage today.</p>
+    </div>
+
+    <div class="quotes-grid">
+      <div class="quote-card reveal">
+        <p class="quote-text">The technology that HP has deployed is beyond all other. The resident experience is seamless and allows for 24-hour access.</p>
+        <div class="quote-meta">
+          <div class="quote-avatar">LM</div>
+          <div>
+            <div class="quote-author">Leslie Mathis</div>
+            <div class="quote-role">Director of Asset Management · Woodfield Development</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-card cyan reveal">
+        <p class="quote-text">Since switching to HelloPackage we haven't had any complaints. It's easy, it's user-friendly, it's secure. We love it.</p>
+        <div class="quote-meta">
+          <div class="quote-avatar">SM</div>
+          <div>
+            <div class="quote-author">Summer Monroe</div>
+            <div class="quote-role">Assistant Community Manager · Briley Apartment Homes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-card reveal">
+        <p class="quote-text">HelloPackage has the best customer service. The system is simple — codes, cameras, zones. Residents are happy and the team is great to work with.</p>
+        <div class="quote-meta">
+          <div class="quote-avatar">ID</div>
+          <div>
+            <div class="quote-author">Iteya Dunham</div>
+            <div class="quote-role">Leasing Consultant · The Brady · Perennial Properties</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-card cyan reveal">
+        <p class="quote-text">I've had every locker you can think of and this is the easiest — both from a management standpoint and resident. I love the user-friendly access for me and my tenants.</p>
+        <div class="quote-meta">
+          <div class="quote-avatar">MB</div>
+          <div>
+            <div class="quote-author">Michele Brooks</div>
+            <div class="quote-role">Community Manager · Hawthorne North Druid Hills</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-card reveal">
+        <p class="quote-text">HelloPackage took our resident experience to a whole new level. This is the first package room system I've used that mitigates lost, stolen, or misplaced deliveries.</p>
+        <div class="quote-meta">
+          <div class="quote-avatar">LW</div>
+          <div>
+            <div class="quote-author">Laura Watkins</div>
+            <div class="quote-role">The Sound at Pennington Bend</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-card cyan reveal">
+        <p class="quote-text">A game changer at the three properties where we've implemented it. The system is intuitive, residents appreciate that packages are on-site, and concierges spend less time on parcels.</p>
+        <div class="quote-meta">
+          <div class="quote-avatar">MJ</div>
+          <div>
+            <div class="quote-author">Michael Joyce</div>
+            <div class="quote-role">Owner · Oranswell Realty Partners</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== COMPETITION ============== -->
+<section class="section" id="competition">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The competition</span>
+      <h2 class="display h2">The other guys just <span class="accent">don't deliver.</span></h2>
+      <p class="lede">Manual mailrooms. Locker vendors. Tech-focused rooms. Offsite providers. Every category leaves resident satisfaction, driver management, or onsite labor on the table.</p>
+    </div>
+
+    <div class="compete-wrap reveal">
+      <table class="compete-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="hp-head">HelloPackage</th>
+            <th>Manual</th>
+            <th>Lockers</th>
+            <th>Tech Rooms</th>
+            <th>Offsite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Online reviews</td>
+            <td class="hp-col"><span class="compete-pill pill-great">Great</span></td>
+            <td><span class="compete-pill pill-poor">Poor</span></td>
+            <td><span class="compete-pill pill-mixed">Mixed</span></td>
+            <td><span class="compete-pill pill-unknown">No ratings</span></td>
+            <td><span class="compete-pill pill-poor">Poor</span></td>
+          </tr>
+          <tr>
+            <td>Service level</td>
+            <td class="hp-col"><span class="compete-pill pill-yes">High</span></td>
+            <td><span class="compete-pill pill-no">Low</span></td>
+            <td><span class="compete-pill pill-no">Low</span></td>
+            <td><span class="compete-pill pill-no">Low</span></td>
+            <td><span class="compete-pill pill-no">Low</span></td>
+          </tr>
+          <tr>
+            <td>Manages drivers</td>
+            <td class="hp-col"><span class="compete-pill pill-yes">Yes</span></td>
+            <td><span class="compete-pill pill-no">No</span></td>
+            <td><span class="compete-pill pill-no">No</span></td>
+            <td><span class="compete-pill pill-no">No</span></td>
+            <td><span class="compete-pill pill-yes">Yes</span></td>
+          </tr>
+          <tr>
+            <td>Provides onsite labor</td>
+            <td class="hp-col"><span class="compete-pill pill-yes">Yes</span></td>
+            <td><span class="compete-pill pill-no">No</span></td>
+            <td><span class="compete-pill pill-mixed">Mixed</span></td>
+            <td><span class="compete-pill pill-no">No</span></td>
+            <td><span class="compete-pill pill-unknown">N/A</span></td>
+          </tr>
+          <tr>
+            <td>Scalable</td>
+            <td class="hp-col"><span class="compete-pill pill-yes">Yes</span></td>
+            <td><span class="compete-pill pill-no">No</span></td>
+            <td><span class="compete-pill pill-mixed">Partial</span></td>
+            <td><span class="compete-pill pill-yes">Yes</span></td>
+            <td><span class="compete-pill pill-yes">Yes</span></td>
+          </tr>
+          <tr>
+            <td>Package theft protection</td>
+            <td class="hp-col"><span class="compete-pill pill-yes">Yes</span></td>
+            <td><span class="compete-pill pill-no">Low</span></td>
+            <td><span class="compete-pill pill-mixed">Moderate</span></td>
+            <td><span class="compete-pill pill-unknown">Unknown</span></td>
+            <td><span class="compete-pill pill-no">High risk</span></td>
+          </tr>
+          <tr>
+            <td>Cost</td>
+            <td class="hp-col"><span class="compete-pill pill-med">Low / Med / High</span></td>
+            <td><span class="compete-pill pill-med">Medium</span></td>
+            <td><span class="compete-pill pill-low">Low</span></td>
+            <td><span class="compete-pill pill-low">Low</span></td>
+            <td><span class="compete-pill pill-high">High</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PRICING ============== -->
+<section class="section alt" id="pricing">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">A solution for every property</span>
+      <h2 class="display h2">Pricing that fits <span class="accent">the room.</span></h2>
+      <p class="lede">Four tiers — pick the level that matches the property. Cap-ex up front for owners who'd rather not have a monthly line, or per-unit operating cost. Op Ex financing available.</p>
+    </div>
+
+    <div class="price-grid">
+      <div class="price-card t1 reveal">
+        <span class="price-eyebrow">Tier 01</span>
+        <div class="price-name">HelloPackage Core.</div>
+        <p class="price-desc">A no-shelving solution with smart access, AI-driven delivery management, and support.</p>
+        <div class="price-amounts">
+          <div class="price-cap">Cap Ex — $12K</div>
+          <div class="price-monthly">$1.70 <small>/ unit / mo</small></div>
+        </div>
+      </div>
+      <div class="price-card t2 reveal">
+        <span class="price-eyebrow">Tier 02</span>
+        <div class="price-name">HelloPackage Essentials.</div>
+        <p class="price-desc">Low-cost upgrade with LED shelve tech, 24/7 support, and AI-driven driver management.</p>
+        <div class="price-amounts">
+          <div class="price-cap">Cap Ex — $25K</div>
+          <div class="price-monthly">$2.20 <small>/ unit / mo</small></div>
+        </div>
+      </div>
+      <div class="price-card t3 reveal">
+        <span class="price-eyebrow">Tier 03</span>
+        <div class="price-name">HelloPackage Enhanced.</div>
+        <p class="price-desc">All of Essentials plus AI session tracking, expanded driver management, and a dedicated CSM.</p>
+        <div class="price-amounts">
+          <div class="price-cap">Cap Ex — $35K</div>
+          <div class="price-monthly">$3.20 <small>/ unit / mo</small></div>
+        </div>
+      </div>
+      <div class="price-card t4 reveal">
+        <span class="price-eyebrow">Tier 04</span>
+        <div class="price-name">Modular Package Room.</div>
+        <p class="price-desc">No space, no problem. Standalone climate-controlled package room with all HelloPackage benefits.</p>
+        <div class="price-amounts">
+          <div class="price-cap">Cap Ex — $50K</div>
+          <div class="price-monthly">$3.20 <small>/ unit / mo</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="price-footnotes">
+      <div>* New development ramp available</div>
+      <div>* Op Ex financing available</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CASE STUDIES ============== -->
+<section class="section" id="cases">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Real properties · Real numbers</span>
+      <h2 class="display h2">Four properties, four <span class="accent">different problems.</span></h2>
+      <p class="lede">Amenity upgrade. Lease-up acceleration. Competitor switch. No space at all. HelloPackage shipped each one — and the numbers to back it up.</p>
+    </div>
+
+    <div class="case-grid">
+
+      <div class="case reveal">
+        <div class="case-header">
+          <div>
+            <div class="case-name">The Mark Athens</div>
+            <div class="case-sub">Landmark Properties · Student housing · 435 units / 1,360 beds</div>
+          </div>
+          <span class="case-tag">Amenity upgrade</span>
+        </div>
+        <div class="case-body">
+          <div>
+            <div class="case-col-label">Before</div>
+            <ul class="case-list">
+              <li>5,200 packages / month</li>
+              <li>0% driver participation</li>
+              <li>Leasing team handling (2 FTE)</li>
+              <li>Short lease-up window</li>
+            </ul>
+          </div>
+          <div>
+            <div class="case-col-label">Solution</div>
+            <ul class="case-list cyan">
+              <li>Convert, paint, wire, install — 3-week turnkey</li>
+              <li>15 hr/week ambassador</li>
+              <li>USPS staging process</li>
+              <li>$80K conv · $6/unit/mo</li>
+            </ul>
+          </div>
+          <div>
+            <div class="case-col-label">Result</div>
+            <ul class="case-list green">
+              <li>7,500 packages / month</li>
+              <li>510 driver sessions</li>
+              <li>600 surveys · 4.6 stars</li>
+              <li>64% picked up &lt;24h</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="case reveal">
+        <div class="case-header dark">
+          <div>
+            <div class="case-name">500 Folsom</div>
+            <div class="case-sub">Urban high-rise · 536 units</div>
+          </div>
+          <span class="case-tag">Lease-up</span>
+        </div>
+        <div class="case-body">
+          <div>
+            <div class="case-col-label">Before</div>
+            <ul class="case-list">
+              <li>Struggling with volume</li>
+              <li>Manual not scalable</li>
+              <li>Leasing team disrupted</li>
+              <li>Driver management chaos</li>
+            </ul>
+          </div>
+          <div>
+            <div class="case-col-label">Solution</div>
+            <ul class="case-list cyan">
+              <li>24/7 package access</li>
+              <li>8 hr/week ambassador</li>
+              <li>$4.75/unit + $50K cap ex</li>
+            </ul>
+          </div>
+          <div>
+            <div class="case-col-label">Result</div>
+            <ul class="case-list green">
+              <li>~4,100 packages / month</li>
+              <li>400 surveys · 4 stars</li>
+              <li>78% picked up &lt;24h</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="case reveal">
+        <div class="case-header">
+          <div>
+            <div class="case-name">755 North</div>
+            <div class="case-sub">Urban mid-rise · 227 units</div>
+          </div>
+          <span class="case-tag">Provider switch</span>
+        </div>
+        <div class="case-body">
+          <div>
+            <div class="case-col-label">Before</div>
+            <ul class="case-list">
+              <li>Off-site provider failing</li>
+              <li>Price $10 → $17</li>
+              <li>No capital budget</li>
+              <li>30-day contract expiration</li>
+            </ul>
+          </div>
+          <div>
+            <div class="case-col-label">Solution</div>
+            <ul class="case-list cyan">
+              <li>Convert, onboard, operate</li>
+              <li>24/7 package access</li>
+              <li>5 hr/week ambassador</li>
+              <li>$9.75/unit — under budget</li>
+            </ul>
+          </div>
+          <div>
+            <div class="case-col-label">Result</div>
+            <ul class="case-list green">
+              <li>2,900 packages / month</li>
+              <li>400 surveys · 4 stars</li>
+              <li>73% picked up &lt;24h</li>
+              <li>10 communities switched</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="case reveal">
+        <div class="case-header dark">
+          <div>
+            <div class="case-name">Avana Copper Springs</div>
+            <div class="case-sub">Urban garden-style · 366 units</div>
+          </div>
+          <span class="case-tag">Modular room</span>
+        </div>
+        <div class="case-body">
+          <div>
+            <div class="case-col-label">Before</div>
+            <ul class="case-list">
+              <li>No space to convert</li>
+              <li>Volume increasing</li>
+              <li>Leasing team disrupted</li>
+              <li>Residents want amenity</li>
+            </ul>
+          </div>
+          <div>
+            <div class="case-col-label">Solution</div>
+            <ul class="case-list cyan">
+              <li>We bring the space</li>
+              <li>24/7 package access</li>
+              <li>4 hr/week ambassador</li>
+              <li>$4.75/unit + $50K cap ex</li>
+            </ul>
+          </div>
+          <div>
+            <div class="case-col-label">Result</div>
+            <ul class="case-list green">
+              <li>2,500 packages / month</li>
+              <li>300 surveys · 4.2 stars</li>
+              <li>75% picked up &lt;24h</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== SPACE CONFIGURATOR ============== -->
+<section class="section alt" id="space">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Plan your space</span>
+      <h2 class="display h2">Sized to your <span class="accent">portfolio.</span></h2>
+      <p class="lede">A rough guide for the square footage you'll need based on unit count and average delivery volume. The space configurator on the demo will give you exact numbers.</p>
+    </div>
+
+    <div class="space-grid">
+      <div class="space-card reveal">
+        <div class="space-units">150–210 units</div>
+        <div class="space-sqft">150 <small>sqft</small></div>
+      </div>
+      <div class="space-card reveal">
+        <div class="space-units">210–270 units</div>
+        <div class="space-sqft">185 <small>sqft</small></div>
+      </div>
+      <div class="space-card reveal">
+        <div class="space-units">270–370 units</div>
+        <div class="space-sqft">229 <small>sqft</small></div>
+      </div>
+      <div class="space-card reveal">
+        <div class="space-units">370–470 units</div>
+        <div class="space-sqft">257 <small>sqft</small></div>
+      </div>
+      <div class="space-card reveal">
+        <div class="space-units">470–570 units</div>
+        <div class="space-sqft">293 <small>sqft</small></div>
+      </div>
+      <div class="space-card reveal">
+        <div class="space-units">570+ units</div>
+        <div class="space-sqft">448 <small>sqft</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FAQ ============== -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Common objections</span>
+      <h2 class="display h2">The three big <span class="accent">hurdles.</span></h2>
+      <p class="lede">When prospects pass on HelloPackage, the reason is almost always one of three things. Honest answers on each.</p>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq reveal">
+        <button class="faq-q">Hurdle 1: "We don't have the space."<span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>If your property has unused interior square footage — lobbies, leasing back-rooms, ground-floor storage — we convert it in 3 weeks turnkey. If it doesn't, we deliver a modular climate-controlled package room. Avana Copper Springs is the case study: 366 units, no convertible space, we brought the room.</p>
+        </div>
+      </div>
+      <div class="faq reveal">
+        <button class="faq-q">Hurdle 2: "We don't have the budget."<span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>Four tiers — Core through Modular — covering every property profile and budget. Cap-ex from $12K, monthly from $1.70/unit. Op Ex financing available. 755 North switched from a more expensive competitor with no capital budget — and ended under budget on the new contract.</p>
+        </div>
+      </div>
+      <div class="faq reveal">
+        <button class="faq-q">Hurdle 3: "We can't pass a resident fee."<span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>Some operators charge residents, some absorb the cost, some bundle into amenity fees. We've supported all three. Where resident fees apply, the modeled property uplift is ~$480K per 250-unit asset. Where they don't, staff-time savings alone justify the line item.</p>
+        </div>
+      </div>
+      <div class="faq reveal">
+        <button class="faq-q">How fast can we go live?<span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>3-week turnkey from contract for a typical conversion. Modular package rooms ship in a similar window. Portfolios roll out in waves of 5–10 properties at a time, with a named CSM per portfolio.</p>
+        </div>
+      </div>
+      <div class="faq reveal">
+        <button class="faq-q">How does this compare to lockers (Luxer One, Package Concierge, Parcel Pending)?<span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>Lockers solve a piece. They rate LOW on driver management, full service, and provided onsite labor — and MIXED on resident satisfaction. They also can't handle ~25% of packages that need overflow space (oversized parcels, holiday surges). For low-volume properties, lockers may be enough. For real volume, you'll outgrow them.</p>
+        </div>
+      </div>
+      <div class="faq reveal">
+        <button class="faq-q">How does this compare to offsite (Fetch, Position Imaging)?<span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>Offsite is the wrong direction for resident satisfaction — rated POOR in our comparison. Residents want their packages onsite, immediately, at 11pm. Offsite means an extra hop, an extra fee, and a stack of complaints.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FINAL CTA ============== -->
+<section class="final-cta" id="contact">
+  <div class="final-cta-inner">
+    <div class="reveal">
+      <span class="eyebrow light">Ready when you are</span>
+      <h2 class="final-cta-headline">Let's <span class="accent">deliver.</span></h2>
+      <p class="final-cta-sub">30-minute walkthrough on your portfolio. We'll size the room, scope the integrations, and put a real number on the staff-hour savings and the ancillary income — by the time the call ends.</p>
+      <div class="final-cta-btns">
+        <a href="mailto:paulfavorov@packagesolutions.com" class="btn btn-primary">Book a demo
+          <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#how" class="btn btn-secondary" style="background:transparent; color:white; border-color:rgba(255,255,255,0.3);">See how it works</a>
+      </div>
+      <div class="final-cta-meta">
+        <div>
+          Sales · CEO/CTO
+          <strong>Paul Favorov</strong>
+          <a href="mailto:paulfavorov@packagesolutions.com">paulfavorov@packagesolutions.com</a><br/>
+          <a href="tel:+14045580668">404.558.0668</a>
+        </div>
+        <div>
+          Account Management
+          <strong>Nicola Kiser</strong>
+          <a href="mailto:nicolakiser@packagesolutions.com">nicolakiser@packagesolutions.com</a><br/>
+          <a href="tel:+18669315567">866.931.5567 toll-free</a>
+        </div>
+        <div>
+          HQ
+          <strong>Peachtree Corners, GA</strong>
+          6753 Suite A · Jones Mill Court<br/>
+          21 states · 27 metros · BBB A+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo"></div>
+      <p class="footer-tagline">AI-powered package management for multifamily and student housing. 200+ communities · 70,000+ residents · 4.5 / 5.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Solution</h4>
+      <ul>
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#objectives">Three objectives</a></li>
+        <li><a href="#why">Why HelloPackage</a></li>
+        <li><a href="#results">Results</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Customers</h4>
+      <ul>
+        <li><a href="#cases">Case studies</a></li>
+        <li><a href="#customers">Testimonials</a></li>
+        <li><a href="#competition">Compare</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Buy</h4>
+      <ul>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#space">Space configurator</a></li>
+        <li><a href="#contact">Book a demo</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Trust</h4>
+      <ul>
+        <li><a href="#top">BBB A+ since 2020</a></li>
+        <li><a href="#top">1 U.S. patent issued</a></li>
+        <li><a href="#contact">24/7/365 support</a></li>
+        <li><a href="https://hellopackage.com" target="_blank" rel="noopener noreferrer">hellopackage.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 HelloPackage<span class="red-dot">·</span>HelloPackage is a registered trademark of Package Solutions, Inc.</span>
+    <span>Peachtree Corners, GA<span class="red-dot">·</span>21 states</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 8) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  document.querySelectorAll('.faq').forEach((faq) => {
+    const q = faq.querySelector('.faq-q');
+    q.addEventListener('click', () => { faq.classList.toggle('open'); });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      const t = document.querySelector(id);
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+
+</body>
+</html>

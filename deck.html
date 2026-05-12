@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HelloPackage · Get your deliveries sorted.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css" />
+
+<style>
+  /* ============== TAG BRAND TOKENS ============== */
+  :root {
+    --bg: #FFFFFF;
+    --bg-soft: #F8FAFC;
+    --bg-card: #FAFBFD;
+    --text: #0B1220;
+    --text-2: #475569;
+    --text-3: #94A3B8;
+    --red: #E71D25;
+    --red-soft: #FEF2F2;
+    --blue: #0080A5;
+    --blue-bright: #00AED5;
+    --blue-soft: #F0FAFD;
+    --green: #16A34A;
+    --border: #E2E8F0;
+    --border-strong: #CBD5E1;
+  }
+
+  html, body { margin: 0; padding: 0; height: 100%; width: 100%; background: #06101D; overflow: hidden; }
+  body { font-family: 'Inter', sans-serif; }
+
+  /* ============== REVEAL.JS OVERRIDES ============== */
+  .reveal {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: #06101D;
+  }
+  .reveal .slides {
+    text-align: left;
+  }
+  .reveal .slides > section,
+  .reveal .slides > section > section {
+    padding: 0 !important;
+    height: 100%;
+    box-sizing: border-box;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal p, .reveal ul {
+    margin: 0; padding: 0; line-height: 1.4; text-align: left;
+  }
+  .reveal ul { list-style: none; }
+  .reveal a { color: var(--blue); text-decoration: none; }
+  .reveal section img { border: none; box-shadow: none; }
+  .reveal section blockquote { background: transparent; padding: 0; margin: 0; box-shadow: none; }
+
+  /* Hide default controls — we use our own */
+  .reveal .controls { display: none !important; }
+  .reveal .progress {
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+  }
+  .reveal .progress span { background: var(--red); transition: width 0.3s ease; }
+
+  /* ============== SLIDE FRAMEWORK ============== */
+  .frame {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    padding: 60px 110px;
+    background: var(--bg);
+    position: relative;
+    box-sizing: border-box;
+    color: var(--text);
+  }
+  .frame.dark { background: var(--bg-soft); }
+
+  /* HEADER */
+  .head {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-shrink: 0;
+  }
+  .brand-logo {
+    width: 220px; height: 70px;
+    background-image: url('Logo.jpg');
+    background-size: contain; background-repeat: no-repeat;
+    background-position: left center;
+  }
+  .frame.title-frame .brand-logo,
+  .frame.closing-frame .brand-logo {
+    width: 280px; height: 90px;
+  }
+  .meta {
+    display: flex; align-items: center; gap: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--text-3);
+  }
+  .meta-dot { width: 5px; height: 5px; background: var(--text-3); border-radius: 50%; }
+
+  /* FOOTER */
+  .foot {
+    margin-top: auto; flex-shrink: 0;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--text-3);
+  }
+
+  /* EYEBROW */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .eyebrow::before { content: ''; width: 48px; height: 2px; background: var(--red); }
+  .eyebrow.cyan { color: var(--blue); }
+  .eyebrow.cyan::before { background: var(--blue); }
+
+  /* SECTION TITLE */
+  .display-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 110px; font-weight: 800;
+    line-height: 0.98; letter-spacing: -0.04em;
+    color: var(--text); margin-top: 24px;
+  }
+  .display-title .accent { color: var(--red); font-style: italic; }
+  .display-title .accent-cyan { color: var(--blue); font-style: italic; }
+  .display-title.small { font-size: 88px; }
+  .display-title.smaller { font-size: 72px; }
+
+  .head-block { margin-top: 50px; }
+
+  /* ============== SLIDE 1: TITLE ============== */
+  .title-content {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+  }
+  .hero-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 200px; font-weight: 800;
+    line-height: 0.92; letter-spacing: -0.045em;
+    color: var(--text); margin-top: 32px;
+  }
+  .hero-title .accent { color: var(--red); font-style: italic; }
+  .hero-divider { width: 144px; height: 4px; background: var(--text); margin: 40px 0 32px; }
+  .hero-subtitle {
+    font-size: 38px; color: var(--text-2);
+    font-weight: 400; line-height: 1.25;
+    letter-spacing: -0.01em; max-width: 28ch;
+  }
+  .speaker-block {
+    display: flex; align-items: center; gap: 22px; margin-top: 72px;
+  }
+  .speaker-bar { width: 6px; height: 78px; background: var(--red); }
+  .speaker-name {
+    display: block; font-family: 'Manrope', sans-serif;
+    font-size: 32px; font-weight: 700; color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .speaker-role {
+    display: block; font-size: 26px;
+    color: var(--text-2); margin-top: 10px; font-weight: 500;
+  }
+
+  /* ============== SLIDE 2: MARKET STAT GRID ============== */
+  .stat-grid {
+    flex: 1; display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px; align-content: center;
+    margin-top: 60px;
+  }
+  .stat-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 22px; padding: 0;
+    display: flex; flex-direction: column;
+    height: 560px; position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 6px;
+    background: var(--accent, var(--red));
+    z-index: 3;
+  }
+  .stat-card.red { --accent: var(--red); }
+  .stat-card.blue { --accent: var(--blue-bright); }
+  .stat-card.dark { --accent: var(--text); }
+  .stat-image {
+    width: 100%; height: 44%;
+    background-size: cover; background-position: center;
+    background-color: #0F172A;
+    flex-shrink: 0; position: relative;
+  }
+  .stat-image::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.18) 100%);
+  }
+  .stat-body {
+    flex: 1; padding: 36px 40px 38px;
+    display: flex; flex-direction: column;
+    justify-content: center;
+  }
+  .stat-number {
+    font-family: 'Manrope', sans-serif;
+    font-size: 96px; font-weight: 900;
+    line-height: 0.9; letter-spacing: -0.05em;
+    color: var(--text);
+  }
+  .stat-card.red .stat-number { color: var(--red); }
+  .stat-card.blue .stat-number { color: var(--blue); }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--text-2); margin-top: 16px;
+  }
+  .stat-body p {
+    margin-top: 14px; font-size: 18px;
+    color: var(--text-2); line-height: 1.5;
+  }
+
+  /* ============== SLIDE 3: PROBLEM SPLIT ============== */
+  .split {
+    flex: 1; display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .split-left { display: flex; flex-direction: column; justify-content: center; }
+  .pain-list {
+    margin-top: 40px;
+    display: flex; flex-direction: column;
+  }
+  .pain-item {
+    display: flex; align-items: baseline;
+    gap: 24px; padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pain-item:last-child { padding-bottom: 8px; }
+  .pain-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px; font-weight: 600;
+    color: var(--red); min-width: 48px;
+  }
+  .pain-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: 40px; font-weight: 700;
+    color: var(--text); letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+  .chaos-visual {
+    background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+    border-radius: 22px; aspect-ratio: 1.05 / 1;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 50px 100px -30px rgba(15,23,42,0.5);
+  }
+  .chaos-photo {
+    position: absolute; inset: 0;
+    background-image: url('chaos.jpg');
+    background-size: cover; background-position: center;
+  }
+  .chaos-overlay {
+    position: relative; z-index: 2; text-align: center;
+    padding: 44px 56px;
+    background: rgba(15,23,42,0.82);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .chaos-stat {
+    font-family: 'Manrope', sans-serif;
+    font-size: 120px; font-weight: 900;
+    color: white; line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .chaos-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; text-transform: uppercase;
+    letter-spacing: 0.22em; color: #FCA5A5;
+    margin-top: 18px;
+  }
+
+  /* ============== SLIDE 4: THREE OBJECTIVES ============== */
+  .obj-grid {
+    flex: 1; display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px; align-content: center;
+    margin-top: 60px;
+  }
+  .obj-card {
+    padding: 54px 44px; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 22px;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .obj-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 6px;
+    background: var(--accent, var(--red));
+  }
+  .obj-card.red { --accent: var(--red); }
+  .obj-card.cyan { --accent: var(--blue-bright); }
+  .obj-card.dark { --accent: var(--text); }
+  .obj-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .obj-card.cyan .obj-num { color: var(--blue); }
+  .obj-card.dark .obj-num { color: var(--text); }
+  .obj-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 56px; font-weight: 800;
+    letter-spacing: -0.03em; color: var(--text);
+    margin: 22px 0 22px; line-height: 1;
+  }
+  .obj-body {
+    font-size: 22px; color: var(--text-2);
+    line-height: 1.5;
+  }
+
+  /* ============== SLIDE 5: HOW IT WORKS ============== */
+  .steps-grid {
+    flex: 1; display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px; align-content: center;
+    margin-top: 60px;
+    position: relative;
+  }
+  .step-card {
+    padding: 44px 32px; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 20px;
+    position: relative; display: flex; flex-direction: column;
+  }
+  .step-pill {
+    display: inline-block; padding: 8px 16px;
+    background: var(--red-soft); color: var(--red);
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    align-self: flex-start;
+  }
+  .step-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 38px; font-weight: 800;
+    letter-spacing: -0.025em; color: var(--text);
+    margin-top: 32px; line-height: 1.1;
+  }
+  .step-body {
+    margin-top: 14px; font-size: 19px;
+    color: var(--text-2); line-height: 1.55;
+  }
+
+  /* ============== SLIDE 6: SYSTEM COMPONENTS ============== */
+  .system-grid {
+    flex: 1; display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 32px; align-content: stretch;
+    margin-top: 50px;
+  }
+  .system-card {
+    padding: 38px 40px; background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 8px solid var(--red);
+    border-radius: 20px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .system-card.cyan { border-left-color: var(--blue); }
+  .system-card .icon {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    background: var(--red-soft); color: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 4px;
+  }
+  .system-card.cyan .icon { background: var(--blue-soft); color: var(--blue); }
+  .system-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .system-card.cyan .system-num { color: var(--blue); }
+  .system-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 40px; font-weight: 800;
+    letter-spacing: -0.025em; color: var(--text);
+    line-height: 1.05;
+  }
+  .system-desc {
+    font-size: 19px;
+    color: var(--text-2); line-height: 1.5;
+    margin-top: 4px;
+  }
+
+  /* ============== SLIDE 7: WHY HP — 5 REASONS ============== */
+  .why-grid {
+    flex: 1; display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 22px; align-content: center;
+    margin-top: 50px;
+  }
+  .why-card {
+    padding: 42px 30px; background: var(--bg-card);
+    border-top: 6px solid var(--red);
+    border-radius: 16px;
+    display: flex; flex-direction: column;
+  }
+  .why-card:nth-child(2) { border-top-color: var(--blue); }
+  .why-card:nth-child(3) { border-top-color: var(--text); }
+  .why-card:nth-child(4) { border-top-color: var(--red); }
+  .why-card:nth-child(5) { border-top-color: var(--blue); }
+  .why-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--text-3);
+  }
+  .why-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 30px; font-weight: 800;
+    letter-spacing: -0.025em; color: var(--text);
+    margin-top: 22px; line-height: 1.1;
+  }
+  .why-body {
+    font-size: 18px;
+    color: var(--text-2); line-height: 1.5;
+    margin-top: 14px;
+  }
+
+  /* ============== SLIDE 8: PROVEN RESULTS ============== */
+  .results-layout {
+    flex: 1; display: grid;
+    grid-template-columns: 1fr 0.85fr;
+    gap: 100px; align-items: center;
+  }
+  .big-stat-block { display: flex; flex-direction: column; }
+  .big-stat-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: 340px; font-weight: 900;
+    line-height: 0.85; letter-spacing: -0.07em;
+    background: linear-gradient(135deg, var(--text) 0%, var(--red) 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: 28px;
+  }
+  .big-stat-num .plus { color: var(--red); -webkit-text-fill-color: var(--red); }
+  .big-stat-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 64px; font-weight: 800;
+    color: var(--text); margin-top: 22px;
+    letter-spacing: -0.03em; line-height: 1;
+  }
+  .big-stat-body {
+    font-size: 21px; color: var(--text-2);
+    margin-top: 24px; max-width: 38ch; line-height: 1.5;
+  }
+  .results-benefits {
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .benefit-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 30px 36px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 18px;
+  }
+  .benefit-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 32px; font-weight: 800;
+    color: var(--text); letter-spacing: -0.025em;
+    line-height: 1;
+  }
+  .benefit-sub {
+    font-size: 15px; color: var(--text-2); margin-top: 6px;
+  }
+  .benefit-arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px; font-weight: 700; color: var(--red);
+    white-space: nowrap;
+  }
+
+  /* ============== SLIDE 9: CUSTOMER VOICE ============== */
+  .quotes-grid {
+    flex: 1; display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px; align-content: center;
+    margin-top: 60px;
+  }
+  .quote-card {
+    padding: 44px 36px 40px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 22px;
+    display: flex; flex-direction: column; position: relative;
+  }
+  .quote-card::before {
+    content: '"';
+    font-family: 'Manrope', sans-serif;
+    font-size: 80px; font-weight: 800;
+    color: var(--red); line-height: 0.5;
+    margin-bottom: 10px;
+  }
+  .quote-card.cyan::before { color: var(--blue); }
+  .quote-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--text); line-height: 1.4;
+    letter-spacing: -0.01em; flex: 1;
+  }
+  .quote-meta {
+    margin-top: 32px; padding-top: 22px;
+    border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: 56px 1fr; gap: 14px;
+    align-items: center;
+  }
+  .quote-avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--red), #C81920);
+    color: white; display: flex; align-items: center; justify-content: center;
+    font-family: 'Manrope', sans-serif; font-weight: 700;
+    font-size: 18px;
+  }
+  .quote-card.cyan .quote-avatar { background: linear-gradient(135deg, var(--blue), var(--blue-bright)); }
+  .quote-author {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; color: var(--text);
+    font-size: 19px; letter-spacing: -0.01em;
+  }
+  .quote-role { font-size: 15px; color: var(--text-2); margin-top: 4px; line-height: 1.35; }
+
+  /* ============== SLIDE 10: COMPETITION ============== */
+  .compete-wrap {
+    flex: 1; margin-top: 50px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 18px; overflow: hidden;
+  }
+  .compete-table {
+    width: 100%; border-collapse: collapse;
+  }
+  .compete-table th, .compete-table td {
+    padding: 18px 20px; text-align: center;
+    border-bottom: 1px solid var(--border);
+    font-size: 19px;
+  }
+  .compete-table th:first-child,
+  .compete-table td:first-child {
+    text-align: left;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; color: var(--text);
+    font-size: 21px;
+    width: 26%;
+    padding-left: 32px;
+  }
+  .compete-table thead th {
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    font-weight: 600; font-size: 14px;
+    color: var(--text-2); background: var(--bg-soft);
+    border-bottom: 2px solid var(--border-strong);
+    padding: 20px 12px;
+  }
+  .compete-table thead th.hp-head {
+    background: var(--red); color: white;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800; text-transform: none;
+    letter-spacing: -0.01em; font-size: 20px;
+  }
+  .compete-table tr:last-child td { border-bottom: none; }
+  .compete-table td.hp-col {
+    background: rgba(231, 29, 37, 0.04); font-weight: 700;
+  }
+  .compete-pill {
+    display: inline-flex; padding: 7px 14px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .pill-great { background: #DCFCE7; color: #15803D; }
+  .pill-poor { background: #FEE2E2; color: #B91C1C; }
+  .pill-mixed { background: #FEF3C7; color: #A16207; }
+  .pill-unknown { background: var(--bg-soft); color: var(--text-3); }
+  .pill-yes { background: #DCFCE7; color: #15803D; }
+  .pill-no { background: #FEE2E2; color: #B91C1C; }
+  .pill-low { background: #DCFCE7; color: #15803D; }
+  .pill-med { background: #FEF3C7; color: #A16207; }
+  .pill-high { background: #FEE2E2; color: #B91C1C; }
+
+  /* ============== SLIDE 11: PRICING — 4 TIERS ============== */
+  .price-grid {
+    flex: 1; display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px; align-content: center;
+    margin-top: 60px;
+  }
+  .price-card {
+    padding: 44px 32px; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 22px;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+  .price-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 6px; background: var(--accent, var(--red));
+  }
+  .price-card.t1 { --accent: var(--red); }
+  .price-card.t2 { --accent: var(--blue); }
+  .price-card.t3 { --accent: var(--blue-bright); }
+  .price-card.t4 { --accent: var(--text); }
+  .price-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .price-card.t2 .price-eyebrow,
+  .price-card.t3 .price-eyebrow { color: var(--blue); }
+  .price-card.t4 .price-eyebrow { color: var(--text); }
+  .price-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 34px; font-weight: 800;
+    color: var(--text); letter-spacing: -0.025em;
+    line-height: 1; margin: 14px 0 20px;
+  }
+  .price-desc {
+    font-size: 17px; color: var(--text-2);
+    line-height: 1.5; flex: 1;
+  }
+  .price-amounts {
+    margin-top: 32px; padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+  .price-cap {
+    font-family: 'Manrope', sans-serif;
+    font-size: 24px; font-weight: 800;
+    color: var(--text); letter-spacing: -0.02em;
+  }
+  .price-monthly {
+    font-family: 'Manrope', sans-serif;
+    font-size: 24px; font-weight: 800;
+    color: var(--text); letter-spacing: -0.02em;
+    margin-top: 8px;
+  }
+  .price-monthly small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    color: var(--text-3);
+    text-transform: uppercase; letter-spacing: 0.16em;
+  }
+  .pricing-footnote {
+    position: absolute; bottom: 130px; left: 110px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; color: var(--text-3);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    line-height: 1.7;
+  }
+
+  /* ============== SLIDE 12: CLOSING ============== */
+  .closing-content {
+    flex: 1; display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+  }
+  .closing-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 220px; font-weight: 900;
+    line-height: 0.9; letter-spacing: -0.06em;
+    color: var(--text);
+  }
+  .closing-title .accent { color: var(--red); font-style: italic; }
+  .closing-divider { width: 144px; height: 4px; background: var(--red); margin: 50px 0; }
+  .closing-strip {
+    display: grid; grid-template-columns: repeat(3, auto);
+    gap: 96px;
+  }
+  .closing-item .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--text-2);
+  }
+  .closing-item .val {
+    font-family: 'Manrope', sans-serif;
+    font-size: 32px; font-weight: 800;
+    color: var(--text); margin-top: 14px;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .closing-item .val a { color: var(--text); }
+  .closing-item .val small {
+    display: block;
+    font-size: 18px; font-weight: 500;
+    color: var(--text-2); margin-top: 6px;
+  }
+  .closing-item .val small a { color: var(--text-2); }
+
+  /* ============== FRAGMENT POLISH ============== */
+  /* Make fragments transition more smoothly */
+  .reveal .fragment.fade-up {
+    transform: translateY(40px);
+  }
+  .reveal .fragment.fade-up.visible {
+    transform: translateY(0);
+  }
+  .reveal .fragment.scale-in {
+    transform: scale(0.85);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  .reveal .fragment.scale-in.visible {
+    transform: scale(1);
+    opacity: 1;
+  }
+  .reveal .fragment.divider-grow {
+    transform: scaleX(0);
+    transform-origin: left;
+    opacity: 1;
+    transition: transform 0.6s ease;
+  }
+  .reveal .fragment.divider-grow.visible {
+    transform: scaleX(1);
+  }
+
+  /* ============== CUSTOM NAV ============== */
+  .nav-bar {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; align-items: center; gap: 18px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    padding: 10px 18px; border-radius: 100px;
+    z-index: 1000;
+    box-shadow: 0 12px 36px -10px rgba(15, 23, 42, 0.2);
+  }
+  .nav-btn {
+    background: transparent; border: none;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--text-2); padding: 0;
+  }
+  .nav-btn:hover { background: var(--bg-soft); color: var(--text); }
+  .nav-dots { display: flex; gap: 7px; align-items: center; }
+  .nav-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border-strong); cursor: pointer;
+    transition: all 0.2s; border: none; padding: 0;
+  }
+  .nav-dot.active {
+    background: var(--red); width: 26px; border-radius: 5px;
+  }
+  .nav-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: var(--text-2);
+    letter-spacing: 0.1em; min-width: 70px;
+    text-align: center;
+  }
+
+  /* Speaker note hint */
+  .reveal-hint {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-3);
+    background: rgba(255, 255, 255, 0.92);
+    padding: 8px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+    z-index: 999;
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+
+  @media print {
+    .nav-bar, .reveal-hint { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====== SLIDE 1: TITLE ====== -->
+    <section data-transition="fade">
+      <div class="frame title-frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta">
+            <span>HelloPackage · Product Introduction</span>
+            <span class="meta-dot"></span>
+            <span>2026</span>
+          </div>
+        </div>
+
+        <div class="title-content">
+          <span class="eyebrow fragment fade-up" data-fragment-index="0">Tech-driven package management</span>
+          <h1 class="hero-title fragment fade-up" data-fragment-index="1">
+            Get your deliveries<br/><span class="accent">sorted.</span>
+          </h1>
+          <div class="hero-divider fragment divider-grow" data-fragment-index="2"></div>
+          <p class="hero-subtitle fragment fade-up" data-fragment-index="3">AI-powered package management for multifamily and student housing.</p>
+
+          <div class="speaker-block fragment fade-up" data-fragment-index="4">
+            <div class="speaker-bar"></div>
+            <div>
+              <span class="speaker-name">Paul Favorov</span>
+              <span class="speaker-role">CEO &amp; CTO · HelloPackage</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>HelloPackage · Atlanta</span>
+          <span>01 / 12</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Opening framing. Three beats: who we are, what we do, who I am.
+        We're HelloPackage — we run the mailroom for 200+ apartment communities and 70,000+ residents.
+        Tech-driven means: computer vision in every room, AI-driven driver and resident workflows, and full-service onsite ambassadors backing the technology.
+        Today's 30 minutes: I'll walk through the problem, the platform, the 4-step flow, the 4 pricing tiers, and four real case studies so you can see how this looks at your portfolio.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 2: THREE TRENDS ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>The Market</span></div>
+        </div>
+
+        <div class="head-block">
+          <span class="eyebrow">Three trends drove the chaos</span>
+          <h2 class="display-title small">Three trends. One <span class="accent">broken mailroom.</span></h2>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card red fragment fade-up" data-fragment-index="0">
+            <div class="stat-image" style="background-image:url('destinations.jpg');"></div>
+            <div class="stat-body">
+              <div class="stat-number">50M<span style="font-size:0.5em;">+</span></div>
+              <div class="stat-label">Drop-off points</div>
+              <p>E-commerce exploded the number of delivery destinations. Every apartment door is now a logistics node — not a suburban porch.</p>
+            </div>
+          </div>
+          <div class="stat-card blue fragment fade-up" data-fragment-index="1">
+            <div class="stat-image" style="background-image:url('realtime.jpg');"></div>
+            <div class="stat-body">
+              <div class="stat-number">21.2B<span style="font-size:0.45em;color:var(--text-2);"> /yr</span></div>
+              <div class="stat-label">Packages · Real-time expected</div>
+              <p>Billions of parcels — and residents expect the tracking, notifications, and instant pickup they get from Amazon. For <em>this</em> package, in <em>this</em> building.</p>
+            </div>
+          </div>
+          <div class="stat-card dark fragment fade-up" data-fragment-index="2">
+            <div class="stat-image" style="background-image:url('staffing.jpg');"></div>
+            <div class="stat-body">
+              <div class="stat-number">10–20<span style="font-size:0.45em; color:var(--text-2);"> hrs/wk</span></div>
+              <div class="stat-label">Revenue staff · Burned out</div>
+              <p>Leasing and concierge — the roles that drive renewals and rent — instead sort boxes all week. Overworked. Stressed. Burned out. <small style="display:block;margin-top:6px;color:var(--text-3);font-size:0.78em;font-style:italic;">Source: NMHC</small></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>The market</span>
+          <span>02 / 12</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Three trends collided to break the mailroom — and they're still accelerating.
+
+        TREND ONE — 50M+ drop-off points. E-commerce turned every apartment door into a logistics node. Infrastructure built for porches, not for floor 14, unit 1407. The number of destinations grew exponentially while every building's mailroom stayed the same size.
+
+        TREND TWO — 21.2 billion packages a year in the U.S., and 35% of them route to multifamily. The volume isn't the only problem — residents now expect Amazon-grade real-time visibility for every single one. Tracking, alerts, instant pickup. Same expectations they have for the box itself.
+
+        TREND THREE — staff burnout. Your leasing and concierge teams are revenue-generating roles. They drive renewals, rent growth, resident satisfaction. NMHC pegs the time they lose to packages at 10-20 hours per week. That's a third of their week, gone to sorting boxes. Overworked. Stressed. Burned out. And every hour comes out of NOI.
+
+        Three trends. One broken mailroom. That's what we built HelloPackage to fix.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 3: PROBLEM ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>The Problem</span></div>
+        </div>
+
+        <div class="split" style="margin-top: 60px;">
+          <div class="split-left">
+            <span class="eyebrow">The problem</span>
+            <h2 class="display-title small">Volumes changed.<br/>So did <span class="accent">expectations.</span></h2>
+
+            <div class="pain-list">
+              <div class="pain-item fragment fade-up" data-fragment-index="0">
+                <span class="pain-num">01</span>
+                <div class="pain-text">Lockers overflow.</div>
+              </div>
+              <div class="pain-item fragment fade-up" data-fragment-index="1">
+                <span class="pain-num">02</span>
+                <div class="pain-text">Closets are unsecured.</div>
+              </div>
+              <div class="pain-item fragment fade-up" data-fragment-index="2">
+                <span class="pain-num">03</span>
+                <div class="pain-text">Manual labor is not scalable.</div>
+              </div>
+              <div class="pain-item fragment fade-up" data-fragment-index="3">
+                <span class="pain-num">04</span>
+                <div class="pain-text">Frustration causing turnover.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chaos-visual fragment scale-in" data-fragment-index="4">
+            <div class="chaos-photo"></div>
+            <div class="chaos-overlay">
+              <div class="chaos-stat">+11%</div>
+              <div class="chaos-stat-label">E-commerce growth · annual</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>The problem</span>
+          <span>03 / 12</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Four symptoms your team hears about every week.
+
+        Lockers overflow — they were sized for 2015 volume. They can't handle 2026. The hardware doesn't grow with the building.
+
+        Closets are unsecured — when lockers fill, staff stuff parcels in a leasing back-room. No camera, no audit, no chain of custody. When packages walk off, you have no recourse.
+
+        Manual labor is not scalable — throwing concierge hours at the problem works for 50 packages a day, not 500. The labor cost goes linear while the volume goes exponential. The math gets worse every quarter.
+
+        Frustration causing turnover — and not just resident turnover. Leasing teams burn out. Concierges quit. Online reviews tank. The package problem becomes a hiring problem becomes a NOI problem.
+
+        Under all of this: e-commerce keeps growing 11% annually. Whatever you have today won't be enough next year.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 4: THREE OBJECTIVES ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>Three Objectives</span></div>
+        </div>
+
+        <div class="head-block">
+          <span class="eyebrow">Built around three objectives</span>
+          <h2 class="display-title small">Operators want different <span class="accent">things.</span></h2>
+        </div>
+
+        <div class="obj-grid">
+          <div class="obj-card red fragment fade-up" data-fragment-index="0">
+            <span class="obj-num">Objective 01</span>
+            <h3 class="obj-title">Elevate the resident.</h3>
+            <p class="obj-body">Make package pickup fast, secure, and frustration-free. 24/7 access, app notifications, secure pickup codes.</p>
+          </div>
+          <div class="obj-card cyan fragment fade-up" data-fragment-index="1">
+            <span class="obj-num">Objective 02</span>
+            <h3 class="obj-title">Reduce the workload.</h3>
+            <p class="obj-body">Free staff from sorting packages, managing complaints, or tracking down boxes. Save 10–20 hours per week.</p>
+          </div>
+          <div class="obj-card dark fragment fade-up" data-fragment-index="2">
+            <span class="obj-num">Objective 03</span>
+            <h3 class="obj-title">Bring AI to the mailroom.</h3>
+            <p class="obj-body">Real-time tracking, secure access, connected technology. Cut costs and keep operations smooth.</p>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>Three objectives</span>
+          <span>04 / 12</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        We built the platform around three objectives — one for each stakeholder.
+        Property manager wants resident happiness. Asset director wants lower opex. CIO wants smart, scalable tech.
+        Lockers solve maybe one of these. We solve all three at once — which is why we win head-to-head.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 5: HOW IT WORKS ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>How It Works</span></div>
+        </div>
+
+        <div class="head-block">
+          <span class="eyebrow">How it works</span>
+          <h2 class="display-title small">Four steps, <span class="accent">every package.</span></h2>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card fragment fade-up" data-fragment-index="0">
+            <span class="step-pill">Step 01</span>
+            <div class="step-title">Delivery check-in.</div>
+            <p class="step-body">Drivers follow a guided process and log every package as they arrive.</p>
+          </div>
+          <div class="step-card fragment fade-up" data-fragment-index="1">
+            <span class="step-pill">Step 02</span>
+            <div class="step-title">Logged &amp; stored.</div>
+            <p class="step-body">Computer vision tracks every drop-off in real time. Secured in the room.</p>
+          </div>
+          <div class="step-card fragment fade-up" data-fragment-index="2">
+            <span class="step-pill">Step 03</span>
+            <div class="step-title">Resident alerts.</div>
+            <p class="step-body">Pickup instructions sent automatically. 24/7 secure access with a code.</p>
+          </div>
+          <div class="step-card fragment fade-up" data-fragment-index="3">
+            <span class="step-pill">Step 04</span>
+            <div class="step-title">Pick up &amp; tracking.</div>
+            <p class="step-body">Every interaction recorded. Full visibility for property and performance insights.</p>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>How it works</span>
+          <span>05 / 12</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Four steps, every package, no exceptions.
+        Check-in: drivers follow our flow. 98.7% participation — that's the highest in the industry. No more "dump and go".
+        Logged: computer vision sees the package, logs it, knows who it's for, no scanning needed.
+        Alert: resident gets a notification on the app within seconds.
+        Pickup: secure code, 24/7 access, every retrieval recorded for audit.
+        This is the same flow at every property. Repeatable. Scalable. Auditable.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 6: SYSTEM COMPONENTS ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>The Platform</span></div>
+        </div>
+
+        <div class="head-block">
+          <span class="eyebrow">The platform</span>
+          <h2 class="display-title small">Four pieces. One <span class="accent">platform.</span></h2>
+        </div>
+
+        <div class="system-grid">
+          <div class="system-card fragment fade-up" data-fragment-index="0">
+            <div class="icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <span class="system-num">Component 01</span>
+            <div class="system-name">The Package Room.</div>
+            <p class="system-desc">Peace of mind around the clock. Packages stored safely and picked up on residents' time.</p>
+          </div>
+          <div class="system-card cyan fragment fade-up" data-fragment-index="1">
+            <div class="icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            </div>
+            <span class="system-num">Component 02</span>
+            <div class="system-name">Resident App.</div>
+            <p class="system-desc">Pickups made simple. Instant updates and 24/7 collection with a secure code.</p>
+          </div>
+          <div class="system-card fragment fade-up" data-fragment-index="2">
+            <div class="icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <span class="system-num">Component 03</span>
+            <div class="system-name">Courier Access.</div>
+            <p class="system-desc">In and out without interrupting the day. Couriers drop off in seconds. Every action logged.</p>
+          </div>
+          <div class="system-card cyan fragment fade-up" data-fragment-index="3">
+            <div class="icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            </div>
+            <span class="system-num">Component 04</span>
+            <div class="system-name">Property Dashboard.</div>
+            <p class="system-desc">Deliveries managed without lifting a finger. Volume, dwell time, satisfaction — all in one place.</p>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>The platform</span>
+          <span>06 / 12</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        The platform is four connected pieces.
+        The Package Room — the physical space we convert or deliver.
+        Resident App — what your tenants use to know their package is in and pick it up.
+        Courier Access — how drivers get in, scan, and leave.
+        Property Dashboard — what your asset and property teams use to see volume, dwell time, and satisfaction.
+        Each piece works on its own. Together they're the system that runs the mailroom for you.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 7: WHY HP ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>Why HelloPackage</span></div>
+        </div>
+
+        <div class="head-block">
+          <span class="eyebrow">Why HelloPackage</span>
+          <h2 class="display-title small">Five things lockers <span class="accent">can't do.</span></h2>
+        </div>
+
+        <div class="why-grid">
+          <div class="why-card fragment fade-up" data-fragment-index="0">
+            <span class="why-num">Reason 01</span>
+            <div class="why-title">No more overflow.</div>
+            <p class="why-body">Rooms structured to scale with delivery, not against it.</p>
+          </div>
+          <div class="why-card fragment fade-up" data-fragment-index="1">
+            <span class="why-num">Reason 02</span>
+            <div class="why-title">No daily staff work.</div>
+            <p class="why-body">Your team stops sorting. We take it from here.</p>
+          </div>
+          <div class="why-card fragment fade-up" data-fragment-index="2">
+            <span class="why-num">Reason 03</span>
+            <div class="why-title">Alerts built in.</div>
+            <p class="why-body">Every package logged. Every pickup tracked. Automatically.</p>
+          </div>
+          <div class="why-card fragment fade-up" data-fragment-index="3">
+            <span class="why-num">Reason 04</span>
+            <div class="why-title">Secure by design.</div>
+            <p class="why-body">Access-controlled rooms. Always-on cameras. Complete chain of custody.</p>
+          </div>
+          <div class="why-card fragment fade-up" data-fragment-index="4">
+            <span class="why-num">Reason 05</span>
+            <div class="why-title">Flexible by design.</div>
+            <p class="why-body">Convert the space you have. Or have us bring the room to you.</p>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>Why HelloPackage</span>
+          <span>07 / 12</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Five reasons we beat lockers head-to-head.
+        Overflow — lockers say no when full. We use floor space for the 25% of packages they reject.
+        No daily staff — Luxer still needs concierge for overflow. We don't.
+        Alerts — built into our app, not bolted on.
+        Secure — access-controlled, cameras, chain of custody. Most lockers don't do video at all.
+        Flexible — we convert your space OR drop a modular room on site. Lockers force you to take their hardware as-is.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 8: PROVEN RESULTS ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>Proven Results</span></div>
+        </div>
+
+        <div class="results-layout">
+          <div class="big-stat-block">
+            <span class="eyebrow">Proven results</span>
+            <div class="big-stat-num fragment scale-in" data-fragment-index="0">200<span class="plus">+</span></div>
+            <div class="big-stat-label">Communities live.</div>
+            <p class="big-stat-body">Across 21 states and 27 metros. Multifamily, student housing, mixed-use — every property type. Operating 24/7/365 with onsite ambassadors.</p>
+          </div>
+
+          <div class="results-benefits">
+            <div class="benefit-row fragment fade-up" data-fragment-index="1">
+              <div>
+                <div class="benefit-title">Package density</div>
+                <div class="benefit-sub">Versus traditional lockers</div>
+              </div>
+              <span class="benefit-arrow">4×</span>
+            </div>
+            <div class="benefit-row fragment fade-up" data-fragment-index="2">
+              <div>
+                <div class="benefit-title">Check-in &amp; retrieval</div>
+                <div class="benefit-sub">Average speed improvement</div>
+              </div>
+              <span class="benefit-arrow">↑ 52%</span>
+            </div>
+            <div class="benefit-row fragment fade-up" data-fragment-index="3">
+              <div>
+                <div class="benefit-title">Driver participation</div>
+                <div class="benefit-sub">No more "dump and go"</div>
+              </div>
+              <span class="benefit-arrow">98.7%</span>
+            </div>
+            <div class="benefit-row fragment fade-up" data-fragment-index="4">
+              <div>
+                <div class="benefit-title">Cost-effective</div>
+                <div class="benefit-sub">Versus traditional labor</div>
+              </div>
+              <span class="benefit-arrow">↓ 80%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>Proven results</span>
+          <span>08 / 12</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Four numbers that matter to operators.
+        4x density — we fit 4x as many packages in the same square footage vs traditional lockers. That's how we handle volume without an addition.
+        52% faster check-in — drivers move through faster, residents pick up faster, throughput up.
+        98.7% driver participation — drivers actually use our flow. Other systems get 30-40%.
+        80% more cost-effective vs traditional labor — this is the line item your CFO wants.
+        And under all of this: 200+ communities. We've done this.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 9: CUSTOMER VOICE ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>Customer Voice</span></div>
+        </div>
+
+        <div class="head-block">
+          <span class="eyebrow">What operators say</span>
+          <h2 class="display-title small">Trusted across <span class="accent">portfolios.</span></h2>
+        </div>
+
+        <div class="quotes-grid">
+          <div class="quote-card fragment fade-up" data-fragment-index="0">
+            <p class="quote-text">The technology that HP has deployed is beyond all other. The resident experience is seamless and allows for 24-hour access.</p>
+            <div class="quote-meta">
+              <div class="quote-avatar">LM</div>
+              <div>
+                <div class="quote-author">Leslie Mathis</div>
+                <div class="quote-role">Woodfield Development</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="quote-card cyan fragment fade-up" data-fragment-index="1">
+            <p class="quote-text">Since switching to HelloPackage we haven't had any complaints. It's easy, it's user-friendly, it's secure. We love it.</p>
+            <div class="quote-meta">
+              <div class="quote-avatar">SM</div>
+              <div>
+                <div class="quote-author">Summer Monroe</div>
+                <div class="quote-role">Assistant CM · Briley Apartment Homes</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="quote-card fragment fade-up" data-fragment-index="2">
+            <p class="quote-text">HelloPackage has the best customer service. The system is simple — codes, cameras, zones. Residents are happy.</p>
+            <div class="quote-meta">
+              <div class="quote-avatar">ID</div>
+              <div>
+                <div class="quote-author">Iteya Dunham</div>
+                <div class="quote-role">Leasing Consultant · The Brady</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>Customer voice</span>
+          <span>09 / 12</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Three voices, three different roles.
+        Asset management at Woodfield Development.
+        Day-to-day at Briley Apartment Homes — they switched FROM a competitor.
+        Leasing at The Brady, where they highlight customer service.
+        Hand the prospect references during the demo and let them call any of these.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 10: COMPETITION ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>The Competition</span></div>
+        </div>
+
+        <div class="head-block">
+          <span class="eyebrow">The competition</span>
+          <h2 class="display-title small">The other guys just <span class="accent">don't deliver.</span></h2>
+        </div>
+
+        <div class="compete-wrap fragment fade-up" data-fragment-index="0">
+          <table class="compete-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="hp-head">HelloPackage</th>
+                <th>Manual</th>
+                <th>Lockers</th>
+                <th>Tech Rooms</th>
+                <th>Offsite</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Online reviews</td>
+                <td class="hp-col"><span class="compete-pill pill-great">Great</span></td>
+                <td><span class="compete-pill pill-poor">Poor</span></td>
+                <td><span class="compete-pill pill-mixed">Mixed</span></td>
+                <td><span class="compete-pill pill-unknown">No ratings</span></td>
+                <td><span class="compete-pill pill-poor">Poor</span></td>
+              </tr>
+              <tr>
+                <td>Service level</td>
+                <td class="hp-col"><span class="compete-pill pill-yes">High</span></td>
+                <td><span class="compete-pill pill-no">Low</span></td>
+                <td><span class="compete-pill pill-no">Low</span></td>
+                <td><span class="compete-pill pill-no">Low</span></td>
+                <td><span class="compete-pill pill-no">Low</span></td>
+              </tr>
+              <tr>
+                <td>Manages drivers</td>
+                <td class="hp-col"><span class="compete-pill pill-yes">Yes</span></td>
+                <td><span class="compete-pill pill-no">No</span></td>
+                <td><span class="compete-pill pill-no">No</span></td>
+                <td><span class="compete-pill pill-no">No</span></td>
+                <td><span class="compete-pill pill-yes">Yes</span></td>
+              </tr>
+              <tr>
+                <td>Onsite labor</td>
+                <td class="hp-col"><span class="compete-pill pill-yes">Yes</span></td>
+                <td><span class="compete-pill pill-no">No</span></td>
+                <td><span class="compete-pill pill-mixed">Mixed</span></td>
+                <td><span class="compete-pill pill-no">No</span></td>
+                <td><span class="compete-pill pill-unknown">N/A</span></td>
+              </tr>
+              <tr>
+                <td>Scalable</td>
+                <td class="hp-col"><span class="compete-pill pill-yes">Yes</span></td>
+                <td><span class="compete-pill pill-no">No</span></td>
+                <td><span class="compete-pill pill-mixed">Partial</span></td>
+                <td><span class="compete-pill pill-yes">Yes</span></td>
+                <td><span class="compete-pill pill-yes">Yes</span></td>
+              </tr>
+              <tr>
+                <td>Theft protection</td>
+                <td class="hp-col"><span class="compete-pill pill-yes">Yes</span></td>
+                <td><span class="compete-pill pill-no">Low</span></td>
+                <td><span class="compete-pill pill-mixed">Moderate</span></td>
+                <td><span class="compete-pill pill-unknown">Unknown</span></td>
+                <td><span class="compete-pill pill-no">High risk</span></td>
+              </tr>
+              <tr>
+                <td>Cost</td>
+                <td class="hp-col"><span class="compete-pill pill-med">Low/Med/High</span></td>
+                <td><span class="compete-pill pill-med">Medium</span></td>
+                <td><span class="compete-pill pill-low">Low</span></td>
+                <td><span class="compete-pill pill-low">Low</span></td>
+                <td><span class="compete-pill pill-high">High</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="foot">
+          <span>The competition</span>
+          <span>10 / 12</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        We're the only system rated HIGH or YES on every dimension that matters to residents and operators.
+        Lockers are cheap on sticker — but they fail on onsite labor and theft protection.
+        Offsite is expensive AND fails on resident satisfaction — it's a worse experience.
+        Manual is what most operators have today. It rates LOW on basically everything.
+        The one place we're not "lowest" is cost — we're medium. That's because we include the labor, the technology, and the service.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 11: PRICING ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>Pricing</span></div>
+        </div>
+
+        <div class="head-block">
+          <span class="eyebrow">A solution for every property</span>
+          <h2 class="display-title small">Pricing that fits <span class="accent">the room.</span></h2>
+        </div>
+
+        <div class="price-grid">
+          <div class="price-card t1 fragment fade-up" data-fragment-index="0">
+            <span class="price-eyebrow">Tier 01</span>
+            <div class="price-name">HelloPackage Core.</div>
+            <p class="price-desc">A no-shelving solution with smart access, AI-driven delivery management, and support.</p>
+            <div class="price-amounts">
+              <div class="price-cap">Cap Ex — $12K</div>
+              <div class="price-monthly">$1.70 <small>/ unit / mo</small></div>
+            </div>
+          </div>
+          <div class="price-card t2 fragment fade-up" data-fragment-index="1">
+            <span class="price-eyebrow">Tier 02</span>
+            <div class="price-name">HelloPackage Essentials.</div>
+            <p class="price-desc">Low-cost upgrade with LED shelve tech, 24/7 support, and AI-driven driver management.</p>
+            <div class="price-amounts">
+              <div class="price-cap">Cap Ex — $25K</div>
+              <div class="price-monthly">$2.20 <small>/ unit / mo</small></div>
+            </div>
+          </div>
+          <div class="price-card t3 fragment fade-up" data-fragment-index="2">
+            <span class="price-eyebrow">Tier 03</span>
+            <div class="price-name">HelloPackage Enhanced.</div>
+            <p class="price-desc">All of Essentials plus AI session tracking, expanded driver management, and a dedicated CSM.</p>
+            <div class="price-amounts">
+              <div class="price-cap">Cap Ex — $35K</div>
+              <div class="price-monthly">$3.20 <small>/ unit / mo</small></div>
+            </div>
+          </div>
+          <div class="price-card t4 fragment fade-up" data-fragment-index="3">
+            <span class="price-eyebrow">Tier 04</span>
+            <div class="price-name">Modular Package Room.</div>
+            <p class="price-desc">No space, no problem. Standalone climate-controlled room with all HelloPackage benefits.</p>
+            <div class="price-amounts">
+              <div class="price-cap">Cap Ex — $50K</div>
+              <div class="price-monthly">$3.20 <small>/ unit / mo</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pricing-footnote">
+          <div>* New development ramp available</div>
+          <div>* Op Ex financing available</div>
+        </div>
+
+        <div class="foot">
+          <span>Pricing</span>
+          <span>11 / 12</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Four tiers — pick the one that matches the property's profile and budget.
+        Core: smallest cap-ex, lowest monthly. For a small property that just wants secure access and basic AI.
+        Essentials: adds shelving technology and AI driver management. Most common for sub-300 unit properties.
+        Enhanced: full feature set, dedicated CSM. For mid-market and larger.
+        Modular: for properties without convertible space. We bring the room.
+        New development ramp pricing for lease-up. Op-ex financing for properties that don't want to spend cap-ex.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 12: CLOSING ====== -->
+    <section data-transition="fade">
+      <div class="frame closing-frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>HelloPackage · 2026</span></div>
+        </div>
+
+        <div class="closing-content">
+          <span class="eyebrow fragment fade-up" data-fragment-index="0">Let's deliver</span>
+          <h1 class="closing-title fragment fade-up" data-fragment-index="1">Let's <span class="accent">deliver.</span></h1>
+          <div class="closing-divider fragment divider-grow" data-fragment-index="2"></div>
+
+          <div class="closing-strip">
+            <div class="closing-item fragment fade-up" data-fragment-index="3">
+              <div class="lbl">Sales</div>
+              <div class="val">Paul Favorov
+                <small><a href="mailto:paulfavorov@packagesolutions.com">paulfavorov@packagesolutions.com</a></small>
+              </div>
+            </div>
+            <div class="closing-item fragment fade-up" data-fragment-index="4">
+              <div class="lbl">Phone</div>
+              <div class="val">404.558.0668
+                <small>866.931.5567 toll-free</small>
+              </div>
+            </div>
+            <div class="closing-item fragment fade-up" data-fragment-index="5">
+              <div class="lbl">HQ</div>
+              <div class="val">Peachtree Corners, GA
+                <small>21 states · 27 metro areas</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>HelloPackage · packagesolutions.com</span>
+          <span>12 / 12</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Close the deal.
+        Three asks: (1) book the demo follow-up, (2) introduce me to your asset team, (3) tell me which 3-5 properties to scope first.
+        We can model exact numbers for your portfolio. We can walk a property in person. We can talk to your CFO directly.
+        Coffee on us if we're in your market — Atlanta, Nashville, Charlotte, DFW, Phoenix, all reachable.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<!-- ====== CUSTOM NAV BAR ====== -->
+<div class="nav-bar" id="navBar">
+  <button class="nav-btn" id="navPrev" aria-label="Previous">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <div class="nav-dots" id="navDots"></div>
+  <span class="nav-counter" id="navCounter">01 / 12</span>
+  <button class="nav-btn" id="navNext" aria-label="Next">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+</div>
+
+<div class="reveal-hint">
+  S · speaker notes  ·  O · overview  ·  ← → · nav  ·  ESC · exit
+</div>
+
+<script type="module">
+  import Reveal from 'https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.esm.js';
+  import RevealNotes from 'https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/notes/notes.esm.js';
+
+  const deck = new Reveal({
+    width: 1920,
+    height: 1080,
+    margin: 0,
+    minScale: 0.1,
+    maxScale: 2.5,
+    center: false,
+    controls: false,
+    progress: true,
+    slideNumber: false,
+    hash: false,
+    history: false,
+    keyboard: true,
+    overview: true,
+    touch: true,
+    transition: 'slide',
+    transitionSpeed: 'default',
+    backgroundTransition: 'fade',
+    fragments: true,
+    fragmentInURL: false,
+    mouseWheel: false,
+    plugins: [ RevealNotes ],
+  });
+
+  deck.initialize();
+
+  // ============== CUSTOM NAV ==============
+  const total = document.querySelectorAll('.reveal .slides > section').length;
+  const dotsEl = document.getElementById('navDots');
+  const counterEl = document.getElementById('navCounter');
+  const prevBtn = document.getElementById('navPrev');
+  const nextBtn = document.getElementById('navNext');
+
+  for (let i = 0; i < total; i++) {
+    const b = document.createElement('button');
+    b.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    b.addEventListener('click', () => deck.slide(i));
+    dotsEl.appendChild(b);
+  }
+  prevBtn.addEventListener('click', () => deck.prev());
+  nextBtn.addEventListener('click', () => deck.next());
+
+  function updateNav() {
+    const i = deck.getIndices().h;
+    document.querySelectorAll('.nav-dot').forEach((d, di) => {
+      d.classList.toggle('active', di === i);
+    });
+    counterEl.textContent = `${String(i + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+  }
+  deck.on('slidechanged', updateNav);
+  deck.on('ready', updateNav);
+
+  // ============== PLATFORM HOOKS ==============
+  // Escape → close fullscreen (overrides Reveal's overview mode)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      // Allow Reveal to handle Escape when overview is open
+      if (deck.isOverview()) return;
+      e.stopPropagation();
+      window.parent.postMessage({ type: 'close-fullscreen' }, '*');
+    }
+  }, true);
+
+  // Parent message listener for forwarded navigation
+  window.addEventListener('message', (e) => {
+    if (!e.data || typeof e.data !== 'object') return;
+    if (e.data.type === 'navigate') {
+      if (e.data.direction === 'next') deck.next();
+      else if (e.data.direction === 'prev') deck.prev();
+    }
+  });
+
+  // Hide hint after 8s
+  setTimeout(() => {
+    const hint = document.querySelector('.reveal-hint');
+    if (hint) {
+      hint.style.transition = 'opacity 1s ease';
+      hint.style.opacity = '0';
+      setTimeout(() => hint.remove(), 1000);
+    }
+  }, 8000);
+</script>
+
+</body>
+</html>
