@@ -914,29 +914,29 @@
   .closing-item .val small a { color: var(--text-2); }
 
   /* ============== FRAGMENT POLISH ============== */
-  /* Make fragments transition more smoothly */
-  .reveal .fragment.fade-up {
+  /* Makes transition more smoothly */
+  .reveal ..fade-up {
     transform: translateY(40px);
   }
-  .reveal .fragment.fade-up.visible {
+  .reveal ..fade-up.visible {
     transform: translateY(0);
   }
-  .reveal .fragment.scale-in {
+  .reveal ..scale-in {
     transform: scale(0.85);
     opacity: 0;
     transition: transform 0.5s ease, opacity 0.5s ease;
   }
-  .reveal .fragment.scale-in.visible {
+  .reveal ..scale-in.visible {
     transform: scale(1);
     opacity: 1;
   }
-  .reveal .fragment.divider-grow {
+  .reveal ..divider-grow {
     transform: scaleX(0);
     transform-origin: left;
     opacity: 1;
     transition: transform 0.6s ease;
   }
-  .reveal .fragment.divider-grow.visible {
+  .reveal ..divider-grow.visible {
     transform: scaleX(1);
   }
 
@@ -1017,14 +1017,14 @@
         </div>
 
         <div class="title-content">
-          <span class="eyebrow fragment fade-up" data-fragment-index="0">Tech-driven package management</span>
-          <h1 class="hero-title fragment fade-up" data-fragment-index="1">
+          <span class="eyebrow">Tech-driven package management</span>
+          <h1 class="hero-title">
             Get your deliveries<br/><span class="accent">sorted.</span>
           </h1>
-          <div class="hero-divider fragment divider-grow" data-fragment-index="2"></div>
-          <p class="hero-subtitle fragment fade-up" data-fragment-index="3">AI-powered package management for multifamily and student housing.</p>
+          <div class="hero-divider"></div>
+          <p class="hero-subtitle">AI-powered package management for multifamily and student housing.</p>
 
-          <div class="speaker-block fragment fade-up" data-fragment-index="4">
+          <div class="speaker-block">
             <div class="speaker-bar"></div>
             <div>
               <span class="speaker-name">Paul Favorov</span>
@@ -1061,7 +1061,7 @@
         </div>
 
         <div class="stat-grid">
-          <div class="stat-card red fragment fade-up" data-fragment-index="0">
+          <div class="stat-card red">
             <div class="stat-image" style="background-image:url('destinations.jpg');"></div>
             <div class="stat-body">
               <div class="stat-number">50M<span style="font-size:0.5em;">+</span></div>
@@ -1069,7 +1069,7 @@
               <p>E-commerce exploded the number of delivery destinations. Every apartment door is now a logistics node — not a suburban porch.</p>
             </div>
           </div>
-          <div class="stat-card blue fragment fade-up" data-fragment-index="1">
+          <div class="stat-card blue">
             <div class="stat-image" style="background-image:url('realtime.jpg');"></div>
             <div class="stat-body">
               <div class="stat-number">21.2B<span style="font-size:0.45em;color:var(--text-2);"> /yr</span></div>
@@ -1077,7 +1077,7 @@
               <p>Billions of parcels — and residents who expect them on demand. Pickup the moment they arrive, on their schedule, not yours. For <em>this</em> package, in <em>this</em> building.</p>
             </div>
           </div>
-          <div class="stat-card dark fragment fade-up" data-fragment-index="2">
+          <div class="stat-card dark">
             <div class="stat-image" style="background-image:url('staffing.jpg');"></div>
             <div class="stat-body">
               <div class="stat-number">10–20<span style="font-size:0.45em; color:var(--text-2);"> hrs/wk</span></div>
@@ -1120,26 +1120,26 @@
             <h2 class="display-title small">Volumes changed.<br/>So did <span class="accent">expectations.</span></h2>
 
             <div class="pain-list">
-              <div class="pain-item fragment fade-up" data-fragment-index="0">
+              <div class="pain-item">
                 <span class="pain-num">01</span>
                 <div class="pain-text">Lockers overflow.</div>
               </div>
-              <div class="pain-item fragment fade-up" data-fragment-index="1">
+              <div class="pain-item">
                 <span class="pain-num">02</span>
                 <div class="pain-text">Closets are unsecured.</div>
               </div>
-              <div class="pain-item fragment fade-up" data-fragment-index="2">
+              <div class="pain-item">
                 <span class="pain-num">03</span>
                 <div class="pain-text">Manual labor is not scalable.</div>
               </div>
-              <div class="pain-item fragment fade-up" data-fragment-index="3">
+              <div class="pain-item">
                 <span class="pain-num">04</span>
                 <div class="pain-text">Frustration causing turnover.</div>
               </div>
             </div>
           </div>
 
-          <div class="chaos-visual fragment scale-in" data-fragment-index="4">
+          <div class="chaos-visual">
             <div class="chaos-photo"></div>
             <div class="chaos-overlay">
               <div class="chaos-stat">+11%</div>
@@ -1183,17 +1183,17 @@
         </div>
 
         <div class="obj-grid">
-          <div class="obj-card red fragment fade-up" data-fragment-index="0">
+          <div class="obj-card red">
             <span class="obj-num">Objective 01</span>
             <h3 class="obj-title">Reduce the workload.</h3>
             <p class="obj-body">Free staff from sorting packages, fielding complaints, or chasing boxes. Save 10–20 hours per week — for the work that actually drives renewals.</p>
           </div>
-          <div class="obj-card cyan fragment fade-up" data-fragment-index="1">
+          <div class="obj-card cyan">
             <span class="obj-num">Objective 02</span>
             <h3 class="obj-title">Elevate the resident experience.</h3>
             <p class="obj-body">Make package pickup fast, secure, and frustration-free. 24/7 access, app notifications, secure pickup codes — the experience your residents already expect.</p>
           </div>
-          <div class="obj-card dark fragment fade-up" data-fragment-index="2">
+          <div class="obj-card dark">
             <span class="obj-num">Objective 03</span>
             <h3 class="obj-title">Future-proof the community.</h3>
             <p class="obj-body">Modern AI built to scale with what comes next. Computer vision, real-time behavior understanding, continuous platform updates. The amenity that compounds in value and ROI.</p>
@@ -1233,22 +1233,22 @@
         </div>
 
         <div class="steps-grid">
-          <div class="step-card fragment fade-up" data-fragment-index="0">
+          <div class="step-card">
             <span class="step-pill">Step 01</span>
             <div class="step-title">Driver guidance.</div>
-            <p class="step-body">Automatically grant access and train drivers to follow a guided process and log every package as they arrive. 98.7% driver participation — no more "dump and go".</p>
+            <p class="step-body">Automatically grant access and train drivers to follow a guided process and log every package as they arrive. 98.7% driver participation — no more"dump and go".</p>
           </div>
-          <div class="step-card fragment fade-up" data-fragment-index="1">
+          <div class="step-card">
             <span class="step-pill">Step 02</span>
             <div class="step-title">Logged &amp; stored.</div>
             <p class="step-body">Multiple indoor kiosks and computer vision track every drop-off in real time. Stored in the secure, access-controlled room with cameras on.</p>
           </div>
-          <div class="step-card fragment fade-up" data-fragment-index="2">
+          <div class="step-card">
             <span class="step-pill">Step 03</span>
             <div class="step-title">Resident alerts.</div>
             <p class="step-body">Pickup instructions sent automatically. 24/7 secure access with a code.</p>
           </div>
-          <div class="step-card fragment fade-up" data-fragment-index="3">
+          <div class="step-card">
             <span class="step-pill">Step 04</span>
             <div class="step-title">Automated security monitoring.</div>
             <p class="step-body">Every interaction recorded. Full chain-of-custody. Package volume, resident duration, and room state visible to property in the Dashboard.</p>
@@ -1263,7 +1263,7 @@
 
       <aside class="notes">
         Four steps, every package, no exceptions.
-        Driver guidance: drivers automatically get access and we walk them through a guided logging flow for every parcel. 98.7% participation — the highest in the industry. No more "dump and go".
+        Driver guidance: drivers automatically get access and we walk them through a guided logging flow for every parcel. 98.7% participation — the highest in the industry. No more"dump and go".
         Logged &amp; stored: multiple indoor kiosks plus computer vision see every drop-off in real time. Stored in the secure, access-controlled room with cameras on.
         Alert: resident gets a notification on the app within seconds.
         Automated security monitoring: every interaction recorded with full chain-of-custody. Property sees package volume, resident duration, and room state live in the dashboard.
@@ -1285,7 +1285,7 @@
         </div>
 
         <div class="system-grid">
-          <div class="system-card fragment fade-up" data-fragment-index="0">
+          <div class="system-card">
             <div class="icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
             </div>
@@ -1293,7 +1293,7 @@
             <div class="system-name">The Package Room.</div>
             <p class="system-desc">Peace of mind around the clock. Packages stored safely and picked up on residents' time.</p>
           </div>
-          <div class="system-card cyan fragment fade-up" data-fragment-index="1">
+          <div class="system-card cyan">
             <div class="icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
             </div>
@@ -1301,7 +1301,7 @@
             <div class="system-name">Delivery Driver Management.</div>
             <p class="system-desc">Automatic access, guided drop-off flow, ongoing training, and real-time monitoring. 98.7% driver participation. 52% faster check-in &amp; retrieval vs. legacy.</p>
           </div>
-          <div class="system-card fragment fade-up" data-fragment-index="2">
+          <div class="system-card">
             <div class="icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
@@ -1309,7 +1309,7 @@
             <div class="system-name">Remote &amp; On-Site Service.</div>
             <p class="system-desc">24/7 remote team handles every resident request. On-site team handles reconciliation, clean-up, return-to-sender, and exceptions. Your staff stays out of the room.</p>
           </div>
-          <div class="system-card cyan fragment fade-up" data-fragment-index="3">
+          <div class="system-card cyan">
             <div class="icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
             </div>
@@ -1330,7 +1330,7 @@
 
         The Package Room — the physical space we convert or deliver. 4x density vs lockers, access-controlled, cameras always on.
 
-        Delivery Driver Management — how every driver gets in and what they do once they're in. Automatic access, guided drop-off flow, ongoing training, real-time monitoring. 98.7% participation. This is what fixes the "dump and go" problem you've had with every other system.
+        Delivery Driver Management — how every driver gets in and what they do once they're in. Automatic access, guided drop-off flow, ongoing training, real-time monitoring. 98.7% participation. This is what fixes the"dump and go" problem you've had with every other system.
 
         Remote and On-Site Service — the people layer. Remote team handles every resident question, ticket, and request 24/7. On-site team handles reconciliation, clean-up, return-to-sender, and any exception. Your leasing team stays out of the room entirely.
 
@@ -1349,12 +1349,12 @@
         </div>
 
         <div class="video-demo-layout">
-          <div class="video-demo-player fragment fade-up" data-fragment-index="0">
+          <div class="video-demo-player">
             <video muted loop playsinline>
-              <source src="Slide4.mp4" type="video/mp4" />
+              <source src="NoCodes.mp4" type="video/mp4" />
             </video>
           </div>
-          <div class="video-demo-info fragment fade-up" data-fragment-index="1">
+          <div class="video-demo-info">
             <div class="video-demo-label">Component demo</div>
             <div class="video-demo-title">No-code <span class="accent">driver access.</span></div>
             <p class="video-demo-desc">Delivery drivers access the package room without codes, keys, or staff intervention. The system identifies, authenticates, and guides every carrier automatically.</p>
@@ -1377,7 +1377,7 @@
 
         The driver walks up to the door. The system identifies them automatically — camera-based recognition, no fob, no PIN. The door unlocks. On the kiosk inside, they get a guided drop-off flow: scan the package, see exactly which shelf to place it on, confirm placement.
 
-        This is what we mean by "no-code access." Every other solution requires the driver to remember a code, get a key, or wait for someone to let them in. We eliminated that entirely. The result: 98.7% driver participation. When you make it easy, they use it.
+        This is what we mean by"no-code access." Every other solution requires the driver to remember a code, get a key, or wait for someone to let them in. We eliminated that entirely. The result: 98.7% driver participation. When you make it easy, they use it.
 
         Click to play the video — this is a real carrier session captured at a live property.
       </aside>
@@ -1392,7 +1392,7 @@
         </div>
 
         <div class="video-demo-layout">
-          <div class="video-demo-info fragment fade-up" data-fragment-index="0">
+          <div class="video-demo-info">
             <div class="video-demo-label">Component demo</div>
             <div class="video-demo-title">Automated driver <span class="accent">management.</span></div>
             <p class="video-demo-desc">Every delivery session is tracked, monitored, and scored in real time. The AI manages driver training, flags exceptions, and ensures compliance — without staff involvement.</p>
@@ -1402,7 +1402,7 @@
               <span class="video-demo-chip">Automated training</span>
             </div>
           </div>
-          <div class="video-demo-player fragment fade-up" data-fragment-index="1">
+          <div class="video-demo-player">
             <video muted loop playsinline>
               <source src="Slide5.mp4" type="video/mp4" />
             </video>
@@ -1422,7 +1422,7 @@
 
         Training is automated. New drivers get the guided flow. Repeat drivers get a streamlined version. Problem drivers get re-trained or escalated. All without your staff doing anything.
 
-        This is what "Delivery Driver Management" means — not just letting drivers in, but managing the entire lifecycle. Training, monitoring, compliance, exception handling. The 98.7% participation rate comes from this system making it easy AND holding drivers accountable.
+        This is what"Delivery Driver Management" means — not just letting drivers in, but managing the entire lifecycle. Training, monitoring, compliance, exception handling. The 98.7% participation rate comes from this system making it easy AND holding drivers accountable.
       </aside>
     </section>
 
@@ -1440,27 +1440,27 @@
         </div>
 
         <div class="why-grid">
-          <div class="why-card fragment fade-up" data-fragment-index="0">
+          <div class="why-card">
             <span class="why-num">Reason 01</span>
             <div class="why-title">No more overflow.</div>
             <p class="why-body">Rooms structured to scale with delivery, not against it.</p>
           </div>
-          <div class="why-card fragment fade-up" data-fragment-index="1">
+          <div class="why-card">
             <span class="why-num">Reason 02</span>
             <div class="why-title">No daily staff work.</div>
             <p class="why-body">Your team stops sorting. We take it from here.</p>
           </div>
-          <div class="why-card fragment fade-up" data-fragment-index="2">
+          <div class="why-card">
             <span class="why-num">Reason 03</span>
             <div class="why-title">Alerts built in.</div>
             <p class="why-body">Every package logged. Every pickup tracked. Automatically.</p>
           </div>
-          <div class="why-card fragment fade-up" data-fragment-index="3">
+          <div class="why-card">
             <span class="why-num">Reason 04</span>
             <div class="why-title">Secure by design.</div>
             <p class="why-body">Access-controlled rooms. Always-on cameras. Complete chain of custody.</p>
           </div>
-          <div class="why-card fragment fade-up" data-fragment-index="4">
+          <div class="why-card">
             <span class="why-num">Reason 05</span>
             <div class="why-title">Flexible by design.</div>
             <p class="why-body">Convert the space you have. Or have us bring the room to you.</p>
@@ -1496,24 +1496,24 @@
           <h2 class="display-title small">200+ communities, <span class="accent">coast to coast.</span></h2>
         </div>
 
-        <div class="map-row fragment scale-in" data-fragment-index="0">
+        <div class="map-row">
           <img src="partners-map.jpg" alt="Map of HelloPackage installations across the United States — 200+ communities in 21 states and 27 metro areas" class="map-image-deck" />
         </div>
 
         <div class="benefit-chips">
-          <div class="chip fragment fade-up" data-fragment-index="1">
+          <div class="chip">
             <span class="chip-num">4×</span>
             <span class="chip-label">Package density</span>
           </div>
-          <div class="chip fragment fade-up" data-fragment-index="1">
+          <div class="chip">
             <span class="chip-num">↑ 52%</span>
             <span class="chip-label">Check-in &amp; retrieval</span>
           </div>
-          <div class="chip fragment fade-up" data-fragment-index="1">
+          <div class="chip">
             <span class="chip-num">98.7%</span>
             <span class="chip-label">Driver participation</span>
           </div>
-          <div class="chip fragment fade-up" data-fragment-index="1">
+          <div class="chip">
             <span class="chip-num">↓ 80%</span>
             <span class="chip-label">vs. traditional labor</span>
           </div>
@@ -1533,7 +1533,7 @@
         Underneath the map, the four numbers that matter to your asset team:
         — 4x package density vs traditional lockers (how we handle volume without adding square footage)
         — 52% faster check-in and retrieval (throughput)
-        — 98.7% driver participation (we fix the "dump and go" problem)
+        — 98.7% driver participation (we fix the"dump and go" problem)
         — 80% more cost-effective vs traditional labor (the CFO line item)
 
         The map is the qualitative proof. The four numbers are the quantitative proof. Together: 200+ properties have done this math and decided it works.
@@ -1554,27 +1554,27 @@
         </div>
 
         <div class="logo-wall-deck">
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/greystar.com" alt="Greystar" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Greystar</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/assetliving.com" alt="Asset Living" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Asset Living</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/zrsmanagement.com" alt="ZRS" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">ZRS</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/willowbridgepc.com" alt="Willow Bridge" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Willow Bridge</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/bellpartnersinc.com" alt="Bell Partners" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bell Partners</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/rpmliving.com" alt="RPM Living" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">RPM Living</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/avenue5.com" alt="Avenue5" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Avenue5</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/bozzuto.com" alt="Bozzuto" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bozzuto</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/woodfielddevelopment.com" alt="Woodfield" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Woodfield</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/trammellcrow.com" alt="Trammell Crow" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Trammell Crow</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/landmark-properties.com" alt="Landmark Properties" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Landmark</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/udr.com" alt="UDR" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">UDR</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/essexapartmenthomes.com" alt="Essex" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Essex</span></div>
-          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/mgproperties.com" alt="MG Properties" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">MG Properties</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/greystar.com" alt="Greystar" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Greystar</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/assetliving.com" alt="Asset Living" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Asset Living</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/zrsmanagement.com" alt="ZRS" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">ZRS</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/willowbridgepc.com" alt="Willow Bridge" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Willow Bridge</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/bellpartnersinc.com" alt="Bell Partners" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bell Partners</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/rpmliving.com" alt="RPM Living" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">RPM Living</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/avenue5.com" alt="Avenue5" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Avenue5</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/bozzuto.com" alt="Bozzuto" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bozzuto</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/woodfielddevelopment.com" alt="Woodfield" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Woodfield</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/trammellcrow.com" alt="Trammell Crow" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Trammell Crow</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/landmark-properties.com" alt="Landmark Properties" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Landmark</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/udr.com" alt="UDR" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">UDR</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/essexapartmenthomes.com" alt="Essex" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Essex</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/mgproperties.com" alt="MG Properties" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">MG Properties</span></div>
         </div>
 
-        <div class="logo-wall-divider fragment fade-up" data-fragment-index="2">
+        <div class="logo-wall-divider">
           <span class="logo-divider-label">+ HOA &amp; Commercial deployments</span>
         </div>
 
-        <div class="logo-wall-deck logo-wall-commercial fragment fade-up" data-fragment-index="2">
+        <div class="logo-wall-deck logo-wall-commercial">
           <div class="logo-tile-deck"><img src="https://logo.clearbit.com/fsresidential.com" alt="FirstService Residential" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">FirstService Residential</span></div>
           <div class="logo-tile-deck"><img src="https://logo.clearbit.com/atlantatechvillage.com" alt="Atlanta Tech Village" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Atlanta Tech Village</span></div>
         </div>
@@ -1610,7 +1610,7 @@
         </div>
 
         <div class="quotes-grid">
-          <div class="quote-card fragment fade-up" data-fragment-index="0">
+          <div class="quote-card">
             <p class="quote-text">The technology that HP has deployed is beyond all other. The resident experience is seamless and allows for 24-hour access.</p>
             <div class="quote-meta">
               <div class="quote-avatar">LM</div>
@@ -1621,18 +1621,18 @@
             </div>
           </div>
 
-          <div class="quote-card cyan fragment fade-up" data-fragment-index="1">
-            <p class="quote-text">Since switching to HelloPackage we haven't had any complaints. It's easy, it's user-friendly, it's secure. We love it.</p>
+          <div class="quote-card cyan">
+            <p class="quote-text">A game changer at the three properties where we've implemented it. The system is intuitive, residents appreciate that packages are on-site, and concierges spend less time on parcels.</p>
             <div class="quote-meta">
-              <div class="quote-avatar">SM</div>
+              <div class="quote-avatar">MJ</div>
               <div>
-                <div class="quote-author">Summer Monroe</div>
-                <div class="quote-role">Assistant CM · Briley Apartment Homes</div>
+                <div class="quote-author">Michael Joyce</div>
+                <div class="quote-role">Owner · Oranswell Realty Partners</div>
               </div>
             </div>
           </div>
 
-          <div class="quote-card fragment fade-up" data-fragment-index="2">
+          <div class="quote-card">
             <p class="quote-text">HelloPackage has the best customer service. The system is simple — codes, cameras, zones. Residents are happy.</p>
             <div class="quote-meta">
               <div class="quote-avatar">ID</div>
@@ -1652,9 +1652,9 @@
 
       <aside class="notes">
         Three voices, three different roles.
-        Asset management at Woodfield Development.
-        Day-to-day at Briley Apartment Homes — they switched FROM a competitor.
-        Leasing at The Brady, where they highlight customer service.
+        Asset management at Woodfield Development — Leslie Mathis.
+        Property ownership at Oranswell Realty Partners — Michael Joyce, three properties and calls it a game changer.
+        Leasing at The Brady — Iteya Dunham, highlights customer service and simplicity.
         Hand the prospect references during the demo and let them call any of these.
       </aside>
     </section>
@@ -1672,7 +1672,7 @@
           <h2 class="display-title small">The other guys just <span class="accent">don't deliver.</span></h2>
         </div>
 
-        <div class="compete-wrap fragment fade-up" data-fragment-index="0">
+        <div class="compete-wrap">
           <table class="compete-table">
             <thead>
               <tr>
@@ -1780,7 +1780,7 @@
         </div>
 
         <div class="price-grid">
-          <div class="price-card t1 fragment fade-up" data-fragment-index="0">
+          <div class="price-card t1">
             <span class="price-eyebrow">Good</span>
             <div class="price-name">HelloPackage Core.</div>
             <p class="price-desc">You provide the room and shelves. We bring HP-Vision, AI driver guidance, and a 3 hr/week on-site team.</p>
@@ -1802,7 +1802,7 @@
               </div>
             </div>
           </div>
-          <div class="price-card t2 fragment fade-up" data-fragment-index="1">
+          <div class="price-card t2">
             <span class="price-eyebrow">Better</span>
             <div class="price-name">HelloPackage Essentials.</div>
             <p class="price-desc">You provide the room. We bring everything — smart LED shelves, oversized racks, full installation, onboarding, and training.</p>
@@ -1824,7 +1824,7 @@
               </div>
             </div>
           </div>
-          <div class="price-card t3 fragment fade-up" data-fragment-index="2">
+          <div class="price-card t3">
             <span class="price-eyebrow">Best</span>
             <div class="price-name">HelloPackage Enhanced.</div>
             <p class="price-desc">Everything in Essentials, plus AI session tracking, premium hardware, free delivery, and a dedicated customer success manager.</p>
@@ -1846,7 +1846,7 @@
               </div>
             </div>
           </div>
-          <div class="price-card t4 fragment fade-up" data-fragment-index="3">
+          <div class="price-card t4">
             <span class="price-eyebrow">No space?</span>
             <div class="price-name">Modular Package Room.</div>
             <p class="price-desc">Drop a standalone climate-controlled package room on site. Bundles with any tier above when the property can't convert interior space.</p>
@@ -1898,7 +1898,7 @@
         </div>
 
         <div class="space-grid-deck">
-          <div class="space-card-deck fragment fade-up" data-fragment-index="0">
+          <div class="space-card-deck">
             <img class="space-card-deck-img" src="room-standard.jpg" alt="Standard room layout — 185 sq ft">
             <div class="space-card-deck-body">
               <div class="space-card-deck-label">Standard Room</div>
@@ -1906,7 +1906,7 @@
               <p class="space-card-deck-desc">Ideal for 200–270 unit communities. 3 smart racks plus oversized storage, fridge, resident &amp; carrier kiosks, full camera coverage.</p>
             </div>
           </div>
-          <div class="space-card-deck fragment fade-up" data-fragment-index="1">
+          <div class="space-card-deck">
             <img class="space-card-deck-img" src="room-midsize.jpg" alt="Mid-size room layout — 229 sq ft">
             <div class="space-card-deck-body">
               <div class="space-card-deck-label">Mid-Size Room</div>
@@ -1914,7 +1914,7 @@
               <p class="space-card-deck-desc">Built for 270–370 unit properties. 3 racks with dual oversized zones, double-door fridge, and expanded carrier staging area.</p>
             </div>
           </div>
-          <div class="space-card-deck fragment fade-up" data-fragment-index="2">
+          <div class="space-card-deck">
             <img class="space-card-deck-img" src="room-fullsize.jpg" alt="Full-size room layout — 257 sq ft">
             <div class="space-card-deck-body">
               <div class="space-card-deck-label">Full-Size Room</div>
@@ -1952,24 +1952,24 @@
         </div>
 
         <div class="closing-content">
-          <span class="eyebrow fragment fade-up" data-fragment-index="0">Let's deliver</span>
-          <h1 class="closing-title fragment fade-up" data-fragment-index="1">Let's <span class="accent">deliver.</span></h1>
-          <div class="closing-divider fragment divider-grow" data-fragment-index="2"></div>
+          <span class="eyebrow">Let's deliver</span>
+          <h1 class="closing-title">Let's <span class="accent">deliver.</span></h1>
+          <div class="closing-divider"></div>
 
           <div class="closing-strip">
-            <div class="closing-item fragment fade-up" data-fragment-index="3">
+            <div class="closing-item">
               <div class="lbl">Sales</div>
               <div class="val">Paul Favorov
                 <small><a href="mailto:paulfavorov@packagesolutions.com">paulfavorov@packagesolutions.com</a></small>
               </div>
             </div>
-            <div class="closing-item fragment fade-up" data-fragment-index="4">
+            <div class="closing-item">
               <div class="lbl">Phone</div>
               <div class="val">404.558.0668
                 <small>866.931.5567 toll-free</small>
               </div>
             </div>
-            <div class="closing-item fragment fade-up" data-fragment-index="5">
+            <div class="closing-item">
               <div class="lbl">HQ</div>
               <div class="val">Atlanta, GA
                 <small>Atlanta Tech Village · 3423 Piedmont Rd NE</small>
@@ -2032,9 +2032,7 @@
     touch: true,
     transition: 'slide',
     transitionSpeed: 'default',
-    backgroundTransition: 'fade',
-    fragments: true,
-    fragmentInURL: false,
+    backgroundTransition: 'fade',s: true,InURL: false,
     mouseWheel: false,
     plugins: [ RevealNotes ],
   });
