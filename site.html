@@ -756,6 +756,49 @@
     color: var(--text-3);
     text-transform: uppercase; letter-spacing: 0.16em;
   }
+  .price-breakdown {
+    margin-top: 0.9rem;
+    display: flex; flex-direction: column;
+    gap: 0.55rem;
+  }
+  .price-line {
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .price-line-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--text-2);
+  }
+  .price-line-amount {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    color: var(--text); letter-spacing: -0.015em;
+  }
+  .price-line-amount small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem; font-weight: 500;
+    color: var(--text-3);
+    text-transform: uppercase; letter-spacing: 0.14em;
+    margin-left: 0.25rem;
+  }
+  .price-total {
+    margin-top: 0.4rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  .price-total .price-line-label {
+    color: var(--text); font-weight: 600;
+  }
+  .price-total .price-line-amount {
+    font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+    color: var(--accent, var(--red));
+  }
+  .price-card.t1 .price-total .price-line-amount { color: var(--red); }
+  .price-card.t2 .price-total .price-line-amount { color: var(--blue); }
+  .price-card.t3 .price-total .price-line-amount { color: var(--blue-bright); }
+  .price-card.t4 .price-total .price-line-amount { color: var(--text); }
   .price-footnotes {
     margin-top: 2rem;
     font-family: 'JetBrains Mono', monospace;
@@ -1558,19 +1601,45 @@
       <div class="price-card t1 reveal">
         <span class="price-eyebrow">Good</span>
         <div class="price-name">HelloPackage Core.</div>
-        <p class="price-desc">You provide the room and shelves. We bring HP-Vision, AI driver guidance, and a 3 hr/week on-site service team.</p>
+        <p class="price-desc">You provide the room and shelves. We bring HP-Vision, AI driver guidance, and a 3 hr/week on-site team.</p>
         <div class="price-amounts">
           <div class="price-cap">Cap Ex from $15K</div>
-          <div class="price-monthly">$3.32 <small>/ unit / mo · all-in</small></div>
+          <div class="price-breakdown">
+            <div class="price-line">
+              <span class="price-line-label">Software &amp; service</span>
+              <span class="price-line-amount">$1.60</span>
+            </div>
+            <div class="price-line">
+              <span class="price-line-label">On-site labor*</span>
+              <span class="price-line-amount">$1.72</span>
+            </div>
+            <div class="price-line price-total">
+              <span class="price-line-label">Total / unit / mo</span>
+              <span class="price-line-amount">$3.32</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="price-card t2 reveal">
         <span class="price-eyebrow">Better</span>
         <div class="price-name">HelloPackage Essentials.</div>
-        <p class="price-desc">You provide the room. We bring everything else — smart LED shelves, oversized racks, full installation, onboarding, and training.</p>
+        <p class="price-desc">You provide the room. We bring everything — smart LED shelves, oversized racks, full installation, onboarding, and training.</p>
         <div class="price-amounts">
           <div class="price-cap">Cap Ex from $27K</div>
-          <div class="price-monthly">$3.82 <small>/ unit / mo · all-in</small></div>
+          <div class="price-breakdown">
+            <div class="price-line">
+              <span class="price-line-label">Software &amp; service</span>
+              <span class="price-line-amount">$2.10</span>
+            </div>
+            <div class="price-line">
+              <span class="price-line-label">On-site labor*</span>
+              <span class="price-line-amount">$1.72</span>
+            </div>
+            <div class="price-line price-total">
+              <span class="price-line-label">Total / unit / mo</span>
+              <span class="price-line-amount">$3.82</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="price-card t3 reveal">
@@ -1579,7 +1648,20 @@
         <p class="price-desc">Everything in Essentials, plus AI session tracking, premium hardware, free delivery, and a dedicated customer success manager.</p>
         <div class="price-amounts">
           <div class="price-cap">Cap Ex from $34K</div>
-          <div class="price-monthly">$4.21 <small>/ unit / mo · all-in</small></div>
+          <div class="price-breakdown">
+            <div class="price-line">
+              <span class="price-line-label">Software &amp; service</span>
+              <span class="price-line-amount">$2.49</span>
+            </div>
+            <div class="price-line">
+              <span class="price-line-label">On-site labor*</span>
+              <span class="price-line-amount">$1.72</span>
+            </div>
+            <div class="price-line price-total">
+              <span class="price-line-label">Total / unit / mo</span>
+              <span class="price-line-amount">$4.21</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="price-card t4 reveal">
@@ -1594,7 +1676,7 @@
     </div>
 
     <div class="price-footnotes">
-      <div>* All-in pricing includes software, hardware, maintenance, and 3 hr/week on-site service team.</div>
+      <div>* On-site labor = 3 hr/week service team (~$1.72 / unit / mo at typical property size), included in monthly total.</div>
       <div>* Example: 256-unit property → $850 – $1,078 per month, depending on tier.</div>
       <div>* New development ramp and Op Ex financing available. Get a quote for your portfolio.</div>
     </div>

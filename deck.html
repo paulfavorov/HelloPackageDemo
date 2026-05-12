@@ -632,17 +632,17 @@
     line-height: 1.5; flex: 1;
   }
   .price-amounts {
-    margin-top: 32px; padding-top: 22px;
+    margin-top: 28px; padding-top: 20px;
     border-top: 1px solid var(--border);
   }
   .price-cap {
     font-family: 'Manrope', sans-serif;
-    font-size: 24px; font-weight: 800;
+    font-size: 22px; font-weight: 800;
     color: var(--text); letter-spacing: -0.02em;
   }
   .price-monthly {
     font-family: 'Manrope', sans-serif;
-    font-size: 24px; font-weight: 800;
+    font-size: 22px; font-weight: 800;
     color: var(--text); letter-spacing: -0.02em;
     margin-top: 8px;
   }
@@ -652,6 +652,46 @@
     color: var(--text-3);
     text-transform: uppercase; letter-spacing: 0.16em;
   }
+  .price-breakdown {
+    margin-top: 14px; display: flex; flex-direction: column;
+    gap: 9px;
+  }
+  .price-line {
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .price-line-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--text-2);
+  }
+  .price-line-amount {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800; font-size: 22px;
+    color: var(--text); letter-spacing: -0.015em;
+  }
+  .price-line-amount small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    color: var(--text-3);
+    text-transform: uppercase; letter-spacing: 0.14em;
+    margin-left: 4px;
+  }
+  .price-total {
+    margin-top: 6px; padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .price-total .price-line-label {
+    color: var(--text); font-weight: 600;
+  }
+  .price-total .price-line-amount {
+    font-size: 26px;
+    color: var(--accent, var(--red));
+  }
+  .price-card.t1 .price-total .price-line-amount { color: var(--red); }
+  .price-card.t2 .price-total .price-line-amount { color: var(--blue); }
+  .price-card.t3 .price-total .price-line-amount { color: var(--blue-bright); }
+  .price-card.t4 .price-total .price-line-amount { color: var(--text); }
   .pricing-footnote {
     position: absolute; bottom: 130px; left: 110px;
     font-family: 'JetBrains Mono', monospace;
@@ -1426,19 +1466,45 @@
           <div class="price-card t1 fragment fade-up" data-fragment-index="0">
             <span class="price-eyebrow">Good</span>
             <div class="price-name">HelloPackage Core.</div>
-            <p class="price-desc">You provide the room and shelves. We bring HP-Vision, AI driver guidance, and a 3 hr/week on-site service team.</p>
+            <p class="price-desc">You provide the room and shelves. We bring HP-Vision, AI driver guidance, and a 3 hr/week on-site team.</p>
             <div class="price-amounts">
               <div class="price-cap">Cap Ex from $15K</div>
-              <div class="price-monthly">$3.32 <small>/ unit / mo · all-in</small></div>
+              <div class="price-breakdown">
+                <div class="price-line">
+                  <span class="price-line-label">Software &amp; service</span>
+                  <span class="price-line-amount">$1.60</span>
+                </div>
+                <div class="price-line">
+                  <span class="price-line-label">On-site labor*</span>
+                  <span class="price-line-amount">$1.72</span>
+                </div>
+                <div class="price-line price-total">
+                  <span class="price-line-label">Total / unit / mo</span>
+                  <span class="price-line-amount">$3.32</span>
+                </div>
+              </div>
             </div>
           </div>
           <div class="price-card t2 fragment fade-up" data-fragment-index="1">
             <span class="price-eyebrow">Better</span>
             <div class="price-name">HelloPackage Essentials.</div>
-            <p class="price-desc">You provide the room. We bring everything else — smart LED shelves, oversized racks, full installation.</p>
+            <p class="price-desc">You provide the room. We bring everything — smart LED shelves, oversized racks, full installation.</p>
             <div class="price-amounts">
               <div class="price-cap">Cap Ex from $27K</div>
-              <div class="price-monthly">$3.82 <small>/ unit / mo · all-in</small></div>
+              <div class="price-breakdown">
+                <div class="price-line">
+                  <span class="price-line-label">Software &amp; service</span>
+                  <span class="price-line-amount">$2.10</span>
+                </div>
+                <div class="price-line">
+                  <span class="price-line-label">On-site labor*</span>
+                  <span class="price-line-amount">$1.72</span>
+                </div>
+                <div class="price-line price-total">
+                  <span class="price-line-label">Total / unit / mo</span>
+                  <span class="price-line-amount">$3.82</span>
+                </div>
+              </div>
             </div>
           </div>
           <div class="price-card t3 fragment fade-up" data-fragment-index="2">
@@ -1447,7 +1513,20 @@
             <p class="price-desc">Essentials plus AI session tracking, premium hardware, and a dedicated customer success manager.</p>
             <div class="price-amounts">
               <div class="price-cap">Cap Ex from $34K</div>
-              <div class="price-monthly">$4.21 <small>/ unit / mo · all-in</small></div>
+              <div class="price-breakdown">
+                <div class="price-line">
+                  <span class="price-line-label">Software &amp; service</span>
+                  <span class="price-line-amount">$2.49</span>
+                </div>
+                <div class="price-line">
+                  <span class="price-line-label">On-site labor*</span>
+                  <span class="price-line-amount">$1.72</span>
+                </div>
+                <div class="price-line price-total">
+                  <span class="price-line-label">Total / unit / mo</span>
+                  <span class="price-line-amount">$4.21</span>
+                </div>
+              </div>
             </div>
           </div>
           <div class="price-card t4 fragment fade-up" data-fragment-index="3">
@@ -1462,8 +1541,8 @@
         </div>
 
         <div class="pricing-footnote">
-          <div>* All-in pricing: software + hardware + 3 hr/week on-site service team</div>
-          <div>* Example · 256-unit property → $850–$1,078 / mo</div>
+          <div>* On-site labor = 3 hr/week service team, included in monthly total</div>
+          <div>* Example · 256-unit property → $850 – $1,078 / mo (Core → Enhanced)</div>
           <div>* New development ramp + Op Ex financing available</div>
         </div>
 
@@ -1474,7 +1553,7 @@
       </div>
 
       <aside class="notes">
-        Three core tiers — Good, Better, Best — plus a modular option for properties without space. All-in pricing means the monthly number is what you actually pay: software, hardware, maintenance, AND the 3-hour-per-week on-site service team. No add-ons hidden behind the headline.
+        Three core tiers — Good, Better, Best — plus a modular option for properties without space. Each card breaks pricing into two transparent lines: software & service is the technology cost; on-site labor is the 3-hour-per-week service team. Together they're the monthly total — no add-ons hidden behind the headline.
 
         GOOD — Core. You provide the room and shelves; we run everything else. About $3.32 per unit per month all-in. For a typical 250-unit property that's around $830 per month with a $15K cap-ex up front.
 
