@@ -485,7 +485,63 @@
     white-space: nowrap;
   }
 
-  /* ============== SLIDE 9: CUSTOMER VOICE ============== */
+  /* ============== SLIDE 9: CUSTOMER LOGOS ============== */
+  .logo-wall-deck {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 30px 36px;
+    align-items: center;
+    justify-items: center;
+    margin-top: 40px;
+  }
+  .logo-tile-deck {
+    height: 68px;
+    width: 100%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-tile-deck img {
+    max-height: 56px;
+    max-width: 100%;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.72;
+  }
+  .logo-tile-deck .logo-fallback {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    color: var(--text-2);
+    letter-spacing: -0.01em;
+    text-align: center;
+    line-height: 1.1;
+  }
+  .logo-wall-divider {
+    margin-top: 40px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    width: 100%;
+  }
+  .logo-wall-divider::before,
+  .logo-wall-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  .logo-wall-divider::before { margin-right: 24px; }
+  .logo-wall-divider::after { margin-left: 24px; }
+  .logo-divider-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--text-2);
+    white-space: nowrap;
+  }
+  .logo-wall-commercial {
+    grid-template-columns: repeat(2, 1fr) !important;
+    max-width: 720px;
+    margin-left: auto; margin-right: auto;
+    margin-top: 26px;
+  }
+
+  /* ============== SLIDE 10: CUSTOMER VOICE ============== */
   .quotes-grid {
     flex: 1; display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -533,7 +589,7 @@
   }
   .quote-role { font-size: 15px; color: var(--text-2); margin-top: 4px; line-height: 1.35; }
 
-  /* ============== SLIDE 10: COMPETITION ============== */
+  /* ============== SLIDE 11: COMPETITION ============== */
   .compete-wrap {
     flex: 1; margin-top: 50px;
     background: var(--bg-card); border: 1px solid var(--border);
@@ -591,7 +647,7 @@
   .pill-med { background: #FEF3C7; color: #A16207; }
   .pill-high { background: #FEE2E2; color: #B91C1C; }
 
-  /* ============== SLIDE 11: PRICING — 4 TIERS ============== */
+  /* ============== SLIDE 12: PRICING — 4 TIERS ============== */
   .price-grid {
     flex: 1; display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -700,7 +756,7 @@
     line-height: 1.7;
   }
 
-  /* ============== SLIDE 12: CLOSING ============== */
+  /* ============== SLIDE 13: CLOSING ============== */
   .closing-content {
     flex: 1; display: flex; flex-direction: column;
     justify-content: center; align-items: flex-start;
@@ -859,7 +915,7 @@
 
         <div class="foot">
           <span>HelloPackage · Atlanta</span>
-          <span>01 / 12</span>
+          <span>01 / 13</span>
         </div>
       </div>
 
@@ -913,7 +969,7 @@
 
         <div class="foot">
           <span>The market</span>
-          <span>02 / 12</span>
+          <span>02 / 13</span>
         </div>
       </div>
 
@@ -974,7 +1030,7 @@
 
         <div class="foot">
           <span>The problem</span>
-          <span>03 / 12</span>
+          <span>03 / 13</span>
         </div>
       </div>
 
@@ -1026,7 +1082,7 @@
 
         <div class="foot">
           <span>Three objectives</span>
-          <span>04 / 12</span>
+          <span>04 / 13</span>
         </div>
       </div>
 
@@ -1081,7 +1137,7 @@
 
         <div class="foot">
           <span>How it works</span>
-          <span>05 / 12</span>
+          <span>05 / 13</span>
         </div>
       </div>
 
@@ -1145,7 +1201,7 @@
 
         <div class="foot">
           <span>The platform</span>
-          <span>06 / 12</span>
+          <span>06 / 13</span>
         </div>
       </div>
 
@@ -1207,7 +1263,7 @@
 
         <div class="foot">
           <span>Why HelloPackage</span>
-          <span>07 / 12</span>
+          <span>07 / 13</span>
         </div>
       </div>
 
@@ -1271,7 +1327,7 @@
 
         <div class="foot">
           <span>Proven results</span>
-          <span>08 / 12</span>
+          <span>08 / 13</span>
         </div>
       </div>
 
@@ -1285,7 +1341,63 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 9: CUSTOMER VOICE ====== -->
+    <!-- ====== SLIDE 9: CUSTOMER LOGOS ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>Customer Base</span></div>
+        </div>
+
+        <div class="head-block">
+          <span class="eyebrow">Customer base</span>
+          <h2 class="display-title small">Trusted by <span class="accent">12 of the NMHC Top 20.</span></h2>
+        </div>
+
+        <div class="logo-wall-deck">
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/greystar.com" alt="Greystar" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Greystar</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/assetliving.com" alt="Asset Living" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Asset Living</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/zrsmanagement.com" alt="ZRS" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">ZRS</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/willowbridgepc.com" alt="Willow Bridge" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Willow Bridge</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/bellpartnersinc.com" alt="Bell Partners" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bell Partners</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/rpmliving.com" alt="RPM Living" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">RPM Living</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="0"><img src="https://logo.clearbit.com/avenue5.com" alt="Avenue5" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Avenue5</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/bozzuto.com" alt="Bozzuto" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bozzuto</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/woodfielddevelopment.com" alt="Woodfield" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Woodfield</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/trammellcrow.com" alt="Trammell Crow" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Trammell Crow</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/landmark-properties.com" alt="Landmark Properties" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Landmark</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/udr.com" alt="UDR" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">UDR</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/essexapartmenthomes.com" alt="Essex" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Essex</span></div>
+          <div class="logo-tile-deck fragment fade-up" data-fragment-index="1"><img src="https://logo.clearbit.com/mgproperties.com" alt="MG Properties" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">MG Properties</span></div>
+        </div>
+
+        <div class="logo-wall-divider fragment fade-up" data-fragment-index="2">
+          <span class="logo-divider-label">+ HOA &amp; Commercial deployments</span>
+        </div>
+
+        <div class="logo-wall-deck logo-wall-commercial fragment fade-up" data-fragment-index="2">
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/fsresidential.com" alt="FirstService Residential" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">FirstService Residential</span></div>
+          <div class="logo-tile-deck"><img src="https://logo.clearbit.com/atlantatechvillage.com" alt="Atlanta Tech Village" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Atlanta Tech Village</span></div>
+        </div>
+
+        <div class="foot">
+          <span>Customer base</span>
+          <span>09 / 13</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Quick proof beat. After the numbers (200+ communities) and before the customer quotes, this is the logo wall.
+
+        The headline: 12 of the NMHC Top 20 multifamily operators are HelloPackage customers. Greystar — the largest multifamily operator in the country. Asset Living. UDR. Essex. Bell Partners. Bozzuto. Trammell Crow. RPM Living. Avenue5. Landmark on the student-housing side.
+
+        Plus we're expanding beyond multifamily: HOA deployments via FirstService Residential — the largest residential community manager in North America. And commercial deployments like Atlanta Tech Village.
+
+        Same platform, same playbook, three property types: multifamily, student housing, HOA / commercial.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 10: CUSTOMER VOICE ====== -->
     <section>
       <div class="frame">
         <div class="head">
@@ -1335,7 +1447,7 @@
 
         <div class="foot">
           <span>Customer voice</span>
-          <span>09 / 12</span>
+          <span>10 / 13</span>
         </div>
       </div>
 
@@ -1348,7 +1460,7 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 10: COMPETITION ====== -->
+    <!-- ====== SLIDE 11: COMPETITION ====== -->
     <section>
       <div class="frame">
         <div class="head">
@@ -1436,7 +1548,7 @@
 
         <div class="foot">
           <span>The competition</span>
-          <span>10 / 12</span>
+          <span>11 / 13</span>
         </div>
       </div>
 
@@ -1455,7 +1567,7 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 11: PRICING ====== -->
+    <!-- ====== SLIDE 12: PRICING ====== -->
     <section>
       <div class="frame">
         <div class="head">
@@ -1554,7 +1666,7 @@
 
         <div class="foot">
           <span>Pricing</span>
-          <span>11 / 12</span>
+          <span>12 / 13</span>
         </div>
       </div>
 
@@ -1573,7 +1685,7 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 12: CLOSING ====== -->
+    <!-- ====== SLIDE 13: CLOSING ====== -->
     <section data-transition="fade">
       <div class="frame closing-frame">
         <div class="head">
@@ -1610,7 +1722,7 @@
 
         <div class="foot">
           <span>HelloPackage · packagesolutions.com</span>
-          <span>12 / 12</span>
+          <span>13 / 13</span>
         </div>
       </div>
 
@@ -1631,7 +1743,7 @@
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
   </button>
   <div class="nav-dots" id="navDots"></div>
-  <span class="nav-counter" id="navCounter">01 / 12</span>
+  <span class="nav-counter" id="navCounter">01 / 13</span>
   <button class="nav-btn" id="navNext" aria-label="Next">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
   </button>

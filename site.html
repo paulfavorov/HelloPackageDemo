@@ -211,6 +211,69 @@
     .hero-visual { aspect-ratio: 4 / 3; }
   }
 
+  /* ============== LOGO MARQUEE ============== */
+  .logo-wall-section {
+    padding: 3.5rem 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo-wall-heading {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-3);
+    margin-bottom: 2.5rem;
+    padding: 0 2rem;
+    line-height: 1.6;
+  }
+  .logo-wall-heading strong { color: var(--text); font-weight: 600; }
+  .logo-marquee {
+    overflow: hidden; position: relative; width: 100%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+  }
+  .logo-track {
+    display: flex;
+    gap: 4rem;
+    animation: logo-marquee 60s linear infinite;
+    width: max-content;
+    align-items: center;
+  }
+  .logo-marquee:hover .logo-track { animation-play-state: paused; }
+  @keyframes logo-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .logo-tile {
+    flex: 0 0 auto;
+    height: 56px;
+    min-width: 110px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-tile img {
+    max-height: 40px;
+    max-width: 140px;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.55;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+  }
+  .logo-tile:hover img { filter: grayscale(0); opacity: 1; }
+  .logo-fallback {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-3);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .logo-tile:hover .logo-fallback { color: var(--text); }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-track { animation: none; transform: translateX(0); }
+  }
+
   /* ============== TRUST STRIP ============== */
   .trust {
     margin-top: 6rem; border-top: 1px solid var(--border);
@@ -1145,6 +1208,51 @@
     <div class="trust-item">
       <div class="trust-num">4.5<span style="font-size:0.5em;color:var(--text-2);"> / 5</span></div>
       <div class="trust-label">Resident rating</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== LOGO MARQUEE ============== -->
+<section class="logo-wall-section" id="customers-logos">
+  <p class="logo-wall-heading">
+    Trusted by <strong>12 of the NMHC Top 20</strong> <span style="color:var(--border-strong); margin:0 0.6em;">·</span> HOA &amp; commercial deployments
+  </p>
+  <div class="logo-marquee">
+    <div class="logo-track">
+      <!-- ----- Set 1 ----- -->
+      <div class="logo-tile"><img src="https://logo.clearbit.com/greystar.com" alt="Greystar" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Greystar</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/assetliving.com" alt="Asset Living" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Asset Living</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/zrsmanagement.com" alt="ZRS" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">ZRS</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/willowbridgepc.com" alt="Willow Bridge" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Willow Bridge</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/bellpartnersinc.com" alt="Bell Partners" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bell Partners</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/rpmliving.com" alt="RPM Living" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">RPM Living</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/avenue5.com" alt="Avenue5" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Avenue5</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/bozzuto.com" alt="Bozzuto" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bozzuto</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/woodfielddevelopment.com" alt="Woodfield" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Woodfield</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/trammellcrow.com" alt="Trammell Crow" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Trammell Crow</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/landmark-properties.com" alt="Landmark Properties" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Landmark</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/udr.com" alt="UDR" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">UDR</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/essexapartmenthomes.com" alt="Essex" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Essex</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/mgproperties.com" alt="MG Properties" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">MG Properties</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/fsresidential.com" alt="FirstService Residential" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">FirstService Residential</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/atlantatechvillage.com" alt="Atlanta Tech Village" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Atlanta Tech Village</span></div>
+      <!-- ----- Set 2 (duplicate for seamless loop) ----- -->
+      <div class="logo-tile"><img src="https://logo.clearbit.com/greystar.com" alt="Greystar" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Greystar</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/assetliving.com" alt="Asset Living" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Asset Living</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/zrsmanagement.com" alt="ZRS" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">ZRS</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/willowbridgepc.com" alt="Willow Bridge" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Willow Bridge</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/bellpartnersinc.com" alt="Bell Partners" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bell Partners</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/rpmliving.com" alt="RPM Living" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">RPM Living</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/avenue5.com" alt="Avenue5" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Avenue5</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/bozzuto.com" alt="Bozzuto" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bozzuto</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/woodfielddevelopment.com" alt="Woodfield" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Woodfield</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/trammellcrow.com" alt="Trammell Crow" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Trammell Crow</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/landmark-properties.com" alt="Landmark Properties" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Landmark</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/udr.com" alt="UDR" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">UDR</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/essexapartmenthomes.com" alt="Essex" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Essex</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/mgproperties.com" alt="MG Properties" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">MG Properties</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/fsresidential.com" alt="FirstService Residential" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">FirstService Residential</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/atlantatechvillage.com" alt="Atlanta Tech Village" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Atlanta Tech Village</span></div>
     </div>
   </div>
 </section>
