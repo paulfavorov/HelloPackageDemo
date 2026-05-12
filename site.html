@@ -470,20 +470,25 @@
   }
   @media (max-width: 880px) { .obj-grid { grid-template-columns: 1fr; } }
 
-  /* ============== HOW IT WORKS — 4 STEPS ============== */
-  .how-video-wrap {
+  /* ============== HOW IT WORKS — VIDEO + STEPS SIDE BY SIDE ============== */
+  .how-split {
     margin-top: 3rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2.5rem; align-items: start;
+  }
+  .how-video-wrap {
     border-radius: 16px; overflow: hidden;
     border: 2px solid var(--border);
     box-shadow: 0 16px 48px rgba(0,0,0,0.1);
     background: #000;
+    position: sticky; top: 6rem;
   }
   .how-video-wrap video {
     width: 100%; display: block;
   }
   .steps-grid {
-    margin-top: 2.5rem; display: grid;
-    grid-template-columns: repeat(4, 1fr); gap: 1.4rem;
+    display: grid;
+    grid-template-columns: 1fr; gap: 1.2rem;
   }
   .step-card {
     padding: 2.2rem 1.8rem;
@@ -512,8 +517,10 @@
     font-size: 0.93rem;
     color: var(--text-2); line-height: 1.55;
   }
-  @media (max-width: 980px) { .steps-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { .steps-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 880px) {
+    .how-split { grid-template-columns: 1fr; }
+    .how-video-wrap { position: static; }
+  }
 
   /* ============== SYSTEM COMPONENTS ============== */
   .system-grid {
@@ -1439,32 +1446,34 @@
       <p class="lede">A consistent, automated workflow from the moment a driver scans a parcel to the moment a resident walks out with it. No staff intervention required.</p>
     </div>
 
-    <div class="how-video-wrap reveal">
-      <video autoplay muted loop playsinline>
-        <source src="NoCodes.mp4" type="video/mp4" />
-      </video>
-    </div>
+    <div class="how-split">
+      <div class="how-video-wrap reveal">
+        <video autoplay muted loop playsinline>
+          <source src="NoCodes.mp4" type="video/mp4" />
+        </video>
+      </div>
 
-    <div class="steps-grid">
-      <div class="step-card reveal">
-        <span class="step-num-pill">Step 01</span>
-        <div class="step-title">Driver guidance.</div>
-        <p class="step-body">Automatically grant access and train drivers to follow a guided process and log every package as they arrive. 98.7% driver participation — no more "dump and go".</p>
-      </div>
-      <div class="step-card reveal">
-        <span class="step-num-pill">Step 02</span>
-        <div class="step-title">Logged &amp; stored.</div>
-        <p class="step-body">Multiple indoor kiosks and computer vision track every drop-off in real time. Stored in the secure, access-controlled room with cameras on.</p>
-      </div>
-      <div class="step-card reveal">
-        <span class="step-num-pill">Step 03</span>
-        <div class="step-title">Resident alerts.</div>
-        <p class="step-body">Pickup instructions sent automatically. 24/7 secure access with a personal code. Resident picks up on their schedule.</p>
-      </div>
-      <div class="step-card reveal">
-        <span class="step-num-pill">Step 04</span>
-        <div class="step-title">Automated security monitoring.</div>
-        <p class="step-body">Every interaction recorded. Full chain-of-custody. Package volume, resident duration, and room state visible to property in the Dashboard.</p>
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <span class="step-num-pill">Step 01</span>
+          <div class="step-title">Driver guidance.</div>
+          <p class="step-body">Automatically grant access and train drivers to follow a guided process and log every package as they arrive. 98.7% driver participation — no more "dump and go".</p>
+        </div>
+        <div class="step-card reveal">
+          <span class="step-num-pill">Step 02</span>
+          <div class="step-title">Logged &amp; stored.</div>
+          <p class="step-body">Multiple indoor kiosks and computer vision track every drop-off in real time. Stored in the secure, access-controlled room with cameras on.</p>
+        </div>
+        <div class="step-card reveal">
+          <span class="step-num-pill">Step 03</span>
+          <div class="step-title">Resident alerts.</div>
+          <p class="step-body">Pickup instructions sent automatically. 24/7 secure access with a personal code. Resident picks up on their schedule.</p>
+        </div>
+        <div class="step-card reveal">
+          <span class="step-num-pill">Step 04</span>
+          <div class="step-title">Automated security monitoring.</div>
+          <p class="step-body">Every interaction recorded. Full chain-of-custody. Package volume, resident duration, and room state visible to property in the Dashboard.</p>
+        </div>
       </div>
     </div>
   </div>
