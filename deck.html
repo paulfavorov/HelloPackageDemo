@@ -542,14 +542,14 @@
     max-height: 56px;
     max-width: 100%;
     object-fit: contain;
-    filter: grayscale(1);
-    opacity: 0.72;
+    filter: brightness(0) invert(1);
+    opacity: 0.6;
   }
   .logo-tile-deck .logo-fallback {
     font-family: 'Manrope', sans-serif;
     font-weight: 800;
     font-size: 17px;
-    color: var(--text-2);
+    color: rgba(255,255,255,0.5);
     letter-spacing: -0.01em;
     text-align: center;
     line-height: 1.1;
@@ -562,7 +562,7 @@
   }
   .logo-wall-divider::before,
   .logo-wall-divider::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
+    content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.15);
   }
   .logo-wall-divider::before { margin-right: 24px; }
   .logo-wall-divider::after { margin-left: 24px; }
@@ -570,7 +570,7 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px; font-weight: 600;
     text-transform: uppercase; letter-spacing: 0.22em;
-    color: var(--text-2);
+    color: rgba(255,255,255,0.55);
     white-space: nowrap;
   }
   .logo-wall-commercial {
@@ -795,7 +795,40 @@
     line-height: 1.7;
   }
 
-  /* ============== SLIDE 13: CLOSING ============== */
+  /* ============== SLIDE 13: SPACE CONFIGURATOR ============== */
+  .space-grid-deck {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 36px; margin-top: 44px; flex: 1;
+  }
+  .space-card-deck {
+    background: var(--bg-card); border: 2px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .space-card-deck-img {
+    width: 100%; height: 340px; object-fit: contain;
+    background: #f4f5f7; border-bottom: 2px solid var(--border);
+  }
+  .space-card-deck-body { padding: 28px 28px 32px; }
+  .space-card-deck-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--text-3);
+  }
+  .space-card-deck-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 36px; font-weight: 800;
+    color: var(--text); letter-spacing: -0.03em;
+    margin-top: 8px; line-height: 1;
+  }
+  .space-card-deck-title span { color: var(--red); }
+  .space-card-deck-desc {
+    font-size: 16px; line-height: 1.6;
+    color: var(--text-2); margin-top: 12px;
+  }
+
+  /* ============== SLIDE 14: CLOSING ============== */
   .closing-content {
     flex: 1; display: flex; flex-direction: column;
     justify-content: center; align-items: flex-start;
@@ -954,7 +987,7 @@
 
         <div class="foot">
           <span>HelloPackage · Atlanta</span>
-          <span>01 / 13</span>
+          <span>01 / 14</span>
         </div>
       </div>
 
@@ -1008,7 +1041,7 @@
 
         <div class="foot">
           <span>The market</span>
-          <span>02 / 13</span>
+          <span>02 / 14</span>
         </div>
       </div>
 
@@ -1069,7 +1102,7 @@
 
         <div class="foot">
           <span>The problem</span>
-          <span>03 / 13</span>
+          <span>03 / 14</span>
         </div>
       </div>
 
@@ -1121,7 +1154,7 @@
 
         <div class="foot">
           <span>Three objectives</span>
-          <span>04 / 13</span>
+          <span>04 / 14</span>
         </div>
       </div>
 
@@ -1176,7 +1209,7 @@
 
         <div class="foot">
           <span>How it works</span>
-          <span>05 / 13</span>
+          <span>05 / 14</span>
         </div>
       </div>
 
@@ -1240,7 +1273,7 @@
 
         <div class="foot">
           <span>The platform</span>
-          <span>06 / 13</span>
+          <span>06 / 14</span>
         </div>
       </div>
 
@@ -1302,7 +1335,7 @@
 
         <div class="foot">
           <span>Why HelloPackage</span>
-          <span>07 / 13</span>
+          <span>07 / 14</span>
         </div>
       </div>
 
@@ -1354,7 +1387,7 @@
 
         <div class="foot">
           <span>Proven results</span>
-          <span>08 / 13</span>
+          <span>08 / 14</span>
         </div>
       </div>
 
@@ -1375,15 +1408,15 @@
 
     <!-- ====== SLIDE 9: CUSTOMER LOGOS ====== -->
     <section>
-      <div class="frame">
+      <div class="frame" style="background:#111827;">
         <div class="head">
-          <div class="brand-logo"></div>
-          <div class="meta"><span>Customer Base</span></div>
+          <div class="brand-logo" style="filter:brightness(0) invert(1);"></div>
+          <div class="meta" style="color:rgba(255,255,255,0.5);"><span>Customer Base</span></div>
         </div>
 
         <div class="head-block">
-          <span class="eyebrow">Customer base</span>
-          <h2 class="display-title small">Trusted by <span class="accent">12 of the NMHC Top 20.</span></h2>
+          <span class="eyebrow" style="color:rgba(255,255,255,0.5);">Customer base</span>
+          <h2 class="display-title small" style="color:#fff;">Trusted by <span class="accent">12 of the NMHC Top 20.</span></h2>
         </div>
 
         <div class="logo-wall-deck">
@@ -1412,9 +1445,9 @@
           <div class="logo-tile-deck"><img src="https://logo.clearbit.com/atlantatechvillage.com" alt="Atlanta Tech Village" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Atlanta Tech Village</span></div>
         </div>
 
-        <div class="foot">
+        <div class="foot" style="color:rgba(255,255,255,0.35);border-color:rgba(255,255,255,0.1);">
           <span>Customer base</span>
-          <span>09 / 13</span>
+          <span>09 / 14</span>
         </div>
       </div>
 
@@ -1479,7 +1512,7 @@
 
         <div class="foot">
           <span>Customer voice</span>
-          <span>10 / 13</span>
+          <span>10 / 14</span>
         </div>
       </div>
 
@@ -1580,7 +1613,7 @@
 
         <div class="foot">
           <span>The competition</span>
-          <span>11 / 13</span>
+          <span>11 / 14</span>
         </div>
       </div>
 
@@ -1638,7 +1671,7 @@
           <div class="price-card t2 fragment fade-up" data-fragment-index="1">
             <span class="price-eyebrow">Better</span>
             <div class="price-name">HelloPackage Essentials.</div>
-            <p class="price-desc">You provide the room. We bring everything — smart LED shelves, oversized racks, full installation.</p>
+            <p class="price-desc">You provide the room. We bring everything — smart LED shelves, oversized racks, full installation, onboarding, and training.</p>
             <div class="price-amounts">
               <div class="price-cap">Cap Ex from $24K</div>
               <div class="price-breakdown">
@@ -1660,7 +1693,7 @@
           <div class="price-card t3 fragment fade-up" data-fragment-index="2">
             <span class="price-eyebrow">Best</span>
             <div class="price-name">HelloPackage Enhanced.</div>
-            <p class="price-desc">Essentials plus AI session tracking, premium hardware, and a dedicated customer success manager.</p>
+            <p class="price-desc">Everything in Essentials, plus AI session tracking, premium hardware, free delivery, and a dedicated customer success manager.</p>
             <div class="price-amounts">
               <div class="price-cap">Cap Ex from $34K</div>
               <div class="price-breakdown">
@@ -1682,7 +1715,7 @@
           <div class="price-card t4 fragment fade-up" data-fragment-index="3">
             <span class="price-eyebrow">No space?</span>
             <div class="price-name">Modular Package Room.</div>
-            <p class="price-desc">Drop a standalone climate-controlled package room on site. Bundles with any tier above.</p>
+            <p class="price-desc">Drop a standalone climate-controlled package room on site. Bundles with any tier above when the property can't convert interior space.</p>
             <div class="price-amounts">
               <div class="price-cap">Cap Ex add $50K</div>
               <div class="price-monthly">Add-on <small>/ to any tier</small></div>
@@ -1698,7 +1731,7 @@
 
         <div class="foot">
           <span>Pricing</span>
-          <span>12 / 13</span>
+          <span>12 / 14</span>
         </div>
       </div>
 
@@ -1717,7 +1750,66 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 13: CLOSING ====== -->
+    <!-- ====== SLIDE 13: SPACE CONFIGURATOR ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>Room Configurations</span></div>
+        </div>
+
+        <div class="head-block">
+          <span class="eyebrow">Plan your space</span>
+          <h2 class="display-title small">Sized to your <span class="accent">portfolio.</span></h2>
+        </div>
+
+        <div class="space-grid-deck">
+          <div class="space-card-deck fragment fade-up" data-fragment-index="0">
+            <img class="space-card-deck-img" src="room-standard.jpg" alt="Standard room layout — 185 sq ft">
+            <div class="space-card-deck-body">
+              <div class="space-card-deck-label">Standard Room</div>
+              <div class="space-card-deck-title"><span>185</span> sq ft</div>
+              <p class="space-card-deck-desc">Ideal for 200–270 unit communities. 3 smart racks plus oversized storage, fridge, resident &amp; carrier kiosks, full camera coverage.</p>
+            </div>
+          </div>
+          <div class="space-card-deck fragment fade-up" data-fragment-index="1">
+            <img class="space-card-deck-img" src="room-midsize.jpg" alt="Mid-size room layout — 229 sq ft">
+            <div class="space-card-deck-body">
+              <div class="space-card-deck-label">Mid-Size Room</div>
+              <div class="space-card-deck-title"><span>229</span> sq ft</div>
+              <p class="space-card-deck-desc">Built for 270–370 unit properties. 3 racks with dual oversized zones, double-door fridge, and expanded carrier staging area.</p>
+            </div>
+          </div>
+          <div class="space-card-deck fragment fade-up" data-fragment-index="2">
+            <img class="space-card-deck-img" src="room-fullsize.jpg" alt="Full-size room layout — 257 sq ft">
+            <div class="space-card-deck-body">
+              <div class="space-card-deck-label">Full-Size Room</div>
+              <div class="space-card-deck-title"><span>257</span> sq ft</div>
+              <p class="space-card-deck-desc">Designed for 370–500+ unit communities. 5 racks plus oversized zone, fridge, full DDM camera array, and dedicated carrier workflow lane.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>Room configurations</span>
+          <span>13 / 14</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Every HelloPackage room is custom-designed for the property. Three common configurations here.
+
+        Standard — 185 square feet. Fits 200 to 270 unit communities. Three smart racks, one oversized zone, fridge, resident and carrier kiosks, full camera coverage. This is the most common install.
+
+        Mid-Size — 229 square feet. For 270 to 370 unit properties. Three racks with dual oversized zones for larger deliveries, double-door fridge, expanded carrier staging.
+
+        Full-Size — 257 square feet. Built for 370 to 500+ unit communities. Five racks, oversized zone, full DDM camera array, dedicated carrier workflow lane. The big properties.
+
+        The exact layout comes from our space configurator tool in the demo — we measure the actual room and design around it.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 14: CLOSING ====== -->
     <section data-transition="fade">
       <div class="frame closing-frame">
         <div class="head">
@@ -1754,7 +1846,7 @@
 
         <div class="foot">
           <span>HelloPackage · packagesolutions.com</span>
-          <span>13 / 13</span>
+          <span>14 / 14</span>
         </div>
       </div>
 
@@ -1775,7 +1867,7 @@
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
   </button>
   <div class="nav-dots" id="navDots"></div>
-  <span class="nav-counter" id="navCounter">01 / 13</span>
+  <span class="nav-counter" id="navCounter">01 / 14</span>
   <button class="nav-btn" id="navNext" aria-label="Next">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
   </button>
