@@ -536,6 +536,16 @@
     transition: all 0.2s ease;
   }
   .system-card.cyan { border-left-color: var(--blue); }
+  .system-card.has-video { padding: 0; border-left: 1px solid var(--border); overflow: hidden; }
+  .system-card.has-video:hover { border-left-color: var(--border-strong); }
+  .system-card-video {
+    width: 100%; aspect-ratio: 16/9; object-fit: cover;
+    border-bottom: 1px solid var(--border);
+    display: block;
+  }
+  .system-card-text { padding: 1.6rem 1.8rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .system-card.has-video .system-card-text { border-left: 5px solid var(--red); }
+  .system-card.has-video.cyan .system-card-text { border-left-color: var(--blue); }
   .system-card:hover { border-color: var(--border-strong); border-left-color: var(--red); }
   .system-card.cyan:hover { border-left-color: var(--blue); }
   .system-card .icon {
@@ -1525,21 +1535,25 @@
     </div>
 
     <div class="system-grid">
-      <div class="system-card reveal">
-        <div class="icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <div class="system-card has-video reveal">
+        <video class="system-card-video" autoplay muted loop playsinline>
+          <source src="RoomResident.mp4" type="video/mp4" />
+        </video>
+        <div class="system-card-text">
+          <span class="system-num">Component 01</span>
+          <div class="system-name">The Package Room.</div>
+          <p class="system-desc">Peace of mind, around the clock. Packages stored safely and picked up on residents' time. 4× density vs. lockers. Access-controlled. Always recording.</p>
         </div>
-        <span class="system-num">Component 01</span>
-        <div class="system-name">The Package Room.</div>
-        <p class="system-desc">Peace of mind, around the clock. Packages stored safely and picked up on residents' time. 4× density vs. lockers. Access-controlled. Always recording.</p>
       </div>
-      <div class="system-card cyan reveal">
-        <div class="icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      <div class="system-card has-video cyan reveal">
+        <video class="system-card-video" autoplay muted loop playsinline>
+          <source src="DeliveryDriverAmazon.mp4" type="video/mp4" />
+        </video>
+        <div class="system-card-text">
+          <span class="system-num">Component 02</span>
+          <div class="system-name">Delivery Driver Management.</div>
+          <p class="system-desc">Automatic access, guided drop-off flow, ongoing training, and real-time monitoring. 98.7% participation, 52% faster vs. legacy.</p>
         </div>
-        <span class="system-num">Component 02</span>
-        <div class="system-name">Delivery Driver Management.</div>
-        <p class="system-desc">Automatic access, guided drop-off flow, ongoing training, and real-time monitoring. Drivers in and out in seconds — 98.7% participation, 52% faster check-in &amp; retrieval vs. legacy systems.</p>
       </div>
       <div class="system-card reveal">
         <div class="icon">
