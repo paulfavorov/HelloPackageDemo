@@ -612,7 +612,7 @@
   /* ============== FUTURE-PROOFING ============== */
   .future-grid {
     margin-top: 3.5rem; display: grid;
-    grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
   }
   .future-card {
     background: var(--bg-card); border: 1px solid var(--border);
@@ -623,6 +623,11 @@
   .future-card-img {
     width: 100%; aspect-ratio: 16/9; object-fit: cover;
     border-bottom: 1px solid var(--border);
+  }
+  .future-card-video {
+    width: 100%; aspect-ratio: 16/9; object-fit: cover;
+    border-bottom: 1px solid var(--border);
+    background: #0B1220;
   }
   .future-card-body {
     padding: 1.6rem 1.8rem 1.8rem;
@@ -644,7 +649,7 @@
     font-size: 0.92rem; color: var(--text-2);
     line-height: 1.55; margin-top: 0.6rem;
   }
-  @media (max-width: 880px) {
+  @media (max-width: 980px) {
     .future-grid { grid-template-columns: 1fr; }
   }
 
@@ -1563,38 +1568,33 @@
 
     <div class="future-grid">
       <div class="future-card reveal">
-        <img class="future-card-img" src="https://hyperagent.com/api/files/usergenerated/threads/cmp1k4wbq040h07adfyxd06jo/images/105969fb-5632-4810-b8b6-b169080e368c.png" alt="3D building scan visualization">
+        <video class="future-card-video" autoplay muted loop playsinline poster="https://hyperagent.com/api/files/usergenerated/threads/cmp1k4wbq040h07adfyxd06jo/images/b396a94e-108d-4957-89b0-c1c436be3bf5.png">
+          <!-- Upload robotics clip to repo and update src -->
+        </video>
         <div class="future-card-body">
           <span class="future-card-eyebrow">Next 01</span>
-          <div class="future-card-title">Complete 3D Scanning.</div>
-          <p class="future-card-desc">Full spatial mapping of every building. Digital twins for precise planning, remote audits, and future automation routing.</p>
+          <div class="future-card-title">Robotics-Ready.</div>
+          <p class="future-card-desc">Autonomous robotic security and delivery is here. Partners like <a href="https://www.getundaunted.com/" target="_blank" rel="noopener noreferrer" style="color:var(--blue);text-decoration:underline;">Undaunted</a> already patrol multifamily communities 24/7. HelloPackage is wired to integrate from day one.</p>
         </div>
       </div>
 
       <div class="future-card reveal">
-        <img class="future-card-img" src="https://hyperagent.com/api/files/usergenerated/threads/cmp1k4wbq040h07adfyxd06jo/images/0c3273e0-849c-425f-b93d-05cb9b9d04cf.png" alt="Smart elevator control panel">
+        <video class="future-card-video" autoplay muted loop playsinline poster="https://hyperagent.com/api/files/usergenerated/threads/cmp1k4wbq040h07adfyxd06jo/images/0c3273e0-849c-425f-b93d-05cb9b9d04cf.png">
+          <!-- Upload elevator clip to repo and update src -->
+        </video>
         <div class="future-card-body">
           <span class="future-card-eyebrow">Next 02</span>
           <div class="future-card-title">Elevator Controls.</div>
-          <p class="future-card-desc">Smart elevator integration for autonomous access. The system calls the elevator, selects the floor, and routes carriers directly.</p>
+          <p class="future-card-desc">Smart elevator integration for autonomous access. The system calls the elevator, selects the floor, and routes carriers or robots directly — no human input.</p>
         </div>
       </div>
 
       <div class="future-card reveal">
-        <img class="future-card-img" src="https://hyperagent.com/api/files/usergenerated/threads/cmp1k4wbq040h07adfyxd06jo/images/b396a94e-108d-4957-89b0-c1c436be3bf5.png" alt="Delivery robot at building entrance">
+        <img class="future-card-img" src="https://hyperagent.com/api/files/usergenerated/threads/cmp1k4wbq040h07adfyxd06jo/images/105969fb-5632-4810-b8b6-b169080e368c.png" alt="3D building scan visualization">
         <div class="future-card-body">
           <span class="future-card-eyebrow">Next 03</span>
-          <div class="future-card-title">Robotics-Ready.</div>
-          <p class="future-card-desc">When last-mile delivery robots arrive at your building, HelloPackage is already wired to receive, route, and hand off — day one.</p>
-        </div>
-      </div>
-
-      <div class="future-card reveal">
-        <img class="future-card-img" src="https://hyperagent.com/api/files/usergenerated/threads/cmp1k4wbq040h07adfyxd06jo/images/15b9dc1f-e636-4d83-a4de-26444c4f2274.png" alt="AI platform neural network visualization">
-        <div class="future-card-body">
-          <span class="future-card-eyebrow">Next 04</span>
-          <div class="future-card-title">Continuous AI Platform.</div>
-          <p class="future-card-desc">Models improve every release. Vision, driver scoring, and anomaly detection get smarter with every package across the network.</p>
+          <div class="future-card-title">Complete 3D Scanning.</div>
+          <p class="future-card-desc">Full spatial mapping of every building. Digital twins for precise planning, remote audits, and future automation routing.</p>
         </div>
       </div>
     </div>
