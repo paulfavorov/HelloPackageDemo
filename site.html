@@ -757,6 +757,11 @@
     font-size: 0.82rem; color: var(--text-2);
     letter-spacing: 0;
   }
+  .source-note {
+    display: block; margin-top: 0.3rem;
+    font-size: 0.68rem; color: var(--text-3);
+    font-style: italic; letter-spacing: 0;
+  }
   @media (max-width: 880px) { .results-chips { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 480px) { .results-chips { grid-template-columns: 1fr; } }
 
@@ -870,10 +875,65 @@
   .pill-med { background: #FEF3C7; color: #A16207; }
   .pill-high { background: #FEE2E2; color: #B91C1C; }
 
-  /* ============== PRICING — 4 TIERS ============== */
-  .price-grid {
+  /* ============== ROI + PRICING ============== */
+  .roi-pricing-split {
     margin-top: 3.5rem; display: grid;
-    grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
+    grid-template-columns: 1fr 2.5fr; gap: 2rem;
+    align-items: start;
+  }
+  .roi-panel {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 18px; padding: 2rem 1.8rem;
+    position: sticky; top: 6rem;
+  }
+  .roi-panel-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.3rem; font-weight: 800;
+    color: var(--text); letter-spacing: -0.02em;
+  }
+  .roi-panel-sub {
+    font-size: 0.82rem; color: var(--text-3);
+    margin-top: 0.3rem;
+  }
+  .roi-rows { margin-top: 1.4rem; display: flex; flex-direction: column; gap: 0.9rem; }
+  .roi-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 0.8rem; border-bottom: 1px solid var(--border);
+  }
+  .roi-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .roi-label {
+    font-size: 0.85rem; color: var(--text-2); line-height: 1.3;
+    max-width: 16ch;
+  }
+  .roi-value {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    color: var(--text); letter-spacing: -0.02em;
+    text-align: right;
+  }
+  .roi-value.green { color: var(--green); }
+  .roi-value.red { color: var(--red); }
+  .roi-divider {
+    margin: 1rem 0 0.8rem; border: none;
+    border-top: 2px solid var(--border-strong);
+  }
+  .roi-total-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.88rem; font-weight: 700; color: var(--text);
+  }
+  .roi-source {
+    margin-top: 1.2rem; font-size: 0.68rem;
+    color: var(--text-3); font-style: italic;
+    line-height: 1.5;
+  }
+  .price-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); gap: 1.2rem;
+  }
+  @media (max-width: 1100px) {
+    .roi-pricing-split { grid-template-columns: 1fr; }
+    .roi-panel { position: static; }
+    .price-grid { grid-template-columns: repeat(4, 1fr); }
   }
   .price-card {
     padding: 2.4rem 1.8rem; background: var(--bg-card);
@@ -1264,7 +1324,7 @@
 <!-- ============== LOGO MARQUEE ============== -->
 <section class="logo-wall-section" id="customers-logos">
   <p class="logo-wall-heading">
-    Trusted by <strong>12 of the NMHC Top 20</strong> <span style="color:rgba(255,255,255,0.3); margin:0 0.6em;">·</span> luxury · student · HOA · commercial deployments
+    Deployed across portfolios managed by <strong>12 of the NMHC Top 20</strong> <span style="color:rgba(255,255,255,0.3); margin:0 0.6em;">·</span> luxury · student · HOA · commercial deployments
   </p>
   <div class="logo-marquee">
     <div class="logo-track">
@@ -1620,22 +1680,22 @@
       <div class="results-chip reveal">
         <span class="chip-num">4×</span>
         <span class="chip-label">Package density</span>
-        <span class="chip-sub">Versus traditional lockers</span>
+        <span class="chip-sub">Versus traditional lockers <em class="source-note">HP portfolio data, 2025–26</em></span>
       </div>
       <div class="results-chip reveal">
         <span class="chip-num">↑ 52%</span>
         <span class="chip-label">Check-in &amp; retrieval</span>
-        <span class="chip-sub">Average speed improvement</span>
+        <span class="chip-sub">Average speed improvement <em class="source-note">HP portfolio data, 2025–26</em></span>
       </div>
       <div class="results-chip reveal">
         <span class="chip-num">98.7%</span>
         <span class="chip-label">Driver participation</span>
-        <span class="chip-sub">No more "dump and go"</span>
+        <span class="chip-sub">No more "dump and go" <em class="source-note">HP portfolio data, 2025–26</em></span>
       </div>
       <div class="results-chip reveal">
         <span class="chip-num">↓ 80%</span>
         <span class="chip-label">Cost-effective</span>
-        <span class="chip-sub">Versus traditional labor</span>
+        <span class="chip-sub">Versus traditional labor <em class="source-note">Internal operating benchmark</em></span>
       </div>
     </div>
   </div>
@@ -1771,14 +1831,52 @@
   </div>
 </section>
 
-<!-- ============== PRICING ============== -->
+<!-- ============== ROI + PRICING ============== -->
 <section class="section alt" id="pricing">
   <div class="container">
     <div class="section-head reveal">
-      <span class="eyebrow">A solution for every property</span>
-      <h2 class="display h2">Good. Better. <span class="accent">Best.</span></h2>
-      <p class="lede">Three tiers, all-in pricing. Software, hardware, and a 3 hr/week on-site service team — together in one monthly number. Plus a modular package room for properties without space.</p>
+      <span class="eyebrow">The economics</span>
+      <h2 class="display h2">The math <span class="accent">works.</span></h2>
+      <p class="lede">What you save on the left, what it costs on the right. All-in pricing — software, hardware, and a 3 hr/week on-site service team in one monthly number.</p>
     </div>
+
+    <div class="roi-pricing-split">
+      <div class="roi-panel reveal">
+        <div class="roi-panel-title">ROI at a glance</div>
+        <div class="roi-panel-sub">Example: 250-unit property</div>
+        <div class="roi-rows">
+          <div class="roi-row">
+            <span class="roi-label">Staff hours recovered</span>
+            <span class="roi-value green">10–20 hrs/wk</span>
+          </div>
+          <div class="roi-row">
+            <span class="roi-label">Package density vs. lockers</span>
+            <span class="roi-value">4×</span>
+          </div>
+          <div class="roi-row">
+            <span class="roi-label">Faster check-in &amp; retrieval</span>
+            <span class="roi-value green">52%</span>
+          </div>
+          <div class="roi-row">
+            <span class="roi-label">Cost vs. traditional labor</span>
+            <span class="roi-value green">↓ 80%</span>
+          </div>
+          <div class="roi-row">
+            <span class="roi-label">Driver participation</span>
+            <span class="roi-value">98.7%</span>
+          </div>
+        </div>
+        <hr class="roi-divider">
+        <div class="roi-row">
+          <span class="roi-total-label">Monthly cost (250 units)</span>
+          <span class="roi-value">$830–$1,078</span>
+        </div>
+        <div class="roi-row" style="margin-top:0.5rem;">
+          <span class="roi-total-label">Modeled property uplift</span>
+          <span class="roi-value green">~$480K</span>
+        </div>
+        <p class="roi-source">Sources: HP portfolio data 2025–26, NMHC staffing benchmark, internal operating data. Property uplift modeled where resident fees apply.</p>
+      </div>
 
     <div class="price-grid">
       <div class="price-card t1 reveal">
@@ -1857,10 +1955,10 @@
         </div>
       </div>
     </div>
+    </div><!-- /roi-pricing-split -->
 
     <div class="price-footnotes">
       <div>* On-site labor = 3 hr/week service team (~$1.72 / unit / mo at typical property size), included in monthly total.</div>
-      <div>* Example: 256-unit property → $850 – $1,078 per month, depending on tier.</div>
       <div>* New development ramp and Op Ex financing available. Get a quote for your portfolio.</div>
     </div>
   </div>
