@@ -895,16 +895,72 @@
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: 18px; padding: 2rem 1.8rem;
     position: sticky; top: 6rem;
+    overflow: hidden;
+  }
+  .roi-panel::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 4px;
+    background: var(--roi-accent, var(--blue));
+    transition: background 0.35s ease;
   }
   .roi-panel-title {
     font-family: 'Manrope', sans-serif;
     font-size: 1.3rem; font-weight: 800;
     color: var(--text); letter-spacing: -0.02em;
   }
+  .roi-head {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; gap: 14px;
+  }
+  .roi-pills {
+    display: flex; gap: 4px;
+    background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 999px; padding: 3px;
+  }
+  .roi-pill {
+    border: 0; cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--text-3); background: transparent;
+    padding: 6px 9px; border-radius: 999px;
+    transition: all 0.2s ease;
+  }
+  .roi-pill[aria-pressed="true"] {
+    background: #fff; color: var(--roi-accent, var(--blue));
+    box-shadow: 0 1px 4px -1px rgba(0,0,0,0.2);
+  }
+  .roi-units {
+    margin-top: 0.45rem; display: flex;
+    align-items: baseline; gap: 0.5rem;
+    font-size: 0.82rem; color: var(--text-3);
+  }
+  .roi-units b {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; color: var(--text-2); font-size: 0.92rem;
+  }
+  .roi-slider {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 4px; border-radius: 999px;
+    margin-top: 0.7rem; outline: none;
+    background: linear-gradient(90deg, var(--roi-accent, var(--blue)) 0 var(--fill, 40%), var(--border-strong) var(--fill, 40%));
+  }
+  .roi-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 17px; height: 17px; border-radius: 50%;
+    background: #fff; border: 3px solid var(--roi-accent, var(--blue));
+    cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  }
+  .roi-slider::-moz-range-thumb {
+    width: 15px; height: 15px; border-radius: 50%;
+    background: #fff; border: 3px solid var(--roi-accent, var(--blue));
+    cursor: pointer;
+  }
   .roi-panel-sub {
     font-size: 0.82rem; color: var(--text-3);
     margin-top: 0.3rem;
   }
+  .roi-uplift { font-size: 1.3rem; }
   .roi-rows { margin-top: 1.4rem; display: flex; flex-direction: column; gap: 0.9rem; }
   .roi-row {
     display: flex; justify-content: space-between; align-items: baseline;
@@ -1855,13 +1911,22 @@
     </div>
 
     <div class="roi-pricing-split">
-      <div class="roi-panel reveal">
-        <div class="roi-panel-title">ROI at a glance</div>
-        <div class="roi-panel-sub">Example: 250-unit property</div>
+      <div class="roi-panel reveal" id="roiCalc">
+        <div class="roi-head">
+          <div class="roi-panel-title">ROI at a glance</div>
+          <div class="roi-pills" role="group" aria-label="Plan">
+            <button class="roi-pill" data-tier="core">Core</button>
+            <button class="roi-pill" data-tier="essentials" aria-pressed="true">Essentials</button>
+            <button class="roi-pill" data-tier="enhanced">Enhanced</button>
+          </div>
+        </div>
+        <div class="roi-units">Example property · <b id="uVal">250</b> units</div>
+        <input class="roi-slider" id="roiUnits" type="range" min="50" max="600" step="10" value="250">
+
         <div class="roi-rows">
           <div class="roi-row">
             <span class="roi-label">Staff hours recovered</span>
-            <span class="roi-value green">10–20 hrs/wk</span>
+            <span class="roi-value green" id="roiHours">20 hrs/wk</span>
           </div>
           <div class="roi-row">
             <span class="roi-label">Package density vs. lockers</span>
@@ -1872,8 +1937,8 @@
             <span class="roi-value green">52%</span>
           </div>
           <div class="roi-row">
-            <span class="roi-label">Cost vs. traditional labor</span>
-            <span class="roi-value green">↓ 80%</span>
+            <span class="roi-label">On-site labor vs. in-house</span>
+            <span class="roi-value green" id="roiLabor">↓ 83%</span>
           </div>
           <div class="roi-row">
             <span class="roi-label">Driver participation</span>
@@ -1882,14 +1947,14 @@
         </div>
         <hr class="roi-divider">
         <div class="roi-row">
-          <span class="roi-total-label">Monthly cost (250 units)</span>
-          <span class="roi-value">$830–$1,078</span>
+          <span class="roi-total-label">All-in cost / mo</span>
+          <span class="roi-value" id="roiCost">$955</span>
         </div>
         <div class="roi-row" style="margin-top:0.5rem;">
           <span class="roi-total-label">Modeled property uplift</span>
-          <span class="roi-value green">~$480K</span>
+          <span class="roi-value green roi-uplift" id="roiUplift">~$478K</span>
         </div>
-        <p class="roi-source">Sources: HP portfolio data 2025–26, NMHC staffing benchmark, internal operating data. Property uplift modeled where resident fees apply.</p>
+        <p class="roi-source">Sources: HP portfolio data 2025–26, NMHC staffing benchmark, internal operating data. Model: $30/hr loaded staff cost, ~0.08 hrs/unit/wk in-house handling, 5.0% cap rate, $1.40/unit/mo resident fee. Uplift modeled where resident fees apply.</p>
       </div>
 
     <div class="price-grid">
@@ -2189,6 +2254,67 @@
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
+
+  /* ============== ROI CALCULATOR ============== */
+  (function() {
+    var TIERS = { core: { total: 3.32, labor: 1.72 }, essentials: { total: 3.82, labor: 1.72 }, enhanced: { total: 4.21, labor: 1.72 } };
+    var COLOR = { core: 'var(--red)', essentials: 'var(--blue)', enhanced: 'var(--blue-bright)' };
+    var WAGE = 30, HRS_PER_UNIT_WK = 0.08, WEEKS = 4.33, CAP = 0.05, FEE = 1.40;
+    var root = document.getElementById('roiCalc');
+    if (!root) return;
+    var tier = 'essentials', units = 250;
+    var $ = function(id) { return document.getElementById(id); };
+    var d$ = function(n) { return '$' + Math.round(n).toLocaleString(); };
+    var kK = function(n) { return '~$' + Math.round(n / 1000) + 'K'; };
+
+    function animate(el, to, render) {
+      var from = parseFloat(el.dataset.cur || to) || to, t0 = null;
+      el.dataset.cur = to;
+      function s(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / 420, 1), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = render(from + (to - from) * e);
+        if (p < 1) requestAnimationFrame(s);
+      }
+      requestAnimationFrame(s);
+    }
+
+    function calc() {
+      var t = TIERS[tier], hrs = units * HRS_PER_UNIT_WK;
+      var trad = hrs * WEEKS * WAGE, hpLabor = t.labor * units;
+      var hpTotal = t.total * units, net = trad - hpTotal;
+      var fee = FEE * units, noi = (net + fee) * 12, uplift = noi / CAP;
+      var laborPct = Math.round((trad - hpLabor) / trad * 100);
+      root.style.setProperty('--roi-accent', COLOR[tier]);
+      animate($('roiHours'), hrs, function(v) { return Math.round(v) + ' hrs/wk'; });
+      $('roiLabor').textContent = '↓ ' + laborPct + '%';
+      animate($('roiCost'), hpTotal, d$);
+      animate($('roiUplift'), uplift, kK);
+    }
+
+    root.querySelectorAll('.roi-pill').forEach(function(b) {
+      b.addEventListener('click', function() {
+        tier = b.dataset.tier;
+        root.querySelectorAll('.roi-pill').forEach(function(x) {
+          x.setAttribute('aria-pressed', x === b);
+        });
+        calc();
+      });
+    });
+
+    var sl = $('roiUnits');
+    function fill() {
+      sl.style.setProperty('--fill', (units - sl.min) / (sl.max - sl.min) * 100 + '%');
+    }
+    sl.addEventListener('input', function() {
+      units = +sl.value;
+      $('uVal').textContent = units.toLocaleString();
+      fill();
+      calc();
+    });
+    fill();
+    calc();
+  })();
 </script>
 
 </body>
