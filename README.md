@@ -32,6 +32,7 @@ Product demo site for HelloPackage — AI-powered package management for multifa
 | `room-standard.jpg` | Standard package room layout |
 | `room-midsize.jpg` | Mid-size package room layout |
 | `room-fullsize.jpg` | Full-size package room layout |
+| `verifast-logo.png` | Verifast partner logo (used by `verifast-offer.html`) |
 
 ### Videos
 
