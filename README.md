@@ -2,31 +2,56 @@
 
 Product demo site for HelloPackage — AI-powered package management for multifamily and student housing.
 
-## Live URLs (after enabling GitHub Pages)
+## Live URLs
 
 - **Scroll page** — `https://paulfavorov.github.io/HelloPackageDemo/site.html`
 - **Slide deck** — `https://paulfavorov.github.io/HelloPackageDemo/deck.html`
+- **Verifast partner offer** — `https://paulfavorov.github.io/HelloPackageDemo/verifast-offer.html`
 
 ## Files
 
 | File | Purpose |
 |---|---|
 | `site.html` | TAG-editorial scroll page (multi-section marketing site) |
-| `deck.html` | Reveal.js slide deck (12 slides, fragment animations, speaker notes) |
+| `deck.html` | Reveal.js slide deck (18 slides, fragment animations, speaker notes) |
+| `verifast-offer.html` | Reveal.js mini-deck (4 slides) — HelloPackage × Verifast partner incentive for pending contracts |
 
 ## Required Assets
 
-Both files reference these images and videos at the repository root. Upload them to make the site self-contained:
+### Images
 
-- `Logo.jpg` — HelloPackage logo
-- `chaos.jpg` — Package room overflow photo
-- `destinations.jpg` — Delivery destinations image
-- `realtime.jpg` — Real-time tracking image
-- `staffing.jpg` — Onsite staff image
-- `Slide4.mp4` — Computer vision demo video
-- `Slide5.mp4` — Platform demo video
+| File | Purpose |
+|---|---|
+| `Logo.jpg` | HelloPackage logo |
+| `chaos.jpg` | Package room overflow photo |
+| `destinations.jpg` | Delivery destinations image |
+| `realtime.jpg` | Real-time tracking image |
+| `staffing.jpg` | Onsite staff image |
+| `partners-map.jpg` | 200+ communities coverage map |
+| `future-3d-scan.jpg` | 3D room scanning preview |
+| `room-standard.jpg` | Standard package room layout |
+| `room-midsize.jpg` | Mid-size package room layout |
+| `room-fullsize.jpg` | Full-size package room layout |
 
-All assets currently live at `https://paulfavorov.github.io/` (the existing repo); copy them here for self-contained hosting.
+### Videos
+
+| File | Purpose |
+|---|---|
+| `Slide4.mp4` | Computer vision demo video |
+| `Slide5.mp4` | Platform demo video |
+| `3d_scan.mp4` | 3D room scanning demo |
+| `DeliveryDriverAmazon.mp4` | Amazon driver guided drop-off flow |
+| `Elevator.mp4` | Elevator / building access demo |
+| `NoCodes.mp4` | No-code access violation detection |
+| `RoomResident.mp4` | Resident package pickup experience |
+| `Security_bot.mp4` | AI security monitoring bot |
+
+## Related Repositories
+
+| Repo | Purpose | URL |
+|---|---|---|
+| `paulfavorov/HelloPackageDemo` | Primary demo site (this repo) | [github.com/paulfavorov/HelloPackageDemo](https://github.com/paulfavorov/HelloPackageDemo) |
+| `paulfavorov/paulfavorov.github.io` | Original TAG 2026 demo (legacy `index.html`) | [github.com/paulfavorov/paulfavorov.github.io](https://github.com/paulfavorov/paulfavorov.github.io) |
 
 ## Enabling GitHub Pages
 

@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HelloPackage × Verifast · Security Starts Before Move-In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css" />
+
+<style>
+  /* ============== TAG BRAND TOKENS ============== */
+  :root {
+    --bg: #FFFFFF;
+    --bg-soft: #F8FAFC;
+    --bg-card: #FAFBFD;
+    --text: #0B1220;
+    --text-2: #475569;
+    --text-3: #94A3B8;
+    --red: #E71D25;
+    --red-soft: #FEF2F2;
+    --blue: #0080A5;
+    --blue-bright: #00AED5;
+    --blue-soft: #F0FAFD;
+    --border: #E2E8F0;
+    --border-strong: #CBD5E1;
+  }
+
+  html, body { margin: 0; padding: 0; height: 100%; width: 100%; background: #06101D; overflow: hidden; }
+  body { font-family: 'Inter', sans-serif; }
+
+  /* ============== REVEAL.JS OVERRIDES ============== */
+  .reveal {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: #06101D;
+  }
+  .reveal .slides { text-align: left; }
+  .reveal .slides > section,
+  .reveal .slides > section > section {
+    padding: 0 !important;
+    height: 100%;
+    box-sizing: border-box;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal p, .reveal ul {
+    margin: 0; padding: 0; line-height: 1.4; text-align: left;
+  }
+  .reveal ul { list-style: none; }
+  .reveal a { color: var(--blue); text-decoration: none; }
+  .reveal section img { border: none; box-shadow: none; }
+  .reveal .controls { display: none !important; }
+  .reveal .progress { height: 4px; background: rgba(255,255,255,0.08); }
+  .reveal .progress span { background: var(--red); transition: width 0.3s ease; }
+
+  /* ============== SLIDE FRAMEWORK ============== */
+  .frame {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    padding: 60px 110px;
+    background: var(--bg);
+    position: relative;
+    box-sizing: border-box;
+    color: var(--text);
+  }
+
+  /* HEADER */
+  .head {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-shrink: 0;
+  }
+  .brand-logo {
+    width: 220px; height: 70px;
+    background-image: url('Logo.jpg');
+    background-size: contain; background-repeat: no-repeat;
+    background-position: left center;
+  }
+  .frame.title-frame .brand-logo,
+  .frame.closing-frame .brand-logo {
+    width: 280px; height: 90px;
+  }
+  .meta {
+    display: flex; align-items: center; gap: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--text-3);
+  }
+  .meta-dot { width: 5px; height: 5px; background: var(--text-3); border-radius: 50%; }
+
+  /* FOOTER */
+  .foot {
+    margin-top: auto; flex-shrink: 0;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--text-3);
+  }
+
+  /* EYEBROW */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .eyebrow::before { content: ''; width: 48px; height: 2px; background: var(--red); }
+  .eyebrow.cyan { color: var(--blue); }
+  .eyebrow.cyan::before { background: var(--blue); }
+
+  /* DISPLAY TITLE */
+  .display-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 110px; font-weight: 800;
+    line-height: 0.98; letter-spacing: -0.04em;
+    color: var(--text); margin-top: 24px;
+  }
+  .display-title .accent { color: var(--red); font-style: italic; }
+  .display-title .accent-cyan { color: var(--blue); font-style: italic; }
+  .display-title.small { font-size: 88px; }
+  .display-title.smaller { font-size: 72px; }
+
+  /* ============== SLIDE 1: TITLE ============== */
+  .title-content {
+    flex: 1; display: flex; flex-direction: column;
+    justify-content: center;
+  }
+  .hero-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 148px; font-weight: 800;
+    line-height: 0.94; letter-spacing: -0.045em;
+    color: var(--text); margin-top: 28px;
+  }
+  .hero-title .accent { color: var(--red); font-style: italic; }
+  .hero-divider { width: 120px; height: 4px; background: var(--text); margin: 36px 0 28px; }
+  .hero-subtitle {
+    font-size: 36px; color: var(--text-2);
+    font-weight: 400; line-height: 1.3;
+    letter-spacing: -0.01em; max-width: 36ch;
+  }
+  .partner-logos {
+    display: flex; align-items: center; gap: 40px;
+    margin-top: 56px;
+  }
+  .partner-logos img {
+    height: 52px; object-fit: contain;
+  }
+  .partner-logos .times {
+    font-family: 'Manrope', sans-serif;
+    font-size: 36px; font-weight: 300;
+    color: var(--text-3); line-height: 1;
+  }
+  .partner-logos .vf-logo-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: 40px; font-weight: 800;
+    color: #1a1a2e; letter-spacing: -0.02em;
+  }
+  .deadline-pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--red-soft); border: 1px solid rgba(231,29,37,0.15);
+    border-radius: 100px; padding: 10px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--red); margin-top: 40px;
+  }
+  .deadline-pill::before {
+    content: ''; width: 8px; height: 8px;
+    background: var(--red); border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ============== SLIDE 2: SECURITY CONTINUUM ============== */
+  .continuum-grid {
+    flex: 1; display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    gap: 0; align-items: center;
+    margin-top: 48px;
+  }
+  .continuum-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 56px 52px;
+    height: 580px;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .continuum-panel::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 6px;
+    background: var(--accent, var(--blue-bright));
+    z-index: 3;
+  }
+  .continuum-panel.hp { --accent: var(--red); }
+  .continuum-panel .panel-phase {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--text-3); margin-bottom: 12px;
+  }
+  .continuum-panel .panel-brand {
+    font-family: 'Manrope', sans-serif;
+    font-size: 44px; font-weight: 800;
+    letter-spacing: -0.03em; color: var(--text);
+    line-height: 1.05; margin-bottom: 28px;
+  }
+  .continuum-panel .panel-brand img {
+    height: 44px; vertical-align: middle;
+  }
+  .panel-features {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .panel-features li {
+    font-size: 24px; color: var(--text-2);
+    font-weight: 400; line-height: 1.45;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .panel-features li:last-child { border-bottom: none; }
+  .panel-features .feat-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; margin-top: 2px;
+  }
+  .panel-features .feat-icon.cyan-bg { background: var(--blue-soft); color: var(--blue); }
+  .panel-features .feat-icon.red-bg { background: var(--red-soft); color: var(--red); }
+
+  .continuum-bridge {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative;
+  }
+  .bridge-line {
+    width: 3px; height: 180px;
+    background: linear-gradient(180deg, var(--blue-bright) 0%, var(--red) 100%);
+    border-radius: 2px;
+  }
+  .bridge-icon {
+    width: 56px; height: 56px;
+    background: var(--bg); border: 2px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin: 12px 0;
+    box-shadow: 0 4px 16px rgba(15,23,42,0.08);
+  }
+
+  /* ============== SLIDE 3: THE OFFER ============== */
+  .offer-hero {
+    flex: 1; display: flex; flex-direction: column;
+    justify-content: center;
+  }
+  .offer-cards {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px; margin-top: 48px;
+  }
+  .offer-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 22px; padding: 48px 44px;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .offer-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 6px;
+    background: var(--accent, var(--red));
+  }
+  .offer-card.red { --accent: var(--red); }
+  .offer-card.cyan { --accent: var(--blue-bright); }
+  .offer-card.dark { --accent: var(--text); }
+  .offer-card .card-number {
+    font-family: 'Manrope', sans-serif;
+    font-size: 72px; font-weight: 900;
+    line-height: 0.9; letter-spacing: -0.05em;
+    margin-bottom: 20px;
+  }
+  .offer-card.red .card-number { color: var(--red); }
+  .offer-card.cyan .card-number { color: var(--blue); }
+  .offer-card.dark .card-number { color: var(--text); }
+  .offer-card .card-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 30px; font-weight: 800;
+    line-height: 1.15; letter-spacing: -0.02em;
+    color: var(--text); margin-bottom: 16px;
+  }
+  .offer-card .card-desc {
+    font-size: 21px; color: var(--text-2);
+    line-height: 1.5; font-weight: 400;
+  }
+  .offer-deadline {
+    display: flex; align-items: center; gap: 28px;
+    margin-top: 44px;
+    padding: 28px 36px;
+    background: linear-gradient(135deg, #0B1220 0%, #1E293B 100%);
+    border-radius: 16px;
+  }
+  .offer-deadline .deadline-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.6);
+  }
+  .offer-deadline .deadline-date {
+    font-family: 'Manrope', sans-serif;
+    font-size: 40px; font-weight: 900;
+    color: #FFFFFF; letter-spacing: -0.03em;
+  }
+  .offer-deadline .deadline-date span { color: var(--red); }
+
+  /* ============== SLIDE 4: CLOSING ============== */
+  .closing-content {
+    flex: 1; display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+  }
+  .closing-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 180px; font-weight: 900;
+    line-height: 0.9; letter-spacing: -0.06em;
+    color: var(--text);
+  }
+  .closing-title .accent { color: var(--red); font-style: italic; }
+  .closing-divider { width: 144px; height: 4px; background: var(--red); margin: 44px 0; }
+  .closing-strip {
+    display: grid; grid-template-columns: repeat(3, auto);
+    gap: 80px;
+  }
+  .closing-item .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--text-2);
+  }
+  .closing-item .val {
+    font-family: 'Manrope', sans-serif;
+    font-size: 28px; font-weight: 800;
+    color: var(--text); margin-top: 12px;
+    letter-spacing: -0.02em; line-height: 1.15;
+  }
+  .closing-item .val a { color: var(--text); text-decoration: none; }
+  .closing-item .val small {
+    display: block;
+    font-size: 17px; font-weight: 500;
+    color: var(--text-2); margin-top: 6px;
+  }
+  .closing-item .val small a { color: var(--text-2); }
+  .closing-logos {
+    display: flex; align-items: center; gap: 32px;
+    margin-top: 48px;
+  }
+  .closing-logos img { height: 40px; object-fit: contain; }
+  .closing-logos .times {
+    font-family: 'Manrope', sans-serif;
+    font-size: 28px; font-weight: 300;
+    color: var(--text-3);
+  }
+  .closing-logos .vf-logo-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: 32px; font-weight: 800;
+    color: #1a1a2e; letter-spacing: -0.02em;
+  }
+  .closing-deadline-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--red-soft); border: 1px solid rgba(231,29,37,0.15);
+    border-radius: 100px; padding: 10px 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--red); margin-top: 32px;
+  }
+
+  /* ============== FRAGMENTS ============== */
+  .reveal .fade-up {
+    transform: translateY(40px);
+  }
+  .reveal .fade-up.visible {
+    transform: translateY(0);
+  }
+
+  /* ============== CUSTOM NAV ============== */
+  .nav-bar {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; align-items: center; gap: 18px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    padding: 10px 18px; border-radius: 100px;
+    z-index: 1000;
+    box-shadow: 0 12px 36px -10px rgba(15, 23, 42, 0.2);
+  }
+  .nav-btn {
+    background: transparent; border: none;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--text-2); padding: 0;
+  }
+  .nav-btn:hover { background: var(--bg-soft); color: var(--text); }
+  .nav-dots { display: flex; gap: 7px; align-items: center; }
+  .nav-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border-strong); cursor: pointer;
+    transition: all 0.2s; border: none; padding: 0;
+  }
+  .nav-dot.active {
+    background: var(--red); width: 26px; border-radius: 5px;
+  }
+  .nav-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: var(--text-2);
+    letter-spacing: 0.1em; min-width: 70px;
+    text-align: center;
+  }
+
+  .reveal-hint {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-3);
+    background: rgba(255, 255, 255, 0.92);
+    padding: 8px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+    z-index: 999;
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+
+  @media print {
+    .nav-bar, .reveal-hint { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====== SLIDE 1: TITLE / HOOK ====== -->
+    <section data-transition="fade">
+      <div class="frame title-frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta">
+            <span>Partner Offer</span>
+            <span class="meta-dot"></span>
+            <span>Summer 2026</span>
+          </div>
+        </div>
+
+        <div class="title-content">
+          <span class="eyebrow">Exclusive Partner Offer</span>
+          <h1 class="hero-title">Security starts<br><span class="accent">before</span> move-in.</h1>
+          <div class="hero-divider"></div>
+          <p class="hero-subtitle">Complete resident security from application to package pickup — now with a partner incentive for pending contracts.</p>
+
+          <div class="partner-logos">
+            <img src="Logo.jpg" alt="HelloPackage" style="height: 48px;" />
+            <span class="times">×</span>
+            <span class="vf-logo-text">Verifast</span>
+          </div>
+
+          <div class="deadline-pill">Sign by September 30 · Verifast included free</div>
+        </div>
+
+        <div class="foot">
+          <span>HelloPackage · packagesolutions.com</span>
+          <span>1 / 4</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Open with the core thesis: HelloPackage has always been about security — package security. But security doesn't start when the first package arrives. It starts when you verify who's moving in.
+
+        That's why we've partnered with Verifast — the top-rated identity verification platform in multifamily, trusted by 35% of NMHC Top 50.
+
+        This deck is a follow-up to your pending contract. We want to make the decision easier.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 2: THE SECURITY CONTINUUM ====== -->
+    <section data-transition="slide">
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta">
+            <span>HelloPackage × Verifast</span>
+            <span class="meta-dot"></span>
+            <span>The Full Picture</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 40px;">
+          <span class="eyebrow cyan">The Security Continuum</span>
+          <h2 class="display-title small" style="margin-top: 16px;">From <span class="accent-cyan">application</span><br>to package pickup.</h2>
+        </div>
+
+        <div class="continuum-grid">
+          <!-- VERIFAST PANEL -->
+          <div class="continuum-panel vf" style="--accent: var(--blue-bright);">
+            <div class="panel-phase">Before Move-In</div>
+            <div class="panel-brand">Verifast</div>
+            <ul class="panel-features">
+              <li>
+                <div class="feat-icon cyan-bg">🪪</div>
+                <div><strong style="color:var(--text); font-weight:600;">AI identity verification</strong><br>Live video biometric match + proof of life</div>
+              </li>
+              <li>
+                <div class="feat-icon cyan-bg">📄</div>
+                <div><strong style="color:var(--text); font-weight:600;">Income &amp; employment</strong><br>Direct bank &amp; employer connect, document OCR</div>
+              </li>
+              <li>
+                <div class="feat-icon cyan-bg">🛡️</div>
+                <div><strong style="color:var(--text); font-weight:600;">Fraud detection</strong><br>42% fewer false positives vs. manual screening</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- BRIDGE -->
+          <div class="continuum-bridge">
+            <div class="bridge-line"></div>
+            <div class="bridge-icon">→</div>
+            <div class="bridge-line"></div>
+          </div>
+
+          <!-- HELLOPACKAGE PANEL -->
+          <div class="continuum-panel hp">
+            <div class="panel-phase">After Move-In</div>
+            <div class="panel-brand">HelloPackage</div>
+            <ul class="panel-features">
+              <li>
+                <div class="feat-icon red-bg">📦</div>
+                <div><strong style="color:var(--text); font-weight:600;">Computer vision tracking</strong><br>Every package logged, photographed, monitored</div>
+              </li>
+              <li>
+                <div class="feat-icon red-bg">🔐</div>
+                <div><strong style="color:var(--text); font-weight:600;">Secure 24/7 access</strong><br>Personal pickup codes, access-controlled room</div>
+              </li>
+              <li>
+                <div class="feat-icon red-bg">👤</div>
+                <div><strong style="color:var(--text); font-weight:600;">Driver management</strong><br>98.7% driver participation, guided drop-off flow</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>HelloPackage · packagesolutions.com</span>
+          <span>2 / 4</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        The security continuum: Verifast verifies WHO is moving in — identity, income, employment, fraud screening. HelloPackage secures WHAT arrives after they move in — packages tracked by computer vision, secured in access-controlled rooms, with 24/7 availability.
+
+        Together, this is the only end-to-end security story in multifamily. No one else offers both sides.
+
+        Verifast stats: trusted by 35% of NMHC Top 50, 2,000+ 5-star Trustpilot reviews, 90% increase in application efficiency. HelloPackage stats: 200+ communities, 98.7% driver participation, 4.5/5 resident rating.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 3: THE OFFER ====== -->
+    <section data-transition="slide">
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta">
+            <span>HelloPackage × Verifast</span>
+            <span class="meta-dot"></span>
+            <span>The Offer</span>
+          </div>
+        </div>
+
+        <div class="offer-hero">
+          <span class="eyebrow">Limited-Time Incentive</span>
+          <h2 class="display-title" style="margin-top: 16px; font-size: 96px;">Sign by September 30 —<br>Verifast is <span class="accent">on us.</span></h2>
+
+          <div class="offer-cards">
+            <div class="offer-card red">
+              <div class="card-number">01</div>
+              <div class="card-title">3 Months of Verifast — Free</div>
+              <div class="card-desc">HelloPackage pays the full Verifast cost for your first three months. AI identity verification, income screening, and fraud detection — included.</div>
+            </div>
+            <div class="offer-card cyan">
+              <div class="card-number">02</div>
+              <div class="card-title">Full HelloPackage Platform</div>
+              <div class="card-desc">Computer vision package tracking, secure access, 24/7 service team, and property dashboard — live from day one.</div>
+            </div>
+            <div class="offer-card dark">
+              <div class="card-number">03</div>
+              <div class="card-title">End-to-End Security</div>
+              <div class="card-desc">The only solution that protects your community from lease application through package delivery. One partnership, complete coverage.</div>
+            </div>
+          </div>
+
+          <div class="offer-deadline">
+            <div class="deadline-label">Offer Deadline</div>
+            <div class="deadline-date"><span>September 30,</span> 2026</div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>HelloPackage · packagesolutions.com</span>
+          <span>3 / 4</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        The offer is simple: sign your pending HelloPackage contract by September 30, 2026, and we pay the full Verifast cost for your first three months.
+
+        No catch. We believe in this partnership because security is our core value — and Verifast extends that commitment to the leasing process itself.
+
+        This is a limited-time incentive for pending contracts only. Not available for new inquiries that come in after September 30.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 4: CLOSING / CTA ====== -->
+    <section data-transition="fade">
+      <div class="frame closing-frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>HelloPackage × Verifast · 2026</span></div>
+        </div>
+
+        <div class="closing-content">
+          <span class="eyebrow">Let's Go</span>
+          <h1 class="closing-title">Let's <span class="accent">secure</span><br>your community.</h1>
+          <div class="closing-divider"></div>
+
+          <div class="closing-strip">
+            <div class="closing-item">
+              <div class="lbl">Account Manager</div>
+              <div class="val">Denise Burtz
+                <small><a href="mailto:deniseburtz@packagesolutions.com">deniseburtz@packagesolutions.com</a></small>
+                <small>866.931.5567</small>
+              </div>
+            </div>
+            <div class="closing-item">
+              <div class="lbl">CEO / CTO</div>
+              <div class="val">Paul Favorov
+                <small><a href="mailto:paulfavorov@packagesolutions.com">paulfavorov@packagesolutions.com</a></small>
+                <small>404.558.0668</small>
+              </div>
+            </div>
+            <div class="closing-item">
+              <div class="lbl">Web</div>
+              <div class="val"><a href="https://hellopackage.com" target="_blank" rel="noopener noreferrer">hellopackage.com</a>
+                <small>Atlanta Tech Village</small>
+                <small>3423 Piedmont Rd NE · Atlanta, GA</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="closing-logos">
+            <img src="Logo.jpg" alt="HelloPackage" style="height: 36px;" />
+            <span class="times">×</span>
+            <span class="vf-logo-text">Verifast</span>
+          </div>
+          <div class="closing-deadline-badge">Offer expires September 30, 2026</div>
+        </div>
+
+        <div class="foot">
+          <span>HelloPackage · packagesolutions.com</span>
+          <span>4 / 4</span>
+        </div>
+      </div>
+
+      <aside class="notes">
+        Close with urgency but keep it professional. The ask: finalize your pending contract by September 30 and we include 3 months of Verifast at our expense.
+
+        If they need to loop in decision-makers, offer to send this deck directly. It's designed to be self-explanatory.
+
+        Denise is the primary contact for contract questions. Paul is available for executive-level conversations or technical deep dives.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<!-- ====== CUSTOM NAV BAR ====== -->
+<div class="nav-bar" id="navBar">
+  <button class="nav-btn" id="navPrev" aria-label="Previous">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <div class="nav-dots" id="navDots"></div>
+  <span class="nav-counter" id="navCounter">01 / 04</span>
+  <button class="nav-btn" id="navNext" aria-label="Next">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+</div>
+
+<div class="reveal-hint">
+  ← → · navigate  ·  ESC · exit
+</div>
+
+<script type="module">
+  import Reveal from 'https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.esm.js';
+  import RevealNotes from 'https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/notes/notes.esm.js';
+
+  const deck = new Reveal({
+    width: 1920,
+    height: 1080,
+    margin: 0,
+    minScale: 0.1,
+    maxScale: 2.5,
+    center: false,
+    controls: false,
+    progress: true,
+    slideNumber: false,
+    hash: false,
+    history: false,
+    keyboard: true,
+    overview: true,
+    touch: true,
+    transition: 'slide',
+    transitionSpeed: 'default',
+    backgroundTransition: 'fade',
+    mouseWheel: false,
+    autoSlide: 0,
+    loop: false,
+    plugins: [ RevealNotes ],
+  });
+
+  deck.initialize();
+
+  // ============== CUSTOM NAV ==============
+  const total = document.querySelectorAll('.reveal .slides > section').length;
+  const dotsEl = document.getElementById('navDots');
+  const counterEl = document.getElementById('navCounter');
+  const prevBtn = document.getElementById('navPrev');
+  const nextBtn = document.getElementById('navNext');
+
+  for (let i = 0; i < total; i++) {
+    const b = document.createElement('button');
+    b.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    b.addEventListener('click', () => deck.slide(i));
+    dotsEl.appendChild(b);
+  }
+  prevBtn.addEventListener('click', () => deck.prev());
+  nextBtn.addEventListener('click', () => deck.next());
+
+  function updateNav() {
+    const i = deck.getIndices().h;
+    document.querySelectorAll('.nav-dot').forEach((d, di) => {
+      d.classList.toggle('active', di === i);
+    });
+    counterEl.textContent = `${String(i + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+  }
+  deck.on('slidechanged', updateNav);
+  deck.on('ready', updateNav);
+
+  // ============== PLATFORM HOOKS ==============
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (deck.isOverview()) return;
+      e.stopPropagation();
+      window.parent.postMessage({ type: 'close-fullscreen' }, '*');
+    }
+  }, true);
+
+  window.addEventListener('message', (e) => {
+    if (!e.data || typeof e.data !== 'object') return;
+    if (e.data.type === 'navigate') {
+      if (e.data.direction === 'next') deck.next();
+      else if (e.data.direction === 'prev') deck.prev();
+    }
+  });
+
+  // Hide hint after 6s
+  setTimeout(() => {
+    const hint = document.querySelector('.reveal-hint');
+    if (hint) {
+      hint.style.transition = 'opacity 1s ease';
+      hint.style.opacity = '0';
+      setTimeout(() => hint.remove(), 1000);
+    }
+  }, 6000);
+</script>
+
+</body>
+</html>
