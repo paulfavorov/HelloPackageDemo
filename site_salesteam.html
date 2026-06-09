@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HelloPackage — Sales Team Edition</title>
+<meta name="description" content="AI-powered package management for multifamily and student housing. Sales team edition — owned by Denise Burtz." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-soft: #F8FAFC;
+    --bg-card: #FAFBFD;
+    --bg-dark: #0B1220;
+    --text: #0B1220;
+    --text-2: #475569;
+    --text-3: #94A3B8;
+    --red: #E71D25;
+    --red-hover: #C81920;
+    --red-soft: #FEF2F2;
+    --blue: #0080A5;
+    --blue-bright: #00AED5;
+    --blue-soft: #F0FAFD;
+    --green: #16A34A;
+    --border: #E2E8F0;
+    --border-strong: #CBD5E1;
+    --container: 1280px;
+    --container-wide: 1440px;
+    --section-y: 7.5rem;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-feature-settings: 'ss01', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  img, video { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 2rem; }
+  .container-wide { max-width: var(--container-wide); margin: 0 auto; padding: 0 2rem; }
+
+  /* ============== TYPOGRAPHY ============== */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .eyebrow::before { content: ''; width: 32px; height: 1.5px; background: var(--red); flex-shrink: 0; }
+  .eyebrow.cyan { color: var(--blue); }
+  .eyebrow.cyan::before { background: var(--blue); }
+  .eyebrow.muted { color: var(--text-3); }
+  .eyebrow.muted::before { background: var(--text-3); }
+  .eyebrow.light { color: rgba(255,255,255,0.85); }
+  .eyebrow.light::before { background: rgba(255,255,255,0.85); }
+
+  .display {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.035em; line-height: 1;
+    color: var(--text);
+  }
+  .display .accent { color: var(--red); font-style: italic; }
+  .display .accent-cyan { color: var(--blue); font-style: italic; }
+
+  .h2 { font-size: clamp(2.6rem, 5.4vw, 4.8rem); }
+  .h3 { font-size: clamp(2rem, 3.6vw, 3rem); }
+
+  .lede {
+    font-size: clamp(1.1rem, 1.35vw, 1.3rem);
+    color: var(--text-2); font-weight: 400;
+    line-height: 1.55; max-width: 60ch;
+  }
+
+  /* ============== BUTTONS ============== */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.95rem 1.6rem; border-radius: 999px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    letter-spacing: -0.01em;
+    transition: all 0.18s ease; white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--red); color: #fff;
+    box-shadow: 0 10px 30px -10px rgba(231, 29, 37, 0.4);
+  }
+  .btn-primary:hover { background: var(--red-hover); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--text);
+    border: 1.5px solid var(--border-strong);
+  }
+  .btn-secondary:hover { border-color: var(--text); background: var(--bg-soft); }
+  .btn-arrow { transition: transform 0.2s ease; }
+  .btn:hover .btn-arrow { transform: translateX(3px); }
+  .btn-sm { padding: 0.55rem 1.15rem; font-size: 0.9rem; }
+
+  /* ============== NAV ============== */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid transparent; transition: border-color 0.2s ease;
+  }
+  .nav.scrolled { border-bottom-color: var(--border); }
+  .nav-inner {
+    max-width: var(--container-wide); margin: 0 auto;
+    padding: 1.05rem 2rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  }
+  .nav-logo {
+    width: 168px; height: 48px;
+    background-image: url('Logo.jpg');
+    background-size: contain; background-repeat: no-repeat;
+    background-position: left center;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 2rem; list-style: none;
+  }
+  .nav-link {
+    font-size: 0.95rem; font-weight: 500; color: var(--text-2);
+    transition: color 0.15s ease;
+  }
+  .nav-link:hover { color: var(--text); }
+  .nav-cta { display: flex; align-items: center; gap: 0.7rem; }
+  @media (max-width: 920px) {
+    .nav-links { display: none; }
+    .nav-cta .btn:not(.btn-primary) { display: none; }
+  }
+
+  /* ============== HERO ============== */
+  .hero { padding: 5rem 0 0; position: relative; }
+  .hero-grid {
+    max-width: var(--container-wide); margin: 0 auto;
+    padding: 0 2rem;
+    display: grid; grid-template-columns: 1.1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .hero-headline {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(3rem, 6.4vw, 6.4rem);
+    font-weight: 800; line-height: 0.96;
+    letter-spacing: -0.045em; color: var(--text);
+    margin-top: 1.5rem;
+  }
+  .hero-headline .accent { color: var(--red); font-style: italic; }
+  .hero-divider { width: 96px; height: 3px; background: var(--text); margin: 2.2rem 0 1.5rem; }
+  .hero-sub {
+    font-size: clamp(1.15rem, 1.5vw, 1.45rem);
+    color: var(--text-2); line-height: 1.55;
+    max-width: 52ch;
+  }
+  .hero-ctas { margin-top: 2.5rem; display: flex; gap: 0.7rem; flex-wrap: wrap; }
+  .hero-badges {
+    margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.6rem;
+  }
+  .trust-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--bg-soft); border: 1px solid var(--border);
+    padding: 0.5rem 0.9rem; border-radius: 100px;
+    font-size: 0.78rem; color: var(--text); font-weight: 500;
+  }
+  .trust-badge.gold { background: #FEF3C7; border-color: #FCD34D; }
+  .trust-badge svg { color: var(--red); }
+
+  .hero-visual {
+    position: relative; aspect-ratio: 1.05 / 1; border-radius: 22px; overflow: hidden;
+    box-shadow: 0 40px 100px -30px rgba(2, 132, 199, 0.35);
+    border: 1px solid rgba(34, 171, 224, 0.18); background: #000;
+  }
+  .hero-visual video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-hud {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    display: flex; align-items: center; gap: 0.6rem;
+    background: rgba(11, 18, 32, 0.85);
+    border: 1px solid rgba(34, 171, 224, 0.3);
+    padding: 0.5rem 1rem; border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    color: #22ABE0; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .hero-hud-dot {
+    width: 7px; height: 7px; background: #22D3EE; border-radius: 50%;
+    box-shadow: 0 0 10px #22D3EE; animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+  .hero-counter {
+    position: absolute; bottom: 1.2rem; left: 1.2rem;
+    background: rgba(11, 18, 32, 0.88);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.85rem 1.2rem; border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hero-counter-num { font-size: 1.5rem; font-weight: 700; color: white; line-height: 1; }
+  .hero-counter-label {
+    font-size: 0.62rem; color: #94A3B8;
+    text-transform: uppercase; letter-spacing: 0.22em; margin-top: 5px;
+  }
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-visual { aspect-ratio: 4 / 3; }
+  }
+
+  /* ============== LOGO MARQUEE ============== */
+  .logo-wall-section {
+    padding: 4rem 0 3.5rem;
+    background: #111827;
+  }
+  .logo-wall-heading {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 2.5rem;
+    padding: 0 2rem;
+    line-height: 1.6;
+  }
+  .logo-wall-heading strong { color: #fff; font-weight: 700; }
+  .logo-marquee {
+    overflow: hidden; position: relative; width: 100%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+  }
+  .logo-track {
+    display: flex;
+    gap: 4rem;
+    animation: logo-marquee 60s linear infinite;
+    width: max-content;
+    align-items: center;
+  }
+  .logo-marquee:hover .logo-track { animation-play-state: paused; }
+  @keyframes logo-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .logo-tile {
+    flex: 0 0 auto;
+    height: 56px;
+    min-width: 110px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-tile img {
+    max-height: 40px;
+    max-width: 140px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.55;
+    transition: opacity 0.3s ease;
+  }
+  .logo-tile:hover img { opacity: 1; }
+  .logo-fallback {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .logo-tile:hover .logo-fallback { color: #fff; }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-track { animation: none; transform: translateX(0); }
+  }
+
+  /* ============== TRUST STRIP ============== */
+  .trust {
+    margin-top: 6rem; border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border); background: var(--bg-soft);
+  }
+  .trust-inner {
+    max-width: var(--container-wide); margin: 0 auto;
+    padding: 2.2rem 2rem;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2rem; align-items: center;
+  }
+  .trust-item { border-left: 1px solid var(--border); padding-left: 1.6rem; }
+  .trust-item:first-child { border-left: none; padding-left: 0; }
+  .trust-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+    font-weight: 800; color: var(--text);
+    line-height: 1; letter-spacing: -0.03em;
+  }
+  .trust-num .plus { color: var(--red); }
+  .trust-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--text-2);
+    margin-top: 0.6rem; line-height: 1.4;
+  }
+  @media (max-width: 720px) {
+    .trust-inner { grid-template-columns: repeat(2, 1fr); }
+    .trust-item:nth-child(3) { border-left: none; padding-left: 0; }
+  }
+
+  /* ============== SECTION ============== */
+  .section { padding: var(--section-y) 0; }
+  .section.alt { background: var(--bg-soft); }
+  .section.dark { background: var(--bg-dark); color: #fff; position: relative; overflow: hidden; }
+  .section.dark::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(34, 171, 224, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(231, 29, 37, 0.06) 0%, transparent 50%);
+  }
+  .section.dark .container { position: relative; z-index: 2; }
+  .section.dark .display { color: #fff; }
+  .section.dark .lede { color: #CBD5E1; }
+  .section-head { max-width: 64rem; }
+  .section-head .display { margin-top: 1rem; }
+  .section-head .lede { margin-top: 1.4rem; }
+
+  /* ============== MARKET STAT GRID ============== */
+  .market-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(3, 1fr); gap: 1.6rem;
+  }
+  .market-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 18px; overflow: hidden;
+    display: flex; flex-direction: column;
+    position: relative;
+    transition: all 0.25s ease;
+  }
+  .market-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 4px;
+    background: var(--accent, var(--red));
+    z-index: 3;
+  }
+  .market-card.red { --accent: var(--red); }
+  .market-card.cyan { --accent: var(--blue-bright); }
+  .market-card.dark { --accent: var(--text); }
+  .market-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -25px rgba(15,23,42,0.15); }
+  .market-image {
+    width: 100%; aspect-ratio: 16 / 10;
+    background-size: cover; background-position: center;
+    background-color: #0F172A;
+  }
+  .market-body {
+    padding: 2rem 1.9rem 2.2rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .market-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2.4rem, 4.2vw, 3.8rem);
+    font-weight: 900; line-height: 0.9;
+    letter-spacing: -0.04em; color: var(--text);
+  }
+  .market-card.red .market-num { color: var(--red); }
+  .market-card.cyan .market-num { color: var(--blue); }
+  .market-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--text-2); margin-top: 0.6rem;
+  }
+  .market-copy {
+    margin-top: 0.9rem; color: var(--text-2);
+    font-size: 0.94rem; line-height: 1.55;
+  }
+  @media (max-width: 880px) { .market-grid { grid-template-columns: 1fr; } }
+
+  /* ============== PROBLEM SPLIT ============== */
+  .problem-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .pain-list {
+    margin-top: 2rem; display: flex; flex-direction: column;
+  }
+  .pain-item {
+    display: flex; align-items: baseline;
+    gap: 1.5rem; padding: 1.3rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pain-item:last-child { border-bottom: none; }
+  .pain-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--red); min-width: 36px;
+  }
+  .pain-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-weight: 700; color: var(--text);
+    letter-spacing: -0.025em; line-height: 1.1;
+  }
+  .chaos-visual {
+    aspect-ratio: 1 / 1; border-radius: 22px; position: relative;
+    overflow: hidden;
+    box-shadow: 0 40px 80px -30px rgba(15,23,42,0.4);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .chaos-photo {
+    position: absolute; inset: 0;
+    background-image: url('chaos.jpg');
+    background-size: cover; background-position: center;
+  }
+  .chaos-overlay {
+    position: relative; z-index: 2; text-align: center;
+    padding: 2.4rem 3rem;
+    background: rgba(11,18,32,0.78); backdrop-filter: blur(10px);
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .chaos-stat {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(4rem, 7vw, 6rem);
+    font-weight: 900; color: white; line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .chaos-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.22em; color: #FCA5A5;
+    margin-top: 0.8rem;
+  }
+  @media (max-width: 980px) {
+    .problem-grid { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  /* ============== THREE OBJECTIVES ============== */
+  .obj-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(3, 1fr); gap: 1.6rem;
+  }
+  .obj-card {
+    padding: 2.8rem 2.4rem; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 18px;
+    position: relative; overflow: hidden;
+    transition: all 0.25s ease;
+  }
+  .obj-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 4px; background: var(--accent, var(--red));
+  }
+  .obj-card.red { --accent: var(--red); }
+  .obj-card.cyan { --accent: var(--blue-bright); }
+  .obj-card.dark { --accent: var(--text); }
+  .obj-card:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+  .obj-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .obj-card.cyan .obj-num { color: var(--blue); }
+  .obj-card.dark .obj-num { color: var(--text); }
+  .obj-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+    font-weight: 800; letter-spacing: -0.025em;
+    color: var(--text); margin: 0.9rem 0 1rem;
+    line-height: 1.05;
+  }
+  .obj-body {
+    color: var(--text-2); line-height: 1.55; font-size: 0.98rem;
+  }
+  @media (max-width: 880px) { .obj-grid { grid-template-columns: 1fr; } }
+
+  /* ============== HOW IT WORKS — VIDEO + STEPS SIDE BY SIDE ============== */
+  .how-split {
+    margin-top: 3rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2.5rem; align-items: start;
+  }
+  .how-video-wrap {
+    border-radius: 16px; overflow: hidden;
+    border: 2px solid var(--border);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+    background: #000;
+    position: sticky; top: 6rem;
+  }
+  .how-video-wrap video {
+    width: 100%; display: block;
+  }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr; gap: 1.2rem;
+  }
+  .step-card {
+    padding: 2.2rem 1.8rem;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 16px; position: relative;
+    transition: all 0.2s ease;
+  }
+  .step-card:hover { border-color: var(--border-strong); }
+  .step-num-pill {
+    display: inline-block; padding: 0.35rem 0.75rem;
+    background: var(--red-soft); color: var(--red);
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.16em;
+  }
+  .step-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+    font-weight: 800; letter-spacing: -0.025em;
+    color: var(--text); margin-top: 1.4rem;
+    line-height: 1.1;
+  }
+  .step-body {
+    margin-top: 0.7rem;
+    font-size: 0.93rem;
+    color: var(--text-2); line-height: 1.55;
+  }
+  @media (max-width: 880px) {
+    .how-split { grid-template-columns: 1fr; }
+    .how-video-wrap { position: static; }
+  }
+
+  /* ============== SYSTEM COMPONENTS ============== */
+  .system-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(2, 1fr); gap: 1.6rem;
+  }
+  .system-card {
+    padding: 2.4rem 2.2rem; background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--red);
+    border-radius: 16px;
+    display: flex; flex-direction: column; gap: 0.7rem;
+    transition: all 0.2s ease;
+  }
+  .system-card.cyan { border-left-color: var(--blue); }
+  .system-card.has-video { padding: 0; border-left: 1px solid var(--border); overflow: hidden; }
+  .system-card.has-video:hover { border-left-color: var(--border-strong); }
+  .system-card-video {
+    width: 100%; aspect-ratio: 16/9; object-fit: cover;
+    border-bottom: 1px solid var(--border);
+    display: block;
+  }
+  .system-card-text { padding: 1.6rem 1.8rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .system-card.has-video .system-card-text { border-left: 5px solid var(--red); }
+  .system-card.has-video.cyan .system-card-text { border-left-color: var(--blue); }
+  .system-card:hover { border-color: var(--border-strong); border-left-color: var(--red); }
+  .system-card.cyan:hover { border-left-color: var(--blue); }
+  .system-card .icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--red-soft); color: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.4rem;
+  }
+  .system-card.cyan .icon { background: var(--blue-soft); color: var(--blue); }
+  .system-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .system-card.cyan .system-num { color: var(--blue); }
+  .system-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.4rem, 2vw, 1.7rem);
+    font-weight: 800; letter-spacing: -0.025em;
+    color: var(--text); line-height: 1.05;
+  }
+  .system-desc {
+    font-size: 0.95rem;
+    color: var(--text-2); line-height: 1.55;
+    margin-top: 0.3rem;
+  }
+  @media (max-width: 880px) { .system-grid { grid-template-columns: 1fr; } }
+
+  /* ============== WHY HP — VIDEO + POINTS ============== */
+  .why-row {
+    margin-top: 3rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem; align-items: center;
+  }
+  .why-row.flip { direction: rtl; }
+  .why-row.flip > * { direction: ltr; }
+  .why-row-video {
+    border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+    background: #000;
+  }
+  .why-row-video video { width: 100%; display: block; }
+  @media (max-width: 880px) {
+    .why-row, .why-row.flip { grid-template-columns: 1fr; direction: ltr; }
+  }
+  .why-col {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 18px; padding: 1.8rem 1.6rem;
+    position: relative; overflow: hidden;
+  }
+  .why-col::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 5px;
+    background: var(--col-accent, var(--red));
+  }
+  .why-col.locker { --col-accent: var(--red); }
+  .why-col.room { --col-accent: var(--blue-bright); }
+  .why-col-header {
+    display: flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 0.4rem;
+  }
+  .why-col-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .why-col.locker .why-col-icon { background: var(--red-soft); color: var(--red); }
+  .why-col.room .why-col-icon { background: var(--blue-soft); color: var(--blue); }
+  .why-col-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    color: var(--text-3);
+  }
+  .why-col-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.25rem; font-weight: 800;
+    letter-spacing: -0.03em; color: var(--text);
+    line-height: 1.15;
+  }
+  .why-col-sub {
+    font-size: 0.82rem; color: var(--text-2);
+    line-height: 1.45; margin-top: 0.4rem; margin-bottom: 1.2rem;
+  }
+  .why-points { display: flex; flex-direction: column; gap: 1rem; }
+  .why-point {
+    display: flex; gap: 0.85rem; align-items: flex-start;
+  }
+  .why-point-num {
+    flex: 0 0 28px; height: 28px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .why-col.locker .why-point-num { background: var(--red); }
+  .why-col.room .why-point-num { background: var(--blue); }
+  .why-point-text { flex: 1; }
+  .why-point-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.92rem; font-weight: 800;
+    letter-spacing: -0.02em; color: var(--text);
+    line-height: 1.2;
+  }
+  .why-point-desc {
+    font-size: 0.8rem; color: var(--text-2);
+    line-height: 1.45; margin-top: 0.2rem;
+  }
+  @media (max-width: 880px) {
+    .why-columns { grid-template-columns: 1fr; }
+  }
+
+  /* ============== FUTURE-PROOFING ============== */
+  .future-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .future-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 18px; overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  .future-card:hover { border-color: var(--border-strong); }
+  .future-card-img {
+    width: 100%; aspect-ratio: 16/9; object-fit: cover;
+    border-bottom: 1px solid var(--border);
+  }
+  .future-card-video {
+    width: 100%; aspect-ratio: 16/9; object-fit: cover;
+    border-bottom: 1px solid var(--border);
+    background: #0B1220;
+  }
+  .future-card-body {
+    padding: 1.6rem 1.8rem 1.8rem;
+  }
+  .future-card-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--blue);
+  }
+  .future-card-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.025em; margin-top: 0.5rem;
+    line-height: 1.1;
+  }
+  .future-card-desc {
+    font-size: 0.92rem; color: var(--text-2);
+    line-height: 1.55; margin-top: 0.6rem;
+  }
+  @media (max-width: 980px) {
+    .future-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ============== PROVEN RESULTS ============== */
+  .results-layout {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: 1fr 0.85fr; gap: 5rem;
+    align-items: center;
+  }
+  .big-stat-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(10rem, 20vw, 18rem);
+    font-weight: 900; line-height: 0.85;
+    letter-spacing: -0.07em;
+    background: linear-gradient(135deg, var(--text) 0%, var(--red) 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .big-stat-num .plus { color: var(--red); -webkit-text-fill-color: var(--red); }
+  .big-stat-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2rem, 3.4vw, 2.8rem);
+    font-weight: 800; color: var(--text);
+    margin-top: 1rem;
+    letter-spacing: -0.03em; line-height: 1;
+  }
+  .big-stat-body {
+    margin-top: 1.4rem; color: var(--text-2);
+    max-width: 36ch; line-height: 1.55;
+  }
+  .benefits {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .benefit {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1.5rem; padding: 1.7rem 2rem;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .benefit-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.3rem, 1.9vw, 1.6rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.025em; line-height: 1;
+  }
+  .benefit-sub {
+    font-size: 0.82rem; color: var(--text-2);
+    margin-top: 0.3rem;
+  }
+  .benefit-arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(1.3rem, 1.9vw, 1.6rem);
+    font-weight: 700; color: var(--red);
+    white-space: nowrap;
+  }
+  @media (max-width: 980px) {
+    .results-layout { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  /* ============== MAP + CHIPS (Proven Results) ============== */
+  .map-frame {
+    margin-top: 3rem;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -25px rgba(15,23,42,0.25);
+    border: 1px solid var(--border);
+  }
+  .map-frame img {
+    width: 100%; height: auto; display: block;
+  }
+  .results-chips {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+  .results-chip {
+    padding: 1.8rem 1.6rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    display: flex; flex-direction: column; gap: 0.35rem;
+    transition: all 0.2s ease;
+  }
+  .results-chip:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .chip-num {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+    color: var(--red); letter-spacing: -0.025em;
+    line-height: 1;
+  }
+  .results-chip:nth-child(2) .chip-num { color: var(--blue-bright); }
+  .results-chip:nth-child(3) .chip-num { color: var(--red); }
+  .results-chip:nth-child(4) .chip-num { color: var(--blue); }
+  .chip-label {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+    margin-top: 0.4rem;
+    letter-spacing: -0.01em;
+  }
+  .chip-sub {
+    font-size: 0.82rem; color: var(--text-2);
+    letter-spacing: 0;
+  }
+  .source-note {
+    display: block; margin-top: 0.3rem;
+    font-size: 0.68rem; color: var(--text-3);
+    font-style: italic; letter-spacing: 0;
+  }
+  @media (max-width: 880px) { .results-chips { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .results-chips { grid-template-columns: 1fr; } }
+
+  /* ============== CUSTOMER VOICE ============== */
+  .quotes-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .quote-card {
+    padding: 2.2rem 1.9rem 2rem;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 18px;
+    display: flex; flex-direction: column;
+    transition: all 0.2s ease;
+  }
+  .quote-card:hover { border-color: var(--border-strong); }
+  .quote-card::before {
+    content: '"';
+    font-family: 'Manrope', sans-serif;
+    font-size: 3.5rem; font-weight: 800;
+    color: var(--red); line-height: 0.5;
+    margin-bottom: 0.5rem;
+  }
+  .quote-card.cyan::before { color: var(--blue); }
+  .quote-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(0.96rem, 1.15vw, 1.1rem);
+    font-weight: 600; color: var(--text);
+    line-height: 1.4; letter-spacing: -0.01em;
+    flex: 1;
+  }
+  .quote-meta {
+    margin-top: 1.8rem; padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: 38px 1fr; gap: 0.7rem;
+    align-items: center;
+  }
+  .quote-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--red), #C81920);
+    color: white; display: flex; align-items: center; justify-content: center;
+    font-family: 'Manrope', sans-serif; font-weight: 700;
+    font-size: 0.8rem;
+  }
+  .quote-card.cyan .quote-avatar { background: linear-gradient(135deg, var(--blue), var(--blue-bright)); }
+  .quote-author {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; color: var(--text);
+    font-size: 0.88rem; letter-spacing: -0.01em;
+  }
+  .quote-role { font-size: 0.76rem; color: var(--text-2); margin-top: 2px; line-height: 1.3; }
+  @media (max-width: 980px) {
+    .quotes-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ============== COMPETITION ============== */
+  .compete-wrap {
+    margin-top: 3.5rem; overflow-x: auto;
+    border-radius: 18px;
+    border: 1px solid var(--border); background: var(--bg);
+  }
+  .compete-table {
+    width: 100%; border-collapse: collapse; min-width: 720px;
+  }
+  .compete-table th, .compete-table td {
+    padding: 1rem 1.2rem; text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .compete-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--text-2); background: var(--bg-soft);
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .compete-table th:first-child {
+    text-align: left;
+    font-family: 'Manrope', sans-serif;
+    text-transform: none; letter-spacing: -0.01em;
+    font-size: 0.92rem; color: var(--text); font-weight: 700;
+  }
+  .compete-table th.hp-head {
+    background: var(--red); color: white;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800; text-transform: none;
+    letter-spacing: -0.01em; font-size: 0.92rem;
+  }
+  .compete-table td:first-child {
+    text-align: left;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; color: var(--text); font-size: 0.94rem;
+  }
+  .compete-table td.hp-col {
+    background: rgba(231, 29, 37, 0.03); font-weight: 700;
+  }
+  .compete-table tr:last-child td { border-bottom: none; }
+  .compete-pill {
+    display: inline-flex; padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .pill-great { background: #DCFCE7; color: #15803D; }
+  .pill-poor { background: #FEE2E2; color: #B91C1C; }
+  .pill-mixed { background: #FEF3C7; color: #A16207; }
+  .pill-unknown { background: var(--bg-soft); color: var(--text-3); }
+  .pill-yes { background: #DCFCE7; color: #15803D; }
+  .pill-no { background: #FEE2E2; color: #B91C1C; }
+  .pill-low { background: #DCFCE7; color: #15803D; }
+  .pill-med { background: #FEF3C7; color: #A16207; }
+  .pill-high { background: #FEE2E2; color: #B91C1C; }
+
+  /* ============== ROI + PRICING ============== */
+  .roi-pricing-split {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: 1fr 2.5fr; gap: 2rem;
+    align-items: start;
+  }
+  .roi-panel {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 18px; padding: 2rem 1.8rem;
+    position: sticky; top: 6rem;
+    overflow: hidden;
+  }
+  .roi-panel::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 4px;
+    background: var(--roi-accent, var(--blue));
+    transition: background 0.35s ease;
+  }
+  .roi-panel-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.3rem; font-weight: 800;
+    color: var(--text); letter-spacing: -0.02em;
+  }
+  .roi-head {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; gap: 14px;
+  }
+  .roi-pills {
+    display: flex; gap: 4px;
+    background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 999px; padding: 3px;
+  }
+  .roi-pill {
+    border: 0; cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--text-3); background: transparent;
+    padding: 6px 9px; border-radius: 999px;
+    transition: all 0.2s ease;
+  }
+  .roi-pill[aria-pressed="true"] {
+    background: #fff; color: var(--roi-accent, var(--blue));
+    box-shadow: 0 1px 4px -1px rgba(0,0,0,0.2);
+  }
+  .roi-units {
+    margin-top: 0.45rem; display: flex;
+    align-items: baseline; gap: 0.5rem;
+    font-size: 0.82rem; color: var(--text-3);
+  }
+  .roi-units b {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; color: var(--text-2); font-size: 0.92rem;
+  }
+  .roi-slider {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 4px; border-radius: 999px;
+    margin-top: 0.7rem; outline: none;
+    background: linear-gradient(90deg, var(--roi-accent, var(--blue)) 0 var(--fill, 40%), var(--border-strong) var(--fill, 40%));
+  }
+  .roi-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 17px; height: 17px; border-radius: 50%;
+    background: #fff; border: 3px solid var(--roi-accent, var(--blue));
+    cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  }
+  .roi-slider::-moz-range-thumb {
+    width: 15px; height: 15px; border-radius: 50%;
+    background: #fff; border: 3px solid var(--roi-accent, var(--blue));
+    cursor: pointer;
+  }
+  .roi-panel-sub {
+    font-size: 0.82rem; color: var(--text-3);
+    margin-top: 0.3rem;
+  }
+  .roi-uplift { font-size: 1.3rem; }
+  .roi-rows { margin-top: 1.4rem; display: flex; flex-direction: column; gap: 0.9rem; }
+  .roi-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 0.8rem; border-bottom: 1px solid var(--border);
+  }
+  .roi-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .roi-label {
+    font-size: 0.85rem; color: var(--text-2); line-height: 1.3;
+    max-width: 16ch;
+  }
+  .roi-value {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    color: var(--text); letter-spacing: -0.02em;
+    text-align: right;
+  }
+  .roi-value.green { color: var(--green); }
+  .roi-value.red { color: var(--red); }
+  .roi-divider {
+    margin: 1rem 0 0.8rem; border: none;
+    border-top: 2px solid var(--border-strong);
+  }
+  .roi-total-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.88rem; font-weight: 700; color: var(--text);
+  }
+  .roi-source {
+    margin-top: 1.2rem; font-size: 0.68rem;
+    color: var(--text-3); font-style: italic;
+    line-height: 1.5;
+  }
+  .price-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); gap: 1.2rem;
+  }
+  @media (max-width: 1100px) {
+    .roi-pricing-split { grid-template-columns: 1fr; }
+    .roi-panel { position: static; }
+    .price-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .price-card {
+    padding: 2.4rem 1.8rem; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 18px;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+    transition: all 0.25s ease;
+  }
+  .price-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 4px; background: var(--accent, var(--red));
+  }
+  .price-card.t1 { --accent: var(--red); }
+  .price-card.t2 { --accent: var(--blue); }
+  .price-card.t3 { --accent: var(--blue-bright); }
+  .price-card.t4 { --accent: var(--text); }
+  .price-card:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+  .price-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--red);
+  }
+  .price-card.t2 .price-eyebrow,
+  .price-card.t3 .price-eyebrow { color: var(--blue); }
+  .price-card.t4 .price-eyebrow { color: var(--text); }
+  .price-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.3rem, 1.8vw, 1.55rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.025em; line-height: 1;
+    margin: 0.7rem 0 0.8rem;
+  }
+  .price-desc {
+    font-size: 0.92rem; color: var(--text-2);
+    line-height: 1.5; flex: 1;
+  }
+  .price-amounts {
+    margin-top: 1.4rem; padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+  }
+  .price-cap {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .price-monthly {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.02em; margin-top: 0.3rem;
+  }
+  .price-monthly small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; font-weight: 500;
+    color: var(--text-3);
+    text-transform: uppercase; letter-spacing: 0.16em;
+  }
+  .price-breakdown {
+    margin-top: 0.9rem;
+    display: flex; flex-direction: column;
+    gap: 0.55rem;
+  }
+  .price-line {
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .price-line-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--text-2);
+  }
+  .price-line-amount {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    color: var(--text); letter-spacing: -0.015em;
+  }
+  .price-line-amount small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem; font-weight: 500;
+    color: var(--text-3);
+    text-transform: uppercase; letter-spacing: 0.14em;
+    margin-left: 0.25rem;
+  }
+  .price-total {
+    margin-top: 0.4rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  .price-total .price-line-label {
+    color: var(--text); font-weight: 600;
+  }
+  .price-total .price-line-amount {
+    font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+    color: var(--accent, var(--red));
+  }
+  .price-card.t1 .price-total .price-line-amount { color: var(--red); }
+  .price-card.t2 .price-total .price-line-amount { color: var(--blue); }
+  .price-card.t3 .price-total .price-line-amount { color: var(--blue-bright); }
+  .price-card.t4 .price-total .price-line-amount { color: var(--text); }
+  .price-footnotes {
+    margin-top: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; color: var(--text-3);
+    text-transform: uppercase; letter-spacing: 0.14em;
+    line-height: 1.7;
+  }
+  @media (max-width: 980px) { .price-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .price-grid { grid-template-columns: 1fr; } }
+
+  /* ============== SPACE CONFIGURATOR ============== */
+  .space-grid {
+    margin-top: 3.5rem; display: grid;
+    grid-template-columns: repeat(3, 1fr); gap: 1.6rem;
+  }
+  .space-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    transition: all 0.25s ease;
+  }
+  .space-card:hover { border-color: var(--red); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+  .space-card-img {
+    width: 100%; aspect-ratio: 4/3; object-fit: contain;
+    background: #f8f8f8; border-bottom: 1px solid var(--border);
+  }
+  .space-card-body {
+    padding: 1.6rem 1.4rem 1.8rem;
+  }
+  .space-card-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--text-2);
+  }
+  .space-card-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.025em;
+    margin-top: 0.5rem; line-height: 1.15;
+  }
+  .space-card-title span { color: var(--red); }
+  .space-card-details {
+    margin-top: 0.8rem;
+    font-size: 0.92rem; line-height: 1.6;
+    color: var(--text-2);
+  }
+  @media (max-width: 980px) {
+    .space-grid { grid-template-columns: 1fr; max-width: 32rem; margin-inline: auto; }
+  }
+
+  /* ============== FAQ ============== */
+  .faq-list { margin-top: 3.5rem; max-width: 56rem; }
+  .faq { border-bottom: 1px solid var(--border); }
+  .faq-q {
+    width: 100%; text-align: left; padding: 1.6rem 0;
+    display: flex; justify-content: space-between; align-items: center; gap: 2rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    font-weight: 700; color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .faq-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--red-soft); color: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: transform 0.2s ease;
+    font-weight: 700; font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem; line-height: 1;
+  }
+  .faq.open .faq-icon { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+  .faq.open .faq-a { max-height: 500px; padding: 0 0 1.8rem; }
+  .faq-a p { color: var(--text-2); font-size: 0.98rem; line-height: 1.6; max-width: 56ch; }
+
+  /* ============== FINAL CTA ============== */
+  .final-cta {
+    padding: 7rem 0; background: var(--bg-dark);
+    color: white; position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: url('staffing.jpg');
+    background-size: cover; background-position: center;
+    opacity: 0.18; filter: blur(2px);
+  }
+  .final-cta::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(11,18,32,0.88) 0%, rgba(15,43,61,0.94) 100%);
+  }
+  .final-cta-inner {
+    max-width: var(--container); margin: 0 auto;
+    padding: 0 2rem; position: relative; z-index: 2;
+  }
+  .final-cta-headline {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 900;
+    line-height: 0.9; letter-spacing: -0.05em;
+    color: white; max-width: 16ch; margin-top: 1rem;
+  }
+  .final-cta-headline .accent { color: var(--red); font-style: italic; }
+  .final-cta-sub {
+    margin-top: 2rem;
+    font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+    color: #CBD5E1; max-width: 52ch; line-height: 1.55;
+  }
+  .final-cta-btns { margin-top: 2.5rem; display: flex; gap: 0.7rem; flex-wrap: wrap; }
+  .final-cta-meta {
+    margin-top: 3rem; padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+    color: #94A3B8; letter-spacing: 0.1em;
+  }
+  .final-cta-meta strong {
+    display: block; color: white;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; font-size: 1.05rem;
+    text-transform: none; letter-spacing: -0.01em;
+    margin-top: 0.5rem;
+  }
+  .final-cta-meta a { color: var(--blue-bright); }
+  .final-cta-meta a:hover { color: white; }
+  @media (max-width: 720px) {
+    .final-cta-meta { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+
+  /* ============== FOOTER ============== */
+  .footer { background: #06101D; color: #94A3B8; padding: 4.5rem 0 2rem; }
+  .footer-grid {
+    max-width: var(--container-wide); margin: 0 auto; padding: 0 2rem;
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 3rem;
+  }
+  .footer-brand .footer-logo {
+    width: 180px; height: 56px;
+    background-image: url('Logo.jpg');
+    background-size: contain; background-repeat: no-repeat;
+    background-position: left center;
+    background-color: #fff;
+    padding: 0.4rem 1rem 0.4rem 0.6rem;
+    border-radius: 8px; display: inline-block;
+  }
+  .footer-tagline {
+    margin-top: 1.5rem;
+    font-size: 0.93rem; line-height: 1.6;
+    max-width: 28ch; color: #CBD5E1;
+  }
+  .footer-col h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: #fff; margin-bottom: 1.3rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+  .footer-col a {
+    font-size: 0.93rem; color: #94A3B8;
+    transition: color 0.15s ease;
+  }
+  .footer-col a:hover { color: #fff; }
+  .footer-bottom {
+    max-width: var(--container-wide); margin: 3.5rem auto 0;
+    padding: 1.8rem 2rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.16em; color: #64748B;
+  }
+  .footer-bottom .red-dot { color: var(--red); margin: 0 0.4rem; }
+  @media (max-width: 880px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-brand { grid-column: 1 / -1; }
+  }
+
+  /* ============== REVEAL ============== */
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo" aria-label="HelloPackage home"></a>
+    <ul class="nav-links">
+      <li><a href="#platform" class="nav-link">Platform</a></li>
+      <li><a href="#how" class="nav-link">How it works</a></li>
+      <li><a href="#customers" class="nav-link">Customers</a></li>
+      <li><a href="#pricing" class="nav-link">Pricing</a></li>
+      <li><a href="#space" class="nav-link">Configurator</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://hellopackage.com" class="btn btn-secondary btn-sm">Home</a>
+      <a href="#contact" class="btn btn-primary btn-sm">Book a demo
+        <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section class="hero" id="top">
+  <div class="hero-grid">
+    <div class="reveal">
+      <span class="eyebrow">Tech-driven package management</span>
+      <h1 class="hero-headline">
+        Get your deliveries <span class="accent">sorted.</span>
+      </h1>
+      <div class="hero-divider"></div>
+      <p class="hero-sub">
+        AI-powered package management for multifamily and student housing. The modern way to run the mailroom.
+      </p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary">Book a demo
+          <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#how" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          See how it works
+        </a>
+      </div>
+      <div class="hero-badges">
+        <span class="trust-badge gold">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15 8.5 22 9.3 17 14.2 18.2 21 12 17.8 5.8 21 7 14.2 2 9.3 9 8.5 12 2"/></svg>
+          BBB A+ since 2020
+        </span>
+        <span class="trust-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          1 U.S. patent issued
+        </span>
+        <span class="trust-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          24/7/365 support
+        </span>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <video autoplay muted loop playsinline preload="auto" poster="destinations.jpg">
+        <source src="Slide4.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-hud">
+        <span class="hero-hud-dot"></span>
+        <span>HP-Vision · Live</span>
+      </div>
+      <div class="hero-counter">
+        <div class="hero-counter-num">70,000+ residents</div>
+        <div class="hero-counter-label">Live on the platform</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== TRUST STRIP ============== -->
+<section class="trust">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <div class="trust-num">200<span class="plus">+</span></div>
+      <div class="trust-label">Communities live</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">70K<span class="plus">+</span></div>
+      <div class="trust-label">Residents on HP</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">21 <span style="font-size:0.55em; color: var(--text-2);">states</span></div>
+      <div class="trust-label">27 metro areas</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">4.5<span style="font-size:0.5em;color:var(--text-2);"> / 5</span></div>
+      <div class="trust-label">Resident rating</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== LOGO MARQUEE ============== -->
+<section class="logo-wall-section" id="customers-logos">
+  <p class="logo-wall-heading">
+    Deployed across portfolios managed by <strong>12 of the NMHC Top 20</strong> <span style="color:rgba(255,255,255,0.3); margin:0 0.6em;">·</span> luxury · student · HOA · commercial deployments
+  </p>
+  <div class="logo-marquee">
+    <div class="logo-track">
+      <!-- ----- Set 1 ----- -->
+      <div class="logo-tile"><img src="https://logo.clearbit.com/greystar.com" alt="Greystar" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Greystar</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/assetliving.com" alt="Asset Living" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Asset Living</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/zrsmanagement.com" alt="ZRS" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">ZRS</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/willowbridgepc.com" alt="Willow Bridge" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Willow Bridge</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/bellpartnersinc.com" alt="Bell Partners" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bell Partners</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/rpmliving.com" alt="RPM Living" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">RPM Living</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/avenue5.com" alt="Avenue5" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Avenue5</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/bozzuto.com" alt="Bozzuto" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bozzuto</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/woodfielddevelopment.com" alt="Woodfield" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Woodfield</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/trammellcrow.com" alt="Trammell Crow" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Trammell Crow</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/landmark-properties.com" alt="Landmark Properties" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Landmark</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/udr.com" alt="UDR" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">UDR</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/essexapartmenthomes.com" alt="Essex" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Essex</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/mgproperties.com" alt="MG Properties" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">MG Properties</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/fsresidential.com" alt="FirstService Residential" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">FirstService Residential</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/atlantatechvillage.com" alt="Atlanta Tech Village" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Atlanta Tech Village</span></div>
+      <!-- ----- Set 2 (duplicate for seamless loop) ----- -->
+      <div class="logo-tile"><img src="https://logo.clearbit.com/greystar.com" alt="Greystar" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Greystar</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/assetliving.com" alt="Asset Living" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Asset Living</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/zrsmanagement.com" alt="ZRS" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">ZRS</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/willowbridgepc.com" alt="Willow Bridge" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Willow Bridge</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/bellpartnersinc.com" alt="Bell Partners" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bell Partners</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/rpmliving.com" alt="RPM Living" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">RPM Living</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/avenue5.com" alt="Avenue5" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Avenue5</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/bozzuto.com" alt="Bozzuto" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Bozzuto</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/woodfielddevelopment.com" alt="Woodfield" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Woodfield</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/trammellcrow.com" alt="Trammell Crow" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Trammell Crow</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/landmark-properties.com" alt="Landmark Properties" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Landmark</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/udr.com" alt="UDR" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">UDR</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/essexapartmenthomes.com" alt="Essex" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Essex</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/mgproperties.com" alt="MG Properties" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">MG Properties</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/fsresidential.com" alt="FirstService Residential" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">FirstService Residential</span></div>
+      <div class="logo-tile"><img src="https://logo.clearbit.com/atlantatechvillage.com" alt="Atlanta Tech Village" aria-hidden="true" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><span class="logo-fallback" style="display:none;">Atlanta Tech Village</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== THE MARKET ============== -->
+<section class="section" id="market">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Three trends drove the chaos</span>
+      <h2 class="display h2">Three trends. One <span class="accent">broken mailroom.</span></h2>
+      <p class="lede">E-commerce exploded delivery destinations. Resident expectations caught up to Amazon-grade real-time. And the staff meant to drive renewals are stuck sorting boxes. Three forces collided — the math doesn't work anymore.</p>
+    </div>
+
+    <div class="market-grid">
+      <div class="market-card red reveal">
+        <div class="market-image" style="background-image:url('destinations.jpg');"></div>
+        <div class="market-body">
+          <div class="market-num">50M<span style="font-size:0.5em;">+</span></div>
+          <div class="market-label">Drop-off points</div>
+          <p class="market-copy">E-commerce exploded the number of delivery destinations. Every apartment door is now a logistics node — not a suburban porch.</p>
+        </div>
+      </div>
+      <div class="market-card cyan reveal">
+        <div class="market-image" style="background-image:url('realtime.jpg');"></div>
+        <div class="market-body">
+          <div class="market-num">21.2B<span style="font-size:0.45em;color:var(--text-2);"> /yr</span></div>
+          <div class="market-label">Packages · On demand</div>
+          <p class="market-copy">Billions of parcels — and residents who expect them on demand. Pickup the moment they arrive, on their schedule, not yours. For <em>this</em> package, in <em>this</em> building.</p>
+        </div>
+      </div>
+      <div class="market-card dark reveal">
+        <div class="market-image" style="background-image:url('staffing.jpg');"></div>
+        <div class="market-body">
+          <div class="market-num">10–20<span style="font-size:0.45em;color:var(--text-2);"> hrs/wk</span></div>
+          <div class="market-label">Revenue staff · Burned out</div>
+          <p class="market-copy">Leasing and concierge — the roles that drive renewals and rent — instead sort boxes all week. Overworked. Stressed. Burned out. <small style="display:block;margin-top:6px;color:var(--text-3);font-size:0.78em;font-style:italic;">Source: NMHC</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PROBLEM ============== -->
+<section class="section alt" id="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="reveal">
+        <span class="eyebrow">The problem</span>
+        <h2 class="display h2">Volumes changed. So did <span class="accent">expectations.</span></h2>
+        <p class="lede" style="margin-top:1.4rem;">Apartments built for the world before Prime are buckling. The cracks show up everywhere — overflow, theft, complaints, churn.</p>
+
+        <div class="pain-list">
+          <div class="pain-item">
+            <span class="pain-num">01</span>
+            <div class="pain-text">Lockers overflow.</div>
+          </div>
+          <div class="pain-item">
+            <span class="pain-num">02</span>
+            <div class="pain-text">Closets are unsecured.</div>
+          </div>
+          <div class="pain-item">
+            <span class="pain-num">03</span>
+            <div class="pain-text">Manual labor is not scalable.</div>
+          </div>
+          <div class="pain-item">
+            <span class="pain-num">04</span>
+            <div class="pain-text">Frustration causing turnover.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chaos-visual reveal">
+        <div class="chaos-photo"></div>
+        <div class="chaos-overlay">
+          <div class="chaos-stat">+11%</div>
+          <div class="chaos-stat-label">E-commerce growth · annual</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== THREE OBJECTIVES ============== -->
+<section class="section" id="objectives">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Built around three objectives</span>
+      <h2 class="display h2">Operators want different <span class="accent">things.</span></h2>
+      <p class="lede">HelloPackage was built so a property manager, an asset director, and a leasing agent can each point to the part that solves their problem — without negotiating.</p>
+    </div>
+
+    <div class="obj-grid">
+      <div class="obj-card red reveal">
+        <span class="obj-num">Objective 01</span>
+        <h3 class="obj-title">Reduce the workload.</h3>
+        <p class="obj-body">Free staff from sorting packages, fielding complaints, or chasing down boxes. The leasing team gets 10–20 hours per week back — for the work that actually drives renewals and rent.</p>
+      </div>
+      <div class="obj-card cyan reveal">
+        <span class="obj-num">Objective 02</span>
+        <h3 class="obj-title">Elevate the resident experience.</h3>
+        <p class="obj-body">Make package pickup fast, secure, and frustration-free. 24/7 access. App notifications. Secure pickup codes. The package experience finally matches the rest of the amenity.</p>
+      </div>
+      <div class="obj-card dark reveal">
+        <span class="obj-num">Objective 03</span>
+        <h3 class="obj-title">Future-proof the community.</h3>
+        <p class="obj-body">Modern AI built to scale with what comes next. Computer vision, real-time behavior understanding, continuous platform updates. The amenity that compounds in value and ROI.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== HOW IT WORKS ============== -->
+<section class="section alt" id="how">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="display h2">Four steps, <span class="accent">every package.</span></h2>
+      <p class="lede">A consistent, automated workflow from the moment a driver scans a parcel to the moment a resident walks out with it. No staff intervention required.</p>
+    </div>
+
+    <div class="how-split">
+      <div class="how-video-wrap reveal">
+        <video autoplay muted loop playsinline>
+          <source src="NoCodes.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <span class="step-num-pill">Step 01</span>
+          <div class="step-title">Driver guidance.</div>
+          <p class="step-body">Automatically grant access and train drivers to follow a guided process and log every package as they arrive. 98.7% driver participation — no more "dump and go".</p>
+        </div>
+        <div class="step-card reveal">
+          <span class="step-num-pill">Step 02</span>
+          <div class="step-title">Logged &amp; stored.</div>
+          <p class="step-body">Multiple indoor kiosks and computer vision track every drop-off in real time. Stored in the secure, access-controlled room with cameras on.</p>
+        </div>
+        <div class="step-card reveal">
+          <span class="step-num-pill">Step 03</span>
+          <div class="step-title">Resident alerts.</div>
+          <p class="step-body">Pickup instructions sent automatically. 24/7 secure access with a personal code. Resident picks up on their schedule.</p>
+        </div>
+        <div class="step-card reveal">
+          <span class="step-num-pill">Step 04</span>
+          <div class="step-title">Automated security monitoring.</div>
+          <p class="step-body">Every interaction recorded. Full chain-of-custody. Package volume, resident duration, and room state visible to property in the Dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== THE PLATFORM ============== -->
+<section class="section" id="platform">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The platform</span>
+      <h2 class="display h2">Four pieces. One <span class="accent">platform.</span></h2>
+      <p class="lede">The connected system that replaces the mailroom. Each piece works on its own — together they handle every drop-off, every alert, every pickup.</p>
+    </div>
+
+    <div class="system-grid">
+      <div class="system-card has-video reveal">
+        <video class="system-card-video" autoplay muted loop playsinline>
+          <source src="RoomResident.mp4" type="video/mp4" />
+        </video>
+        <div class="system-card-text">
+          <span class="system-num">Component 01</span>
+          <div class="system-name">The Package Room.</div>
+          <p class="system-desc">Peace of mind, around the clock. Packages stored safely and picked up on residents' time. 4× density vs. lockers. Access-controlled. Always recording.</p>
+        </div>
+      </div>
+      <div class="system-card has-video cyan reveal">
+        <video class="system-card-video" autoplay muted loop playsinline>
+          <source src="DeliveryDriverAmazon.mp4" type="video/mp4" />
+        </video>
+        <div class="system-card-text">
+          <span class="system-num">Component 02</span>
+          <div class="system-name">Delivery Driver Management.</div>
+          <p class="system-desc">Automatic access, guided drop-off flow, ongoing training, and real-time monitoring. 98.7% participation, 52% faster vs. legacy.</p>
+        </div>
+      </div>
+      <div class="system-card reveal">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <span class="system-num">Component 03</span>
+        <div class="system-name">Remote &amp; On-Site Service.</div>
+        <p class="system-desc">A 24/7 remote team handles every resident request. An on-site team handles reconciliation, clean-up, return-to-sender, and exceptions. Your staff stays out of the package room entirely.</p>
+      </div>
+      <div class="system-card cyan reveal">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        </div>
+        <span class="system-num">Component 04</span>
+        <div class="system-name">Property Dashboard.</div>
+        <p class="system-desc">Deliveries managed without lifting a finger. Volume, dwell time, satisfaction trends — all in one place. Portfolio rollups for asset directors.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== WHY HELLOPACKAGE — TWO-COLUMN COMPARISON ============== -->
+<section class="section alt" id="why">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why HelloPackage</span>
+      <h2 class="display h2">What lockers and a locked room <span class="accent">can't do.</span></h2>
+      <p class="lede">Lockers solve storage. Access control locks a door. Neither one runs the process — that's what HelloPackage does.</p>
+    </div>
+
+    <!-- ROW 1: Video left, vs. Lockers right -->
+    <div class="why-row reveal">
+      <div class="why-row-video">
+        <video autoplay muted loop playsinline>
+          <source src="Slide5.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="why-col locker">
+        <div class="why-col-header">
+          <div class="why-col-icon">📦</div>
+          <div>
+            <div class="why-col-label">vs. Lockers</div>
+            <div class="why-col-title">Lockers solve storage.</div>
+          </div>
+        </div>
+        <p class="why-col-sub">Luxer One, Package Concierge, Parcel Pending — they hold packages. But they don't run the process.</p>
+        <div class="why-points">
+          <div class="why-point">
+            <div class="why-point-num">01</div>
+            <div class="why-point-text">
+              <div class="why-point-title">No more overflow.</div>
+              <p class="why-point-desc">4× the density of lockers. 25% of packages use oversized floor zones — by design. Lockers reject what doesn't fit.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-num">02</div>
+            <div class="why-point-text">
+              <div class="why-point-title">No daily staff work.</div>
+              <p class="why-point-desc">Lockers still need concierge for overflow and exceptions. Our on-site service team handles it all. 10–20 hrs/wk back.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-num">03</div>
+            <div class="why-point-text">
+              <div class="why-point-title">Every package tracked.</div>
+              <p class="why-point-desc">Complete chain of custody from drop-off to pickup. Sub-minute notifications. The system knows where every package is.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-num">04</div>
+            <div class="why-point-text">
+              <div class="why-point-title">Flexible deployment.</div>
+              <p class="why-point-desc">Convert your space — or we bring a modular room. 3-week turnkey. Lockers force you to take their hardware as-is.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2: vs. A Locked Room left, Video right -->
+    <div class="why-row flip reveal">
+      <div class="why-row-video">
+        <video autoplay muted loop playsinline>
+          <source src="external/WhyHP.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="why-col room">
+        <div class="why-col-header">
+          <div class="why-col-icon">🔐</div>
+          <div>
+            <div class="why-col-label">vs. A Locked Room</div>
+            <div class="why-col-title">A lock isn't a solution.</div>
+          </div>
+        </div>
+        <p class="why-col-sub">Access control opens a door. Nobody's managing what happens inside — or who's coming through it.</p>
+        <div class="why-points">
+          <div class="why-point">
+            <div class="why-point-num">01</div>
+            <div class="why-point-text">
+              <div class="why-point-title">Delivery driver management.</div>
+              <p class="why-point-desc">A lock doesn't manage who drops off or how. HP gives drivers automatic access, a guided flow, training, and monitoring. 98.7% participation.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-num">02</div>
+            <div class="why-point-text">
+              <div class="why-point-title">Real-time security &amp; alerting.</div>
+              <p class="why-point-desc">Access control is passive. HP actively watches every interaction with AI cameras and alerts your team before problems escalate.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-num">03</div>
+            <div class="why-point-text">
+              <div class="why-point-title">Residents find packages fast.</div>
+              <p class="why-point-desc">No digging through every shelf. HP directs residents to their specific section — they see only what's theirs.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-num">04</div>
+            <div class="why-point-text">
+              <div class="why-point-title">Accountability, not just access.</div>
+              <p class="why-point-desc">Every drop-off and pickup recorded. Digital chain of custody. The system knows exactly what happened and when.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FUTURE-PROOFING ============== -->
+<section class="section alt" id="future">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow cyan">Built for what's next</span>
+      <h2 class="display h2">Future-proofing your <span class="accent-cyan">building.</span></h2>
+      <p class="lede">The infrastructure you install today is the foundation for what's coming tomorrow.</p>
+    </div>
+
+    <div class="future-grid">
+      <div class="future-card reveal">
+        <video class="future-card-video" autoplay muted loop playsinline>
+          <source src="Security_bot.mp4" type="video/mp4" />
+        </video>
+        <div class="future-card-body">
+          <span class="future-card-eyebrow">Next 01</span>
+          <div class="future-card-title">Robotics-Ready.</div>
+          <p class="future-card-desc">Autonomous robotic security and delivery is here. Partners like <a href="https://www.getundaunted.com/" target="_blank" rel="noopener noreferrer" style="color:var(--blue);text-decoration:underline;">Undaunted</a> already patrol multifamily communities 24/7. HelloPackage is wired to integrate from day one.</p>
+        </div>
+      </div>
+
+      <div class="future-card reveal">
+        <video class="future-card-video" autoplay muted loop playsinline>
+          <source src="Elevator.mp4" type="video/mp4" />
+        </video>
+        <div class="future-card-body">
+          <span class="future-card-eyebrow">Next 02</span>
+          <div class="future-card-title">Elevator Controls.</div>
+          <p class="future-card-desc">The first universal elevator interface — any robot, any elevator, any manufacturer. <a href="https://aethon.com/readyelevator/" target="_blank" rel="noopener noreferrer" style="color:var(--blue);text-decoration:underline;">ReadyElevator</a> future-proofs your building for every service robot on the market, at minimal cost during new specs or modernization.</p>
+        </div>
+      </div>
+
+      <div class="future-card reveal">
+        <video class="future-card-video" autoplay muted loop playsinline>
+          <source src="3d_scan.mp4" type="video/mp4" />
+        </video>
+        <div class="future-card-body">
+          <span class="future-card-eyebrow">Next 03</span>
+          <div class="future-card-title">Complete 3D Scanning.</div>
+          <p class="future-card-desc">Full spatial mapping via <a href="https://www.thepreview3d.com/" target="_blank" rel="noopener noreferrer" style="color:var(--blue);text-decoration:underline;">Preview 3D</a>. Digital twins of every building for precise planning, remote audits, and automation routing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PROVEN RESULTS ============== -->
+<section class="section" id="results">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Proven results</span>
+      <h2 class="display h2">200+ communities, <span class="accent">coast to coast.</span></h2>
+      <p class="lede">Across 21 states and 27 metro areas. Multifamily, student housing, HOA, mixed-use — every property type. Operating 24/7/365 with onsite ambassadors handling exceptions.</p>
+    </div>
+
+    <div class="map-frame reveal">
+      <img src="partners-map.jpg" alt="HelloPackage's nationwide footprint — 200+ communities live across 21 states and 27 metro areas" />
+    </div>
+
+    <div class="results-chips">
+      <div class="results-chip reveal">
+        <span class="chip-num">4×</span>
+        <span class="chip-label">Package density</span>
+        <span class="chip-sub">Versus traditional lockers <em class="source-note">HP portfolio data, 2025–26</em></span>
+      </div>
+      <div class="results-chip reveal">
+        <span class="chip-num">↑ 52%</span>
+        <span class="chip-label">Check-in &amp; retrieval</span>
+        <span class="chip-sub">Average speed improvement <em class="source-note">HP portfolio data, 2025–26</em></span>
+      </div>
+      <div class="results-chip reveal">
+        <span class="chip-num">98.7%</span>
+        <span class="chip-label">Driver participation</span>
+        <span class="chip-sub">No more "dump and go" <em class="source-note">HP portfolio data, 2025–26</em></span>
+      </div>
+      <div class="results-chip reveal">
+        <span class="chip-num">↓ 80%</span>
+        <span class="chip-label">Cost-effective</span>
+        <span class="chip-sub">Versus traditional labor <em class="source-note">Internal operating benchmark</em></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CUSTOMERS / VOICE ============== -->
+<section class="section alt" id="customers">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">What operators say</span>
+      <h2 class="display h2">Trusted across <span class="accent">portfolios.</span></h2>
+      <p class="lede">Three real quotes from community managers, leasing teams, and asset directors running buildings on HelloPackage today.</p>
+    </div>
+
+    <div class="quotes-grid">
+      <div class="quote-card reveal">
+        <p class="quote-text">The technology that HP has deployed is beyond all other. The resident experience is seamless and allows for 24-hour access.</p>
+        <div class="quote-meta">
+          <div class="quote-avatar">LM</div>
+          <div>
+            <div class="quote-author">Leslie Mathis</div>
+            <div class="quote-role">Director of Asset Management · Woodfield Development</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-card cyan reveal">
+        <p class="quote-text">A game changer at the three properties where we've implemented it. The system is intuitive, residents appreciate that packages are on-site, and concierges spend less time on parcels.</p>
+        <div class="quote-meta">
+          <div class="quote-avatar">MJ</div>
+          <div>
+            <div class="quote-author">Michael Joyce</div>
+            <div class="quote-role">Owner · Oranswell Realty Partners</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-card reveal">
+        <p class="quote-text">HelloPackage has the best customer service. The system is simple — codes, cameras, zones. Residents are happy and the team is great to work with.</p>
+        <div class="quote-meta">
+          <div class="quote-avatar">ID</div>
+          <div>
+            <div class="quote-author">Iteya Dunham</div>
+            <div class="quote-role">Leasing Consultant · The Brady · Perennial Properties</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== COMPETITION ============== -->
+<section class="section" id="competition">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The competition</span>
+      <h2 class="display h2">The other guys just <span class="accent">don't deliver.</span></h2>
+      <p class="lede">Locker vendors. Access-only rooms. Manual mailrooms. Offsite providers. Every category leaves resident satisfaction, driver management, onsite labor, or theft protection on the table.</p>
+    </div>
+
+    <div class="compete-wrap reveal">
+      <table class="compete-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="hp-head">HelloPackage</th>
+            <th>Lockers</th>
+            <th>Access Control</th>
+            <th>Manual</th>
+            <th>Offsite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Online reviews</td>
+            <td class="hp-col"><span class="compete-pill pill-great">Great</span></td>
+            <td><span class="compete-pill pill-mixed">Mixed</span></td>
+            <td><span class="compete-pill pill-poor">Poor</span></td>
+            <td><span class="compete-pill pill-mixed">Mixed</span></td>
+            <td><span class="compete-pill pill-poor">Poor</span></td>
+          </tr>
+          <tr>
+            <td>Service level</td>
+            <td class="hp-col"><span class="compete-pill pill-yes">High</span></td>
+            <td><span class="compete-pill pill-no">Low</span></td>
+            <td><span class="compete-pill pill-no">Low</span></td>
+            <td><span class="compete-pill pill-yes">High</span></td>
+            <td><span class="compete-pill pill-no">Low</span></td>
+          </tr>
+          <tr>
+            <td>Manages drivers</td>
+            <td class="hp-col"><span class="compete-pill pill-yes">Yes</span></td>
+            <td><span class="compete-pill pill-no">No</span></td>
+            <td><span class="compete-pill pill-no">No</span></td>
+            <td><span class="compete-pill pill-yes">Yes</span></td>
+            <td><span class="compete-pill pill-yes">Yes</span></td>
+          </tr>
+          <tr>
+            <td>Provides onsite labor</td>
+            <td class="hp-col"><span class="compete-pill pill-yes">Yes</span></td>
+            <td><span class="compete-pill pill-mixed">Mixed</span></td>
+            <td><span class="compete-pill pill-no">No</span></td>
+            <td><span class="compete-pill pill-yes">Yes</span></td>
+            <td><span class="compete-pill pill-unknown">N/A</span></td>
+          </tr>
+          <tr>
+            <td>Scalable</td>
+            <td class="hp-col"><span class="compete-pill pill-yes">Yes</span></td>
+            <td><span class="compete-pill pill-no">No</span></td>
+            <td><span class="compete-pill pill-no">No</span></td>
+            <td><span class="compete-pill pill-no">No</span></td>
+            <td><span class="compete-pill pill-yes">Yes</span></td>
+          </tr>
+          <tr>
+            <td>Package theft protection</td>
+            <td class="hp-col"><span class="compete-pill pill-yes">High</span></td>
+            <td><span class="compete-pill pill-mixed">Moderate</span></td>
+            <td><span class="compete-pill pill-no">High risk</span></td>
+            <td><span class="compete-pill pill-yes">High</span></td>
+            <td><span class="compete-pill pill-no">High risk</span></td>
+          </tr>
+          <tr>
+            <td>Cost</td>
+            <td class="hp-col"><span class="compete-pill pill-med">Medium</span></td>
+            <td><span class="compete-pill pill-low">Low</span></td>
+            <td><span class="compete-pill pill-low">Low</span></td>
+            <td><span class="compete-pill pill-high">Very High</span></td>
+            <td><span class="compete-pill pill-high">High</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============== ROI + PRICING ============== -->
+<section class="section alt" id="pricing">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The economics</span>
+      <h2 class="display h2">The math <span class="accent">works.</span></h2>
+      <p class="lede">What you save on the left, what it costs on the right. All-in pricing — software, hardware, and a 3 hr/week on-site service team in one monthly number.</p>
+    </div>
+
+    <div class="roi-pricing-split">
+      <div class="roi-panel reveal" id="roiCalc">
+        <div class="roi-head">
+          <div class="roi-panel-title">ROI</div>
+          <div class="roi-pills" role="group" aria-label="Plan">
+            <button class="roi-pill" data-tier="core">Core</button>
+            <button class="roi-pill" data-tier="essentials" aria-pressed="true">Essentials</button>
+            <button class="roi-pill" data-tier="enhanced">Enhanced</button>
+          </div>
+        </div>
+        <div class="roi-units">Example property · <b id="uVal">250</b> units</div>
+        <input class="roi-slider" id="roiUnits" type="range" min="50" max="600" step="10" value="250">
+
+        <div class="roi-rows">
+          <div class="roi-row">
+            <span class="roi-label">Staff hours recovered</span>
+            <span class="roi-value green" id="roiHours">20 hrs/wk</span>
+          </div>
+          <div class="roi-row">
+            <span class="roi-label">Package density vs. lockers</span>
+            <span class="roi-value">4×</span>
+          </div>
+          <div class="roi-row">
+            <span class="roi-label">Faster check-in &amp; retrieval</span>
+            <span class="roi-value green">52%</span>
+          </div>
+          <div class="roi-row">
+            <span class="roi-label">On-site labor vs. in-house</span>
+            <span class="roi-value green" id="roiLabor">↓ 83%</span>
+          </div>
+          <div class="roi-row">
+            <span class="roi-label">Driver participation</span>
+            <span class="roi-value">98.7%</span>
+          </div>
+        </div>
+
+        <div style="margin-top:1.2rem; margin-bottom:0.6rem; font-family:'JetBrains Mono',monospace; font-size:0.6rem; font-weight:600; text-transform:uppercase; letter-spacing:0.2em; color:var(--text-3);">Retention &amp; Conversion Impact</div>
+        <div class="roi-rows">
+          <div class="roi-row">
+            <span class="roi-label">Retention + lease-up savings</span>
+            <span class="roi-value green" id="roiRetention">$10K/yr</span>
+          </div>
+        </div>
+        <div style="margin-top:0.5rem; display:inline-flex; align-items:center; gap:0.4rem; background:var(--bg-soft); border:1px solid var(--border); border-radius:100px; padding:0.25rem 0.65rem; font-size:0.6rem; font-weight:600; color:var(--text-3); font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.1em;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Validated by PropTech IQ
+        </div>
+
+        <hr class="roi-divider">
+        <div class="roi-row">
+          <span class="roi-total-label">All-in cost / mo</span>
+          <span class="roi-value" id="roiCost">$955</span>
+        </div>
+        <div class="roi-row" style="margin-top:0.5rem;">
+          <span class="roi-total-label">Resident fee / unit</span>
+          <span class="roi-value" id="roiFee" style="font-size:0.95rem;">$6/unit <small style="font-size:0.72rem;font-weight:500;color:var(--green);">($2.19 profit)</small></span>
+        </div>
+        <div class="roi-row" style="margin-top:0.5rem;">
+          <span class="roi-total-label">Modeled property uplift</span>
+          <span class="roi-value green roi-uplift" id="roiUplift">~$478K</span>
+        </div>
+        <p class="roi-source">Sources: HP portfolio data 2025–26, NMHC staffing benchmark. Resident fee: $5/$6/$7 by tier. Retention + conversion: $40/unit/yr — 3rd-party validated by PropTech IQ across 3 HP properties (Dresden Drive, The Hendry, 2400). ~5% make-ready reduction, ~0.65 days faster lease-up. Uplift at 5.0% cap rate.</p>
+      </div>
+
+    <div class="price-grid">
+      <div class="price-card t1 reveal">
+        <span class="price-eyebrow">Good</span>
+        <div class="price-name">HelloPackage Core.</div>
+        <p class="price-desc">You provide the room and shelves. We bring HP-Vision, AI driver guidance, and a 3 hr/week on-site team.</p>
+        <div class="price-amounts">
+          <div class="price-cap">Cap Ex from $12K</div>
+          <div class="price-breakdown">
+            <div class="price-line">
+              <span class="price-line-label">Software &amp; service</span>
+              <span class="price-line-amount">$1.59</span>
+            </div>
+            <div class="price-line">
+              <span class="price-line-label">On-site labor*</span>
+              <span class="price-line-amount">$1.72</span>
+            </div>
+            <div class="price-line price-total">
+              <span class="price-line-label">Total / unit / mo</span>
+              <span class="price-line-amount">$3.31</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="price-card t2 reveal">
+        <span class="price-eyebrow">Better</span>
+        <div class="price-name">HelloPackage Essentials.</div>
+        <p class="price-desc">You provide the room. We bring everything — smart LED shelves, oversized racks, full installation, onboarding, and training.</p>
+        <div class="price-amounts">
+          <div class="price-cap">Cap Ex from $24K</div>
+          <div class="price-breakdown">
+            <div class="price-line">
+              <span class="price-line-label">Software &amp; service</span>
+              <span class="price-line-amount">$2.09</span>
+            </div>
+            <div class="price-line">
+              <span class="price-line-label">On-site labor*</span>
+              <span class="price-line-amount">$1.72</span>
+            </div>
+            <div class="price-line price-total">
+              <span class="price-line-label">Total / unit / mo</span>
+              <span class="price-line-amount">$3.81</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="price-card t3 reveal">
+        <span class="price-eyebrow">Best</span>
+        <div class="price-name">HelloPackage Enhanced.</div>
+        <p class="price-desc">Everything in Essentials, plus AI session tracking, premium hardware, free delivery, and a dedicated customer success manager.</p>
+        <div class="price-amounts">
+          <div class="price-cap">Cap Ex from $34K</div>
+          <div class="price-breakdown">
+            <div class="price-line">
+              <span class="price-line-label">Software &amp; service</span>
+              <span class="price-line-amount">$2.49</span>
+            </div>
+            <div class="price-line">
+              <span class="price-line-label">On-site labor*</span>
+              <span class="price-line-amount">$1.72</span>
+            </div>
+            <div class="price-line price-total">
+              <span class="price-line-label">Total / unit / mo</span>
+              <span class="price-line-amount">$4.21</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="price-card t4 reveal">
+        <span class="price-eyebrow">No space?</span>
+        <div class="price-name">Modular Package Room.</div>
+        <p class="price-desc">Drop a standalone climate-controlled package room on site. Bundles with any tier above when the property can't convert interior space.</p>
+        <div class="price-amounts">
+          <div class="price-cap">Cap Ex add $50K</div>
+          <div class="price-monthly">Add-on <small>/ to any tier</small></div>
+        </div>
+      </div>
+    </div>
+    </div><!-- /roi-pricing-split -->
+
+    <div class="price-footnotes">
+      <div>* On-site labor = 3 hr/week service team (~$1.72 / unit / mo at typical property size), included in monthly total.</div>
+      <div>* New development ramp and Op Ex financing available. Get a quote for your portfolio.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============== SPACE CONFIGURATOR ============== -->
+<section class="section alt" id="space">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Plan your space</span>
+      <h2 class="display h2">Sized to your <span class="accent">portfolio.</span></h2>
+      <p class="lede">Every HelloPackage room is custom-designed for your property. Here are three common configurations — from compact conversions to full-size dedicated rooms.</p>
+    </div>
+
+    <div class="space-grid">
+      <div class="space-card reveal">
+        <img class="space-card-img" src="room-standard.jpg" alt="Standard room layout — 185 sq ft">
+        <div class="space-card-body">
+          <div class="space-card-label">Standard Room</div>
+          <div class="space-card-title"><span>185</span> sq ft</div>
+          <p class="space-card-details">Ideal for 200–270 unit communities. 3 smart racks plus oversized storage, fridge, resident &amp; carrier kiosks, full camera coverage.</p>
+        </div>
+      </div>
+      <div class="space-card reveal">
+        <img class="space-card-img" src="room-midsize.jpg" alt="Mid-size room layout — 229 sq ft">
+        <div class="space-card-body">
+          <div class="space-card-label">Mid-Size Room</div>
+          <div class="space-card-title"><span>229</span> sq ft</div>
+          <p class="space-card-details">Built for 270–370 unit properties. 3 racks with dual oversized zones, double-door fridge, and expanded carrier staging area.</p>
+        </div>
+      </div>
+      <div class="space-card reveal">
+        <img class="space-card-img" src="room-fullsize.jpg" alt="Full-size room layout — 257 sq ft">
+        <div class="space-card-body">
+          <div class="space-card-label">Full-Size Room</div>
+          <div class="space-card-title"><span>257</span> sq ft</div>
+          <p class="space-card-details">Designed for 370–500+ unit communities. 5 racks plus oversized zone, fridge, full DDM camera array, and dedicated carrier workflow lane.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FAQ ============== -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Common objections</span>
+      <h2 class="display h2">The three big <span class="accent">hurdles.</span></h2>
+      <p class="lede">When prospects pass on HelloPackage, the reason is almost always one of three things. Honest answers on each.</p>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq reveal">
+        <button class="faq-q">Hurdle 1: "We don't have the space."<span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>If your property has unused interior square footage — lobbies, leasing back-rooms, ground-floor storage — we convert it in 3 weeks turnkey. If it doesn't, we deliver a modular climate-controlled package room. Avana Copper Springs is the case study: 366 units, no convertible space, we brought the room.</p>
+        </div>
+      </div>
+      <div class="faq reveal">
+        <button class="faq-q">Hurdle 2: "We don't have the budget."<span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>Four tiers — Core through Modular — covering every property profile and budget. Cap-ex from $12K, monthly from $1.59/unit. Op Ex financing available. 755 North switched from a more expensive competitor with no capital budget — and ended under budget on the new contract.</p>
+        </div>
+      </div>
+      <div class="faq reveal">
+        <button class="faq-q">Hurdle 3: "We can't pass a resident fee."<span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>Some operators charge residents, some absorb the cost, some bundle into amenity fees. We've supported all three. Where resident fees apply, the modeled property uplift is ~$480K per 250-unit asset. Where they don't, staff-time savings alone justify the line item.</p>
+        </div>
+      </div>
+      <div class="faq reveal">
+        <button class="faq-q">How fast can we go live?<span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>3-week turnkey from contract for a typical conversion. Modular package rooms ship in a similar window. Portfolios roll out in waves of 5–10 properties at a time, with a named CSM per portfolio.</p>
+        </div>
+      </div>
+      <div class="faq reveal">
+        <button class="faq-q">How does this compare to lockers (Luxer One, Package Concierge, Parcel Pending)?<span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>Lockers solve storage — we run the entire process. They rate LOW on driver management, full service, and provided onsite labor — and MIXED on resident satisfaction. They also can't handle ~25% of packages that need overflow space (oversized parcels, holiday surges). For low-volume properties, lockers may be enough. For real volume, you'll outgrow them.</p>
+        </div>
+      </div>
+      <div class="faq reveal">
+        <button class="faq-q">How does this compare to offsite (Fetch)?<span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>Offsite is the wrong direction for resident satisfaction — rated POOR in our comparison. Residents want their packages onsite, immediately, at 11pm. Offsite means an extra hop, an extra fee, and a stack of complaints.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FINAL CTA ============== -->
+<section class="final-cta" id="contact">
+  <div class="final-cta-inner">
+    <div class="reveal">
+      <span class="eyebrow light">Ready when you are</span>
+      <h2 class="final-cta-headline">Let's <span class="accent">deliver.</span></h2>
+      <p class="final-cta-sub">30-minute walkthrough on your portfolio. We'll size the room, scope the integrations, and put a real number on the staff-hour savings and the ancillary income — by the time the call ends.</p>
+      <div class="final-cta-btns">
+        <a href="mailto:paulfavorov@packagesolutions.com" class="btn btn-primary">Book a demo
+          <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#how" class="btn btn-secondary" style="background:transparent; color:white; border-color:rgba(255,255,255,0.3);">See how it works</a>
+      </div>
+      <div class="final-cta-meta">
+        <div>
+          Sales · CEO/CTO
+          <strong>Paul Favorov</strong>
+          <a href="mailto:paulfavorov@packagesolutions.com">paulfavorov@packagesolutions.com</a><br/>
+          <a href="tel:+14045580668">404.558.0668</a>
+        </div>
+        <div>
+          Head of Sales &amp; Success
+          <strong>Denise Burtz</strong>
+          <a href="mailto:deniseburtz@packagesolutions.com">deniseburtz@packagesolutions.com</a><br/>
+          <a href="tel:+18669315567">866.931.5567 toll-free</a>
+        </div>
+        <div>
+          HQ
+          <strong>Atlanta, GA</strong>
+          Atlanta Tech Village · 3423 Piedmont Rd NE<br/>
+          21 states · 27 metros · BBB A+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo"></div>
+      <p class="footer-tagline">AI-powered package management for multifamily and student housing. 200+ communities · 70,000+ residents · 4.5 / 5.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Solution</h4>
+      <ul>
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#objectives">Three objectives</a></li>
+        <li><a href="#why">Why HelloPackage</a></li>
+        <li><a href="#results">Results</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Customers</h4>
+      <ul>
+        <li><a href="#cases">Case studies</a></li>
+        <li><a href="#customers">Testimonials</a></li>
+        <li><a href="#competition">Compare</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Buy</h4>
+      <ul>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#space">Space configurator</a></li>
+        <li><a href="#contact">Book a demo</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Trust</h4>
+      <ul>
+        <li><a href="#top">BBB A+ since 2020</a></li>
+        <li><a href="#top">1 U.S. patent issued</a></li>
+        <li><a href="#contact">24/7/365 support</a></li>
+        <li><a href="https://hellopackage.com" target="_blank" rel="noopener noreferrer">hellopackage.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 HelloPackage<span class="red-dot">·</span>HelloPackage is a registered trademark of Package Solutions, Inc.</span>
+    <span>Atlanta, GA<span class="red-dot">·</span>21 states</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 8) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  document.querySelectorAll('.faq').forEach((faq) => {
+    const q = faq.querySelector('.faq-q');
+    q.addEventListener('click', () => { faq.classList.toggle('open'); });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      const t = document.querySelector(id);
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  /* ============== ROI CALCULATOR ============== */
+  (function() {
+    var TIERS = { core: { total: 3.31, labor: 1.72, fee: 5 }, essentials: { total: 3.81, labor: 1.72, fee: 6 }, enhanced: { total: 4.21, labor: 1.72, fee: 7 } };
+    var COLOR = { core: 'var(--red)', essentials: 'var(--blue)', enhanced: 'var(--blue-bright)' };
+    var WAGE = 30, HRS_PER_UNIT_WK = 0.08, WEEKS = 4.33, CAP = 0.05;
+    var RETENTION_PER_UNIT_YR = 40; /* PropTech IQ validated: ~$38 retention + ~$2.50 conversion */
+    var root = document.getElementById('roiCalc');
+    if (!root) return;
+    var tier = 'essentials', units = 250;
+    var $ = function(id) { return document.getElementById(id); };
+    var d$ = function(n) { return '$' + Math.round(n).toLocaleString(); };
+    var kK = function(n) { return '~$' + Math.round(n / 1000) + 'K'; };
+
+    function animate(el, to, render) {
+      var from = parseFloat(el.dataset.cur || to) || to, t0 = null;
+      el.dataset.cur = to;
+      function s(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / 420, 1), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = render(from + (to - from) * e);
+        if (p < 1) requestAnimationFrame(s);
+      }
+      requestAnimationFrame(s);
+    }
+
+    function calc() {
+      var t = TIERS[tier], hrs = units * HRS_PER_UNIT_WK;
+      var trad = hrs * WEEKS * WAGE, hpLabor = t.labor * units;
+      var hpTotal = t.total * units, net = trad - hpTotal;
+      var profit = t.fee - t.total;
+      var profitTotal = profit * units;
+      // Retention + conversion: PropTech IQ validated $40/unit/yr
+      var retentionSavings = units * RETENTION_PER_UNIT_YR;
+      // Total NOI
+      var laborNoi = (net + profitTotal) * 12;
+      var totalNoi = laborNoi + retentionSavings;
+      var uplift = totalNoi / CAP;
+      var laborPct = Math.round((trad - hpLabor) / trad * 100);
+      root.style.setProperty('--roi-accent', COLOR[tier]);
+      animate($('roiHours'), hrs, function(v) { return Math.round(v) + ' hrs/wk'; });
+      $('roiLabor').textContent = '↓ ' + laborPct + '%';
+      animate($('roiCost'), hpTotal, d$);
+      $('roiFee').innerHTML = '$' + t.fee + '/unit <small style="font-size:0.72rem;font-weight:500;color:var(--green);">($' + profit.toFixed(2) + ' profit)</small>';
+      animate($('roiRetention'), retentionSavings, function(v) { return '$' + Math.round(v/1000) + 'K/yr'; });
+      animate($('roiUplift'), uplift, kK);
+    }
+
+    root.querySelectorAll('.roi-pill').forEach(function(b) {
+      b.addEventListener('click', function() {
+        tier = b.dataset.tier;
+        root.querySelectorAll('.roi-pill').forEach(function(x) {
+          x.setAttribute('aria-pressed', x === b);
+        });
+        calc();
+      });
+    });
+
+    var sl = $('roiUnits');
+    function fill() {
+      sl.style.setProperty('--fill', (units - sl.min) / (sl.max - sl.min) * 100 + '%');
+    }
+    sl.addEventListener('input', function() {
+      units = +sl.value;
+      $('uVal').textContent = units.toLocaleString();
+      fill();
+      calc();
+    });
+    fill();
+    calc();
+  })();
+</script>
+
+</body>
+</html>
