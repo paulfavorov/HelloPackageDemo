@@ -2047,10 +2047,14 @@
           <span class="roi-value" id="roiCost">$955</span>
         </div>
         <div class="roi-row" style="margin-top:0.5rem;">
+          <span class="roi-total-label">Resident fee / unit</span>
+          <span class="roi-value" id="roiFee" style="font-size:0.95rem;">$5.21 <small style="font-size:0.72rem;font-weight:500;color:var(--green);">($1.40 profit)</small></span>
+        </div>
+        <div class="roi-row" style="margin-top:0.5rem;">
           <span class="roi-total-label">Modeled property uplift</span>
           <span class="roi-value green roi-uplift" id="roiUplift">~$478K</span>
         </div>
-        <p class="roi-source">Sources: HP portfolio data 2025–26, NMHC staffing benchmark, internal operating data. Model: $30/hr loaded staff cost, ~0.08 hrs/unit/wk in-house handling, 5.0% cap rate, $1.40/unit/mo resident fee. Uplift modeled where resident fees apply.</p>
+        <p class="roi-source">Sources: HP portfolio data 2025–26, NMHC staffing benchmark. Resident fee = HP cost + $1.40 profit/unit (ref: The Mark Athens at $6/unit). Uplift model: $30/hr loaded staff cost, 0.08 hrs/unit/wk, 5.0% cap rate. Uplift modeled where resident fees apply.</p>
       </div>
 
     <div class="price-grid">
@@ -2381,10 +2385,12 @@
       var hpTotal = t.total * units, net = trad - hpTotal;
       var fee = FEE * units, noi = (net + fee) * 12, uplift = noi / CAP;
       var laborPct = Math.round((trad - hpLabor) / trad * 100);
+      var resFee = (t.total + FEE).toFixed(2);
       root.style.setProperty('--roi-accent', COLOR[tier]);
       animate($('roiHours'), hrs, function(v) { return Math.round(v) + ' hrs/wk'; });
       $('roiLabor').textContent = '↓ ' + laborPct + '%';
       animate($('roiCost'), hpTotal, d$);
+      $('roiFee').innerHTML = '$' + resFee + ' <small style="font-size:0.72rem;font-weight:500;color:var(--green);">($' + FEE.toFixed(2) + ' profit)</small>';
       animate($('roiUplift'), uplift, kK);
     }
 
