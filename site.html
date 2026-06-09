@@ -2041,6 +2041,19 @@
             <span class="roi-value">98.7%</span>
           </div>
         </div>
+
+        <div style="margin-top:1.2rem; margin-bottom:0.6rem; font-family:'JetBrains Mono',monospace; font-size:0.6rem; font-weight:600; text-transform:uppercase; letter-spacing:0.2em; color:var(--text-3);">Retention &amp; Lease-Up Impact</div>
+        <div class="roi-rows">
+          <div class="roi-row">
+            <span class="roi-label">Turn savings / year</span>
+            <span class="roi-value green" id="roiTurns">$20K</span>
+          </div>
+          <div class="roi-row">
+            <span class="roi-label">Lease-up acceleration</span>
+            <span class="roi-value green" id="roiLeaseUp">$25K</span>
+          </div>
+        </div>
+
         <hr class="roi-divider">
         <div class="roi-row">
           <span class="roi-total-label">All-in cost / mo</span>
@@ -2054,7 +2067,7 @@
           <span class="roi-total-label">Modeled property uplift</span>
           <span class="roi-value green roi-uplift" id="roiUplift">~$478K</span>
         </div>
-        <p class="roi-source">Sources: HP portfolio data 2025–26, NMHC staffing benchmark. Resident fee: $5 (Core), $6 (Essentials), $7 (Enhanced); profit = fee minus HP cost. Uplift model: $30/hr loaded staff cost, 0.08 hrs/unit/wk, 5.0% cap rate. Uplift modeled where resident fees apply.</p>
+        <p class="roi-source">Sources: HP portfolio data 2025–26, NMHC staffing benchmark. Resident fee: $5/$6/$7 by tier. Turn cost: $4K/unit (NMHC avg), 2% retention lift. Lease-up: $1,500 avg rent, 4 days faster per turn. Uplift at 5.0% cap rate. Retention &amp; lease-up figures are modeled estimates.</p>
       </div>
 
     <div class="price-grid">
@@ -2360,6 +2373,8 @@
     var TIERS = { core: { total: 3.31, labor: 1.72, fee: 5 }, essentials: { total: 3.81, labor: 1.72, fee: 6 }, enhanced: { total: 4.21, labor: 1.72, fee: 7 } };
     var COLOR = { core: 'var(--red)', essentials: 'var(--blue)', enhanced: 'var(--blue-bright)' };
     var WAGE = 30, HRS_PER_UNIT_WK = 0.08, WEEKS = 4.33, CAP = 0.05;
+    var TURN_COST = 4000, TURNOVER_RATE = 0.50, RETENTION_LIFT = 0.02;
+    var AVG_RENT = 1500, DAYS_FASTER = 4;
     var root = document.getElementById('roiCalc');
     if (!root) return;
     var tier = 'essentials', units = 250;
@@ -2384,13 +2399,24 @@
       var trad = hrs * WEEKS * WAGE, hpLabor = t.labor * units;
       var hpTotal = t.total * units, net = trad - hpTotal;
       var profit = t.fee - t.total;
-      var profitTotal = profit * units, noi = (net + profitTotal) * 12, uplift = noi / CAP;
+      var profitTotal = profit * units;
+      // Retention: fewer turns × cost per turn
+      var turnsPerYear = units * TURNOVER_RATE;
+      var turnSavings = units * RETENTION_LIFT * TURN_COST;
+      // Lease-up: days saved × daily rent × turns
+      var leaseUpSavings = turnsPerYear * DAYS_FASTER * (AVG_RENT / 30);
+      // Total NOI
+      var laborNoi = (net + profitTotal) * 12;
+      var totalNoi = laborNoi + turnSavings + leaseUpSavings;
+      var uplift = totalNoi / CAP;
       var laborPct = Math.round((trad - hpLabor) / trad * 100);
       root.style.setProperty('--roi-accent', COLOR[tier]);
       animate($('roiHours'), hrs, function(v) { return Math.round(v) + ' hrs/wk'; });
       $('roiLabor').textContent = '↓ ' + laborPct + '%';
       animate($('roiCost'), hpTotal, d$);
       $('roiFee').innerHTML = '$' + t.fee + '/unit <small style="font-size:0.72rem;font-weight:500;color:var(--green);">($' + profit.toFixed(2) + ' profit)</small>';
+      animate($('roiTurns'), turnSavings, function(v) { return '$' + Math.round(v/1000) + 'K/yr'; });
+      animate($('roiLeaseUp'), leaseUpSavings, function(v) { return '$' + Math.round(v/1000) + 'K/yr'; });
       animate($('roiUplift'), uplift, kK);
     }
 
