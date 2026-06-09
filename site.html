@@ -577,14 +577,22 @@
   @media (max-width: 880px) { .system-grid { grid-template-columns: 1fr; } }
 
   /* ============== WHY HP — VIDEO + POINTS ============== */
+  .why-video-wrap {
+    margin-top: 3rem;
+    border-radius: 16px; overflow: hidden;
+    border: 2px solid var(--border);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+    background: #000;
+  }
+  .why-video-wrap video { width: 100%; display: block; }
   .why-columns {
-    margin-top: 3.5rem;
+    margin-top: 2rem;
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
   .why-col {
     background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 20px; padding: 2.5rem 2.2rem;
+    border-radius: 18px; padding: 1.8rem 1.6rem;
     position: relative; overflow: hidden;
   }
   .why-col::before {
@@ -614,15 +622,15 @@
   }
   .why-col-title {
     font-family: 'Manrope', sans-serif;
-    font-size: 1.5rem; font-weight: 800;
+    font-size: 1.25rem; font-weight: 800;
     letter-spacing: -0.03em; color: var(--text);
     line-height: 1.15;
   }
   .why-col-sub {
-    font-size: 0.88rem; color: var(--text-2);
-    line-height: 1.5; margin-top: 0.5rem; margin-bottom: 1.6rem;
+    font-size: 0.82rem; color: var(--text-2);
+    line-height: 1.45; margin-top: 0.4rem; margin-bottom: 1.2rem;
   }
-  .why-points { display: flex; flex-direction: column; gap: 1.4rem; }
+  .why-points { display: flex; flex-direction: column; gap: 1rem; }
   .why-point {
     display: flex; gap: 0.85rem; align-items: flex-start;
   }
@@ -638,13 +646,13 @@
   .why-point-text { flex: 1; }
   .why-point-title {
     font-family: 'Manrope', sans-serif;
-    font-size: 1rem; font-weight: 800;
+    font-size: 0.92rem; font-weight: 800;
     letter-spacing: -0.02em; color: var(--text);
     line-height: 1.2;
   }
   .why-point-desc {
-    font-size: 0.85rem; color: var(--text-2);
-    line-height: 1.5; margin-top: 0.25rem;
+    font-size: 0.8rem; color: var(--text-2);
+    line-height: 1.45; margin-top: 0.2rem;
   }
   @media (max-width: 880px) {
     .why-columns { grid-template-columns: 1fr; }
@@ -1669,6 +1677,12 @@
       <span class="eyebrow">Why HelloPackage</span>
       <h2 class="display h2">What lockers and a locked room <span class="accent">can't do.</span></h2>
       <p class="lede">Lockers solve storage. Access control locks a door. Neither one runs the process — that's what HelloPackage does.</p>
+    </div>
+
+    <div class="why-video-wrap reveal">
+      <video autoplay muted loop playsinline>
+        <source src="Slide5.mp4" type="video/mp4" />
+      </video>
     </div>
 
     <div class="why-columns">
