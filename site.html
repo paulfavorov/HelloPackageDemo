@@ -2042,16 +2042,16 @@
           </div>
         </div>
 
-        <div style="margin-top:1.2rem; margin-bottom:0.6rem; font-family:'JetBrains Mono',monospace; font-size:0.6rem; font-weight:600; text-transform:uppercase; letter-spacing:0.2em; color:var(--text-3);">Retention &amp; Lease-Up Impact</div>
+        <div style="margin-top:1.2rem; margin-bottom:0.6rem; font-family:'JetBrains Mono',monospace; font-size:0.6rem; font-weight:600; text-transform:uppercase; letter-spacing:0.2em; color:var(--text-3);">Retention &amp; Conversion Impact</div>
         <div class="roi-rows">
           <div class="roi-row">
-            <span class="roi-label">Turn savings / year</span>
-            <span class="roi-value green" id="roiTurns">$20K</span>
+            <span class="roi-label">Retention + lease-up savings</span>
+            <span class="roi-value green" id="roiRetention">$10K/yr</span>
           </div>
-          <div class="roi-row">
-            <span class="roi-label">Lease-up acceleration</span>
-            <span class="roi-value green" id="roiLeaseUp">$25K</span>
-          </div>
+        </div>
+        <div style="margin-top:0.5rem; display:inline-flex; align-items:center; gap:0.4rem; background:var(--bg-soft); border:1px solid var(--border); border-radius:100px; padding:0.25rem 0.65rem; font-size:0.6rem; font-weight:600; color:var(--text-3); font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.1em;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Validated by PropTech IQ
         </div>
 
         <hr class="roi-divider">
@@ -2067,7 +2067,7 @@
           <span class="roi-total-label">Modeled property uplift</span>
           <span class="roi-value green roi-uplift" id="roiUplift">~$478K</span>
         </div>
-        <p class="roi-source">Sources: HP portfolio data 2025–26, NMHC staffing benchmark. Resident fee: $5/$6/$7 by tier. Turn cost: $4K/unit (NMHC avg), 2% retention lift. Lease-up: $1,500 avg rent, 4 days faster per turn. Uplift at 5.0% cap rate. Retention &amp; lease-up figures are modeled estimates.</p>
+        <p class="roi-source">Sources: HP portfolio data 2025–26, NMHC staffing benchmark. Resident fee: $5/$6/$7 by tier. Retention + conversion: $40/unit/yr — 3rd-party validated by PropTech IQ across 3 HP properties (Dresden Drive, The Hendry, 2400). ~5% make-ready reduction, ~0.65 days faster lease-up. Uplift at 5.0% cap rate.</p>
       </div>
 
     <div class="price-grid">
@@ -2373,8 +2373,7 @@
     var TIERS = { core: { total: 3.31, labor: 1.72, fee: 5 }, essentials: { total: 3.81, labor: 1.72, fee: 6 }, enhanced: { total: 4.21, labor: 1.72, fee: 7 } };
     var COLOR = { core: 'var(--red)', essentials: 'var(--blue)', enhanced: 'var(--blue-bright)' };
     var WAGE = 30, HRS_PER_UNIT_WK = 0.08, WEEKS = 4.33, CAP = 0.05;
-    var TURN_COST = 4000, TURNOVER_RATE = 0.50, RETENTION_LIFT = 0.02;
-    var AVG_RENT = 1500, DAYS_FASTER = 4;
+    var RETENTION_PER_UNIT_YR = 40; /* PropTech IQ validated: ~$38 retention + ~$2.50 conversion */
     var root = document.getElementById('roiCalc');
     if (!root) return;
     var tier = 'essentials', units = 250;
@@ -2400,14 +2399,11 @@
       var hpTotal = t.total * units, net = trad - hpTotal;
       var profit = t.fee - t.total;
       var profitTotal = profit * units;
-      // Retention: fewer turns × cost per turn
-      var turnsPerYear = units * TURNOVER_RATE;
-      var turnSavings = units * RETENTION_LIFT * TURN_COST;
-      // Lease-up: days saved × daily rent × turns
-      var leaseUpSavings = turnsPerYear * DAYS_FASTER * (AVG_RENT / 30);
+      // Retention + conversion: PropTech IQ validated $40/unit/yr
+      var retentionSavings = units * RETENTION_PER_UNIT_YR;
       // Total NOI
       var laborNoi = (net + profitTotal) * 12;
-      var totalNoi = laborNoi + turnSavings + leaseUpSavings;
+      var totalNoi = laborNoi + retentionSavings;
       var uplift = totalNoi / CAP;
       var laborPct = Math.round((trad - hpLabor) / trad * 100);
       root.style.setProperty('--roi-accent', COLOR[tier]);
@@ -2415,8 +2411,7 @@
       $('roiLabor').textContent = '↓ ' + laborPct + '%';
       animate($('roiCost'), hpTotal, d$);
       $('roiFee').innerHTML = '$' + t.fee + '/unit <small style="font-size:0.72rem;font-weight:500;color:var(--green);">($' + profit.toFixed(2) + ' profit)</small>';
-      animate($('roiTurns'), turnSavings, function(v) { return '$' + Math.round(v/1000) + 'K/yr'; });
-      animate($('roiLeaseUp'), leaseUpSavings, function(v) { return '$' + Math.round(v/1000) + 'K/yr'; });
+      animate($('roiRetention'), retentionSavings, function(v) { return '$' + Math.round(v/1000) + 'K/yr'; });
       animate($('roiUplift'), uplift, kK);
     }
 
