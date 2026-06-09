@@ -577,18 +577,22 @@
   @media (max-width: 880px) { .system-grid { grid-template-columns: 1fr; } }
 
   /* ============== WHY HP — VIDEO + POINTS ============== */
-  .why-video-wrap {
+  .why-row {
     margin-top: 3rem;
-    border-radius: 16px; overflow: hidden;
-    border: 2px solid var(--border);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem; align-items: center;
+  }
+  .why-row.flip { direction: rtl; }
+  .why-row.flip > * { direction: ltr; }
+  .why-row-video {
+    border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.08);
     background: #000;
   }
-  .why-video-wrap video { width: 100%; display: block; }
-  .why-columns {
-    margin-top: 2rem;
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+  .why-row-video video { width: 100%; display: block; }
+  @media (max-width: 880px) {
+    .why-row, .why-row.flip { grid-template-columns: 1fr; direction: ltr; }
   }
   .why-col {
     background: var(--bg-card); border: 1px solid var(--border);
@@ -1679,16 +1683,14 @@
       <p class="lede">Lockers solve storage. Access control locks a door. Neither one runs the process — that's what HelloPackage does.</p>
     </div>
 
-    <div class="why-video-wrap reveal">
-      <video autoplay muted loop playsinline>
-        <source src="Slide5.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <div class="why-columns">
-
-      <!-- COLUMN 1: vs. LOCKERS -->
-      <div class="why-col locker reveal">
+    <!-- ROW 1: Video left, vs. Lockers right -->
+    <div class="why-row reveal">
+      <div class="why-row-video">
+        <video autoplay muted loop playsinline>
+          <source src="Slide5.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="why-col locker">
         <div class="why-col-header">
           <div class="why-col-icon">📦</div>
           <div>
@@ -1697,7 +1699,6 @@
           </div>
         </div>
         <p class="why-col-sub">Luxer One, Package Concierge, Parcel Pending — they hold packages. But they don't run the process.</p>
-
         <div class="why-points">
           <div class="why-point">
             <div class="why-point-num">01</div>
@@ -1710,28 +1711,35 @@
             <div class="why-point-num">02</div>
             <div class="why-point-text">
               <div class="why-point-title">No daily staff work.</div>
-              <p class="why-point-desc">Lockers still need concierge for overflow and exceptions. Our on-site service team handles it all. 10–20 staff hours per week, back.</p>
+              <p class="why-point-desc">Lockers still need concierge for overflow and exceptions. Our on-site service team handles it all. 10–20 hrs/wk back.</p>
             </div>
           </div>
           <div class="why-point">
             <div class="why-point-num">03</div>
             <div class="why-point-text">
               <div class="why-point-title">Every package tracked.</div>
-              <p class="why-point-desc">Complete chain of custody from drop-off to pickup. Sub-minute resident notifications. The system knows where every package is.</p>
+              <p class="why-point-desc">Complete chain of custody from drop-off to pickup. Sub-minute notifications. The system knows where every package is.</p>
             </div>
           </div>
           <div class="why-point">
             <div class="why-point-num">04</div>
             <div class="why-point-text">
               <div class="why-point-title">Flexible deployment.</div>
-              <p class="why-point-desc">Convert the space you have — or we bring a modular room. No retrofits. 3-week turnkey. Lockers force you to take their hardware as-is.</p>
+              <p class="why-point-desc">Convert your space — or we bring a modular room. 3-week turnkey. Lockers force you to take their hardware as-is.</p>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- COLUMN 2: vs. ACCESS CONTROL ONLY -->
-      <div class="why-col room reveal">
+    <!-- ROW 2: vs. A Locked Room left, Video right -->
+    <div class="why-row flip reveal">
+      <div class="why-row-video">
+        <video autoplay muted loop playsinline>
+          <source src="external/WhyHP.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="why-col room">
         <div class="why-col-header">
           <div class="why-col-icon">🔐</div>
           <div>
@@ -1739,40 +1747,38 @@
             <div class="why-col-title">A lock isn't a solution.</div>
           </div>
         </div>
-        <p class="why-col-sub">Access control opens a door. But nobody's managing what happens inside — or who's coming through it.</p>
-
+        <p class="why-col-sub">Access control opens a door. Nobody's managing what happens inside — or who's coming through it.</p>
         <div class="why-points">
           <div class="why-point">
             <div class="why-point-num">01</div>
             <div class="why-point-text">
               <div class="why-point-title">Delivery driver management.</div>
-              <p class="why-point-desc">A lock on the door doesn't manage who comes in or how they drop off. HelloPackage gives drivers automatic access, a guided flow, training, and real-time monitoring. 98.7% participation.</p>
+              <p class="why-point-desc">A lock doesn't manage who drops off or how. HP gives drivers automatic access, a guided flow, training, and monitoring. 98.7% participation.</p>
             </div>
           </div>
           <div class="why-point">
             <div class="why-point-num">02</div>
             <div class="why-point-text">
-              <div class="why-point-title">Real-time security monitoring &amp; alerting.</div>
-              <p class="why-point-desc">Access control is passive — it locks a door and walks away. HelloPackage actively watches every interaction with AI-powered cameras and alerts your team before problems escalate.</p>
+              <div class="why-point-title">Real-time security &amp; alerting.</div>
+              <p class="why-point-desc">Access control is passive. HP actively watches every interaction with AI cameras and alerts your team before problems escalate.</p>
             </div>
           </div>
           <div class="why-point">
             <div class="why-point-num">03</div>
             <div class="why-point-text">
               <div class="why-point-title">Residents find packages fast.</div>
-              <p class="why-point-desc">In a room with just access control, residents dig through every shelf. HelloPackage directs residents to their specific section — they see only what's theirs, not the entire room.</p>
+              <p class="why-point-desc">No digging through every shelf. HP directs residents to their specific section — they see only what's theirs.</p>
             </div>
           </div>
           <div class="why-point">
             <div class="why-point-num">04</div>
             <div class="why-point-text">
               <div class="why-point-title">Accountability, not just access.</div>
-              <p class="why-point-desc">Every drop-off and pickup recorded. Digital chain of custody. No "it was here yesterday" — the system knows exactly what happened and when.</p>
+              <p class="why-point-desc">Every drop-off and pickup recorded. Digital chain of custody. The system knows exactly what happened and when.</p>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
