@@ -577,46 +577,77 @@
   @media (max-width: 880px) { .system-grid { grid-template-columns: 1fr; } }
 
   /* ============== WHY HP — VIDEO + POINTS ============== */
-  .why-split {
+  .why-columns {
     margin-top: 3.5rem;
-    display: grid; grid-template-columns: 1.2fr 1fr;
-    gap: 3.5rem; align-items: center;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem;
   }
-  .why-video-wrap {
-    border-radius: 16px; overflow: hidden;
-    border: 2px solid var(--border);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
-    background: #000;
+  .why-col {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 2.5rem 2.2rem;
+    position: relative; overflow: hidden;
   }
-  .why-video-wrap video {
-    width: 100%; display: block;
+  .why-col::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 5px;
+    background: var(--col-accent, var(--red));
   }
-  .why-points { display: flex; flex-direction: column; gap: 1.6rem; }
-  .why-point {
-    display: flex; gap: 1rem; align-items: flex-start;
+  .why-col.locker { --col-accent: var(--red); }
+  .why-col.room { --col-accent: var(--blue-bright); }
+  .why-col-header {
+    display: flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 0.4rem;
   }
-  .why-point-icon {
-    flex: 0 0 40px; height: 40px;
-    background: var(--red); border-radius: 10px;
+  .why-col-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    color: #fff; font-weight: 800; font-size: 0.85rem;
+    font-size: 1.1rem;
+  }
+  .why-col.locker .why-col-icon { background: var(--red-soft); color: var(--red); }
+  .why-col.room .why-col-icon { background: var(--blue-soft); color: var(--blue); }
+  .why-col-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    color: var(--text-3);
+  }
+  .why-col-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.5rem; font-weight: 800;
+    letter-spacing: -0.03em; color: var(--text);
+    line-height: 1.15;
+  }
+  .why-col-sub {
+    font-size: 0.88rem; color: var(--text-2);
+    line-height: 1.5; margin-top: 0.5rem; margin-bottom: 1.6rem;
+  }
+  .why-points { display: flex; flex-direction: column; gap: 1.4rem; }
+  .why-point {
+    display: flex; gap: 0.85rem; align-items: flex-start;
+  }
+  .why-point-num {
+    flex: 0 0 28px; height: 28px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 0.7rem;
     font-family: 'JetBrains Mono', monospace;
   }
-  .why-point-icon.blue { background: var(--blue); }
-  .why-point-icon.dark { background: var(--text); }
+  .why-col.locker .why-point-num { background: var(--red); }
+  .why-col.room .why-point-num { background: var(--blue); }
   .why-point-text { flex: 1; }
   .why-point-title {
     font-family: 'Manrope', sans-serif;
-    font-size: 1.1rem; font-weight: 800;
+    font-size: 1rem; font-weight: 800;
     letter-spacing: -0.02em; color: var(--text);
     line-height: 1.2;
   }
   .why-point-desc {
-    font-size: 0.88rem; color: var(--text-2);
-    line-height: 1.5; margin-top: 0.3rem;
+    font-size: 0.85rem; color: var(--text-2);
+    line-height: 1.5; margin-top: 0.25rem;
   }
   @media (max-width: 880px) {
-    .why-split { grid-template-columns: 1fr; }
+    .why-columns { grid-template-columns: 1fr; }
   }
 
   /* ============== FUTURE-PROOFING ============== */
@@ -1631,7 +1662,7 @@
   </div>
 </section>
 
-<!-- ============== WHY HELLOPACKAGE — VIDEO + POINTS ============== -->
+<!-- ============== WHY HELLOPACKAGE — TWO-COLUMN COMPARISON ============== -->
 <section class="section alt" id="why">
   <div class="container">
     <div class="section-head reveal">
@@ -1640,63 +1671,94 @@
       <p class="lede">Lockers solve storage. Access control locks a door. Neither one runs the process — that's what HelloPackage does.</p>
     </div>
 
-    <div class="why-split">
-      <div class="why-video-wrap reveal">
-        <video autoplay muted loop playsinline>
-          <source src="Slide5.mp4" type="video/mp4" />
-        </video>
-      </div>
-      <div class="why-points">
-        <div class="why-point reveal">
-          <div class="why-point-icon">01</div>
-          <div class="why-point-text">
-            <div class="why-point-title">Delivery driver management.</div>
-            <p class="why-point-desc">A lock on the door doesn't manage who comes in or how they drop off. HelloPackage gives drivers automatic access, a guided log flow, ongoing training, and real-time monitoring. 98.7% participation.</p>
+    <div class="why-columns">
+
+      <!-- COLUMN 1: vs. LOCKERS -->
+      <div class="why-col locker reveal">
+        <div class="why-col-header">
+          <div class="why-col-icon">📦</div>
+          <div>
+            <div class="why-col-label">vs. Lockers</div>
+            <div class="why-col-title">Lockers solve storage.</div>
           </div>
         </div>
-        <div class="why-point reveal">
-          <div class="why-point-icon blue">02</div>
-          <div class="why-point-text">
-            <div class="why-point-title">Real-time security monitoring &amp; alerting.</div>
-            <p class="why-point-desc">Access control is passive — it locks a door and walks away. HelloPackage actively watches every interaction with AI-powered cameras, flags anomalies in real time, and alerts your team before problems escalate.</p>
+        <p class="why-col-sub">Luxer One, Package Concierge, Parcel Pending — they hold packages. But they don't run the process.</p>
+
+        <div class="why-points">
+          <div class="why-point">
+            <div class="why-point-num">01</div>
+            <div class="why-point-text">
+              <div class="why-point-title">No more overflow.</div>
+              <p class="why-point-desc">4× the density of lockers. 25% of packages use oversized floor zones — by design. Lockers reject what doesn't fit.</p>
+            </div>
           </div>
-        </div>
-        <div class="why-point reveal">
-          <div class="why-point-icon dark">03</div>
-          <div class="why-point-text">
-            <div class="why-point-title">Residents find their packages fast.</div>
-            <p class="why-point-desc">In a room with just access control, residents dig through every shelf looking for their package. HelloPackage directs residents to their specific section — they see only what's theirs, not the entire room.</p>
+          <div class="why-point">
+            <div class="why-point-num">02</div>
+            <div class="why-point-text">
+              <div class="why-point-title">No daily staff work.</div>
+              <p class="why-point-desc">Lockers still need concierge for overflow and exceptions. Our on-site service team handles it all. 10–20 staff hours per week, back.</p>
+            </div>
           </div>
-        </div>
-        <div class="why-point reveal">
-          <div class="why-point-icon">04</div>
-          <div class="why-point-text">
-            <div class="why-point-title">No more overflow.</div>
-            <p class="why-point-desc">4× the density of lockers. 25% of packages use oversized floor zones — by design. Lockers reject what doesn't fit. We handle everything.</p>
+          <div class="why-point">
+            <div class="why-point-num">03</div>
+            <div class="why-point-text">
+              <div class="why-point-title">Every package tracked.</div>
+              <p class="why-point-desc">Complete chain of custody from drop-off to pickup. Sub-minute resident notifications. The system knows where every package is.</p>
+            </div>
           </div>
-        </div>
-        <div class="why-point reveal">
-          <div class="why-point-icon blue">05</div>
-          <div class="why-point-text">
-            <div class="why-point-title">No daily staff work.</div>
-            <p class="why-point-desc">Your team stops sorting. We take it from here — an on-site service team handles reconciliation, exceptions, and returns. 10–20 staff hours per week, back.</p>
-          </div>
-        </div>
-        <div class="why-point reveal">
-          <div class="why-point-icon dark">06</div>
-          <div class="why-point-text">
-            <div class="why-point-title">Every package tracked, every pickup logged.</div>
-            <p class="why-point-desc">Sub-minute resident notifications. Complete digital chain of custody from drop-off to pickup. No "it was here yesterday" — the system knows exactly where every package is.</p>
-          </div>
-        </div>
-        <div class="why-point reveal">
-          <div class="why-point-icon">07</div>
-          <div class="why-point-text">
-            <div class="why-point-title">Flexible deployment.</div>
-            <p class="why-point-desc">Convert the space you have — or we bring a modular room. No retrofits, no construction delays. 3-week turnkey from contract.</p>
+          <div class="why-point">
+            <div class="why-point-num">04</div>
+            <div class="why-point-text">
+              <div class="why-point-title">Flexible deployment.</div>
+              <p class="why-point-desc">Convert the space you have — or we bring a modular room. No retrofits. 3-week turnkey. Lockers force you to take their hardware as-is.</p>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- COLUMN 2: vs. ACCESS CONTROL ONLY -->
+      <div class="why-col room reveal">
+        <div class="why-col-header">
+          <div class="why-col-icon">🔐</div>
+          <div>
+            <div class="why-col-label">vs. A Locked Room</div>
+            <div class="why-col-title">A lock isn't a solution.</div>
+          </div>
+        </div>
+        <p class="why-col-sub">Access control opens a door. But nobody's managing what happens inside — or who's coming through it.</p>
+
+        <div class="why-points">
+          <div class="why-point">
+            <div class="why-point-num">01</div>
+            <div class="why-point-text">
+              <div class="why-point-title">Delivery driver management.</div>
+              <p class="why-point-desc">A lock on the door doesn't manage who comes in or how they drop off. HelloPackage gives drivers automatic access, a guided flow, training, and real-time monitoring. 98.7% participation.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-num">02</div>
+            <div class="why-point-text">
+              <div class="why-point-title">Real-time security monitoring &amp; alerting.</div>
+              <p class="why-point-desc">Access control is passive — it locks a door and walks away. HelloPackage actively watches every interaction with AI-powered cameras and alerts your team before problems escalate.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-num">03</div>
+            <div class="why-point-text">
+              <div class="why-point-title">Residents find packages fast.</div>
+              <p class="why-point-desc">In a room with just access control, residents dig through every shelf. HelloPackage directs residents to their specific section — they see only what's theirs, not the entire room.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-num">04</div>
+            <div class="why-point-text">
+              <div class="why-point-title">Accountability, not just access.</div>
+              <p class="why-point-desc">Every drop-off and pickup recorded. Digital chain of custody. No "it was here yesterday" — the system knows exactly what happened and when.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
