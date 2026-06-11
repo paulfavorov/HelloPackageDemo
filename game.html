@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package Panic — HelloPackage Pre-Demo Warm-Up</title>
+<meta name="description" content="A 60-second taste of package day without HelloPackage. Sort the boxes, serve the residents, watch the room win.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#E71D25; --red-soft:#FEF2F2;
+    --cyan:#00AED5; --blue-deep:#0080A5; --cyan-soft:#F0FAFD;
+    --navy:#0B1220; --t2:#475569; --t3:#94A3B8;
+    --line:#E2E8F0; --line2:#CBD5E1;
+    --card:#FAFBFD; --soft:#F8FAFC;
+    --amber:#F59E0B; --amber-deep:#B45309;
+    --kraft:#EADDC4; --kraft-line:#C9B48F;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{
+    background:var(--navy);
+    font-family:'Inter',sans-serif; color:var(--navy);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+
+  /* ---------- stage scaling ---------- */
+  #stagewrap{ position:relative; }
+  #stage{
+    width:1280px; height:800px; background:#fff;
+    border-radius:16px; overflow:hidden; position:relative;
+    transform-origin:top left;
+    display:flex; flex-direction:column;
+    box-shadow:0 40px 90px -30px rgba(0,0,0,.55);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    height:62px; flex:none; display:flex; align-items:center; gap:18px;
+    padding:0 24px; border-bottom:1px solid var(--line); background:#fff;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brandmark{ width:12px; height:12px; background:var(--red); border-radius:3px; }
+  .brand .bp{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:12px; letter-spacing:.2em; color:var(--navy); }
+  .brand .bdiv{ width:1px; height:18px; background:var(--line2); }
+  .brand .bg2{ font-family:'JetBrains Mono',monospace; font-weight:600; font-size:11px; letter-spacing:.2em; color:var(--red); }
+  .meters{ margin-left:auto; display:flex; gap:8px; }
+  .meter{
+    border:1px solid var(--line); border-radius:8px; padding:6px 10px;
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600;
+    letter-spacing:.06em; color:var(--t2); background:var(--soft);
+    display:flex; gap:7px; align-items:baseline; min-width:84px; justify-content:center;
+  }
+  .meter b{ color:var(--navy); font-weight:700; font-size:12px; letter-spacing:0; }
+  .meter.danger{ border-color:var(--red); background:var(--red-soft); }
+  .meter.danger b{ color:var(--red); animation:pulse 1s infinite; }
+  .meter .warn-b{ color:var(--amber-deep); }
+  .meter .bad-b{ color:var(--red); }
+  @keyframes pulse{ 50%{ opacity:.45; } }
+
+  /* ---------- main layout ---------- */
+  main{ flex:1; display:flex; gap:16px; padding:16px 24px; min-height:0; }
+  .col{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    position:relative; overflow:hidden; display:flex; flex-direction:column;
+  }
+  .col::before{ content:''; position:absolute; top:0; left:0; right:0; height:4px; }
+  .col.arrival{ width:312px; flex:none; }
+  .col.arrival::before{ background:var(--red); }
+  .col.shelves{ flex:1; }
+  .col.shelves::before{ background:var(--navy); }
+  .col.residents{ width:312px; flex:none; }
+  .col.residents::before{ background:var(--cyan); }
+
+  .colhead{ padding:16px 18px 10px; display:flex; align-items:center; gap:10px; flex:none; }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:600;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--t2);
+    display:flex; align-items:center; gap:9px; white-space:nowrap;
+  }
+  .eyebrow::before{ content:''; width:22px; height:2px; background:var(--red); flex:none; }
+  .colhead .sub{ font-size:11px; color:var(--t3); margin-left:auto; font-weight:500; white-space:nowrap; }
+
+  /* driver toast */
+  #dtoast{
+    position:absolute; top:14px; right:14px; z-index:5;
+    background:var(--navy); color:#fff; border-radius:8px; padding:7px 11px;
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600; letter-spacing:.1em;
+    display:flex; align-items:center; gap:8px;
+    opacity:0; transform:translateY(-6px); transition:all .25s ease; pointer-events:none;
+  }
+  #dtoast.show{ opacity:1; transform:translateY(0); }
+  #dtoast svg{ flex:none; }
+
+  /* ---------- arrival lane ---------- */
+  #lane{ flex:1; padding:6px 14px 14px; display:flex; flex-direction:column; gap:7px; min-height:0; }
+  .crow{
+    height:64px; flex:none; border-radius:10px; width:100%;
+    display:flex; align-items:center; gap:9px; padding:0 12px; text-align:left;
+  }
+  .crow.ghost{ border:1.5px dashed var(--line); }
+  .crow.has{
+    border:1px solid var(--line2); background:var(--card); cursor:pointer;
+    font-family:inherit; transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .crow.has:hover{ transform:translateY(-1px); box-shadow:0 10px 22px -12px rgba(15,23,42,.25); }
+  .crow.sel{ outline:2px solid var(--red); outline-offset:1px; background:#fff; }
+  .boxart{
+    width:34px; height:30px; flex:none; border-radius:5px;
+    background:linear-gradient(var(--kraft) 0 38%, var(--kraft-line) 38% 46%, var(--kraft) 46% 100%);
+    border:1px solid var(--kraft-line);
+  }
+  .boxart.xl{ width:46px; height:36px; }
+  .ccar{ font-size:9.5px; font-weight:600; letter-spacing:.12em; color:var(--t3); width:46px; flex:none; }
+  .chip{
+    font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.06em;
+    border:1px solid var(--line2); border-left:4px solid var(--tag,var(--navy));
+    background:#fff; border-radius:6px; padding:4px 8px; color:var(--navy); white-space:nowrap;
+  }
+  .badge{
+    font-size:8.5px; font-weight:700; letter-spacing:.14em; color:var(--amber-deep);
+    background:#FEF3C7; border:1px solid #FDE68A; border-radius:5px; padding:3px 6px;
+  }
+  .dot{
+    width:9px; height:9px; border-radius:50%; background:var(--cyan); margin-left:auto; flex:none;
+    animation:ring 1.4s infinite;
+  }
+  @keyframes ring{ 0%{ box-shadow:0 0 0 0 rgba(0,174,213,.45);} 70%{ box-shadow:0 0 0 7px rgba(0,174,213,0);} 100%{ box-shadow:0 0 0 0 rgba(0,174,213,0);} }
+  .crow .dot{ margin-left:auto; }
+
+  /* ---------- shelves ---------- */
+  #slotgrid{ flex:1; padding:2px 18px 16px; display:flex; flex-direction:column; gap:11px; min-height:0; }
+  .shelfrow{ display:flex; flex-direction:column; gap:5px; }
+  .shelflabel{ font-size:9px; font-weight:600; letter-spacing:.18em; color:var(--t3); }
+  .cells{ display:flex; gap:11px; }
+  .cell{
+    flex:1; height:96px; border-radius:11px; border:1.5px dashed var(--line2);
+    background:var(--soft); cursor:pointer; font-family:inherit;
+    display:flex; align-items:center; justify-content:center; position:relative;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .shelfrow.floor .cell{ height:74px; background:#FBFAF7; }
+  .cell.empty:hover{ border-color:var(--t3); }
+  .cell.ready{ border-color:var(--cyan); background:var(--cyan-soft); animation:readypulse 1.2s infinite; }
+  @keyframes readypulse{ 50%{ background:#fff; } }
+  .cell.filled{
+    border:1px solid var(--line2); background:#fff; cursor:pointer;
+  }
+  .cell.filled:hover{ transform:translateY(-1px); box-shadow:0 10px 22px -12px rgba(15,23,42,.22); }
+  .cellhint{ font-size:9px; font-weight:600; letter-spacing:.16em; color:var(--line2); }
+  .mini{ display:flex; flex-direction:column; align-items:center; gap:5px; position:relative; width:100%; padding:0 8px; }
+  .mini .mcar{ font-size:8.5px; font-weight:600; letter-spacing:.12em; color:var(--t3); }
+  .mini .dot{ position:absolute; top:-7px; right:6px; margin:0; }
+  .mini.xl::after{
+    content:'XL'; position:absolute; top:-8px; left:6px;
+    font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:700; letter-spacing:.1em;
+    color:var(--amber-deep); background:#FEF3C7; border:1px solid #FDE68A; border-radius:4px; padding:1px 4px;
+  }
+  #hint{
+    font-size:10px; font-weight:600; letter-spacing:.14em; color:var(--red);
+    margin-left:auto; opacity:0; transition:opacity .2s ease; white-space:nowrap;
+  }
+  #hint.show{ opacity:1; }
+  .shake{ animation:shake .3s ease; }
+  @keyframes shake{ 20%{transform:translateX(-4px);} 40%{transform:translateX(4px);} 60%{transform:translateX(-3px);} 80%{transform:translateX(3px);} }
+
+  /* ---------- residents ---------- */
+  #resq{ flex:1; padding:6px 14px 14px; display:flex; flex-direction:column; gap:9px; min-height:0; }
+  .rescard{
+    border:1px solid var(--line2); border-radius:11px; background:var(--card);
+    padding:12px 13px 0; flex:none; position:relative; overflow:hidden;
+    transition:opacity .45s ease, transform .45s ease;
+  }
+  .restop{ display:flex; gap:10px; align-items:center; }
+  .avatar{
+    width:34px; height:34px; border-radius:50%; background:var(--navy); color:#fff;
+    font-size:11px; font-weight:700; letter-spacing:.05em;
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .resname{ font-size:13.5px; font-weight:600; color:var(--navy); }
+  .reswant{ font-size:9px; font-weight:600; letter-spacing:.12em; color:var(--t3); display:flex; align-items:center; gap:7px; margin-top:4px; }
+  .reswant .chip{ font-size:10px; padding:2px 7px; }
+  .pbar{ height:5px; background:var(--line); border-radius:3px; margin:11px 0 12px; overflow:hidden; }
+  .pfill{ height:100%; width:100%; border-radius:3px; transition:width .15s linear; }
+  .pfill.ok{ background:var(--cyan); }
+  .pfill.warn{ background:var(--amber); }
+  .pfill.bad{ background:var(--red); }
+  .resstatus{
+    position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+    font-size:11px; font-weight:700; letter-spacing:.16em;
+  }
+  .rescard.served{ border-color:var(--cyan); }
+  .rescard.served .resstatus{ display:flex; background:rgba(240,250,253,.94); color:var(--blue-deep); }
+  .rescard.angry{ border-color:var(--red); }
+  .rescard.angry .resstatus{ display:flex; background:rgba(254,242,242,.94); color:var(--red); }
+  .rescard.out{ opacity:0; transform:translateX(26px); }
+  .qempty{
+    border:1.5px dashed var(--line); border-radius:11px; padding:18px 13px;
+    font-size:11px; color:var(--t3); text-align:center; font-weight:500;
+  }
+
+  /* ---------- footer ticker ---------- */
+  footer{
+    height:38px; flex:none; border-top:1px solid var(--line); background:var(--soft);
+    display:flex; align-items:center; justify-content:center; padding:0 24px;
+  }
+  #ticker{
+    font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:600;
+    letter-spacing:.18em; color:var(--t3); text-transform:uppercase;
+    transition:opacity .4s ease; text-align:center;
+  }
+  #ticker.fade{ opacity:0; }
+
+  /* ---------- wave banner ---------- */
+  #wave{
+    position:absolute; top:84px; left:50%; transform:translate(-50%,-12px); z-index:30;
+    background:var(--red); color:#fff; border-radius:10px; padding:10px 22px;
+    font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; letter-spacing:.22em;
+    opacity:0; transition:all .3s ease; pointer-events:none;
+    box-shadow:0 18px 40px -14px rgba(231,29,37,.5);
+  }
+  #wave.show{ opacity:1; transform:translate(-50%,0); }
+
+  /* ---------- overlays ---------- */
+  .ov{
+    position:absolute; inset:0; z-index:50; background:rgba(255,255,255,.975);
+    display:none; align-items:center; justify-content:center;
+  }
+  .ov.show{ display:flex; }
+  .ovinner{ width:880px; max-width:92%; text-align:center; }
+  .ov .eyebrow{ justify-content:center; }
+  .ov .eyebrow::after{ content:''; width:22px; height:2px; background:var(--red); flex:none; }
+  h1{
+    font-family:'Manrope',sans-serif; font-weight:900; letter-spacing:-0.035em;
+    font-size:74px; line-height:1.02; margin:18px 0 14px; color:var(--navy);
+  }
+  .accent{ color:var(--red); font-style:italic; }
+  .ovsub{ font-size:16.5px; color:var(--t2); line-height:1.55; max-width:620px; margin:0 auto; font-weight:400; }
+  .steps{ display:flex; gap:14px; margin:30px 0 30px; text-align:left; }
+  .step{
+    flex:1; border:1px solid var(--line); border-radius:14px; background:#fff;
+    padding:16px 16px 15px; position:relative; overflow:hidden;
+  }
+  .step::before{ content:''; position:absolute; top:0; left:0; right:0; height:4px; }
+  .step:nth-child(1)::before{ background:var(--red); }
+  .step:nth-child(2)::before{ background:var(--cyan); }
+  .step:nth-child(3)::before{ background:var(--navy); }
+  .stepnum{ font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:var(--red); letter-spacing:.18em; }
+  .steptitle{ font-family:'Manrope',sans-serif; font-weight:800; font-size:15px; margin:7px 0 6px; letter-spacing:-0.01em; }
+  .stepbody{ font-size:12.5px; color:var(--t2); line-height:1.55; }
+  .btnrow{ display:flex; gap:12px; justify-content:center; align-items:center; }
+  .btn{
+    font-family:'Manrope',sans-serif; font-weight:800; font-size:14px; letter-spacing:.1em;
+    background:var(--red); color:#fff; border:none; border-radius:10px;
+    padding:16px 34px; cursor:pointer; text-transform:uppercase; text-decoration:none;
+    display:inline-block; transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); box-shadow:0 16px 34px -14px rgba(231,29,37,.55); }
+  .btn.ghost{
+    background:#fff; color:var(--navy); border:1px solid var(--line2); box-shadow:none;
+  }
+  .btn.ghost:hover{ border-color:var(--navy); box-shadow:none; }
+  .ovfoot{
+    margin-top:26px; font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:600;
+    letter-spacing:.18em; color:var(--t3); text-transform:uppercase;
+  }
+
+  /* game over specifics */
+  #over .ovinner{ width:980px; }
+  #over h1{ font-size:56px; margin:14px 0 12px; }
+  .chipsrow{ display:flex; gap:9px; justify-content:center; margin:18px 0 24px; flex-wrap:wrap; }
+  .statchip{
+    border:1px solid var(--line2); border-radius:8px; background:var(--soft);
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600; letter-spacing:.1em;
+    color:var(--t2); padding:8px 13px;
+  }
+  .statchip b{ color:var(--navy); font-weight:700; margin-left:6px; }
+  .proofgrid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:left; margin-bottom:24px; }
+  .proof{
+    border:1px solid var(--line); border-radius:13px; background:#fff;
+    padding:15px 17px 14px; position:relative; overflow:hidden;
+  }
+  .proof::before{ content:''; position:absolute; top:0; left:0; right:0; height:4px; }
+  .proof.r::before{ background:var(--red); }
+  .proof.c::before{ background:var(--cyan); }
+  .prooft{ font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; letter-spacing:.18em; color:var(--t2); }
+  .proofb{ font-size:12.5px; color:var(--t2); line-height:1.55; margin-top:7px; }
+  .proofb b{ color:var(--navy); font-weight:700; }
+  .lede{
+    font-family:'Manrope',sans-serif; font-weight:800; font-size:23px; letter-spacing:-0.02em;
+    color:var(--navy); margin-bottom:24px;
+  }
+</style>
+</head>
+<body>
+<div id="stagewrap">
+  <div id="stage">
+
+    <header>
+      <div class="brand">
+        <div class="brandmark"></div>
+        <div class="bp">HELLOPACKAGE</div>
+        <div class="bdiv"></div>
+        <div class="bg2">PACKAGE PANIC</div>
+      </div>
+      <div class="meters">
+        <div class="meter">TIME <b id="mtime">0:00</b></div>
+        <div class="meter" id="mcwrap">COUNTER <b id="mcount">0/8</b></div>
+        <div class="meter">RATING <b id="mrate">&#9733; 5.0</b></div>
+        <div class="meter">STAFF TIME <b id="mstaff">0H 00M</b></div>
+        <div class="meter">DRIVERS <b id="mdriv">0</b></div>
+        <div class="meter">SORTED <b id="msort">0</b></div>
+        <div class="meter">SERVED <b id="mserve">0</b></div>
+      </div>
+    </header>
+
+    <main>
+      <section class="col arrival" aria-label="Arrival counter">
+        <div id="dtoast">
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none" aria-hidden="true">
+            <rect x="0" y="1" width="9" height="6" rx="1" fill="#fff"/>
+            <path d="M9 3h3.4L15 5.4V7H9V3z" fill="#fff" opacity=".75"/>
+            <circle cx="3.4" cy="8.6" r="1.6" fill="#fff"/>
+            <circle cx="12" cy="8.6" r="1.6" fill="#fff"/>
+          </svg>
+          <span id="dtoasttxt"></span>
+        </div>
+        <div class="colhead">
+          <div class="eyebrow">Arrival counter</div>
+          <div class="sub">8 spots. Then you're buried.</div>
+        </div>
+        <div id="lane"></div>
+      </section>
+
+      <section class="col shelves" aria-label="Package room shelves">
+        <div class="colhead">
+          <div class="eyebrow">The package room</div>
+          <span id="hint" class="mono"></span>
+        </div>
+        <div id="slotgrid"></div>
+      </section>
+
+      <section class="col residents" aria-label="Resident pickup queue">
+        <div class="colhead">
+          <div class="eyebrow" style="--x:1">Pickup queue</div>
+          <div class="sub">Serve them before they snap.</div>
+        </div>
+        <div id="resq"></div>
+      </section>
+    </main>
+
+    <footer><div id="ticker"></div></footer>
+
+    <div id="wave"></div>
+
+    <!-- ============ INTRO ============ -->
+    <div class="ov show" id="intro">
+      <div class="ovinner">
+        <div class="eyebrow">HelloPackage &middot; Pre-demo warm-up</div>
+        <h1>Package <span class="accent">Panic</span></h1>
+        <p class="ovsub">You're the onsite team. The trucks are already lining up.
+        Sort every delivery, serve every resident, and keep the room together &mdash; if you can.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="stepnum">01</div>
+            <div class="steptitle">SORT IT</div>
+            <div class="stepbody">Click an arriving package, then an open shelf slot to store it. Oversize boxes only fit the floor row.</div>
+          </div>
+          <div class="step">
+            <div class="stepnum">02</div>
+            <div class="steptitle">SERVE THEM</div>
+            <div class="stepbody">Residents show up with a pickup code. Find the matching package on your shelves and click it to hand it off.</div>
+          </div>
+          <div class="step">
+            <div class="stepnum">03</div>
+            <div class="steptitle">SURVIVE</div>
+            <div class="stepbody">Eight packages on the counter and you're buried. One star and they stop renewing. Good luck.</div>
+          </div>
+        </div>
+        <div class="btnrow">
+          <button class="btn" id="startBtn">Clock in</button>
+        </div>
+        <div class="ovfoot">162 packages per household per year &mdash; Capital One. Someone has to catch them.</div>
+      </div>
+    </div>
+
+    <!-- ============ GAME OVER ============ -->
+    <div class="ov" id="over">
+      <div class="ovinner">
+        <div class="eyebrow" id="gkicker">THE ARRIVAL COUNTER OVERFLOWED</div>
+        <h1>The room <span class="accent">always</span> wins.</h1>
+        <div class="chipsrow">
+          <div class="statchip">SURVIVED<b id="gtime">0:00</b></div>
+          <div class="statchip">SORTED<b id="gsort">0</b></div>
+          <div class="statchip">SERVED<b id="gserve">0</b></div>
+          <div class="statchip">DRIVERS<b id="gdriv">0</b></div>
+          <div class="statchip">STAFF TIME BURNED<b id="gstaff">0H 00M</b></div>
+        </div>
+        <div class="proofgrid">
+          <div class="proof r">
+            <div class="prooft">THE DRIVERS</div>
+            <div class="proofb">They never stop. <b>21.2B U.S. packages a year</b>, 35% headed to multifamily. HelloPackage rooms run <b>98.7% driver participation</b> &mdash; the industry average is 30&ndash;40%.</div>
+          </div>
+          <div class="proof c">
+            <div class="prooft">THE SPACE</div>
+            <div class="proofb">Your shelves filled fast. HelloPackage fits <b>4&times; more packages than lockers</b> &mdash; and 25% of volume is oversize that lockers reject outright.</div>
+          </div>
+          <div class="proof c">
+            <div class="prooft">THE RESIDENTS</div>
+            <div class="proofb">Stars fall fast when packages go missing. HelloPackage properties average <b>4.5/5 resident satisfaction</b> with 24/7 secure pickup.</div>
+          </div>
+          <div class="proof r">
+            <div class="prooft">THE STAFF</div>
+            <div class="proofb">You just lived it. NMHC: onsite teams lose <b>10&ndash;20 hours every week</b> to packages. HelloPackage gives those hours back.</div>
+          </div>
+        </div>
+        <div class="lede">Lockers solve storage. <span class="accent">HelloPackage</span> runs the process.</div>
+        <div class="btnrow">
+          <button class="btn" id="againBtn">Run it back</button>
+          <a class="btn ghost" href="https://paulfavorov.github.io/HelloPackageDemo/deck.html" target="_blank" rel="noopener noreferrer">Start the demo &rarr;</a>
+        </div>
+        <div class="ovfoot">Sources: Capital One &middot; NMHC &middot; U.S. Dept. of Commerce &middot; HelloPackage platform data. Staff time shown in accelerated game minutes.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(s){ return document.querySelector(s); };
+  function el(tag, cls, html){
+    var e = document.createElement(tag);
+    if(cls) e.className = cls;
+    if(html != null) e.innerHTML = html;
+    return e;
+  }
+
+  /* ---------- constants ---------- */
+  var CARRIERS = ['UPS','USPS','FEDEX','AMZN','DHL','ONTRAC'];
+  var TAGS = ['#E71D25','#00AED5','#F59E0B','#0B1220'];
+  var NAMES = ['Maya R.','Sam T.','Priya K.','Jordan L.','Alex M.','Dana W.','Chris P.','Taylor B.',
+               'Morgan S.','Jamie F.','Casey H.','Riley G.','Avery D.','Quinn N.','Leo V.','Nina C.',
+               'Omar Z.','Ella J.','Noah K.','Zoe A.','Liam E.','Ivy M.','Owen R.','Ruth S.'];
+  var TIERS = [
+    { until:12,  gap:4200, drop:[1,1], name:'FIRST WAVE — HERE THEY COME' },
+    { until:26,  gap:3600, drop:[1,2], name:'WAVE 02 — VOLUME RISING' },
+    { until:42,  gap:3000, drop:[2,2], name:'WAVE 03 — RUSH HOUR' },
+    { until:60,  gap:2600, drop:[2,3], name:'WAVE 04 — DOUBLE TRUCKS' },
+    { until:80,  gap:2300, drop:[3,3], name:'WAVE 05 — EVERYONE DELIVERS' },
+    { until:1e9, gap:2000, drop:[3,4], name:'HOLIDAY PEAK' }
+  ];
+  var TICKS = [
+    '162 packages per household per year — Capital One',
+    'Staff lose 10–20 hours a week to packages — NMHC',
+    'Only 30% of U.S. apartments have structured package management',
+    '21.2B U.S. packages a year · 35% route to multifamily',
+    '56% of 18–34 consumers expect same-day delivery — Inverp',
+    '4× density vs lockers · 52% faster check-in — HelloPackage'
+  ];
+  var COUNTER_MAX = 8, SLOTS = 12, FLOOR = 3;
+  var RATING_SERVE = 0.12, RATING_ANGRY = 0.45, STAFF_MIN_PER_SEC = 4;
+
+  /* ---------- state ---------- */
+  var S = null;
+  function freshState(){
+    return {
+      runId: (S ? S.runId + 1 : 1),
+      running:false, t0:0, elapsed:0,
+      counter:[], slots:new Array(SLOTS).fill(null), floor:new Array(FLOOR).fill(null),
+      residents:[], selected:null,
+      rating:5.0, sorted:0, served:0, drivers:0,
+      pkgSeq:0, resSeq:0,
+      nextDriverAt:1200, nextResidentAt:8000,
+      tier:-1, tickIdx:-1
+    };
+  }
+
+  function tierFor(sec){
+    for(var i=0;i<TIERS.length;i++){ if(sec < TIERS[i].until) return i; }
+    return TIERS.length-1;
+  }
+  function rnd(a,b){ return a + Math.floor(Math.random()*(b-a+1)); }
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+  function fmtTime(ms){
+    var s = Math.floor(ms/1000);
+    return Math.floor(s/60) + ':' + ('0'+(s%60)).slice(-2);
+  }
+  function fmtStaff(ms){
+    var min = Math.floor(ms/1000*STAFF_MIN_PER_SEC);
+    return Math.floor(min/60) + 'H ' + ('0'+(min%60)).slice(-2) + 'M';
+  }
+  function inPlay(){
+    var arr = S.counter.slice();
+    S.slots.forEach(function(p){ if(p) arr.push(p); });
+    S.floor.forEach(function(p){ if(p) arr.push(p); });
+    return arr;
+  }
+  function byId(id){
+    var all = inPlay();
+    for(var i=0;i<all.length;i++){ if(all[i].id===id) return all[i]; }
+    return null;
+  }
+
+  /* ---------- rendering ---------- */
+  function chipHTML(p){
+    return '<span class="chip" style="--tag:'+p.color+'">'+p.code+'</span>';
+  }
+  function renderCounter(){
+    var lane = $('#lane'); lane.innerHTML='';
+    for(var i=0;i<COUNTER_MAX;i++){
+      var p = S.counter[i];
+      if(!p){ lane.appendChild(el('div','crow ghost')); continue; }
+      var row = el('button','crow has'+(S.selected===p.id?' sel':''));
+      row.setAttribute('aria-label','Package '+p.code+' from '+p.carrier+(p.oversize?', oversize':''));
+      row.innerHTML =
+        '<span class="boxart'+(p.oversize?' xl':'')+'"></span>'+
+        '<span class="mono ccar">'+p.carrier+'</span>'+
+        chipHTML(p)+
+        (p.oversize ? '<span class="badge mono">OVERSIZE</span>' : '')+
+        (p.claimedBy ? '<span class="dot" title="A resident is waiting for this one"></span>' : '');
+      (function(pkg){
+        row.onclick = function(){
+          if(!S.running) return;
+          S.selected = (S.selected===pkg.id) ? null : pkg.id;
+          renderCounter(); renderShelf();
+        };
+      })(p);
+      lane.appendChild(row);
+    }
+  }
+  function pkgMini(p){
+    var m = el('span','mini'+(p.oversize?' xl':''));
+    m.innerHTML = '<span class="mcar mono">'+p.carrier+'</span>'+chipHTML(p)+
+      (p.claimedBy ? '<span class="dot"></span>' : '');
+    return m;
+  }
+  function slotEl(p, kind, idx){
+    var b;
+    if(!p){
+      b = el('button','cell '+kind+' empty');
+      if(S.selected!=null){
+        var sel = byId(S.selected);
+        if(sel && (kind==='floor' || !sel.oversize)) b.classList.add('ready');
+      }
+      b.setAttribute('aria-label',(kind==='floor'?'Floor spot ':'Shelf slot ')+(idx+1)+', empty');
+      b.appendChild(el('span','cellhint mono', kind==='floor' ? 'OVERSIZE OK' : ''));
+      b.onclick = function(){ placeAttempt(kind, idx, b); };
+    } else {
+      b = el('button','cell '+kind+' filled');
+      b.setAttribute('aria-label','Stored package '+p.code+(p.claimedBy?', resident waiting':''));
+      b.appendChild(pkgMini(p));
+      b.onclick = function(){ serveAttempt(p, b); };
+    }
+    return b;
+  }
+  function renderShelf(){
+    var wrap = $('#slotgrid'); wrap.innerHTML='';
+    for(var r=0;r<3;r++){
+      var row = el('div','shelfrow');
+      row.appendChild(el('div','shelflabel mono','SHELF '+String.fromCharCode(65+r)));
+      var cells = el('div','cells');
+      for(var c=0;c<4;c++){
+        var i = r*4+c;
+        cells.appendChild(slotEl(S.slots[i],'slot',i));
+      }
+      row.appendChild(cells);
+      wrap.appendChild(row);
+    }
+    var fr = el('div','shelfrow floor');
+    fr.appendChild(el('div','shelflabel mono','FLOOR ROW · BUILT FOR OVERSIZE'));
+    var fcells = el('div','cells');
+    for(var f=0;f<FLOOR;f++) fcells.appendChild(slotEl(S.floor[f],'floor',f));
+    fr.appendChild(fcells);
+    wrap.appendChild(fr);
+  }
+  function residentCard(r){
+    var c = el('div','rescard'+(r.status?' '+r.status:''));
+    var top = el('div','restop');
+    top.appendChild(el('div','avatar mono', r.initials));
+    var meta = el('div','resmeta');
+    meta.appendChild(el('div','resname', r.name));
+    meta.appendChild(el('div','reswant mono','PICKING UP '+chipHTML(r.pkg)));
+    top.appendChild(meta);
+    c.appendChild(top);
+    var bar = el('div','pbar');
+    var fill = el('div','pfill ok');
+    bar.appendChild(fill);
+    c.appendChild(bar);
+    c.appendChild(el('div','resstatus mono', r.status==='served' ? 'SERVED · RATING UP' : 'WALKED · 1★ REVIEW'));
+    r.barEl = fill; r.cardEl = c;
+    return c;
+  }
+  function renderResidents(){
+    var q = $('#resq'); q.innerHTML='';
+    if(!S.residents.length){
+      q.appendChild(el('div','qempty','Quiet for now. It won’t last.'));
+      return;
+    }
+    S.residents.forEach(function(r){ q.appendChild(residentCard(r)); });
+  }
+
+  var hintTO = null;
+  function hint(msg){
+    var h = $('#hint');
+    h.textContent = msg;
+    h.classList.add('show');
+    if(hintTO) clearTimeout(hintTO);
+    hintTO = setTimeout(function(){ h.classList.remove('show'); }, 1700);
+  }
+  function shake(elm){
+    if(!elm) return;
+    elm.classList.remove('shake');
+    void elm.offsetWidth;
+    elm.classList.add('shake');
+  }
+
+  var toastTO = null;
+  function driverToast(carrier, n){
+    $('#dtoasttxt').textContent = carrier + ' · +' + n;
+    var t = $('#dtoast');
+    t.classList.add('show');
+    if(toastTO) clearTimeout(toastTO);
+    toastTO = setTimeout(function(){ t.classList.remove('show'); }, 1600);
+  }
+  var waveTO = null;
+  function showWave(name){
+    var w = $('#wave');
+    w.textContent = name;
+    w.classList.add('show');
+    if(waveTO) clearTimeout(waveTO);
+    waveTO = setTimeout(function(){ w.classList.remove('show'); }, 2100);
+  }
+
+  /* ---------- game actions ---------- */
+  function uniqueCode(){
+    var code, tries = 0;
+    var existing = inPlay().map(function(p){ return p.code; });
+    do {
+      code = String.fromCharCode(65+Math.floor(Math.random()*6)) + '-' + rnd(10,99);
+      tries++;
+    } while(existing.indexOf(code) >= 0 && tries < 40);
+    return code;
+  }
+  function spawnPackage(carrier){
+    if(!S.running) return;
+    if(S.counter.length >= COUNTER_MAX){ gameOver('overflow'); return; }
+    var oversize = S.elapsed > 15000 && Math.random() < 0.18;
+    var p = {
+      id: ++S.pkgSeq,
+      code: uniqueCode(),
+      color: pick(TAGS),
+      oversize: oversize,
+      carrier: carrier,
+      claimedBy: null
+    };
+    S.counter.push(p);
+    renderCounter();
+  }
+  function driverVisit(){
+    var t = TIERS[S.tier];
+    var n = rnd(t.drop[0], t.drop[1]);
+    var carrier = pick(CARRIERS);
+    S.drivers++;
+    driverToast(carrier, n);
+    var run = S.runId;
+    for(var i=0;i<n;i++){
+      (function(delay){
+        setTimeout(function(){
+          if(S.runId===run && S.running) spawnPackage(carrier);
+        }, delay);
+      })(i*380);
+    }
+  }
+  function residentGap(sec){
+    if(sec < 25) return 7000;
+    if(sec < 45) return 5200;
+    if(sec < 70) return 4200;
+    return 3400;
+  }
+  function spawnResident(){
+    if(S.residents.length >= 4) return false;
+    var candidates = inPlay().filter(function(p){ return !p.claimedBy; });
+    if(!candidates.length) return false;
+    var p = pick(candidates);
+    var name = pick(NAMES);
+    var r = {
+      id: ++S.resSeq,
+      name: name,
+      initials: name.split(' ').map(function(w){ return w[0]; }).join('').replace('.',''),
+      pkg: p,
+      pkgId: p.id,
+      patience: S.elapsed/1000 > 60 ? 9000 : 11000,
+      deadline: 0,
+      status: null,
+      barEl: null, cardEl: null
+    };
+    r.deadline = performance.now() + r.patience;
+    p.claimedBy = r.id;
+    S.residents.push(r);
+    renderResidents(); renderCounter(); renderShelf();
+    return true;
+  }
+  function removeFromPlay(p){
+    var ci = S.counter.indexOf(p);
+    if(ci >= 0){ S.counter.splice(ci,1); return; }
+    var si = S.slots.indexOf(p);
+    if(si >= 0){ S.slots[si] = null; return; }
+    var fi = S.floor.indexOf(p);
+    if(fi >= 0){ S.floor[fi] = null; }
+  }
+  function placeAttempt(kind, idx, cellEl){
+    if(!S.running) return;
+    if(S.selected == null){ hint('GRAB A PACKAGE FROM THE COUNTER FIRST'); shake(cellEl); return; }
+    var p = byId(S.selected);
+    if(!p || S.counter.indexOf(p) < 0){ S.selected=null; renderCounter(); renderShelf(); return; }
+    if(p.oversize && kind === 'slot'){ hint('TOO BIG — FLOOR ROW ONLY'); shake(cellEl); return; }
+    removeFromPlay(p);
+    if(kind === 'slot') S.slots[idx] = p; else S.floor[idx] = p;
+    S.sorted++;
+    S.selected = null;
+    renderCounter(); renderShelf(); updateHUD();
+  }
+  function serveAttempt(p, cellEl){
+    if(!S.running) return;
+    var r = null;
+    for(var i=0;i<S.residents.length;i++){
+      if(!S.residents[i].status && S.residents[i].pkgId === p.id){ r = S.residents[i]; break; }
+    }
+    if(!r){ hint('NO ONE’S WAITING FOR '+p.code+' — YET'); shake(cellEl); return; }
+    r.status = 'served';
+    removeFromPlay(p);
+    S.served++;
+    S.rating = Math.min(5, S.rating + RATING_SERVE);
+    renderShelf(); renderResidents(); updateHUD();
+    exitResident(r, 700);
+  }
+  function angryLeave(r){
+    r.status = 'angry';
+    var p = byId(r.pkgId);
+    if(p) p.claimedBy = null;
+    S.rating = Math.max(1, S.rating - RATING_ANGRY);
+    renderResidents(); renderCounter(); renderShelf(); updateHUD();
+    exitResident(r, 850);
+    if(S.rating <= 1.001){ gameOver('rating'); }
+  }
+  function exitResident(r, delay){
+    var run = S.runId;
+    setTimeout(function(){
+      if(S.runId !== run) return;
+      if(r.cardEl) r.cardEl.classList.add('out');
+      setTimeout(function(){
+        if(S.runId !== run) return;
+        S.residents = S.residents.filter(function(x){ return x !== r; });
+        renderResidents();
+      }, 420);
+    }, delay);
+  }
+
+  /* ---------- HUD ---------- */
+  function updateHUD(){
+    $('#mtime').textContent = fmtTime(S.elapsed);
+    $('#mstaff').textContent = fmtStaff(S.elapsed);
+    $('#mdriv').textContent = S.drivers;
+    $('#msort').textContent = S.sorted;
+    $('#mserve').textContent = S.served;
+    $('#mcount').textContent = S.counter.length + '/8';
+    $('#mcwrap').classList.toggle('danger', S.counter.length >= 6);
+    var mr = $('#mrate');
+    mr.innerHTML = '★ ' + S.rating.toFixed(1);
+    mr.className = S.rating >= 4 ? '' : (S.rating >= 2.5 ? 'warn-b' : 'bad-b');
+    var ti = Math.floor(S.elapsed/6000) % TICKS.length;
+    if(ti !== S.tickIdx){
+      S.tickIdx = ti;
+      var tk = $('#ticker');
+      tk.classList.add('fade');
+      setTimeout(function(){ tk.textContent = TICKS[ti]; tk.classList.remove('fade'); }, 380);
+    }
+  }
+
+  /* ---------- loop ---------- */
+  function loop(){
+    if(!S.running) return;
+    var now = performance.now();
+    S.elapsed = now - S.t0;
+    var sec = S.elapsed / 1000;
+
+    var ti = tierFor(sec);
+    if(ti !== S.tier){ S.tier = ti; showWave(TIERS[ti].name); }
+
+    if(S.elapsed >= S.nextDriverAt){
+      driverVisit();
+      if(!S.running) return;
+      S.nextDriverAt = S.elapsed + TIERS[S.tier].gap * (0.85 + Math.random()*0.3);
+    }
+    if(S.elapsed >= S.nextResidentAt){
+      var ok = spawnResident();
+      S.nextResidentAt = S.elapsed + (ok ? residentGap(sec) * (0.85 + Math.random()*0.3) : 1200);
+    }
+
+    for(var i=0;i<S.residents.length;i++){
+      var r = S.residents[i];
+      if(r.status) continue;
+      var rem = r.deadline - now;
+      if(rem <= 0){ angryLeave(r); if(!S.running) return; continue; }
+      if(r.barEl){
+        var f = Math.max(0, rem / r.patience);
+        r.barEl.style.width = (f*100) + '%';
+        r.barEl.className = 'pfill ' + (f > .5 ? 'ok' : (f > .22 ? 'warn' : 'bad'));
+      }
+    }
+
+    if(sec >= 180){ gameOver('shift'); return; }
+
+    updateHUD();
+    requestAnimationFrame(loop);
+  }
+
+  /* ---------- game over / start ---------- */
+  var REASONS = {
+    overflow: 'THE ARRIVAL COUNTER OVERFLOWED',
+    rating:   'RESIDENT SATISFACTION COLLAPSED',
+    shift:    'YOUR SHIFT ENDED. THE PACKAGES DIDN’T.'
+  };
+  function gameOver(reason){
+    if(!S.running) return;
+    S.running = false;
+    $('#gkicker').textContent = REASONS[reason] || REASONS.overflow;
+    $('#gtime').textContent = fmtTime(S.elapsed);
+    $('#gsort').textContent = S.sorted;
+    $('#gserve').textContent = S.served;
+    $('#gdriv').textContent = S.drivers;
+    $('#gstaff').textContent = fmtStaff(S.elapsed);
+    $('#over').classList.add('show');
+  }
+  function start(){
+    S = freshState();
+    $('#intro').classList.remove('show');
+    $('#over').classList.remove('show');
+    renderCounter(); renderShelf(); renderResidents();
+    S.running = true;
+    S.t0 = performance.now();
+    S.elapsed = 0;
+    updateHUD();
+    requestAnimationFrame(loop);
+  }
+
+  /* ---------- stage scaling ---------- */
+  function fit(){
+    var s = Math.min(window.innerWidth/1300, window.innerHeight/820, 1.15);
+    $('#stage').style.transform = 'scale(' + s + ')';
+    $('#stagewrap').style.width = (1280*s) + 'px';
+    $('#stagewrap').style.height = (800*s) + 'px';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && S && S.running){
+      S.selected = null; renderCounter(); renderShelf();
+    }
+  });
+  $('#startBtn').onclick = start;
+  $('#againBtn').onclick = start;
+
+  /* idle state behind intro */
+  S = freshState();
+  renderCounter(); renderShelf(); renderResidents();
+  $('#ticker').textContent = TICKS[0];
+})();
+</script>
+</body>
+</html>
