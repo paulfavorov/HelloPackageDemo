@@ -622,26 +622,38 @@
     var d = SIZES[size];
     return '<span class="boxart" style="width:'+d.w+'px;height:'+d.h+'px"></span>';
   }
+  /* Keyed rows: each package keeps ONE stable DOM node from arrival to
+     dequeue. No rebuild churn — clicks always land on a live element,
+     even when new arrivals re-render the list mid-click. */
+  function buildRow(p){
+    var row = el('button','crow has');
+    row.setAttribute('aria-label','Package '+p.code+', size '+p.size+', from '+p.carrier);
+    row.innerHTML = boxartHTML(p.size)+
+      '<span class="cmeta"><span class="sizechip '+p.size+'">'+p.size+
+      (p.size==='XL'?' · NO DOOR FITS':'')+'</span>'+
+      '<span class="ccode">'+p.carrier+' · '+p.code+'</span></span>';
+    row.onclick = function(){
+      if(!S.running) return;
+      if(S.queue.indexOf(p) < 0) return; // stale click on a dequeued row
+      S.selected = (S.selected===p.id) ? null : p.id;
+      renderQueue(); updateGlow();
+    };
+    return row;
+  }
   function renderQueue(){
-    var lane = $('#lane'); lane.innerHTML='';
-    for(var i=0;i<QUEUE_MAX;i++){
-      var p = S.queue[i];
-      if(!p){ lane.appendChild(el('div','crow ghost')); continue; }
-      var row = el('button','crow has'+(S.selected===p.id?' sel':''));
-      row.setAttribute('aria-label','Package '+p.code+', size '+p.size+', from '+p.carrier);
-      row.innerHTML = boxartHTML(p.size)+
-        '<span class="cmeta"><span class="sizechip '+p.size+'">'+p.size+
-        (p.size==='XL'?' · NO DOOR FITS':'')+'</span>'+
-        '<span class="ccode">'+p.carrier+' · '+p.code+'</span></span>';
-      (function(pkg){
-        row.onclick = function(){
-          if(!S.running) return;
-          S.selected = (S.selected===pkg.id) ? null : pkg.id;
-          renderQueue(); updateGlow();
-        };
-      })(p);
-      lane.appendChild(row);
-    }
+    var lane = $('#lane');
+    Array.prototype.slice.call(lane.querySelectorAll('.ghost')).forEach(function(g){ lane.removeChild(g); });
+    S.queue.forEach(function(p, i){
+      if(!p.rowEl) p.rowEl = buildRow(p);
+      p.rowEl.classList.toggle('sel', S.selected===p.id);
+      if(lane.children[i] !== p.rowEl) lane.insertBefore(p.rowEl, lane.children[i] || null);
+    });
+    Array.prototype.slice.call(lane.children).forEach(function(ch){
+      var keep = false;
+      for(var i=0;i<S.queue.length;i++){ if(S.queue[i].rowEl === ch){ keep = true; break; } }
+      if(!keep) lane.removeChild(ch);
+    });
+    for(var g=lane.children.length; g<QUEUE_MAX; g++) lane.appendChild(el('div','crow ghost'));
   }
   function selectedPkg(){
     if(S.selected == null) return null;
