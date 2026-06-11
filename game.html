@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Package Panic — HelloPackage Pre-Demo Warm-Up</title>
-<meta name="description" content="A 60-second taste of package day without HelloPackage. Sort the boxes, serve the residents, watch the room win.">
+<meta name="description" content="Run a locker bank on delivery day. Every box is a different size. The lockers don't care. A 60-second case for package tracking.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -17,6 +17,7 @@
     --card:#FAFBFD; --soft:#F8FAFC;
     --amber:#F59E0B; --amber-deep:#B45309;
     --kraft:#EADDC4; --kraft-line:#C9B48F;
+    --steel:#EEF2F7; --steel-deep:#DDE5EE; --interior:#1E293B;
   }
   *{ margin:0; padding:0; box-sizing:border-box; }
   html,body{ height:100%; }
@@ -51,56 +52,55 @@
   .meters{ margin-left:auto; display:flex; gap:8px; }
   .meter{
     border:1px solid var(--line); border-radius:8px; padding:6px 10px;
-    font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600;
+    font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:600;
     letter-spacing:.06em; color:var(--t2); background:var(--soft);
-    display:flex; gap:7px; align-items:baseline; min-width:84px; justify-content:center;
+    display:flex; gap:7px; align-items:baseline; min-width:78px; justify-content:center;
   }
   .meter b{ color:var(--navy); font-weight:700; font-size:12px; letter-spacing:0; }
   .meter.danger{ border-color:var(--red); background:var(--red-soft); }
   .meter.danger b{ color:var(--red); animation:pulse 1s infinite; }
-  .meter .warn-b{ color:var(--amber-deep); }
-  .meter .bad-b{ color:var(--red); }
+  .meter b.warn-b{ color:var(--amber-deep); }
+  .meter b.bad-b{ color:var(--red); }
   @keyframes pulse{ 50%{ opacity:.45; } }
 
   /* ---------- main layout ---------- */
-  main{ flex:1; display:flex; gap:16px; padding:16px 24px; min-height:0; }
+  main{ flex:1; display:flex; gap:14px; padding:14px 24px; min-height:0; }
   .col{
     background:#fff; border:1px solid var(--line); border-radius:16px;
     position:relative; overflow:hidden; display:flex; flex-direction:column;
   }
-  .col::before{ content:''; position:absolute; top:0; left:0; right:0; height:4px; }
-  .col.arrival{ width:312px; flex:none; }
+  .col::before{ content:''; position:absolute; top:0; left:0; right:0; height:4px; z-index:2; }
+  .col.arrival{ width:252px; flex:none; }
   .col.arrival::before{ background:var(--red); }
-  .col.shelves{ flex:1; }
-  .col.shelves::before{ background:var(--navy); }
-  .col.residents{ width:312px; flex:none; }
-  .col.residents::before{ background:var(--cyan); }
+  .col.bank{ flex:1; }
+  .col.bank::before{ background:var(--navy); }
+  .col.feed{ width:268px; flex:none; }
+  .col.feed::before{ background:var(--cyan); }
 
-  .colhead{ padding:16px 18px 10px; display:flex; align-items:center; gap:10px; flex:none; }
+  .colhead{ padding:14px 16px 8px; display:flex; align-items:center; gap:10px; flex:none; }
   .eyebrow{
     font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:600;
     letter-spacing:.2em; text-transform:uppercase; color:var(--t2);
     display:flex; align-items:center; gap:9px; white-space:nowrap;
   }
   .eyebrow::before{ content:''; width:22px; height:2px; background:var(--red); flex:none; }
-  .colhead .sub{ font-size:11px; color:var(--t3); margin-left:auto; font-weight:500; white-space:nowrap; }
+  .colhead .sub{ font-size:10.5px; color:var(--t3); margin-left:auto; font-weight:500; white-space:nowrap; }
 
   /* driver toast */
   #dtoast{
-    position:absolute; top:14px; right:14px; z-index:5;
+    position:absolute; top:12px; right:12px; z-index:5;
     background:var(--navy); color:#fff; border-radius:8px; padding:7px 11px;
-    font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600; letter-spacing:.1em;
+    font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:600; letter-spacing:.1em;
     display:flex; align-items:center; gap:8px;
     opacity:0; transform:translateY(-6px); transition:all .25s ease; pointer-events:none;
   }
   #dtoast.show{ opacity:1; transform:translateY(0); }
-  #dtoast svg{ flex:none; }
 
-  /* ---------- arrival lane ---------- */
-  #lane{ flex:1; padding:6px 14px 14px; display:flex; flex-direction:column; gap:7px; min-height:0; }
+  /* ---------- arrival queue ---------- */
+  #lane{ flex:1; padding:4px 14px 12px; display:flex; flex-direction:column; gap:8px; min-height:0; }
   .crow{
-    height:64px; flex:none; border-radius:10px; width:100%;
-    display:flex; align-items:center; gap:9px; padding:0 12px; text-align:left;
+    flex:1; max-height:118px; border-radius:10px; width:100%;
+    display:flex; align-items:center; gap:10px; padding:0 12px; text-align:left;
   }
   .crow.ghost{ border:1.5px dashed var(--line); }
   .crow.has{
@@ -110,102 +110,160 @@
   .crow.has:hover{ transform:translateY(-1px); box-shadow:0 10px 22px -12px rgba(15,23,42,.25); }
   .crow.sel{ outline:2px solid var(--red); outline-offset:1px; background:#fff; }
   .boxart{
-    width:34px; height:30px; flex:none; border-radius:5px;
+    flex:none; border-radius:4px;
     background:linear-gradient(var(--kraft) 0 38%, var(--kraft-line) 38% 46%, var(--kraft) 46% 100%);
     border:1px solid var(--kraft-line);
   }
-  .boxart.xl{ width:46px; height:36px; }
-  .ccar{ font-size:9.5px; font-weight:600; letter-spacing:.12em; color:var(--t3); width:46px; flex:none; }
-  .chip{
-    font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.06em;
-    border:1px solid var(--line2); border-left:4px solid var(--tag,var(--navy));
-    background:#fff; border-radius:6px; padding:4px 8px; color:var(--navy); white-space:nowrap;
+  .cmeta{ display:flex; flex-direction:column; gap:5px; min-width:0; }
+  .sizechip{
+    font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; letter-spacing:.08em;
+    border-radius:5px; padding:2px 7px; width:fit-content;
   }
-  .badge{
-    font-size:8.5px; font-weight:700; letter-spacing:.14em; color:var(--amber-deep);
-    background:#FEF3C7; border:1px solid #FDE68A; border-radius:5px; padding:3px 6px;
-  }
-  .dot{
-    width:9px; height:9px; border-radius:50%; background:var(--cyan); margin-left:auto; flex:none;
-    animation:ring 1.4s infinite;
-  }
-  @keyframes ring{ 0%{ box-shadow:0 0 0 0 rgba(0,174,213,.45);} 70%{ box-shadow:0 0 0 7px rgba(0,174,213,0);} 100%{ box-shadow:0 0 0 0 rgba(0,174,213,0);} }
-  .crow .dot{ margin-left:auto; }
+  .sizechip.S{ background:var(--cyan-soft); color:var(--blue-deep); border:1px solid #BAE6F3; }
+  .sizechip.M{ background:#EEF2FF; color:#4338CA; border:1px solid #C7D2FE; }
+  .sizechip.L{ background:#FEF3C7; color:var(--amber-deep); border:1px solid #FDE68A; }
+  .sizechip.XL{ background:var(--red-soft); color:var(--red); border:1px solid #FECACA; }
+  .ccode{ font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:600; color:var(--t3); letter-spacing:.08em; }
 
-  /* ---------- shelves ---------- */
-  #slotgrid{ flex:1; padding:2px 18px 16px; display:flex; flex-direction:column; gap:11px; min-height:0; }
-  .shelfrow{ display:flex; flex-direction:column; gap:5px; }
-  .shelflabel{ font-size:9px; font-weight:600; letter-spacing:.18em; color:var(--t3); }
-  .cells{ display:flex; gap:11px; }
-  .cell{
-    flex:1; height:96px; border-radius:11px; border:1.5px dashed var(--line2);
-    background:var(--soft); cursor:pointer; font-family:inherit;
-    display:flex; align-items:center; justify-content:center; position:relative;
-    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+  /* ---------- locker room ---------- */
+  #room{ flex:1; position:relative; padding:2px 16px 12px; display:flex; flex-direction:column; gap:10px; min-height:0; }
+  #bankgrid{
+    display:grid; grid-template-columns:repeat(6,1fr); grid-template-rows:repeat(5,72px);
+    gap:7px; flex:none;
   }
-  .shelfrow.floor .cell{ height:74px; background:#FBFAF7; }
-  .cell.empty:hover{ border-color:var(--t3); }
-  .cell.ready{ border-color:var(--cyan); background:var(--cyan-soft); animation:readypulse 1.2s infinite; }
-  @keyframes readypulse{ 50%{ background:#fff; } }
-  .cell.filled{
-    border:1px solid var(--line2); background:#fff; cursor:pointer;
+  .cellwrap{ position:relative; perspective:520px; }
+  .inner{
+    position:absolute; inset:0; border-radius:8px; background:var(--interior);
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+    border:1px solid #0F172A;
   }
-  .cell.filled:hover{ transform:translateY(-1px); box-shadow:0 10px 22px -12px rgba(15,23,42,.22); }
-  .cellhint{ font-size:9px; font-weight:600; letter-spacing:.16em; color:var(--line2); }
-  .mini{ display:flex; flex-direction:column; align-items:center; gap:5px; position:relative; width:100%; padding:0 8px; }
-  .mini .mcar{ font-size:8.5px; font-weight:600; letter-spacing:.12em; color:var(--t3); }
-  .mini .dot{ position:absolute; top:-7px; right:6px; margin:0; }
-  .mini.xl::after{
-    content:'XL'; position:absolute; top:-8px; left:6px;
-    font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:700; letter-spacing:.1em;
-    color:var(--amber-deep); background:#FEF3C7; border:1px solid #FDE68A; border-radius:4px; padding:1px 4px;
+  .inner .ibox{
+    border-radius:3px;
+    background:linear-gradient(var(--kraft) 0 38%, var(--kraft-line) 38% 46%, var(--kraft) 46% 100%);
+    border:1px solid var(--kraft-line);
+    transition:transform .3s ease, opacity .3s ease;
+  }
+  .inner .ibox.gone{ transform:translateY(26px) scale(.7); opacity:0; }
+  .door{
+    position:absolute; inset:0; border-radius:8px; cursor:pointer;
+    background:linear-gradient(165deg, #F4F7FB, var(--steel) 55%, var(--steel-deep));
+    border:1px solid var(--line2);
+    transform-origin:left center;
+    transition:transform .45s cubic-bezier(.6,.05,.3,1), box-shadow .2s ease, border-color .2s ease;
+    display:flex; align-items:center; justify-content:center;
+    backface-visibility:hidden;
+  }
+  .door .dsize{
+    font-family:'Manrope',sans-serif; font-weight:900; font-size:20px; color:#B6C2D2;
+    letter-spacing:-0.02em;
+  }
+  .door .dnum{
+    position:absolute; top:6px; left:8px;
+    font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:600; letter-spacing:.12em; color:var(--t3);
+  }
+  .door .handle{
+    position:absolute; right:7px; top:50%; transform:translateY(-50%);
+    width:4px; height:14px; border-radius:2px; background:#AFBCCC;
+  }
+  .door .led{
+    position:absolute; top:7px; right:7px; width:6px; height:6px; border-radius:50%;
+    background:var(--cyan);
+  }
+  .cellwrap.used .door .led{ background:var(--red); }
+  .cellwrap.used .door .dsize{ color:#CBD5E1; }
+  .cellwrap.open .door{ transform:rotateY(-108deg); box-shadow:14px 6px 22px -12px rgba(15,23,42,.35); }
+  .cellwrap.glow .door{
+    border-color:var(--cyan); box-shadow:0 0 0 2px rgba(0,174,213,.35);
+    animation:doorpulse 1.1s infinite;
+  }
+  @keyframes doorpulse{ 50%{ box-shadow:0 0 0 4px rgba(0,174,213,.18); } }
+  .cellwrap.shake{ animation:shake .3s ease; }
+  @keyframes shake{ 20%{transform:translateX(-4px);} 40%{transform:translateX(4px);} 60%{transform:translateX(-3px);} 80%{transform:translateX(3px);} }
+
+  /* ---------- floor zone ---------- */
+  #floorzone{
+    flex:1; min-height:104px; border-radius:12px; position:relative; cursor:pointer;
+    background:repeating-linear-gradient(45deg, #FBFAF7 0 14px, #F6F4EE 14px 28px);
+    border:1.5px dashed var(--line2); overflow:hidden;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  #floorzone.glow{ border-color:var(--red); box-shadow:0 0 0 2px rgba(231,29,37,.22); }
+  #floorzone.shake{ animation:shake .3s ease; }
+  .floorlabel{
+    position:absolute; top:8px; left:12px; z-index:3;
+    font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; letter-spacing:.2em; color:var(--red);
+    background:rgba(255,255,255,.85); border-radius:5px; padding:3px 7px;
+  }
+  .caplabel{
+    position:absolute; top:8px; right:12px; z-index:3;
+    font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:600; letter-spacing:.14em; color:var(--t3);
+    background:rgba(255,255,255,.85); border-radius:5px; padding:3px 7px;
+  }
+  .fbox{
+    position:absolute; border-radius:3px;
+    background:linear-gradient(var(--kraft) 0 38%, var(--kraft-line) 38% 46%, var(--kraft) 46% 100%);
+    border:1px solid var(--kraft-line);
+    box-shadow:0 4px 10px -4px rgba(15,23,42,.25);
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  .fbox.gone{ opacity:0; transform:scale(.6) rotate(20deg); }
+  #floorzone.rummage .fbox{ animation:rumm .5s ease infinite; }
+  @keyframes rumm{ 25%{ transform:translate(-2px,1px) rotate(-3deg);} 75%{ transform:translate(2px,-1px) rotate(3deg);} }
+
+  /* ---------- walkers ---------- */
+  .walker{
+    position:absolute; width:30px; height:54px; z-index:8; pointer-events:none;
+    transition:left 1s cubic-bezier(.45,.05,.55,.95);
+  }
+  .walker .whead{ width:12px; height:12px; border-radius:50%; background:var(--navy); margin:0 auto 2px; }
+  .walker .wbody{ width:18px; height:26px; border-radius:9px 9px 5px 5px; background:var(--navy); margin:0 auto; }
+  .walker .wlegs{ display:flex; gap:4px; justify-content:center; margin-top:1px; }
+  .walker .wlegs i{ width:4px; height:11px; border-radius:2px; background:var(--navy); }
+  .walker.moving{ animation:bob .35s ease infinite; }
+  @keyframes bob{ 50%{ margin-top:-2px; } }
+  .walker .wbox{
+    position:absolute; left:50%; transform:translateX(-50%); bottom:14px;
+    width:16px; height:12px; border-radius:2px; display:none;
+    background:var(--kraft); border:1px solid var(--kraft-line);
+  }
+  .walker.carrying .wbox{ display:block; }
+  .walker.pirate .whead, .walker.pirate .wbody, .walker.pirate .wlegs i{ background:#334155; }
+  .walker.pirate{ transition:left .8s ease-in; }
+  .walker .wtag{
+    position:absolute; bottom:100%; left:50%; transform:translateX(-50%); margin-bottom:4px;
+    font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:600; letter-spacing:.1em;
+    color:var(--t2); background:rgba(255,255,255,.92); border:1px solid var(--line);
+    border-radius:4px; padding:2px 5px; white-space:nowrap;
+  }
+  .walker.pirate .wtag{ color:var(--red); border-color:#FECACA; }
+
+  /* ---------- feed ---------- */
+  #feed{ flex:1; padding:4px 14px 12px; display:flex; flex-direction:column; gap:6px; overflow:hidden; min-height:0; }
+  .fentry{
+    border:1px solid var(--line); border-left-width:3px; border-radius:8px; background:var(--card);
+    padding:7px 10px; flex:none;
+    font-size:11px; color:var(--t2); line-height:1.4;
+    animation:fin .25s ease;
+  }
+  @keyframes fin{ from{ opacity:0; transform:translateY(-5px);} }
+  .fentry .ft{ font-family:'JetBrains Mono',monospace; font-size:8.5px; font-weight:600; letter-spacing:.12em; color:var(--t3); display:block; margin-bottom:2px; }
+  .fentry.ok{ border-left-color:var(--cyan); }
+  .fentry.slow{ border-left-color:var(--amber); }
+  .fentry.bad{ border-left-color:var(--red); background:var(--red-soft); color:#7F1D1D; }
+  .fentry.info{ border-left-color:var(--line2); }
+  .qempty{
+    border:1.5px dashed var(--line); border-radius:10px; padding:16px 12px;
+    font-size:11px; color:var(--t3); text-align:center; font-weight:500;
   }
   #hint{
-    font-size:10px; font-weight:600; letter-spacing:.14em; color:var(--red);
+    font-size:10px; font-weight:600; letter-spacing:.12em; color:var(--red);
     margin-left:auto; opacity:0; transition:opacity .2s ease; white-space:nowrap;
   }
   #hint.show{ opacity:1; }
-  .shake{ animation:shake .3s ease; }
-  @keyframes shake{ 20%{transform:translateX(-4px);} 40%{transform:translateX(4px);} 60%{transform:translateX(-3px);} 80%{transform:translateX(3px);} }
-
-  /* ---------- residents ---------- */
-  #resq{ flex:1; padding:6px 14px 14px; display:flex; flex-direction:column; gap:9px; min-height:0; }
-  .rescard{
-    border:1px solid var(--line2); border-radius:11px; background:var(--card);
-    padding:12px 13px 0; flex:none; position:relative; overflow:hidden;
-    transition:opacity .45s ease, transform .45s ease;
-  }
-  .restop{ display:flex; gap:10px; align-items:center; }
-  .avatar{
-    width:34px; height:34px; border-radius:50%; background:var(--navy); color:#fff;
-    font-size:11px; font-weight:700; letter-spacing:.05em;
-    display:flex; align-items:center; justify-content:center; flex:none;
-  }
-  .resname{ font-size:13.5px; font-weight:600; color:var(--navy); }
-  .reswant{ font-size:9px; font-weight:600; letter-spacing:.12em; color:var(--t3); display:flex; align-items:center; gap:7px; margin-top:4px; }
-  .reswant .chip{ font-size:10px; padding:2px 7px; }
-  .pbar{ height:5px; background:var(--line); border-radius:3px; margin:11px 0 12px; overflow:hidden; }
-  .pfill{ height:100%; width:100%; border-radius:3px; transition:width .15s linear; }
-  .pfill.ok{ background:var(--cyan); }
-  .pfill.warn{ background:var(--amber); }
-  .pfill.bad{ background:var(--red); }
-  .resstatus{
-    position:absolute; inset:0; display:none; align-items:center; justify-content:center;
-    font-size:11px; font-weight:700; letter-spacing:.16em;
-  }
-  .rescard.served{ border-color:var(--cyan); }
-  .rescard.served .resstatus{ display:flex; background:rgba(240,250,253,.94); color:var(--blue-deep); }
-  .rescard.angry{ border-color:var(--red); }
-  .rescard.angry .resstatus{ display:flex; background:rgba(254,242,242,.94); color:var(--red); }
-  .rescard.out{ opacity:0; transform:translateX(26px); }
-  .qempty{
-    border:1.5px dashed var(--line); border-radius:11px; padding:18px 13px;
-    font-size:11px; color:var(--t3); text-align:center; font-weight:500;
-  }
 
   /* ---------- footer ticker ---------- */
   footer{
-    height:38px; flex:none; border-top:1px solid var(--line); background:var(--soft);
+    height:36px; flex:none; border-top:1px solid var(--line); background:var(--soft);
     display:flex; align-items:center; justify-content:center; padding:0 24px;
   }
   #ticker{
@@ -217,7 +275,7 @@
 
   /* ---------- wave banner ---------- */
   #wave{
-    position:absolute; top:84px; left:50%; transform:translate(-50%,-12px); z-index:30;
+    position:absolute; top:82px; left:50%; transform:translate(-50%,-12px); z-index:30;
     background:var(--red); color:#fff; border-radius:10px; padding:10px 22px;
     font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; letter-spacing:.22em;
     opacity:0; transition:all .3s ease; pointer-events:none;
@@ -231,16 +289,16 @@
     display:none; align-items:center; justify-content:center;
   }
   .ov.show{ display:flex; }
-  .ovinner{ width:880px; max-width:92%; text-align:center; }
+  .ovinner{ width:900px; max-width:92%; text-align:center; }
   .ov .eyebrow{ justify-content:center; }
   .ov .eyebrow::after{ content:''; width:22px; height:2px; background:var(--red); flex:none; }
   h1{
     font-family:'Manrope',sans-serif; font-weight:900; letter-spacing:-0.035em;
-    font-size:74px; line-height:1.02; margin:18px 0 14px; color:var(--navy);
+    font-size:72px; line-height:1.02; margin:18px 0 14px; color:var(--navy);
   }
   .accent{ color:var(--red); font-style:italic; }
-  .ovsub{ font-size:16.5px; color:var(--t2); line-height:1.55; max-width:620px; margin:0 auto; font-weight:400; }
-  .steps{ display:flex; gap:14px; margin:30px 0 30px; text-align:left; }
+  .ovsub{ font-size:16px; color:var(--t2); line-height:1.55; max-width:640px; margin:0 auto; font-weight:400; }
+  .steps{ display:flex; gap:14px; margin:28px 0 28px; text-align:left; }
   .step{
     flex:1; border:1px solid var(--line); border-radius:14px; background:#fff;
     padding:16px 16px 15px; position:relative; overflow:hidden;
@@ -260,26 +318,26 @@
     display:inline-block; transition:transform .12s ease, box-shadow .12s ease;
   }
   .btn:hover{ transform:translateY(-1px); box-shadow:0 16px 34px -14px rgba(231,29,37,.55); }
-  .btn.ghost{
-    background:#fff; color:var(--navy); border:1px solid var(--line2); box-shadow:none;
-  }
+  .btn.ghost{ background:#fff; color:var(--navy); border:1px solid var(--line2); box-shadow:none; }
   .btn.ghost:hover{ border-color:var(--navy); box-shadow:none; }
   .ovfoot{
-    margin-top:26px; font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:600;
+    margin-top:24px; font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:600;
     letter-spacing:.18em; color:var(--t3); text-transform:uppercase;
   }
 
   /* game over specifics */
   #over .ovinner{ width:980px; }
-  #over h1{ font-size:56px; margin:14px 0 12px; }
-  .chipsrow{ display:flex; gap:9px; justify-content:center; margin:18px 0 24px; flex-wrap:wrap; }
+  #over h1{ font-size:54px; margin:14px 0 10px; }
+  .chipsrow{ display:flex; gap:9px; justify-content:center; margin:16px 0 22px; flex-wrap:wrap; }
   .statchip{
     border:1px solid var(--line2); border-radius:8px; background:var(--soft);
     font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600; letter-spacing:.1em;
     color:var(--t2); padding:8px 13px;
   }
   .statchip b{ color:var(--navy); font-weight:700; margin-left:6px; }
-  .proofgrid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:left; margin-bottom:24px; }
+  .statchip.hot{ border-color:var(--red); background:var(--red-soft); }
+  .statchip.hot b{ color:var(--red); }
+  .proofgrid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:left; margin-bottom:22px; }
   .proof{
     border:1px solid var(--line); border-radius:13px; background:#fff;
     padding:15px 17px 14px; position:relative; overflow:hidden;
@@ -291,8 +349,8 @@
   .proofb{ font-size:12.5px; color:var(--t2); line-height:1.55; margin-top:7px; }
   .proofb b{ color:var(--navy); font-weight:700; }
   .lede{
-    font-family:'Manrope',sans-serif; font-weight:800; font-size:23px; letter-spacing:-0.02em;
-    color:var(--navy); margin-bottom:24px;
+    font-family:'Manrope',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.02em;
+    color:var(--navy); margin-bottom:22px;
   }
 </style>
 </head>
@@ -309,17 +367,17 @@
       </div>
       <div class="meters">
         <div class="meter">TIME <b id="mtime">0:00</b></div>
-        <div class="meter" id="mcwrap">COUNTER <b id="mcount">0/8</b></div>
+        <div class="meter" id="mqwrap">QUEUE <b id="mqueue">0/5</b></div>
+        <div class="meter" id="mfwrap">FLOOR RATE <b id="mfloor">0%</b></div>
+        <div class="meter">UNSECURED <b id="munsec">0</b></div>
+        <div class="meter">STOLEN <b id="mstolen">0</b></div>
         <div class="meter">RATING <b id="mrate">&#9733; 5.0</b></div>
         <div class="meter">STAFF TIME <b id="mstaff">0H 00M</b></div>
-        <div class="meter">DRIVERS <b id="mdriv">0</b></div>
-        <div class="meter">SORTED <b id="msort">0</b></div>
-        <div class="meter">SERVED <b id="mserve">0</b></div>
       </div>
     </header>
 
     <main>
-      <section class="col arrival" aria-label="Arrival counter">
+      <section class="col arrival" aria-label="Arrival queue">
         <div id="dtoast">
           <svg width="16" height="11" viewBox="0 0 16 11" fill="none" aria-hidden="true">
             <rect x="0" y="1" width="9" height="6" rx="1" fill="#fff"/>
@@ -330,26 +388,33 @@
           <span id="dtoasttxt"></span>
         </div>
         <div class="colhead">
-          <div class="eyebrow">Arrival counter</div>
-          <div class="sub">8 spots. Then you're buried.</div>
+          <div class="eyebrow">Arrivals</div>
+          <div class="sub">5 deep. Then you're buried.</div>
         </div>
         <div id="lane"></div>
       </section>
 
-      <section class="col shelves" aria-label="Package room shelves">
+      <section class="col bank" aria-label="Locker bank and floor">
         <div class="colhead">
-          <div class="eyebrow">The package room</div>
+          <div class="eyebrow">The locker bank</div>
           <span id="hint" class="mono"></span>
         </div>
-        <div id="slotgrid"></div>
+        <div id="room">
+          <div id="bankgrid"></div>
+          <div id="floorzone" aria-label="The floor, unsecured overflow area">
+            <div class="floorlabel">THE FLOOR &middot; UNSECURED</div>
+            <div class="caplabel" id="caplabel">0 / 14 &middot; 14 = BURIED</div>
+            <div id="pile"></div>
+          </div>
+        </div>
       </section>
 
-      <section class="col residents" aria-label="Resident pickup queue">
+      <section class="col feed" aria-label="Lobby activity feed">
         <div class="colhead">
-          <div class="eyebrow" style="--x:1">Pickup queue</div>
-          <div class="sub">Serve them before they snap.</div>
+          <div class="eyebrow">The lobby, live</div>
+          <div class="sub">What tracking would see.</div>
         </div>
-        <div id="resq"></div>
+        <div id="feed"></div>
       </section>
     </main>
 
@@ -362,60 +427,60 @@
       <div class="ovinner">
         <div class="eyebrow">HelloPackage &middot; Pre-demo warm-up</div>
         <h1>Package <span class="accent">Panic</span></h1>
-        <p class="ovsub">You're the onsite team. The trucks are already lining up.
-        Sort every delivery, serve every resident, and keep the room together &mdash; if you can.</p>
+        <p class="ovsub">You're running a locker bank on delivery day. Every box is a different size.
+        The lockers don't care &mdash; and there are only two big doors.</p>
         <div class="steps">
           <div class="step">
             <div class="stepnum">01</div>
-            <div class="steptitle">SORT IT</div>
-            <div class="stepbody">Click an arriving package, then an open shelf slot to store it. Oversize boxes only fit the floor row.</div>
+            <div class="steptitle">FIT IT</div>
+            <div class="stepbody">Click a package, then a locker door that fits. Small boxes go anywhere. Big boxes need the big doors &mdash; there are never enough.</div>
           </div>
           <div class="step">
             <div class="stepnum">02</div>
-            <div class="steptitle">SERVE THEM</div>
-            <div class="stepbody">Residents show up with a pickup code. Find the matching package on your shelves and click it to hand it off.</div>
+            <div class="steptitle">OR FLOOR IT</div>
+            <div class="stepbody">No door? It lands on the floor &mdash; unsecured, untracked. Residents dig for theirs. Porch pirates shop for free.</div>
           </div>
           <div class="step">
             <div class="stepnum">03</div>
             <div class="steptitle">SURVIVE</div>
-            <div class="stepbody">Eight packages on the counter and you're buried. One star and they stop renewing. Good luck.</div>
+            <div class="stepbody">Watch residents swing doors open as you work. Keep the queue moving, the floor clear, and your stars alive.</div>
           </div>
         </div>
         <div class="btnrow">
           <button class="btn" id="startBtn">Clock in</button>
         </div>
-        <div class="ovfoot">162 packages per household per year &mdash; Capital One. Someone has to catch them.</div>
+        <div class="ovfoot">162 packages per household per year &mdash; Capital One. Lockers were never going to be enough.</div>
       </div>
     </div>
 
     <!-- ============ GAME OVER ============ -->
     <div class="ov" id="over">
       <div class="ovinner">
-        <div class="eyebrow" id="gkicker">THE ARRIVAL COUNTER OVERFLOWED</div>
-        <h1>The room <span class="accent">always</span> wins.</h1>
+        <div class="eyebrow" id="gkicker">THE ARRIVAL QUEUE OVERFLOWED</div>
+        <h1>The lockers <span class="accent">never</span> fit the day.</h1>
         <div class="chipsrow">
           <div class="statchip">SURVIVED<b id="gtime">0:00</b></div>
-          <div class="statchip">SORTED<b id="gsort">0</b></div>
-          <div class="statchip">SERVED<b id="gserve">0</b></div>
-          <div class="statchip">DRIVERS<b id="gdriv">0</b></div>
+          <div class="statchip">ARRIVALS<b id="garr">0</b></div>
+          <div class="statchip hot">YOUR FLOOR RATE<b id="gfloor">0%</b></div>
+          <div class="statchip hot">STOLEN / MISSING<b id="gstolen">0</b></div>
           <div class="statchip">STAFF TIME BURNED<b id="gstaff">0H 00M</b></div>
         </div>
         <div class="proofgrid">
           <div class="proof r">
-            <div class="prooft">THE DRIVERS</div>
-            <div class="proofb">They never stop. <b>21.2B U.S. packages a year</b>, 35% headed to multifamily. HelloPackage rooms run <b>98.7% driver participation</b> &mdash; the industry average is 30&ndash;40%.</div>
+            <div class="prooft">THE SIZES</div>
+            <div class="proofb">Every box is a different size &mdash; lockers aren't. Roughly <b>25% of real package volume</b> (oversize, odd shapes, holiday surge) doesn't fit locker banks at all. HelloPackage's open room takes everything, at <b>4&times; the density</b>.</div>
           </div>
           <div class="proof c">
-            <div class="prooft">THE SPACE</div>
-            <div class="proofb">Your shelves filled fast. HelloPackage fits <b>4&times; more packages than lockers</b> &mdash; and 25% of volume is oversize that lockers reject outright.</div>
+            <div class="prooft">THE FLOOR</div>
+            <div class="proofb">Your floor rate: <b id="gfloor2">0%</b> &mdash; unsecured and invisible. In a HelloPackage room, floor space is <b>by design</b>: 25% of volume, every single piece still logged and tracked.</div>
+          </div>
+          <div class="proof r">
+            <div class="prooft">THE TRACKING</div>
+            <div class="proofb">Nothing on your floor was logged. HelloPackage <b>computer vision tracks every drop-off</b>, records every pickup, and monitors the room 24/7. Lost-package disputes end.</div>
           </div>
           <div class="proof c">
             <div class="prooft">THE RESIDENTS</div>
-            <div class="proofb">Stars fall fast when packages go missing. HelloPackage properties average <b>4.5/5 resident satisfaction</b> with 24/7 secure pickup.</div>
-          </div>
-          <div class="proof r">
-            <div class="prooft">THE STAFF</div>
-            <div class="proofb">You just lived it. NMHC: onsite teams lose <b>10&ndash;20 hours every week</b> to packages. HelloPackage gives those hours back.</div>
+            <div class="proofb">Digging through piles and missing boxes burn stars. HelloPackage properties average <b>4.5/5 resident satisfaction</b> with 24/7 access and secure pickup codes.</div>
           </div>
         </div>
         <div class="lede">Lockers solve storage. <span class="accent">HelloPackage</span> runs the process.</div>
@@ -423,7 +488,7 @@
           <button class="btn" id="againBtn">Run it back</button>
           <a class="btn ghost" href="https://paulfavorov.github.io/HelloPackageDemo/deck.html" target="_blank" rel="noopener noreferrer">Start the demo &rarr;</a>
         </div>
-        <div class="ovfoot">Sources: Capital One &middot; NMHC &middot; U.S. Dept. of Commerce &middot; HelloPackage platform data. Staff time shown in accelerated game minutes.</div>
+        <div class="ovfoot">Sources: Capital One &middot; NMHC &middot; HelloPackage platform data. Staff time shown in accelerated game minutes.</div>
       </div>
     </div>
 
@@ -443,28 +508,43 @@
 
   /* ---------- constants ---------- */
   var CARRIERS = ['UPS','USPS','FEDEX','AMZN','DHL','ONTRAC'];
-  var TAGS = ['#E71D25','#00AED5','#F59E0B','#0B1220'];
   var NAMES = ['Maya R.','Sam T.','Priya K.','Jordan L.','Alex M.','Dana W.','Chris P.','Taylor B.',
                'Morgan S.','Jamie F.','Casey H.','Riley G.','Avery D.','Quinn N.','Leo V.','Nina C.',
                'Omar Z.','Ella J.','Noah K.','Zoe A.','Liam E.','Ivy M.','Owen R.','Ruth S.'];
+  var SIZES = {
+    S:  { w:36, h:26, iw:26, ih:18, fits:{S:1,M:1,L:1} },
+    M:  { w:52, h:38, iw:40, ih:30, fits:{M:1,L:1} },
+    L:  { w:68, h:50, iw:78, ih:56, fits:{L:1} },
+    XL: { w:88, h:58, iw:0,  ih:0,  fits:{} }
+  };
+  /* locker bank map: 2 L, 5 M, 12 S on a 6x5 grid */
+  var BANK = [
+    {size:'L', c:1, r:1, cs:2, rs:2}, {size:'L', c:5, r:1, cs:2, rs:2},
+    {size:'M', c:3, r:1, cs:1, rs:2}, {size:'M', c:4, r:1, cs:1, rs:2},
+    {size:'M', c:1, r:3, cs:1, rs:2}, {size:'M', c:2, r:3, cs:1, rs:2}, {size:'M', c:6, r:3, cs:1, rs:2},
+    {size:'S', c:3, r:3}, {size:'S', c:4, r:3}, {size:'S', c:5, r:3},
+    {size:'S', c:3, r:4}, {size:'S', c:4, r:4}, {size:'S', c:5, r:4},
+    {size:'S', c:1, r:5}, {size:'S', c:2, r:5}, {size:'S', c:3, r:5},
+    {size:'S', c:4, r:5}, {size:'S', c:5, r:5}, {size:'S', c:6, r:5}
+  ];
   var TIERS = [
-    { until:12,  gap:4200, drop:[1,1], name:'FIRST WAVE — HERE THEY COME' },
-    { until:26,  gap:3600, drop:[1,2], name:'WAVE 02 — VOLUME RISING' },
-    { until:42,  gap:3000, drop:[2,2], name:'WAVE 03 — RUSH HOUR' },
-    { until:60,  gap:2600, drop:[2,3], name:'WAVE 04 — DOUBLE TRUCKS' },
-    { until:80,  gap:2300, drop:[3,3], name:'WAVE 05 — EVERYONE DELIVERS' },
-    { until:1e9, gap:2000, drop:[3,4], name:'HOLIDAY PEAK' }
+    { until:14,  gap:4400, drop:[1,1], name:'FIRST WAVE — HERE THEY COME' },
+    { until:28,  gap:3700, drop:[1,2], name:'WAVE 02 — VOLUME RISING' },
+    { until:44,  gap:3100, drop:[2,2], name:'WAVE 03 — RUSH HOUR' },
+    { until:62,  gap:2700, drop:[2,3], name:'WAVE 04 — BIG BOXES INCOMING' },
+    { until:82,  gap:2400, drop:[3,3], name:'WAVE 05 — EVERYONE DELIVERS' },
+    { until:1e9, gap:2100, drop:[3,4], name:'HOLIDAY PEAK' }
   ];
   var TICKS = [
     '162 packages per household per year — Capital One',
+    '~25% of package volume doesn’t fit lockers — oversize + holiday surge',
     'Staff lose 10–20 hours a week to packages — NMHC',
     'Only 30% of U.S. apartments have structured package management',
     '21.2B U.S. packages a year · 35% route to multifamily',
-    '56% of 18–34 consumers expect same-day delivery — Inverp',
-    '4× density vs lockers · 52% faster check-in — HelloPackage'
+    '4× density vs lockers · every package tracked — HelloPackage'
   ];
-  var COUNTER_MAX = 8, SLOTS = 12, FLOOR = 3;
-  var RATING_SERVE = 0.12, RATING_ANGRY = 0.45, STAFF_MIN_PER_SEC = 4;
+  var QUEUE_MAX = 5, FLOOR_MAX = 14;
+  var STAFF_MIN_PER_SEC = 4;
 
   /* ---------- state ---------- */
   var S = null;
@@ -472,15 +552,15 @@
     return {
       runId: (S ? S.runId + 1 : 1),
       running:false, t0:0, elapsed:0,
-      counter:[], slots:new Array(SLOTS).fill(null), floor:new Array(FLOOR).fill(null),
-      residents:[], selected:null,
-      rating:5.0, sorted:0, served:0, drivers:0,
-      pkgSeq:0, resSeq:0,
-      nextDriverAt:1200, nextResidentAt:8000,
+      queue:[], cells:[], floorPkgs:[],
+      selected:null,
+      rating:5.0, arrivals:0, floored:0, stolen:0, drivers:0, lockered:0,
+      pkgSeq:0,
+      nextDriverAt:1400, nextPickupAt:9000, nextPirateAt:20000,
+      pendingPickups:0, activeWalkers:0,
       tier:-1, tickIdx:-1
     };
   }
-
   function tierFor(sec){
     for(var i=0;i<TIERS.length;i++){ if(sec < TIERS[i].until) return i; }
     return TIERS.length-1;
@@ -495,114 +575,90 @@
     var min = Math.floor(ms/1000*STAFF_MIN_PER_SEC);
     return Math.floor(min/60) + 'H ' + ('0'+(min%60)).slice(-2) + 'M';
   }
-  function inPlay(){
-    var arr = S.counter.slice();
-    S.slots.forEach(function(p){ if(p) arr.push(p); });
-    S.floor.forEach(function(p){ if(p) arr.push(p); });
-    return arr;
+  function floorRate(){
+    return S.arrivals ? Math.round(S.floored / S.arrivals * 100) : 0;
   }
-  function byId(id){
-    var all = inPlay();
-    for(var i=0;i<all.length;i++){ if(all[i].id===id) return all[i]; }
-    return null;
+  function sizeMix(sec){
+    if(sec < 20) return {S:.55, M:.30, L:.12, XL:.03};
+    if(sec < 45) return {S:.45, M:.30, L:.17, XL:.08};
+    if(sec < 70) return {S:.40, M:.28, L:.20, XL:.12};
+    return {S:.34, M:.28, L:.23, XL:.15};
+  }
+  function rollSize(){
+    var mix = sizeMix(S.elapsed/1000), x = Math.random(), acc = 0, k;
+    for(k in mix){ acc += mix[k]; if(x < acc) return k; }
+    return 'S';
+  }
+
+  /* ---------- build locker bank ---------- */
+  function buildBank(){
+    var grid = $('#bankgrid'); grid.innerHTML='';
+    S.cells = BANK.map(function(def, i){
+      var cell = {
+        idx:i, size:def.size, pkg:null, busy:false,
+        label:def.size + '·' + ('0'+(i+1)).slice(-2),
+        el:null, doorEl:null, innerEl:null
+      };
+      var wrap = el('div','cellwrap');
+      wrap.style.gridColumn = def.c + ' / span ' + (def.cs||1);
+      wrap.style.gridRow = def.r + ' / span ' + (def.rs||1);
+      var inner = el('div','inner');
+      var door = el('div','door',
+        '<span class="dnum">'+cell.label+'</span>'+
+        '<span class="dsize">'+def.size+'</span>'+
+        '<span class="handle"></span><span class="led"></span>');
+      door.setAttribute('role','button');
+      door.setAttribute('aria-label','Locker '+cell.label+', size '+def.size+', empty');
+      wrap.appendChild(inner); wrap.appendChild(door);
+      door.onclick = function(){ cellClick(cell); };
+      cell.el = wrap; cell.doorEl = door; cell.innerEl = inner;
+      grid.appendChild(wrap);
+      return cell;
+    });
   }
 
   /* ---------- rendering ---------- */
-  function chipHTML(p){
-    return '<span class="chip" style="--tag:'+p.color+'">'+p.code+'</span>';
+  function boxartHTML(size){
+    var d = SIZES[size];
+    return '<span class="boxart" style="width:'+d.w+'px;height:'+d.h+'px"></span>';
   }
-  function renderCounter(){
+  function renderQueue(){
     var lane = $('#lane'); lane.innerHTML='';
-    for(var i=0;i<COUNTER_MAX;i++){
-      var p = S.counter[i];
+    for(var i=0;i<QUEUE_MAX;i++){
+      var p = S.queue[i];
       if(!p){ lane.appendChild(el('div','crow ghost')); continue; }
       var row = el('button','crow has'+(S.selected===p.id?' sel':''));
-      row.setAttribute('aria-label','Package '+p.code+' from '+p.carrier+(p.oversize?', oversize':''));
-      row.innerHTML =
-        '<span class="boxart'+(p.oversize?' xl':'')+'"></span>'+
-        '<span class="mono ccar">'+p.carrier+'</span>'+
-        chipHTML(p)+
-        (p.oversize ? '<span class="badge mono">OVERSIZE</span>' : '')+
-        (p.claimedBy ? '<span class="dot" title="A resident is waiting for this one"></span>' : '');
+      row.setAttribute('aria-label','Package '+p.code+', size '+p.size+', from '+p.carrier);
+      row.innerHTML = boxartHTML(p.size)+
+        '<span class="cmeta"><span class="sizechip '+p.size+'">'+p.size+
+        (p.size==='XL'?' · NO DOOR FITS':'')+'</span>'+
+        '<span class="ccode">'+p.carrier+' · '+p.code+'</span></span>';
       (function(pkg){
         row.onclick = function(){
           if(!S.running) return;
           S.selected = (S.selected===pkg.id) ? null : pkg.id;
-          renderCounter(); renderShelf();
+          renderQueue(); updateGlow();
         };
       })(p);
       lane.appendChild(row);
     }
   }
-  function pkgMini(p){
-    var m = el('span','mini'+(p.oversize?' xl':''));
-    m.innerHTML = '<span class="mcar mono">'+p.carrier+'</span>'+chipHTML(p)+
-      (p.claimedBy ? '<span class="dot"></span>' : '');
-    return m;
+  function selectedPkg(){
+    if(S.selected == null) return null;
+    for(var i=0;i<S.queue.length;i++){ if(S.queue[i].id===S.selected) return S.queue[i]; }
+    return null;
   }
-  function slotEl(p, kind, idx){
-    var b;
-    if(!p){
-      b = el('button','cell '+kind+' empty');
-      if(S.selected!=null){
-        var sel = byId(S.selected);
-        if(sel && (kind==='floor' || !sel.oversize)) b.classList.add('ready');
-      }
-      b.setAttribute('aria-label',(kind==='floor'?'Floor spot ':'Shelf slot ')+(idx+1)+', empty');
-      b.appendChild(el('span','cellhint mono', kind==='floor' ? 'OVERSIZE OK' : ''));
-      b.onclick = function(){ placeAttempt(kind, idx, b); };
-    } else {
-      b = el('button','cell '+kind+' filled');
-      b.setAttribute('aria-label','Stored package '+p.code+(p.claimedBy?', resident waiting':''));
-      b.appendChild(pkgMini(p));
-      b.onclick = function(){ serveAttempt(p, b); };
-    }
-    return b;
+  function updateGlow(){
+    var sel = selectedPkg();
+    S.cells.forEach(function(c){
+      var ok = sel && !c.pkg && !c.busy && SIZES[sel.size].fits[c.size];
+      c.el.classList.toggle('glow', !!ok);
+    });
+    $('#floorzone').classList.toggle('glow', !!sel);
   }
-  function renderShelf(){
-    var wrap = $('#slotgrid'); wrap.innerHTML='';
-    for(var r=0;r<3;r++){
-      var row = el('div','shelfrow');
-      row.appendChild(el('div','shelflabel mono','SHELF '+String.fromCharCode(65+r)));
-      var cells = el('div','cells');
-      for(var c=0;c<4;c++){
-        var i = r*4+c;
-        cells.appendChild(slotEl(S.slots[i],'slot',i));
-      }
-      row.appendChild(cells);
-      wrap.appendChild(row);
-    }
-    var fr = el('div','shelfrow floor');
-    fr.appendChild(el('div','shelflabel mono','FLOOR ROW · BUILT FOR OVERSIZE'));
-    var fcells = el('div','cells');
-    for(var f=0;f<FLOOR;f++) fcells.appendChild(slotEl(S.floor[f],'floor',f));
-    fr.appendChild(fcells);
-    wrap.appendChild(fr);
-  }
-  function residentCard(r){
-    var c = el('div','rescard'+(r.status?' '+r.status:''));
-    var top = el('div','restop');
-    top.appendChild(el('div','avatar mono', r.initials));
-    var meta = el('div','resmeta');
-    meta.appendChild(el('div','resname', r.name));
-    meta.appendChild(el('div','reswant mono','PICKING UP '+chipHTML(r.pkg)));
-    top.appendChild(meta);
-    c.appendChild(top);
-    var bar = el('div','pbar');
-    var fill = el('div','pfill ok');
-    bar.appendChild(fill);
-    c.appendChild(bar);
-    c.appendChild(el('div','resstatus mono', r.status==='served' ? 'SERVED · RATING UP' : 'WALKED · 1★ REVIEW'));
-    r.barEl = fill; r.cardEl = c;
-    return c;
-  }
-  function renderResidents(){
-    var q = $('#resq'); q.innerHTML='';
-    if(!S.residents.length){
-      q.appendChild(el('div','qempty','Quiet for now. It won’t last.'));
-      return;
-    }
-    S.residents.forEach(function(r){ q.appendChild(residentCard(r)); });
+  function setCellUsed(c){
+    c.el.classList.toggle('used', !!c.pkg);
+    c.doorEl.setAttribute('aria-label','Locker '+c.label+', size '+c.size+', '+(c.pkg?'occupied':'empty'));
   }
 
   var hintTO = null;
@@ -611,7 +667,7 @@
     h.textContent = msg;
     h.classList.add('show');
     if(hintTO) clearTimeout(hintTO);
-    hintTO = setTimeout(function(){ h.classList.remove('show'); }, 1700);
+    hintTO = setTimeout(function(){ h.classList.remove('show'); }, 1800);
   }
   function shake(elm){
     if(!elm) return;
@@ -636,31 +692,35 @@
     if(waveTO) clearTimeout(waveTO);
     waveTO = setTimeout(function(){ w.classList.remove('show'); }, 2100);
   }
+  function feed(cls, text){
+    var f = $('#feed');
+    var q = f.querySelector('.qempty');
+    if(q) q.remove();
+    var e = el('div','fentry '+cls,
+      '<span class="ft">'+fmtTime(S.elapsed)+'</span>'+text);
+    f.insertBefore(e, f.firstChild);
+    while(f.children.length > 9) f.removeChild(f.lastChild);
+  }
 
-  /* ---------- game actions ---------- */
+  /* ---------- packages ---------- */
   function uniqueCode(){
-    var code, tries = 0;
-    var existing = inPlay().map(function(p){ return p.code; });
+    var code, tries = 0, existing = {};
+    S.queue.forEach(function(p){ existing[p.code]=1; });
+    S.cells.forEach(function(c){ if(c.pkg) existing[c.pkg.code]=1; });
+    S.floorPkgs.forEach(function(p){ existing[p.code]=1; });
     do {
       code = String.fromCharCode(65+Math.floor(Math.random()*6)) + '-' + rnd(10,99);
       tries++;
-    } while(existing.indexOf(code) >= 0 && tries < 40);
+    } while(existing[code] && tries < 40);
     return code;
   }
   function spawnPackage(carrier){
     if(!S.running) return;
-    if(S.counter.length >= COUNTER_MAX){ gameOver('overflow'); return; }
-    var oversize = S.elapsed > 15000 && Math.random() < 0.18;
-    var p = {
-      id: ++S.pkgSeq,
-      code: uniqueCode(),
-      color: pick(TAGS),
-      oversize: oversize,
-      carrier: carrier,
-      claimedBy: null
-    };
-    S.counter.push(p);
-    renderCounter();
+    if(S.queue.length >= QUEUE_MAX){ gameOver('overflow'); return; }
+    var p = { id:++S.pkgSeq, code:uniqueCode(), size:rollSize(), carrier:carrier };
+    S.queue.push(p);
+    S.arrivals++;
+    renderQueue(); updateHUD();
   }
   function driverVisit(){
     var t = TIERS[S.tier];
@@ -677,103 +737,248 @@
       })(i*380);
     }
   }
-  function residentGap(sec){
-    if(sec < 25) return 7000;
-    if(sec < 45) return 5200;
-    if(sec < 70) return 4200;
-    return 3400;
+
+  /* ---------- placing ---------- */
+  function dequeue(p){
+    var i = S.queue.indexOf(p);
+    if(i>=0) S.queue.splice(i,1);
   }
-  function spawnResident(){
-    if(S.residents.length >= 4) return false;
-    var candidates = inPlay().filter(function(p){ return !p.claimedBy; });
-    if(!candidates.length) return false;
-    var p = pick(candidates);
-    var name = pick(NAMES);
-    var r = {
-      id: ++S.resSeq,
-      name: name,
-      initials: name.split(' ').map(function(w){ return w[0]; }).join('').replace('.',''),
-      pkg: p,
-      pkgId: p.id,
-      patience: S.elapsed/1000 > 60 ? 9000 : 11000,
-      deadline: 0,
-      status: null,
-      barEl: null, cardEl: null
-    };
-    r.deadline = performance.now() + r.patience;
-    p.claimedBy = r.id;
-    S.residents.push(r);
-    renderResidents(); renderCounter(); renderShelf();
-    return true;
-  }
-  function removeFromPlay(p){
-    var ci = S.counter.indexOf(p);
-    if(ci >= 0){ S.counter.splice(ci,1); return; }
-    var si = S.slots.indexOf(p);
-    if(si >= 0){ S.slots[si] = null; return; }
-    var fi = S.floor.indexOf(p);
-    if(fi >= 0){ S.floor[fi] = null; }
-  }
-  function placeAttempt(kind, idx, cellEl){
+  function cellClick(cell){
     if(!S.running) return;
-    if(S.selected == null){ hint('GRAB A PACKAGE FROM THE COUNTER FIRST'); shake(cellEl); return; }
-    var p = byId(S.selected);
-    if(!p || S.counter.indexOf(p) < 0){ S.selected=null; renderCounter(); renderShelf(); return; }
-    if(p.oversize && kind === 'slot'){ hint('TOO BIG — FLOOR ROW ONLY'); shake(cellEl); return; }
-    removeFromPlay(p);
-    if(kind === 'slot') S.slots[idx] = p; else S.floor[idx] = p;
-    S.sorted++;
-    S.selected = null;
-    renderCounter(); renderShelf(); updateHUD();
-  }
-  function serveAttempt(p, cellEl){
-    if(!S.running) return;
-    var r = null;
-    for(var i=0;i<S.residents.length;i++){
-      if(!S.residents[i].status && S.residents[i].pkgId === p.id){ r = S.residents[i]; break; }
+    var sel = selectedPkg();
+    if(!sel){
+      hint(cell.pkg ? 'RESIDENTS COLLECT THEIR OWN — KEEP SORTING' : 'GRAB A PACKAGE FROM ARRIVALS FIRST');
+      shake(cell.el); return;
     }
-    if(!r){ hint('NO ONE’S WAITING FOR '+p.code+' — YET'); shake(cellEl); return; }
-    r.status = 'served';
-    removeFromPlay(p);
-    S.served++;
-    S.rating = Math.min(5, S.rating + RATING_SERVE);
-    renderShelf(); renderResidents(); updateHUD();
-    exitResident(r, 700);
-  }
-  function angryLeave(r){
-    r.status = 'angry';
-    var p = byId(r.pkgId);
-    if(p) p.claimedBy = null;
-    S.rating = Math.max(1, S.rating - RATING_ANGRY);
-    renderResidents(); renderCounter(); renderShelf(); updateHUD();
-    exitResident(r, 850);
-    if(S.rating <= 1.001){ gameOver('rating'); }
-  }
-  function exitResident(r, delay){
+    if(cell.pkg || cell.busy){ hint('DOOR '+cell.label+' IS TAKEN'); shake(cell.el); return; }
+    if(!SIZES[sel.size].fits[cell.size]){
+      hint(sel.size==='XL' ? 'NO DOOR FITS AN XL — FLOOR ONLY' : 'TOO BIG FOR A SIZE-'+cell.size+' DOOR');
+      shake(cell.el); return;
+    }
+    // place
+    cell.pkg = sel; cell.busy = true;
+    dequeue(sel);
+    S.selected = null; S.lockered++;
+    renderQueue(); updateGlow();
     var run = S.runId;
+    cell.el.classList.add('open');
     setTimeout(function(){
-      if(S.runId !== run) return;
-      if(r.cardEl) r.cardEl.classList.add('out');
+      if(S.runId!==run) return;
+      var d = SIZES[cell.pkg.size];
+      cell.innerEl.innerHTML = '<span class="ibox" style="width:'+d.iw+'px;height:'+d.ih+'px"></span>';
+    }, 240);
+    setTimeout(function(){
+      if(S.runId!==run) return;
+      cell.el.classList.remove('open');
+      cell.busy = false;
+      setCellUsed(cell);
+      updateGlow();
+    }, 700);
+    updateHUD();
+  }
+  function floorClick(){
+    if(!S.running) return;
+    var sel = selectedPkg();
+    var fz = $('#floorzone');
+    if(!sel){ hint('GRAB A PACKAGE FROM ARRIVALS FIRST'); shake(fz); return; }
+    dequeue(sel);
+    S.selected = null;
+    S.floored++;
+    addFloorBox(sel);
+    renderQueue(); updateGlow(); updateHUD();
+    if(S.floorPkgs.length >= FLOOR_MAX){ gameOver('floor'); return; }
+    if(S.floorPkgs.length === 3) feed('bad','The floor pile is attracting attention.');
+  }
+  function addFloorBox(p){
+    var d = SIZES[p.size];
+    var b = el('span','fbox');
+    var w = Math.round(d.w*0.85), h = Math.round(d.h*0.85);
+    b.style.width = w+'px'; b.style.height = h+'px';
+    b.style.left = rnd(3,82) + '%';
+    b.style.bottom = rnd(6,34) + 'px';
+    b.style.transform = 'rotate(' + rnd(-16,16) + 'deg)';
+    p.floorEl = b;
+    S.floorPkgs.push(p);
+    $('#pile').appendChild(b);
+  }
+  function removeFloorBox(p){
+    var i = S.floorPkgs.indexOf(p);
+    if(i>=0) S.floorPkgs.splice(i,1);
+    if(p.floorEl){
+      p.floorEl.classList.add('gone');
+      (function(elm){ setTimeout(function(){ if(elm.parentNode) elm.parentNode.removeChild(elm); }, 350); })(p.floorEl);
+    }
+  }
+
+  /* ---------- walkers (residents + pirate) ---------- */
+  function makeWalker(cls, tag){
+    var w = el('div','walker '+(cls||''),
+      '<span class="wtag">'+tag+'</span>'+
+      '<div class="whead"></div><div class="wbody"></div>'+
+      '<div class="wlegs"><i></i><i></i></div><span class="wbox"></span>');
+    $('#room').appendChild(w);
+    return w;
+  }
+  function roomW(){ return $('#room').clientWidth; }
+  function bankBottomY(){
+    // walkway sits just below the bank grid, above the floor zone
+    var grid = $('#bankgrid');
+    return $('#room').clientHeight - grid.offsetTop - grid.offsetHeight - 56;
+  }
+  function cellCenterX(cell){
+    return cell.el.offsetLeft + cell.el.offsetWidth/2 - 15;
+  }
+  function schedulePickup(){
+    if(S.pendingPickups >= 4) return;
+    S.pendingPickups++;
+  }
+  function processPickups(){
+    if(S.activeWalkers >= 2 || S.pendingPickups <= 0) return;
+    var stored = S.cells.filter(function(c){ return c.pkg && !c.busy; });
+    var canFloor = S.floorPkgs.length > 0;
+    if(!stored.length && !canFloor) return;
+    S.pendingPickups--;
+    var useFloor = canFloor && (!stored.length || Math.random() < 0.32);
+    if(useFloor) floorPickup(); else lockerPickup(pick(stored));
+  }
+  function lockerPickup(cell){
+    cell.busy = true;
+    S.activeWalkers++;
+    var run = S.runId;
+    var name = pick(NAMES);
+    var w = makeWalker('moving', name);
+    var y = bankBottomY();
+    w.style.bottom = y+'px';
+    w.style.left = '-36px';
+    var targetX = cellCenterX(cell);
+    requestAnimationFrame(function(){ w.style.left = targetX+'px'; });
+    var fast = S.elapsed/1000 > 60;
+    var t1 = fast ? 750 : 1000;   // walk in
+    seq(run, [
+      [t1, function(){ w.classList.remove('moving'); cell.el.classList.add('open'); }],
+      [420, function(){
+        var ib = cell.innerEl.querySelector('.ibox');
+        if(ib) ib.classList.add('gone');
+        w.classList.add('carrying');
+      }],
+      [380, function(){
+        cell.el.classList.remove('open');
+        cell.pkg = null; cell.busy = false;
+        cell.innerEl.innerHTML = '';
+        setCellUsed(cell);
+        S.rating = Math.min(5, S.rating + 0.1);
+        feed('ok', name+' opened door <b>'+cell.label+'</b> — in and out in seconds.');
+        w.classList.add('moving');
+        w.style.left = (roomW()+40)+'px';
+        updateGlow(); updateHUD();
+      }],
+      [1000, function(){ killWalker(w); }]
+    ], function(){ cell.busy=false; killWalker(w); });
+  }
+  function floorPickup(){
+    S.activeWalkers++;
+    var run = S.runId;
+    var name = pick(NAMES);
+    var w = makeWalker('moving', name);
+    w.style.bottom = '18px';
+    w.style.left = '-36px';
+    var fz = $('#floorzone');
+    var targetX = fz.offsetLeft + rnd(40, Math.max(60, fz.offsetWidth-80));
+    requestAnimationFrame(function(){ w.style.left = targetX+'px'; });
+    seq(run, [
+      [1000, function(){
+        w.classList.remove('moving');
+        w.querySelector('.wtag').textContent = name+' · SEARCHING THE PILE…';
+        fz.classList.add('rummage');
+      }],
+      [2400, function(){
+        fz.classList.remove('rummage');
+        var found = S.floorPkgs.length > 0 && Math.random() < 0.8;
+        if(found){
+          removeFloorBox(pick(S.floorPkgs));
+          S.rating = Math.max(1, S.rating - 0.15);
+          feed('slow', name+' dug through the pile. Found it — <b>eventually</b>.');
+          w.classList.add('carrying');
+        } else {
+          S.stolen++; // counts as missing
+          S.rating = Math.max(1, S.rating - 0.5);
+          feed('bad', name+'’s package is <b>gone</b>. No log. No proof. Nothing to check.');
+        }
+        w.classList.add('moving');
+        w.style.left = (roomW()+40)+'px';
+        updateHUD();
+        if(S.rating <= 1.001){ gameOver('rating'); }
+      }],
+      [1000, function(){ killWalker(w); }]
+    ], function(){ killWalker(w); });
+  }
+  function pirateRun(){
+    if(!S.floorPkgs.length) return;
+    S.activeWalkers++;
+    var run = S.runId;
+    var w = makeWalker('pirate moving','UNKNOWN');
+    w.style.bottom = '18px';
+    w.style.left = (roomW()+20)+'px';
+    var fz = $('#floorzone');
+    var targetX = fz.offsetLeft + rnd(50, Math.max(70, fz.offsetWidth-90));
+    requestAnimationFrame(function(){ w.style.left = targetX+'px'; });
+    seq(run, [
+      [850, function(){
+        if(S.floorPkgs.length){
+          removeFloorBox(pick(S.floorPkgs));
+          S.stolen++;
+          S.rating = Math.max(1, S.rating - 0.5);
+          w.classList.add('carrying');
+          feed('bad','A package just <b>walked off the floor</b>. Unsecured. Untracked. Gone.');
+          updateHUD();
+        }
+      }],
+      [200, function(){
+        w.style.left = '-50px';
+      }],
+      [900, function(){
+        killWalker(w);
+        if(S.rating <= 1.001){ gameOver('rating'); }
+      }]
+    ], function(){ killWalker(w); });
+  }
+  function killWalker(w){
+    S.activeWalkers = Math.max(0, S.activeWalkers-1);
+    if(w && w.parentNode) w.parentNode.removeChild(w);
+  }
+  /* run a guarded timeout sequence; onAbort fires if the run changed */
+  function seq(run, steps, onAbort){
+    var i = 0;
+    function next(){
+      if(S.runId !== run){ if(onAbort) onAbort(); return; }
+      if(i >= steps.length) return;
+      var st = steps[i++];
       setTimeout(function(){
-        if(S.runId !== run) return;
-        S.residents = S.residents.filter(function(x){ return x !== r; });
-        renderResidents();
-      }, 420);
-    }, delay);
+        if(S.runId !== run){ if(onAbort) onAbort(); return; }
+        st[1]();
+        next();
+      }, st[0]);
+    }
+    next();
   }
 
   /* ---------- HUD ---------- */
   function updateHUD(){
     $('#mtime').textContent = fmtTime(S.elapsed);
     $('#mstaff').textContent = fmtStaff(S.elapsed);
-    $('#mdriv').textContent = S.drivers;
-    $('#msort').textContent = S.sorted;
-    $('#mserve').textContent = S.served;
-    $('#mcount').textContent = S.counter.length + '/8';
-    $('#mcwrap').classList.toggle('danger', S.counter.length >= 6);
+    $('#mqueue').textContent = S.queue.length + '/5';
+    $('#mqwrap').classList.toggle('danger', S.queue.length >= 4);
+    var fr = floorRate();
+    var mf = $('#mfloor');
+    mf.textContent = fr + '%';
+    mf.className = fr < 10 ? '' : (fr < 25 ? 'warn-b' : 'bad-b');
+    $('#mfwrap').classList.toggle('danger', fr >= 35);
+    $('#munsec').textContent = S.floorPkgs.length;
+    $('#mstolen').textContent = S.stolen;
     var mr = $('#mrate');
     mr.innerHTML = '★ ' + S.rating.toFixed(1);
     mr.className = S.rating >= 4 ? '' : (S.rating >= 2.5 ? 'warn-b' : 'bad-b');
+    $('#caplabel').innerHTML = S.floorPkgs.length + ' / 14 &middot; 14 = BURIED';
     var ti = Math.floor(S.elapsed/6000) % TICKS.length;
     if(ti !== S.tickIdx){
       S.tickIdx = ti;
@@ -798,21 +1003,16 @@
       if(!S.running) return;
       S.nextDriverAt = S.elapsed + TIERS[S.tier].gap * (0.85 + Math.random()*0.3);
     }
-    if(S.elapsed >= S.nextResidentAt){
-      var ok = spawnResident();
-      S.nextResidentAt = S.elapsed + (ok ? residentGap(sec) * (0.85 + Math.random()*0.3) : 1200);
+    if(S.elapsed >= S.nextPickupAt){
+      schedulePickup();
+      var gap = sec < 30 ? 6200 : sec < 55 ? 4600 : sec < 80 ? 3700 : 3000;
+      S.nextPickupAt = S.elapsed + gap * (0.85 + Math.random()*0.3);
     }
+    processPickups();
 
-    for(var i=0;i<S.residents.length;i++){
-      var r = S.residents[i];
-      if(r.status) continue;
-      var rem = r.deadline - now;
-      if(rem <= 0){ angryLeave(r); if(!S.running) return; continue; }
-      if(r.barEl){
-        var f = Math.max(0, rem / r.patience);
-        r.barEl.style.width = (f*100) + '%';
-        r.barEl.className = 'pfill ' + (f > .5 ? 'ok' : (f > .22 ? 'warn' : 'bad'));
-      }
+    if(S.floorPkgs.length >= 3 && S.elapsed >= S.nextPirateAt){
+      pirateRun();
+      S.nextPirateAt = S.elapsed + 9000 + Math.random()*7000;
     }
 
     if(sec >= 180){ gameOver('shift'); return; }
@@ -823,18 +1023,20 @@
 
   /* ---------- game over / start ---------- */
   var REASONS = {
-    overflow: 'THE ARRIVAL COUNTER OVERFLOWED',
+    overflow: 'THE ARRIVAL QUEUE OVERFLOWED',
+    floor:    'THE FLOOR PILE TOOK OVER THE LOBBY',
     rating:   'RESIDENT SATISFACTION COLLAPSED',
-    shift:    'YOUR SHIFT ENDED. THE PACKAGES DIDN’T.'
+    shift:    'YOUR SHIFT ENDED. THE PILE DIDN’T.'
   };
   function gameOver(reason){
     if(!S.running) return;
     S.running = false;
     $('#gkicker').textContent = REASONS[reason] || REASONS.overflow;
     $('#gtime').textContent = fmtTime(S.elapsed);
-    $('#gsort').textContent = S.sorted;
-    $('#gserve').textContent = S.served;
-    $('#gdriv').textContent = S.drivers;
+    $('#garr').textContent = S.arrivals;
+    $('#gfloor').textContent = floorRate() + '%';
+    $('#gfloor2').textContent = floorRate() + '%';
+    $('#gstolen').textContent = S.stolen;
     $('#gstaff').textContent = fmtStaff(S.elapsed);
     $('#over').classList.add('show');
   }
@@ -842,7 +1044,12 @@
     S = freshState();
     $('#intro').classList.remove('show');
     $('#over').classList.remove('show');
-    renderCounter(); renderShelf(); renderResidents();
+    $('#pile').innerHTML = '';
+    $('#feed').innerHTML = '';
+    $('#feed').appendChild(el('div','qempty','Every door swing shows up here. For now, it’s quiet.'));
+    document.querySelectorAll('.walker').forEach(function(w){ w.parentNode.removeChild(w); });
+    buildBank();
+    renderQueue(); updateGlow();
     S.running = true;
     S.t0 = performance.now();
     S.elapsed = 0;
@@ -862,15 +1069,18 @@
 
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape' && S && S.running){
-      S.selected = null; renderCounter(); renderShelf();
+      S.selected = null; renderQueue(); updateGlow();
     }
   });
   $('#startBtn').onclick = start;
   $('#againBtn').onclick = start;
+  $('#floorzone').onclick = floorClick;
 
   /* idle state behind intro */
   S = freshState();
-  renderCounter(); renderShelf(); renderResidents();
+  buildBank();
+  renderQueue();
+  $('#feed').appendChild(el('div','qempty','Every door swing shows up here. For now, it’s quiet.'));
   $('#ticker').textContent = TICKS[0];
 })();
 </script>
