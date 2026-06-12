@@ -416,8 +416,8 @@
         <div class="meter" style="min-width:122px">DAY <b id="mday">1 &middot; 7:00 AM</b></div>
         <div class="meter" id="mqwrap">QUEUE <b id="mqueue">0/5</b></div>
         <div class="meter" id="mfwrap">FLOOR RATE <b id="mfloor">0%</b></div>
-        <div class="meter">UNSECURED <b id="munsec">0</b></div>
         <div class="meter">MISSING <b id="mstolen">0</b></div>
+        <div class="meter">LABOR COST* <b id="mcost">$0</b></div>
         <div class="meter">RATING <b id="mrate">&#9733; 5.0</b></div>
         <div class="meter">STAFF TIME <b id="mstaff">0H 00M</b></div>
         <button class="vbtn" id="verdictBtn">The verdict</button>
@@ -519,6 +519,7 @@
           <div class="statchip hot">MISSING<b id="gstolen">0</b></div>
           <div class="statchip">DRIVERS TRAINED<b id="gtrained">0</b></div>
           <div class="statchip">STAFF TIME<b id="gstaff">0H 00M</b></div>
+          <div class="statchip hot">LABOR COST*<b id="gcost">$0</b></div>
         </div>
         <div class="proofgrid">
           <div class="proof r">
@@ -544,7 +545,8 @@
           <button class="btn ghost" id="resumeBtn">Keep watching</button>
         </div>
         <div class="resetline"><button class="resetlink" id="resetBtn">Reset the room</button></div>
-        <div class="ovfoot">Sources: Capital One &middot; NMHC &middot; HelloPackage platform data. Simulated clock: one real second &asymp; four room-minutes by day.</div>
+        <div class="ovfoot">Sources: Capital One &middot; NMHC &middot; HelloPackage platform data. Simulated clock: one real second &asymp; four room-minutes by day.<br>
+        *Labor cost is an assumption: $30/hr fully-loaded onsite staff. Set ?rate=NN in the URL to match the market. Verify before quoting.</div>
       </div>
     </div>
 
@@ -690,6 +692,16 @@
   function fmtStaff(min){
     min = Math.floor(min);
     return Math.floor(min/60) + 'H ' + ('0'+(min%60)).slice(-2) + 'M';
+  }
+  /* Labor rate is an ASSUMPTION ($30/hr fully-loaded) — overridable per
+     prospect via ?rate=NN. Flagged in the verdict footnote. */
+  var RATE = (function(){
+    var m = location.search.match(/[?&]rate=(\d+(?:\.\d+)?)/);
+    var r = m ? parseFloat(m[1]) : 30;
+    return (r > 0 && r < 500) ? r : 30;
+  })();
+  function fmtCost(min){
+    return '$' + Math.round(min/60*RATE).toLocaleString('en-US');
   }
   function floorRate(){
     return S.arrivals ? Math.round(S.floored / S.arrivals * 100) : 0;
@@ -1187,7 +1199,7 @@
     mf.textContent = fr + '%';
     mf.className = fr < 10 ? '' : (fr < 25 ? 'warn-b' : 'bad-b');
     $('#mfwrap').classList.toggle('danger', fr >= 35);
-    $('#munsec').textContent = S.floorPkgs.length;
+    $('#mcost').textContent = fmtCost(S.staffMin);
     $('#mstolen').textContent = S.stolen;
     var mr = $('#mrate');
     mr.innerHTML = '★ ' + S.rating.toFixed(1);
@@ -1294,6 +1306,7 @@
     $('#gtrained').textContent = S.trainedCount;
     $('#gtrained2').textContent = S.trainedCount;
     $('#gstaff').textContent = fmtStaff(S.staffMin);
+    $('#gcost').textContent = fmtCost(S.staffMin);
     $('#over').classList.add('show');
     dbg('VERDICT day='+S.day);
   }
