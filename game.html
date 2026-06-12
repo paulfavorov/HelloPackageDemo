@@ -506,6 +506,26 @@
     return e;
   }
 
+  /* ---------- diagnostics (hidden; ?debug=1 also slows arrivals 3x) ---------- */
+  var DEBUG = /[?&]debug=1/.test(location.search);
+  function dbgbox(){
+    var d = document.getElementById('dbglog');
+    if(!d){
+      d = document.createElement('div');
+      d.id = 'dbglog';
+      d.style.cssText = 'position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;';
+      document.body.appendChild(d);
+    }
+    return d;
+  }
+  function dbg(msg){
+    if(!DEBUG) return;
+    dbgbox().textContent += '[' + (S ? Math.round(S.elapsed/100)/10 : '-') + 's] ' + msg + ' || ';
+  }
+  window.addEventListener('error', function(e){
+    dbgbox().textContent += 'JSERR: ' + e.message + ' @' + e.lineno + ':' + e.colno + ' || ';
+  });
+
   /* ---------- constants ---------- */
   var CARRIERS = ['UPS','USPS','FEDEX','AMZN','DHL','ONTRAC'];
   var NAMES = ['Maya R.','Sam T.','Priya K.','Jordan L.','Alex M.','Dana W.','Chris P.','Taylor B.',
@@ -633,9 +653,10 @@
       (p.size==='XL'?' · NO DOOR FITS':'')+'</span>'+
       '<span class="ccode">'+p.carrier+' · '+p.code+'</span></span>';
     row.onclick = function(){
-      if(!S.running) return;
-      if(S.queue.indexOf(p) < 0) return; // stale click on a dequeued row
+      if(!S.running){ dbg('rowclick '+p.code+' IGNORED not-running'); return; }
+      if(S.queue.indexOf(p) < 0){ dbg('rowclick '+p.code+' IGNORED stale'); return; }
       S.selected = (S.selected===p.id) ? null : p.id;
+      dbg('rowclick '+p.code+' -> '+(S.selected?'SELECTED':'DESELECTED'));
       renderQueue(); updateGlow();
     };
     return row;
@@ -756,18 +777,21 @@
     if(i>=0) S.queue.splice(i,1);
   }
   function cellClick(cell){
-    if(!S.running) return;
+    if(!S.running){ dbg('cellclick '+cell.label+' IGNORED not-running'); return; }
     var sel = selectedPkg();
     if(!sel){
+      dbg('cellclick '+cell.label+' REJECT no-selection');
       hint(cell.pkg ? 'RESIDENTS COLLECT THEIR OWN — KEEP SORTING' : 'GRAB A PACKAGE FROM ARRIVALS FIRST');
       shake(cell.el); return;
     }
-    if(cell.pkg || cell.busy){ hint('DOOR '+cell.label+' IS TAKEN'); shake(cell.el); return; }
+    if(cell.pkg || cell.busy){ dbg('cellclick '+cell.label+' REJECT taken'); hint('DOOR '+cell.label+' IS TAKEN'); shake(cell.el); return; }
     if(!SIZES[sel.size].fits[cell.size]){
+      dbg('cellclick '+cell.label+' REJECT no-fit '+sel.size);
       hint(sel.size==='XL' ? 'NO DOOR FITS AN XL — FLOOR ONLY' : 'TOO BIG FOR A SIZE-'+cell.size+' DOOR');
       shake(cell.el); return;
     }
     // place
+    dbg('cellclick '+cell.label+' PLACED '+sel.code+' size '+sel.size);
     cell.pkg = sel; cell.busy = true;
     dequeue(sel);
     S.selected = null; S.lockered++;
@@ -1013,7 +1037,7 @@
     if(S.elapsed >= S.nextDriverAt){
       driverVisit();
       if(!S.running) return;
-      S.nextDriverAt = S.elapsed + TIERS[S.tier].gap * (0.85 + Math.random()*0.3);
+      S.nextDriverAt = S.elapsed + TIERS[S.tier].gap * (DEBUG ? 3 : 1) * (0.85 + Math.random()*0.3);
     }
     if(S.elapsed >= S.nextPickupAt){
       schedulePickup();
@@ -1043,6 +1067,7 @@
   function gameOver(reason){
     if(!S.running) return;
     S.running = false;
+    dbg('GAMEOVER '+reason);
     $('#gkicker').textContent = REASONS[reason] || REASONS.overflow;
     $('#gtime').textContent = fmtTime(S.elapsed);
     $('#garr').textContent = S.arrivals;
