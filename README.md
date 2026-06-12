@@ -8,6 +8,7 @@ Product demo site for HelloPackage — AI-powered package management for multifa
 - **Slide deck** — `https://paulfavorov.github.io/HelloPackageDemo/deck.html`
 - **Verifast partner offer** — `https://paulfavorov.github.io/HelloPackageDemo/verifast-offer.html`
 - **Sales team edition** — `https://paulfavorov.github.io/HelloPackageDemo/site_salesteam.html`
+- **Future-proofing one-pager** — `https://paulfavorov.github.io/HelloPackageDemo/futureproofing.html`
 
 ## Files
 
@@ -17,6 +18,7 @@ Product demo site for HelloPackage — AI-powered package management for multifa
 | `site_salesteam.html` | Sales team edition — exact copy of site.html, owned by Denise Burtz |
 | `deck.html` | Reveal.js slide deck (18 slides, fragment animations, speaker notes) |
 | `verifast-offer.html` | Reveal.js mini-deck (4 slides) — HelloPackage × Verifast partner incentive for pending contracts |
+| `futureproofing.html` | Standalone one-pager — future-proofing your building (email-shareable, clip-recordable) |
 
 ## Required Assets
 

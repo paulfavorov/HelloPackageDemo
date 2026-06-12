@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Future-Proofing Your Building — HelloPackage</title>
+<meta name="description" content="The infrastructure you install today is the foundation for what's coming tomorrow. Robotics, AI security, universal elevator controls, and next-gen access — HelloPackage is wired for all of it." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-soft: #F8FAFC;
+    --bg-card: #FAFBFD;
+    --bg-dark: #0B1220;
+    --text: #0B1220;
+    --text-2: #475569;
+    --text-3: #94A3B8;
+    --red: #E71D25;
+    --red-hover: #C81920;
+    --red-soft: #FEF2F2;
+    --blue: #0080A5;
+    --blue-bright: #00AED5;
+    --blue-soft: #F0FAFD;
+    --border: #E2E8F0;
+    --border-strong: #CBD5E1;
+    --container: 1180px;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  img, video { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 2rem; }
+
+  /* ============== TYPOGRAPHY ============== */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--blue);
+  }
+  .eyebrow::before { content: ''; width: 32px; height: 1.5px; background: var(--blue); flex-shrink: 0; }
+
+  /* ============== NAV ============== */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: var(--container); margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  }
+  .nav-logo {
+    width: 168px; height: 44px;
+    background-image: url('Logo.jpg');
+    background-size: contain; background-repeat: no-repeat;
+    background-position: left center;
+  }
+  .nav-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--blue);
+    background: var(--blue-soft); border: 1px solid rgba(0,174,213,0.18);
+    border-radius: 100px; padding: 0.45rem 1rem;
+  }
+
+  /* ============== HERO ============== */
+  .hero {
+    padding: 5.5rem 0 4rem;
+    text-align: center;
+  }
+  .hero-headline {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5.4rem);
+    font-weight: 800; line-height: 0.98;
+    letter-spacing: -0.045em; color: var(--text);
+    margin-top: 1.4rem;
+  }
+  .hero-headline .accent { color: var(--blue); font-style: italic; }
+  .hero-divider { width: 96px; height: 3px; background: var(--text); margin: 2rem auto 1.5rem; }
+  .hero-sub {
+    font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+    color: var(--text-2); line-height: 1.55;
+    max-width: 56ch; margin: 0 auto;
+  }
+
+  /* ============== CARDS ============== */
+  .future-section { padding: 1rem 0 4rem; }
+  .future-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); gap: 1.2rem;
+  }
+  .future-grid.row2 {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 66%; margin: 1.2rem auto 0;
+  }
+  .future-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 18px; overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  .future-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: 0 30px 60px -25px rgba(15,23,42,0.15);
+  }
+  .future-card-video {
+    width: 100%; aspect-ratio: 16/9; object-fit: cover;
+    border-bottom: 1px solid var(--border);
+    background: #0B1220;
+  }
+  .future-card-body {
+    padding: 1.2rem 1.4rem 1.4rem;
+  }
+  .future-card-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--blue);
+  }
+  .future-card-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.025em; margin-top: 0.4rem;
+    line-height: 1.1;
+  }
+  .future-card-desc {
+    font-size: 0.82rem; color: var(--text-2);
+    line-height: 1.5; margin-top: 0.4rem;
+  }
+  .future-card-desc a { color: var(--blue); text-decoration: underline; }
+  @media (max-width: 920px) {
+    .future-grid { grid-template-columns: 1fr; }
+    .future-grid.row2 { grid-template-columns: 1fr; max-width: 100%; }
+  }
+
+  /* ============== WHY IT MATTERS (DARK STRIP) ============== */
+  .dark-strip {
+    background: var(--bg-dark);
+    padding: 4rem 0;
+    position: relative; overflow: hidden;
+  }
+  .dark-strip::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(0,174,213,0.07) 0%, transparent 70%);
+  }
+  .dark-strip .container { position: relative; z-index: 2; }
+  .dark-strip-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem; text-align: center;
+  }
+  .dark-stat-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900; color: #fff;
+    letter-spacing: -0.04em; line-height: 1;
+  }
+  .dark-stat-num.red { color: var(--red); }
+  .dark-stat-num.cyan { color: var(--blue-bright); }
+  .dark-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: #94A3B8; margin-top: 0.6rem;
+  }
+  @media (max-width: 700px) {
+    .dark-strip-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+  }
+
+  /* ============== CTA ============== */
+  .cta {
+    padding: 4.5rem 0 4rem;
+    text-align: center;
+  }
+  .cta-headline {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 800; letter-spacing: -0.04em;
+    line-height: 1; color: var(--text);
+  }
+  .cta-headline .accent { color: var(--red); font-style: italic; }
+  .cta-sub {
+    font-size: 1.05rem; color: var(--text-2);
+    margin-top: 1rem; max-width: 50ch;
+    margin-left: auto; margin-right: auto;
+  }
+  .cta-contacts {
+    display: flex; justify-content: center; gap: 3.5rem;
+    margin-top: 2.5rem; flex-wrap: wrap;
+  }
+  .cta-contact { text-align: left; }
+  .cta-contact .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    color: var(--text-3);
+  }
+  .cta-contact .val {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.15rem; font-weight: 800;
+    color: var(--text); margin-top: 0.4rem;
+  }
+  .cta-contact .det {
+    font-size: 0.85rem; color: var(--text-2); margin-top: 0.2rem;
+  }
+  .cta-contact .det a { color: var(--blue); }
+  .cta-contact .det a:hover { text-decoration: underline; }
+
+  /* ============== FOOTER ============== */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 1.8rem 0;
+    text-align: center;
+    font-size: 0.78rem; color: var(--text-3);
+  }
+
+  /* ============== REVEAL ============== */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo"></div>
+    <span class="nav-pill">Built for what's next</span>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow reveal" style="justify-content:center;">Built for what's next</span>
+    <h1 class="hero-headline reveal">Future-proofing your <span class="accent">building.</span></h1>
+    <div class="hero-divider reveal"></div>
+    <p class="hero-sub reveal">The infrastructure you install today is the foundation for what's coming tomorrow. Robotics, AI security, universal elevator access, and next-generation entry — HelloPackage is wired for all of it, from day one.</p>
+  </div>
+</section>
+
+<!-- ============== CARDS ============== -->
+<section class="future-section">
+  <div class="container">
+    <!-- Row 1: 3 cards -->
+    <div class="future-grid">
+      <div class="future-card reveal">
+        <video class="future-card-video" autoplay muted loop playsinline>
+          <source src="external/RobotArms.mp4" type="video/mp4" />
+        </video>
+        <div class="future-card-body">
+          <span class="future-card-eyebrow">Next 01</span>
+          <div class="future-card-title">Robotic Package Room Management.</div>
+          <p class="future-card-desc">Autonomous robots that organize, sort, and manage packages inside the room around the clock. No staff needed for routine operations — the robot handles placement, retrieval, and inventory tracking.</p>
+        </div>
+      </div>
+
+      <div class="future-card reveal">
+        <video class="future-card-video" autoplay muted loop playsinline>
+          <source src="Security_bot.mp4" type="video/mp4" />
+        </video>
+        <div class="future-card-body">
+          <span class="future-card-eyebrow">Next 02</span>
+          <div class="future-card-title">Robotics-Ready Security.</div>
+          <p class="future-card-desc">Autonomous robotic security patrols are here. Partners like <a href="https://www.getundaunted.com/" target="_blank" rel="noopener noreferrer">Undaunted</a> already patrol multifamily communities 24/7. HelloPackage is wired to integrate from day one.</p>
+        </div>
+      </div>
+
+      <div class="future-card reveal">
+        <video class="future-card-video" autoplay muted loop playsinline>
+          <source src="Elevator.mp4" type="video/mp4" />
+        </video>
+        <div class="future-card-body">
+          <span class="future-card-eyebrow">Next 03</span>
+          <div class="future-card-title">Elevator Controls.</div>
+          <p class="future-card-desc">The first universal elevator interface — any robot, any elevator, any manufacturer. <a href="https://aethon.com/readyelevator/" target="_blank" rel="noopener noreferrer">ReadyElevator</a> future-proofs your building for every service robot on the market.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: 2 cards, centered -->
+    <div class="future-grid row2">
+      <div class="future-card reveal">
+        <video class="future-card-video" autoplay muted loop playsinline>
+          <source src="3d_scan.mp4" type="video/mp4" />
+        </video>
+        <div class="future-card-body">
+          <span class="future-card-eyebrow">Next 04</span>
+          <div class="future-card-title">Complete 3D Scanning.</div>
+          <p class="future-card-desc">Full spatial mapping via <a href="https://www.thepreview3d.com/" target="_blank" rel="noopener noreferrer">Preview 3D</a>. Digital twins of every building for precise planning, remote audits, and automation routing.</p>
+        </div>
+      </div>
+
+      <div class="future-card reveal">
+        <video class="future-card-video" autoplay muted loop playsinline>
+          <source src="external/AccessControl.mp4" type="video/mp4" />
+        </video>
+        <div class="future-card-body">
+          <span class="future-card-eyebrow">Next 05</span>
+          <div class="future-card-title">Next-Gen Access Control.</div>
+          <p class="future-card-desc">New ways to control who enters and how — biometric access, mobile credentials, and AI-driven entry that adapts to your property's needs. Beyond the lock and key.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== WHY IT MATTERS ============== -->
+<section class="dark-strip">
+  <div class="container">
+    <div class="dark-strip-grid">
+      <div class="reveal">
+        <div class="dark-stat-num red">200+</div>
+        <div class="dark-stat-label">Communities already live</div>
+      </div>
+      <div class="reveal">
+        <div class="dark-stat-num cyan">1</div>
+        <div class="dark-stat-label">U.S. patent issued</div>
+      </div>
+      <div class="reveal">
+        <div class="dark-stat-num">24/7</div>
+        <div class="dark-stat-label">AI monitoring, always on</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CTA ============== -->
+<section class="cta">
+  <div class="container">
+    <h2 class="cta-headline reveal">The amenity that <span class="accent">compounds</span> in value.</h2>
+    <p class="cta-sub reveal">Most amenities depreciate from the day they're installed. HelloPackage gets smarter every year — new integrations, new automation, continuous platform updates.</p>
+
+    <div class="cta-contacts reveal">
+      <div class="cta-contact">
+        <div class="lbl">Head of Sales &amp; Success</div>
+        <div class="val">Denise Burtz</div>
+        <div class="det"><a href="mailto:deniseburtz@packagesolutions.com">deniseburtz@packagesolutions.com</a></div>
+        <div class="det">866.931.5567 toll-free</div>
+      </div>
+      <div class="cta-contact">
+        <div class="lbl">Web</div>
+        <div class="val">hellopackage.com</div>
+        <div class="det"><a href="https://hellopackage.com" target="_blank" rel="noopener noreferrer">Book a demo</a></div>
+        <div class="det">Atlanta Tech Village · Atlanta, GA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="container">
+    HelloPackage by Package Solutions, Inc. · HelloPackage® is a registered trademark
+  </div>
+</footer>
+
+<!-- ============== SCROLL REVEAL ============== -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
