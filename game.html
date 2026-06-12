@@ -125,6 +125,36 @@
   .sizechip.XL{ background:var(--red-soft); color:var(--red); border:1px solid #FECACA; }
   .ccode{ font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:600; color:var(--t3); letter-spacing:.08em; }
 
+  /* ---------- driver dock (training step) ---------- */
+  #ddock{ flex:none; padding:0 14px 4px; }
+  .dghost{
+    border:1.5px dashed var(--line); border-radius:10px; padding:10px 12px;
+    font-size:8.5px; font-weight:600; letter-spacing:.16em; color:var(--t3); text-align:center;
+  }
+  .ddrive{
+    border:1px solid #FDE68A; border-radius:11px; background:#FFFBEB;
+    padding:9px 11px 10px; position:relative; overflow:hidden;
+  }
+  .ddrive::before{ content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--amber); }
+  .ddrive.training{ border-color:#BAE6F3; background:var(--cyan-soft); }
+  .ddrive.training::before{ background:var(--cyan); }
+  .dtop{ display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+  .dcar{ font-size:10px; font-weight:700; letter-spacing:.14em; color:var(--navy); }
+  .dstate{ font-size:8.5px; font-weight:600; letter-spacing:.12em; color:var(--amber-deep); }
+  .ddrive.training .dstate{ color:var(--blue-deep); }
+  .dmsg{ font-size:11px; color:var(--t2); margin:4px 0 8px; line-height:1.4; }
+  .trainbtn{
+    font-family:'Manrope',sans-serif; font-weight:800; font-size:11px; letter-spacing:.1em;
+    background:var(--red); color:#fff; border:none; border-radius:7px;
+    padding:7px 14px; cursor:pointer; text-transform:uppercase; margin-bottom:8px;
+    transition:transform .1s ease;
+  }
+  .trainbtn:hover{ transform:translateY(-1px); }
+  .dbar{ height:5px; background:rgba(15,23,42,.08); border-radius:3px; overflow:hidden; }
+  .dbar i{ display:block; height:100%; width:100%; background:var(--amber); border-radius:3px; }
+  .ddrive.training .dbar i{ background:var(--cyan); width:0; }
+  .step:nth-child(4)::before{ background:var(--amber); }
+
   /* ---------- locker room ---------- */
   #room{ flex:1; position:relative; padding:2px 16px 12px; display:flex; flex-direction:column; gap:10px; min-height:0; }
   #bankgrid{
@@ -389,8 +419,9 @@
         </div>
         <div class="colhead">
           <div class="eyebrow">Arrivals</div>
-          <div class="sub">5 deep. Then you're buried.</div>
+          <div class="sub">300 units &middot; ~135 boxes/day</div>
         </div>
+        <div id="ddock"></div>
         <div id="lane"></div>
       </section>
 
@@ -427,29 +458,34 @@
       <div class="ovinner">
         <div class="eyebrow">HelloPackage &middot; Pre-demo warm-up</div>
         <h1>Package <span class="accent">Panic</span></h1>
-        <p class="ovsub">You're running a locker bank on delivery day. Every box is a different size.
-        The lockers don't care &mdash; and there are only two big doors.</p>
+        <p class="ovsub">You're running the locker bank at a <b>300-unit community</b> &mdash; 12+ packages
+        per unit, every month. Call it 4,000 boxes. The lockers don't care, and there are only two big doors.</p>
         <div class="steps">
           <div class="step">
             <div class="stepnum">01</div>
-            <div class="steptitle">FIT IT</div>
-            <div class="stepbody">Click a package, then a locker door that fits. Small boxes go anywhere. Big boxes need the big doors &mdash; there are never enough.</div>
+            <div class="steptitle">TRAIN DRIVERS</div>
+            <div class="stepbody">New carriers don't know your flow. Train them fast &mdash; or they dump everything on the floor and leave.</div>
           </div>
           <div class="step">
             <div class="stepnum">02</div>
-            <div class="steptitle">OR FLOOR IT</div>
-            <div class="stepbody">No door? It lands on the floor &mdash; unsecured, untracked. Residents dig for theirs. Porch pirates shop for free.</div>
+            <div class="steptitle">FIT THE BOX</div>
+            <div class="stepbody">Click a package, then a door that fits. Big boxes need the two big doors. XL fits nothing.</div>
           </div>
           <div class="step">
             <div class="stepnum">03</div>
+            <div class="steptitle">OR FLOOR IT</div>
+            <div class="stepbody">No door? The floor: unsecured, untracked. Residents dig. Porch pirates shop for free.</div>
+          </div>
+          <div class="step">
+            <div class="stepnum">04</div>
             <div class="steptitle">SURVIVE</div>
-            <div class="stepbody">Watch residents swing doors open as you work. Keep the queue moving, the floor clear, and your stars alive.</div>
+            <div class="stepbody">Queue overflow, a pile of 14, or one star &mdash; any of them ends your shift.</div>
           </div>
         </div>
         <div class="btnrow">
           <button class="btn" id="startBtn">Clock in</button>
         </div>
-        <div class="ovfoot">162 packages per household per year &mdash; Capital One. Lockers were never going to be enough.</div>
+        <div class="ovfoot">300 units &times; 162 packages/household/yr (Capital One) &asymp; 4,000 boxes a month &middot; ~135 a day</div>
       </div>
     </div>
 
@@ -463,20 +499,21 @@
           <div class="statchip">ARRIVALS<b id="garr">0</b></div>
           <div class="statchip hot">YOUR FLOOR RATE<b id="gfloor">0%</b></div>
           <div class="statchip hot">STOLEN / MISSING<b id="gstolen">0</b></div>
+          <div class="statchip">DRIVERS TRAINED<b id="gtrained">0</b></div>
           <div class="statchip">STAFF TIME BURNED<b id="gstaff">0H 00M</b></div>
         </div>
         <div class="proofgrid">
           <div class="proof r">
-            <div class="prooft">THE SIZES</div>
-            <div class="proofb">Every box is a different size &mdash; lockers aren't. Roughly <b>25% of real package volume</b> (oversize, odd shapes, holiday surge) doesn't fit locker banks at all. HelloPackage's open room takes everything, at <b>4&times; the density</b>.</div>
+            <div class="prooft">THE DRIVERS</div>
+            <div class="proofb">You hand-trained <b id="gtrained2">0</b> drivers today &mdash; between every other job. HelloPackage gives every carrier automatic access, a guided drop-off flow, and training built in: <b>98.7% driver participation</b> vs. the 30&ndash;40% industry norm.</div>
           </div>
           <div class="proof c">
             <div class="prooft">THE FLOOR</div>
-            <div class="proofb">Your floor rate: <b id="gfloor2">0%</b> &mdash; unsecured and invisible. In a HelloPackage room, floor space is <b>by design</b>: 25% of volume, every single piece still logged and tracked.</div>
+            <div class="proofb">Your floor rate: <b id="gfloor2">0%</b> &mdash; unsecured and invisible. Roughly <b>25% of real volume</b> doesn't fit lockers at all. In a HelloPackage room, floor space is <b>by design</b> &mdash; at 4&times; locker density, every piece still logged.</div>
           </div>
           <div class="proof r">
             <div class="prooft">THE TRACKING</div>
-            <div class="proofb">Nothing on your floor was logged. HelloPackage <b>computer vision tracks every drop-off</b>, records every pickup, and monitors the room 24/7. Lost-package disputes end.</div>
+            <div class="proofb">A 300-unit community moves <b>~4,000 packages a month</b> &mdash; each one needs its own chain of custody. HelloPackage computer vision <b>logs every package individually</b>: drop-off, shelf, pickup, monitored 24/7. Disputes end.</div>
           </div>
           <div class="proof c">
             <div class="prooft">THE RESIDENTS</div>
@@ -556,12 +593,12 @@
     { until:1e9, gap:2100, drop:[3,4], name:'HOLIDAY PEAK' }
   ];
   var TICKS = [
-    '162 packages per household per year — Capital One',
+    '300 units × 12+ packages/unit/mo ≈ 4,000 boxes — Capital One (162/household/yr)',
     '~25% of package volume doesn’t fit lockers — oversize + holiday surge',
+    'Every package needs individual tracking — or it’s your word vs. the carrier’s',
     'Staff lose 10–20 hours a week to packages — NMHC',
-    'Only 30% of U.S. apartments have structured package management',
-    '21.2B U.S. packages a year · 35% route to multifamily',
-    '4× density vs lockers · every package tracked — HelloPackage'
+    '98.7% driver participation when access + training are automatic — HelloPackage',
+    'Only 30% of U.S. apartments have structured package management'
   ];
   var QUEUE_MAX = 5, FLOOR_MAX = 14;
   var STAFF_MIN_PER_SEC = 4;
@@ -578,6 +615,8 @@
       pkgSeq:0,
       nextDriverAt:1400, nextPickupAt:9000, nextPirateAt:20000,
       pendingPickups:0, activeWalkers:0,
+      trained:{}, pendingDrivers:[], dockActive:null, dockBarEl:null,
+      trainedCount:0, dumps:0,
       tier:-1, tickIdx:-1
     };
   }
@@ -710,8 +749,8 @@
   }
 
   var toastTO = null;
-  function driverToast(carrier, n){
-    $('#dtoasttxt').textContent = carrier + ' · +' + n;
+  function driverToast(carrier, label){
+    $('#dtoasttxt').textContent = carrier + ' · ' + label;
     var t = $('#dtoast');
     t.classList.add('show');
     if(toastTO) clearTimeout(toastTO);
@@ -755,12 +794,7 @@
     S.arrivals++;
     renderQueue(); updateHUD();
   }
-  function driverVisit(){
-    var t = TIERS[S.tier];
-    var n = rnd(t.drop[0], t.drop[1]);
-    var carrier = pick(CARRIERS);
-    S.drivers++;
-    driverToast(carrier, n);
+  function dropPackages(carrier, n){
     var run = S.runId;
     for(var i=0;i<n;i++){
       (function(delay){
@@ -769,6 +803,87 @@
         }, delay);
       })(i*380);
     }
+  }
+  function driverVisit(){
+    var t = TIERS[S.tier];
+    var n = rnd(t.drop[0], t.drop[1]);
+    var carrier = pick(CARRIERS);
+    S.drivers++;
+    if(!S.trained[carrier]){
+      // untrained carrier: holds their drop at the dock until the employee
+      // trains them — or dumps it all on the floor and leaves
+      S.pendingDrivers.push({ carrier:carrier, n:n });
+      driverToast(carrier, 'NEW DRIVER');
+      dbg('driver '+carrier+' UNTRAINED n='+n);
+      return;
+    }
+    driverToast(carrier, '+' + n);
+    dropPackages(carrier, n);
+  }
+
+  /* ---------- driver dock: the manual training step ---------- */
+  var WAIT_MS_BASE = 7000, TRAIN_MS = 2600;
+  function waitMs(){ return DEBUG ? 14000 : WAIT_MS_BASE; }
+  function renderDock(){
+    var d = $('#ddock');
+    var a = S.dockActive;
+    S.dockBarEl = null;
+    if(!a){
+      d.innerHTML = '<div class="dghost mono">DRIVER DOCK &middot; NEW CARRIERS CHECK IN HERE</div>';
+      return;
+    }
+    if(a.mode === 'wait'){
+      d.innerHTML =
+        '<div class="ddrive wait"><div class="dtop">'+
+        '<span class="dcar mono">'+a.carrier+' DRIVER</span>'+
+        '<span class="dstate mono">UNTRAINED &middot; '+a.n+' BOXES</span></div>'+
+        '<div class="dmsg">Doesn&rsquo;t know your flow &mdash; about to dump and go.</div>'+
+        '<button class="trainbtn" id="trainBtn">Train now</button>'+
+        '<div class="dbar"><i id="dockbar"></i></div></div>';
+      $('#trainBtn').onclick = startTraining;
+    } else {
+      d.innerHTML =
+        '<div class="ddrive training"><div class="dtop">'+
+        '<span class="dcar mono">TRAINING '+a.carrier+' DRIVER</span>'+
+        '<span class="dstate mono">GUIDED FLOW</span></div>'+
+        '<div class="dmsg">Walking them through scan, shelf, confirm&hellip;</div>'+
+        '<div class="dbar fill"><i id="dockbar"></i></div></div>';
+    }
+    S.dockBarEl = document.getElementById('dockbar');
+  }
+  function startTraining(){
+    var a = S.dockActive;
+    if(!S.running || !a || a.mode !== 'wait') return;
+    a.mode = 'training';
+    a.trainEnd = performance.now() + TRAIN_MS;
+    dbg('train START '+a.carrier);
+    renderDock();
+  }
+  function finishTraining(){
+    var a = S.dockActive;
+    S.trained[a.carrier] = true;
+    S.trainedCount++;
+    feed('ok','You trained the <b>'+a.carrier+'</b> driver — guided flow from here on.');
+    dbg('train DONE '+a.carrier);
+    dropPackages(a.carrier, a.n);
+    S.dockActive = null;
+    renderDock(); updateHUD();
+  }
+  function dumpAndGo(){
+    var a = S.dockActive;
+    S.dumps++;
+    for(var i=0;i<a.n;i++){
+      var p = { id:++S.pkgSeq, code:uniqueCode(), size:rollSize(), carrier:a.carrier };
+      S.arrivals++; S.floored++;
+      addFloorBox(p);
+    }
+    S.rating = Math.max(1, S.rating - 0.2);
+    feed('bad','The <b>'+a.carrier+'</b> driver dumped '+a.n+' boxes on the floor and left. Untrained.');
+    dbg('driver '+a.carrier+' DUMPED n='+a.n);
+    S.dockActive = null;
+    renderDock(); updateHUD();
+    if(S.floorPkgs.length >= FLOOR_MAX){ gameOver('floor'); return; }
+    if(S.rating <= 1.001){ gameOver('rating'); }
   }
 
   /* ---------- placing ---------- */
@@ -1039,6 +1154,27 @@
       if(!S.running) return;
       S.nextDriverAt = S.elapsed + TIERS[S.tier].gap * (DEBUG ? 3 : 1) * (0.85 + Math.random()*0.3);
     }
+
+    /* driver dock: surface next untrained carrier, run countdown / training */
+    if(!S.dockActive && S.pendingDrivers.length){
+      var pd = S.pendingDrivers.shift();
+      S.dockActive = { carrier:pd.carrier, n:pd.n, mode:'wait', deadline: now + waitMs(), trainEnd:0 };
+      dbg('dock SHOW '+pd.carrier);
+      renderDock();
+    }
+    if(S.dockActive){
+      var da = S.dockActive;
+      if(da.mode === 'wait'){
+        var drem = da.deadline - now;
+        if(S.dockBarEl) S.dockBarEl.style.width = Math.max(0, drem / waitMs() * 100) + '%';
+        if(drem <= 0){ dumpAndGo(); if(!S.running) return; }
+      } else {
+        var prog = 1 - Math.max(0, da.trainEnd - now) / TRAIN_MS;
+        if(S.dockBarEl) S.dockBarEl.style.width = (prog * 100) + '%';
+        if(now >= da.trainEnd){ finishTraining(); }
+      }
+    }
+
     if(S.elapsed >= S.nextPickupAt){
       schedulePickup();
       var gap = sec < 30 ? 6200 : sec < 55 ? 4600 : sec < 80 ? 3700 : 3000;
@@ -1074,11 +1210,16 @@
     $('#gfloor').textContent = floorRate() + '%';
     $('#gfloor2').textContent = floorRate() + '%';
     $('#gstolen').textContent = S.stolen;
+    $('#gtrained').textContent = S.trainedCount;
+    $('#gtrained2').textContent = S.trainedCount;
     $('#gstaff').textContent = fmtStaff(S.elapsed);
     $('#over').classList.add('show');
   }
   function start(){
     S = freshState();
+    /* your regular carriers know the drill — three new ones don't */
+    var shuffled = CARRIERS.slice().sort(function(){ return Math.random() - 0.5; });
+    for(var ci=0; ci<3; ci++) S.trained[shuffled[ci]] = true;
     $('#intro').classList.remove('show');
     $('#over').classList.remove('show');
     $('#pile').innerHTML = '';
@@ -1086,7 +1227,7 @@
     $('#feed').appendChild(el('div','qempty','Every door swing shows up here. For now, it’s quiet.'));
     document.querySelectorAll('.walker').forEach(function(w){ w.parentNode.removeChild(w); });
     buildBank();
-    renderQueue(); updateGlow();
+    renderQueue(); updateGlow(); renderDock();
     S.running = true;
     S.t0 = performance.now();
     S.elapsed = 0;
@@ -1116,7 +1257,7 @@
   /* idle state behind intro */
   S = freshState();
   buildBank();
-  renderQueue();
+  renderQueue(); renderDock();
   $('#feed').appendChild(el('div','qempty','Every door swing shows up here. For now, it’s quiet.'));
   $('#ticker').textContent = TICKS[0];
 })();
