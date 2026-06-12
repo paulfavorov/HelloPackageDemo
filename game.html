@@ -62,6 +62,23 @@
   .meter b.warn-b{ color:var(--amber-deep); }
   .meter b.bad-b{ color:var(--red); }
   @keyframes pulse{ 50%{ opacity:.45; } }
+  .vbtn{
+    margin-left:8px; flex:none; cursor:pointer;
+    border:1px solid var(--red); border-radius:8px; padding:6px 12px;
+    font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; letter-spacing:.14em;
+    color:var(--red); background:var(--red-soft); text-transform:uppercase;
+    transition:transform .1s ease;
+  }
+  .vbtn:hover{ transform:translateY(-1px); }
+  .caplabel.hot{ color:var(--red); border:1px solid #FECACA; animation:pulse 1.1s infinite; }
+  .night .floorlabel{ animation:pulse 1.2s infinite; }
+  .resetline{ margin-top:14px; }
+  .resetlink{
+    background:none; border:none; cursor:pointer;
+    font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:600; letter-spacing:.16em;
+    color:var(--t3); text-transform:uppercase; text-decoration:underline; text-underline-offset:3px;
+  }
+  .resetlink:hover{ color:var(--red); }
 
   /* ---------- main layout ---------- */
   main{ flex:1; display:flex; gap:14px; padding:14px 24px; min-height:0; }
@@ -396,13 +413,14 @@
         <div class="bg2">PACKAGE PANIC</div>
       </div>
       <div class="meters">
-        <div class="meter">TIME <b id="mtime">0:00</b></div>
+        <div class="meter" style="min-width:122px">DAY <b id="mday">1 &middot; 7:00 AM</b></div>
         <div class="meter" id="mqwrap">QUEUE <b id="mqueue">0/5</b></div>
         <div class="meter" id="mfwrap">FLOOR RATE <b id="mfloor">0%</b></div>
         <div class="meter">UNSECURED <b id="munsec">0</b></div>
-        <div class="meter">STOLEN <b id="mstolen">0</b></div>
+        <div class="meter">MISSING <b id="mstolen">0</b></div>
         <div class="meter">RATING <b id="mrate">&#9733; 5.0</b></div>
         <div class="meter">STAFF TIME <b id="mstaff">0H 00M</b></div>
+        <button class="vbtn" id="verdictBtn">The verdict</button>
       </div>
     </header>
 
@@ -434,7 +452,7 @@
           <div id="bankgrid"></div>
           <div id="floorzone" aria-label="The floor, unsecured overflow area">
             <div class="floorlabel">THE FLOOR &middot; UNSECURED</div>
-            <div class="caplabel" id="caplabel">0 / 14 &middot; 14 = BURIED</div>
+            <div class="caplabel" id="caplabel">0 ON THE FLOOR</div>
             <div id="pile"></div>
           </div>
         </div>
@@ -458,8 +476,8 @@
       <div class="ovinner">
         <div class="eyebrow">HelloPackage &middot; Pre-demo warm-up</div>
         <h1>Package <span class="accent">Panic</span></h1>
-        <p class="ovsub">You're running the locker bank at a <b>300-unit community</b> &mdash; 12+ packages
-        per unit, every month. Call it 4,000 boxes. The lockers don't care, and there are only two big doors.</p>
+        <p class="ovsub">A digital day in the life of the locker bank at a <b>300-unit community</b> &mdash; 12+ packages
+        per unit, every month. Call it 4,000 boxes. There's no game over: the room just keeps score, day after day.</p>
         <div class="steps">
           <div class="step">
             <div class="stepnum">01</div>
@@ -478,8 +496,8 @@
           </div>
           <div class="step">
             <div class="stepnum">04</div>
-            <div class="steptitle">SURVIVE</div>
-            <div class="stepbody">Queue overflow, a pile of 14, or one star &mdash; any of them ends your shift.</div>
+            <div class="steptitle">WATCH IT COMPOUND</div>
+            <div class="stepbody">When the counter jams, boxes cascade to the floor. Nights belong to the pirates. Every day opens with yesterday's backlog.</div>
           </div>
         </div>
         <div class="btnrow">
@@ -492,15 +510,15 @@
     <!-- ============ GAME OVER ============ -->
     <div class="ov" id="over">
       <div class="ovinner">
-        <div class="eyebrow" id="gkicker">THE ARRIVAL QUEUE OVERFLOWED</div>
-        <h1>The lockers <span class="accent">never</span> fit the day.</h1>
+        <div class="eyebrow" id="gkicker">DAY 1 &middot; A LIVE READ ON THE ROOM</div>
+        <h1>The room <span class="accent">never</span> catches up.</h1>
         <div class="chipsrow">
-          <div class="statchip">SURVIVED<b id="gtime">0:00</b></div>
+          <div class="statchip">DAY<b id="gday">1</b></div>
           <div class="statchip">ARRIVALS<b id="garr">0</b></div>
-          <div class="statchip hot">YOUR FLOOR RATE<b id="gfloor">0%</b></div>
-          <div class="statchip hot">STOLEN / MISSING<b id="gstolen">0</b></div>
+          <div class="statchip hot">FLOOR RATE<b id="gfloor">0%</b></div>
+          <div class="statchip hot">MISSING<b id="gstolen">0</b></div>
           <div class="statchip">DRIVERS TRAINED<b id="gtrained">0</b></div>
-          <div class="statchip">STAFF TIME BURNED<b id="gstaff">0H 00M</b></div>
+          <div class="statchip">STAFF TIME<b id="gstaff">0H 00M</b></div>
         </div>
         <div class="proofgrid">
           <div class="proof r">
@@ -522,10 +540,11 @@
         </div>
         <div class="lede">Lockers solve storage. <span class="accent">HelloPackage</span> runs the process.</div>
         <div class="btnrow">
-          <button class="btn" id="againBtn">Run it back</button>
-          <a class="btn ghost" href="https://paulfavorov.github.io/HelloPackageDemo/deck.html" target="_blank" rel="noopener noreferrer">Start the demo &rarr;</a>
+          <a class="btn" href="https://paulfavorov.github.io/HelloPackageDemo/deck.html" target="_blank" rel="noopener noreferrer">Start the demo &rarr;</a>
+          <button class="btn ghost" id="resumeBtn">Keep watching</button>
         </div>
-        <div class="ovfoot">Sources: Capital One &middot; NMHC &middot; HelloPackage platform data. Staff time shown in accelerated game minutes.</div>
+        <div class="resetline"><button class="resetlink" id="resetBtn">Reset the room</button></div>
+        <div class="ovfoot">Sources: Capital One &middot; NMHC &middot; HelloPackage platform data. Simulated clock: one real second &asymp; four room-minutes by day.</div>
       </div>
     </div>
 
@@ -584,14 +603,56 @@
     {size:'S', c:1, r:5}, {size:'S', c:2, r:5}, {size:'S', c:3, r:5},
     {size:'S', c:4, r:5}, {size:'S', c:5, r:5}, {size:'S', c:6, r:5}
   ];
-  var TIERS = [
-    { until:14,  gap:4400, drop:[1,1], name:'FIRST WAVE — HERE THEY COME' },
-    { until:28,  gap:3700, drop:[1,2], name:'WAVE 02 — VOLUME RISING' },
-    { until:44,  gap:3100, drop:[2,2], name:'WAVE 03 — RUSH HOUR' },
-    { until:62,  gap:2700, drop:[2,3], name:'WAVE 04 — BIG BOXES INCOMING' },
-    { until:82,  gap:2400, drop:[3,3], name:'WAVE 05 — EVERYONE DELIVERS' },
-    { until:1e9, gap:2100, drop:[3,4], name:'HOLIDAY PEAK' }
+  /* day-in-the-life clock: starts 7:00 AM; day phase runs 4 sim-minutes per
+     real second, overnight fast-forwards at 16 */
+  var PHASES = [
+    { name:'MORNING SHIFT — USPS LEADS OFF' },
+    { name:'MIDDAY VOLUME' },
+    { name:'PEAK — EVERYONE DELIVERS' },
+    { name:'EVENING PICKUP RUSH' },
+    { name:'OVERNIGHT — THE PILE SITS UNSECURED' }
   ];
+  function phaseIdx(h){
+    if(h >= 21 || h < 7) return 4;
+    if(h >= 18) return 3;
+    if(h >= 14) return 2;
+    if(h >= 10) return 1;
+    return 0;
+  }
+  function simSpeed(h){ return (h >= 7 && h < 21) ? 4 : 16; }
+  function simAbsMin(){ return 420 + S.simMin; }
+  function simHourOfDay(){ return (simAbsMin() % 1440) / 60; }
+  function simDay(){ return Math.floor(S.simMin / 1440) + 1; }
+  function clockStr(){
+    var m = Math.floor(simAbsMin()) % 1440;
+    var h24 = Math.floor(m/60), mm = m % 60;
+    var ap = h24 >= 12 ? 'PM' : 'AM';
+    var h12 = h24 % 12; if(h12 === 0) h12 = 12;
+    return h12 + ':' + ('0'+mm).slice(-2) + ' ' + ap;
+  }
+  function driverGapMs(h){
+    var g = null;
+    if(h >= 7 && h < 10) g = 4200;
+    else if(h >= 10 && h < 14) g = 3000;
+    else if(h >= 14 && h < 18) g = 2200;
+    else if(h >= 18 && h < 21) g = 3400;
+    if(g == null) return null; /* overnight: deliveries stop */
+    var dayFactor = Math.max(0.6, 1 - (simDay()-1)*0.15);
+    return g * dayFactor * (DEBUG ? 3 : 1);
+  }
+  function dropCount(h){
+    if(h >= 14 && h < 18) return rnd(2,3);
+    if(h >= 10 && h < 14) return rnd(1,2);
+    if(h >= 18 && h < 21) return rnd(1,2);
+    return 1;
+  }
+  function pickupGapMs(h){
+    if(h >= 17 && h < 21) return 3200;
+    if(h >= 9 && h < 17) return 5000;
+    if(h >= 7 && h < 9) return 7000;
+    if(h >= 21) return 6500;
+    return 12000;
+  }
   var TICKS = [
     '300 units × 12+ packages/unit/mo ≈ 4,000 boxes — Capital One (162/household/yr)',
     '~25% of package volume doesn’t fit lockers — oversize + holiday surge',
@@ -600,8 +661,7 @@
     '98.7% driver participation when access + training are automatic — HelloPackage',
     'Only 30% of U.S. apartments have structured package management'
   ];
-  var QUEUE_MAX = 5, FLOOR_MAX = 14;
-  var STAFF_MIN_PER_SEC = 4;
+  var QUEUE_MAX = 5;
 
   /* ---------- state ---------- */
   var S = null;
@@ -616,13 +676,10 @@
       nextDriverAt:1400, nextPickupAt:9000, nextPirateAt:20000,
       pendingPickups:0, activeWalkers:0,
       trained:{}, pendingDrivers:[], dockActive:null, dockBarEl:null,
-      trainedCount:0, dumps:0,
-      tier:-1, tickIdx:-1
+      trainedCount:0, dumps:0, cascades:0,
+      simMin:0, staffMin:0, prevNow:0, day:1, phase:-1,
+      tickIdx:-1
     };
-  }
-  function tierFor(sec){
-    for(var i=0;i<TIERS.length;i++){ if(sec < TIERS[i].until) return i; }
-    return TIERS.length-1;
   }
   function rnd(a,b){ return a + Math.floor(Math.random()*(b-a+1)); }
   function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
@@ -630,21 +687,21 @@
     var s = Math.floor(ms/1000);
     return Math.floor(s/60) + ':' + ('0'+(s%60)).slice(-2);
   }
-  function fmtStaff(ms){
-    var min = Math.floor(ms/1000*STAFF_MIN_PER_SEC);
+  function fmtStaff(min){
+    min = Math.floor(min);
     return Math.floor(min/60) + 'H ' + ('0'+(min%60)).slice(-2) + 'M';
   }
   function floorRate(){
     return S.arrivals ? Math.round(S.floored / S.arrivals * 100) : 0;
   }
-  function sizeMix(sec){
-    if(sec < 20) return {S:.55, M:.30, L:.12, XL:.03};
-    if(sec < 45) return {S:.45, M:.30, L:.17, XL:.08};
-    if(sec < 70) return {S:.40, M:.28, L:.20, XL:.12};
-    return {S:.34, M:.28, L:.23, XL:.15};
+  function sizeMix(h){
+    if(h >= 14 && h < 18) return {S:.38, M:.28, L:.21, XL:.13}; /* peak skews big */
+    if(h >= 10 && h < 14) return {S:.45, M:.30, L:.17, XL:.08};
+    if(h >= 18 && h < 21) return {S:.45, M:.30, L:.17, XL:.08};
+    return {S:.55, M:.30, L:.12, XL:.03}; /* morning trickle */
   }
   function rollSize(){
-    var mix = sizeMix(S.elapsed/1000), x = Math.random(), acc = 0, k;
+    var mix = sizeMix(simHourOfDay()), x = Math.random(), acc = 0, k;
     for(k in mix){ acc += mix[k]; if(x < acc) return k; }
     return 'S';
   }
@@ -769,7 +826,7 @@
     var q = f.querySelector('.qempty');
     if(q) q.remove();
     var e = el('div','fentry '+cls,
-      '<span class="ft">'+fmtTime(S.elapsed)+'</span>'+text);
+      '<span class="ft">DAY '+S.day+' · '+clockStr()+'</span>'+text);
     f.insertBefore(e, f.firstChild);
     while(f.children.length > 9) f.removeChild(f.lastChild);
   }
@@ -788,10 +845,19 @@
   }
   function spawnPackage(carrier){
     if(!S.running) return;
-    if(S.queue.length >= QUEUE_MAX){ gameOver('overflow'); return; }
+    S.arrivals++;
+    if(S.queue.length >= QUEUE_MAX){
+      /* counter jammed — the box cascades straight to the unsecured floor */
+      var fp = { id:++S.pkgSeq, code:uniqueCode(), size:rollSize(), carrier:carrier };
+      S.floored++; S.cascades++;
+      addFloorBox(fp);
+      S.rating = Math.max(1, S.rating - 0.05);
+      if(S.cascades % 3 === 1) feed('bad','Counter jammed — boxes are cascading straight to the floor.');
+      updateHUD();
+      return;
+    }
     var p = { id:++S.pkgSeq, code:uniqueCode(), size:rollSize(), carrier:carrier };
     S.queue.push(p);
-    S.arrivals++;
     renderQueue(); updateHUD();
   }
   function dropPackages(carrier, n){
@@ -805,8 +871,7 @@
     }
   }
   function driverVisit(){
-    var t = TIERS[S.tier];
-    var n = rnd(t.drop[0], t.drop[1]);
+    var n = dropCount(simHourOfDay());
     var carrier = pick(CARRIERS);
     S.drivers++;
     if(!S.trained[carrier]){
@@ -882,8 +947,6 @@
     dbg('driver '+a.carrier+' DUMPED n='+a.n);
     S.dockActive = null;
     renderDock(); updateHUD();
-    if(S.floorPkgs.length >= FLOOR_MAX){ gameOver('floor'); return; }
-    if(S.rating <= 1.001){ gameOver('rating'); }
   }
 
   /* ---------- placing ---------- */
@@ -937,7 +1000,6 @@
     S.floored++;
     addFloorBox(sel);
     renderQueue(); updateGlow(); updateHUD();
-    if(S.floorPkgs.length >= FLOOR_MAX){ gameOver('floor'); return; }
     if(S.floorPkgs.length === 3) feed('bad','The floor pile is attracting attention.');
   }
   function addFloorBox(p){
@@ -950,7 +1012,10 @@
     b.style.transform = 'rotate(' + rnd(-16,16) + 'deg)';
     p.floorEl = b;
     S.floorPkgs.push(p);
-    $('#pile').appendChild(b);
+    var pile = $('#pile');
+    pile.appendChild(b);
+    /* keep the DOM bounded as the pile grows into the dozens */
+    while(pile.children.length > 40) pile.removeChild(pile.firstChild);
   }
   function removeFloorBox(p){
     var i = S.floorPkgs.indexOf(p);
@@ -1058,7 +1123,6 @@
         w.classList.add('moving');
         w.style.left = (roomW()+40)+'px';
         updateHUD();
-        if(S.rating <= 1.001){ gameOver('rating'); }
       }],
       [1000, function(){ killWalker(w); }]
     ], function(){ killWalker(w); });
@@ -1089,7 +1153,6 @@
       }],
       [900, function(){
         killWalker(w);
-        if(S.rating <= 1.001){ gameOver('rating'); }
       }]
     ], function(){ killWalker(w); });
   }
@@ -1115,8 +1178,8 @@
 
   /* ---------- HUD ---------- */
   function updateHUD(){
-    $('#mtime').textContent = fmtTime(S.elapsed);
-    $('#mstaff').textContent = fmtStaff(S.elapsed);
+    $('#mday').textContent = S.day + ' · ' + clockStr();
+    $('#mstaff').textContent = fmtStaff(S.staffMin);
     $('#mqueue').textContent = S.queue.length + '/5';
     $('#mqwrap').classList.toggle('danger', S.queue.length >= 4);
     var fr = floorRate();
@@ -1129,7 +1192,9 @@
     var mr = $('#mrate');
     mr.innerHTML = '★ ' + S.rating.toFixed(1);
     mr.className = S.rating >= 4 ? '' : (S.rating >= 2.5 ? 'warn-b' : 'bad-b');
-    $('#caplabel').innerHTML = S.floorPkgs.length + ' / 14 &middot; 14 = BURIED';
+    var cl = $('#caplabel');
+    cl.textContent = S.floorPkgs.length + ' ON THE FLOOR';
+    cl.classList.toggle('hot', S.floorPkgs.length >= 10);
     var ti = Math.floor(S.elapsed/6000) % TICKS.length;
     if(ti !== S.tickIdx){
       S.tickIdx = ti;
@@ -1139,20 +1204,46 @@
     }
   }
 
-  /* ---------- loop ---------- */
+  /* ---------- loop: an endless day-in-the-life ---------- */
   function loop(){
     if(!S.running) return;
     var now = performance.now();
+    var dt = Math.min(120, now - (S.prevNow || now));
+    S.prevNow = now;
     S.elapsed = now - S.t0;
-    var sec = S.elapsed / 1000;
 
-    var ti = tierFor(sec);
-    if(ti !== S.tier){ S.tier = ti; showWave(TIERS[ti].name); }
+    /* advance the simulated clock */
+    var h0 = simHourOfDay();
+    var spd = simSpeed(h0);
+    S.simMin += dt/1000 * spd;
+    if(h0 >= 7 && h0 < 21) S.staffMin += dt/1000 * spd; /* on-shift hours only */
+    var h = simHourOfDay();
 
+    /* phase + day-rollover banners */
+    var ph = phaseIdx(h);
+    var dy = simDay();
+    if(dy !== S.day){
+      S.day = dy;
+      S.phase = ph;
+      showWave('DAY ' + dy + ' — YESTERDAY’S BACKLOG IS STILL HERE');
+      feed('bad','Day '+dy+' opens with <b>'+S.floorPkgs.length+'</b> boxes still on the floor.');
+      dbg('DAY '+dy);
+    } else if(ph !== S.phase){
+      S.phase = ph;
+      showWave(PHASES[ph].name);
+      dbg('PHASE '+ph);
+    }
+    $('#stage').classList.toggle('night', ph === 4);
+
+    /* drivers — silent overnight */
     if(S.elapsed >= S.nextDriverAt){
-      driverVisit();
-      if(!S.running) return;
-      S.nextDriverAt = S.elapsed + TIERS[S.tier].gap * (DEBUG ? 3 : 1) * (0.85 + Math.random()*0.3);
+      var dg = driverGapMs(h);
+      if(dg == null){
+        S.nextDriverAt = S.elapsed + 1000;
+      } else {
+        driverVisit();
+        S.nextDriverAt = S.elapsed + dg * (0.85 + Math.random()*0.3);
+      }
     }
 
     /* driver dock: surface next untrained carrier, run countdown / training */
@@ -1167,7 +1258,7 @@
       if(da.mode === 'wait'){
         var drem = da.deadline - now;
         if(S.dockBarEl) S.dockBarEl.style.width = Math.max(0, drem / waitMs() * 100) + '%';
-        if(drem <= 0){ dumpAndGo(); if(!S.running) return; }
+        if(drem <= 0){ dumpAndGo(); }
       } else {
         var prog = 1 - Math.max(0, da.trainEnd - now) / TRAIN_MS;
         if(S.dockBarEl) S.dockBarEl.style.width = (prog * 100) + '%';
@@ -1177,43 +1268,34 @@
 
     if(S.elapsed >= S.nextPickupAt){
       schedulePickup();
-      var gap = sec < 30 ? 6200 : sec < 55 ? 4600 : sec < 80 ? 3700 : 3000;
-      S.nextPickupAt = S.elapsed + gap * (0.85 + Math.random()*0.3);
+      S.nextPickupAt = S.elapsed + pickupGapMs(h) * (0.85 + Math.random()*0.3);
     }
     processPickups();
 
-    if(S.floorPkgs.length >= 3 && S.elapsed >= S.nextPirateAt){
+    /* pirates: emboldened after dark */
+    var pirateReady = (ph === 4) ? S.floorPkgs.length >= 1 : S.floorPkgs.length >= 3;
+    if(pirateReady && S.elapsed >= S.nextPirateAt){
       pirateRun();
-      S.nextPirateAt = S.elapsed + 9000 + Math.random()*7000;
+      S.nextPirateAt = S.elapsed + (ph === 4 ? 7000 + Math.random()*5000 : 12000 + Math.random()*6000);
     }
-
-    if(sec >= 180){ gameOver('shift'); return; }
 
     updateHUD();
     requestAnimationFrame(loop);
   }
 
-  /* ---------- game over / start ---------- */
-  var REASONS = {
-    overflow: 'THE ARRIVAL QUEUE OVERFLOWED',
-    floor:    'THE FLOOR PILE TOOK OVER THE LOBBY',
-    rating:   'RESIDENT SATISFACTION COLLAPSED',
-    shift:    'YOUR SHIFT ENDED. THE PILE DIDN’T.'
-  };
-  function gameOver(reason){
-    if(!S.running) return;
-    S.running = false;
-    dbg('GAMEOVER '+reason);
-    $('#gkicker').textContent = REASONS[reason] || REASONS.overflow;
-    $('#gtime').textContent = fmtTime(S.elapsed);
+  /* ---------- the verdict (on-demand summary; the sim keeps running) ---------- */
+  function showVerdict(){
+    $('#gkicker').textContent = 'DAY ' + S.day + ' · ' + clockStr() + ' · A LIVE READ ON THE ROOM';
+    $('#gday').textContent = S.day;
     $('#garr').textContent = S.arrivals;
     $('#gfloor').textContent = floorRate() + '%';
     $('#gfloor2').textContent = floorRate() + '%';
     $('#gstolen').textContent = S.stolen;
     $('#gtrained').textContent = S.trainedCount;
     $('#gtrained2').textContent = S.trainedCount;
-    $('#gstaff').textContent = fmtStaff(S.elapsed);
+    $('#gstaff').textContent = fmtStaff(S.staffMin);
     $('#over').classList.add('show');
+    dbg('VERDICT day='+S.day);
   }
   function start(){
     S = freshState();
@@ -1251,7 +1333,9 @@
     }
   });
   $('#startBtn').onclick = start;
-  $('#againBtn').onclick = start;
+  $('#verdictBtn').onclick = function(){ if(S && S.running) showVerdict(); };
+  $('#resumeBtn').onclick = function(){ $('#over').classList.remove('show'); };
+  $('#resetBtn').onclick = start;
   $('#floorzone').onclick = floorClick;
 
   /* idle state behind intro */
