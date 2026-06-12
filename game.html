@@ -634,21 +634,25 @@
     var h12 = h24 % 12; if(h12 === 0) h12 = 12;
     return h12 + ':' + ('0'+mm).slice(-2) + ' ' + ap;
   }
+  /* Delivery SESSIONS, not trickles: a carrier session is a bell curve
+     from 1 to 40 packages (mean ~20). ~7 sessions per simulated day
+     keeps daily volume near the verified ~135/day for 300 units. */
   function driverGapMs(h){
     var g = null;
-    if(h >= 7 && h < 10) g = 3400;
-    else if(h >= 10 && h < 14) g = 2400;
-    else if(h >= 14 && h < 18) g = 1800;
-    else if(h >= 18 && h < 21) g = 2700;
+    if(h >= 7 && h < 10) g = 32000;
+    else if(h >= 10 && h < 14) g = 28000;
+    else if(h >= 14 && h < 18) g = 22000;
+    else if(h >= 18 && h < 21) g = 36000;
     if(g == null) return null; /* overnight: deliveries stop */
     var dayFactor = Math.max(0.6, 1 - (simDay()-1)*0.15);
-    return g * dayFactor * (DEBUG ? 3 : 1);
+    return g * dayFactor;
   }
-  function dropCount(h){
-    if(h >= 14 && h < 18) return rnd(2,4);
-    if(h >= 10 && h < 14) return rnd(1,2);
-    if(h >= 18 && h < 21) return rnd(1,2);
-    return 1;
+  function sessionSize(){
+    /* Irwin-Hall sum of 4 uniforms ≈ normal, mapped onto 1..40 */
+    var u = (Math.random() + Math.random() + Math.random() + Math.random()) / 4;
+    var v = Math.round(1 + u * 39);
+    if(S.elapsed < 15000) v = Math.min(v, 8); /* gentle first wave while viewers orient */
+    return Math.max(1, Math.min(40, v));
   }
   function pickupGapMs(h){
     if(h >= 17 && h < 21) return 3200;
@@ -880,16 +884,32 @@
   }
   function dropPackages(carrier, n){
     var run = S.runId;
+    var stagger = n > 12 ? 260 : 380; /* big sessions rain in faster */
     for(var i=0;i<n;i++){
       (function(delay){
         setTimeout(function(){
           if(S.runId===run && S.running) spawnPackage(carrier);
         }, delay);
-      })(i*380);
+      })(i*stagger);
+    }
+  }
+  function rainFloor(carrier, n){
+    /* boxes land on the unsecured floor one by one — visible accumulation */
+    var run = S.runId;
+    for(var i=0;i<n;i++){
+      (function(d){
+        setTimeout(function(){
+          if(S.runId !== run || !S.running) return;
+          var p = { id:++S.pkgSeq, code:uniqueCode(), size:rollSize(), carrier:carrier };
+          S.arrivals++; S.floored++;
+          addFloorBox(p);
+          updateHUD();
+        }, d);
+      })(i*120);
     }
   }
   function driverVisit(){
-    var n = dropCount(simHourOfDay());
+    var n = sessionSize();
     var carrier = pick(CARRIERS);
     S.drivers++;
     if(!S.trained[carrier]){
@@ -904,11 +924,7 @@
       /* trained, but skips the check-in protocol — boxes hit the floor unlogged */
       S.skips++;
       driverToast(carrier, 'NO CHECK-IN', true);
-      for(var i=0;i<n;i++){
-        var p = { id:++S.pkgSeq, code:uniqueCode(), size:rollSize(), carrier:carrier };
-        S.arrivals++; S.floored++;
-        addFloorBox(p);
-      }
+      rainFloor(carrier, n);
       S.rating = Math.max(1, S.rating - 0.1);
       if(S.skips % 2 === 1) feed('bad','The <b>'+carrier+'</b> driver dropped '+n+' box'+(n>1?'es':'')+' and left — no check-in. Industry norm: only 30–40% follow process.');
       dbg('driver '+carrier+' SKIPPED n='+n);
@@ -916,6 +932,7 @@
       return;
     }
     driverToast(carrier, '+' + n);
+    if(n >= 30) feed('info','Holiday-grade session: the <b>'+carrier+'</b> driver is unloading '+n+' boxes.');
     dropPackages(carrier, n);
   }
 
@@ -970,11 +987,7 @@
   function dumpAndGo(){
     var a = S.dockActive;
     S.dumps++;
-    for(var i=0;i<a.n;i++){
-      var p = { id:++S.pkgSeq, code:uniqueCode(), size:rollSize(), carrier:a.carrier };
-      S.arrivals++; S.floored++;
-      addFloorBox(p);
-    }
+    rainFloor(a.carrier, a.n);
     S.rating = Math.max(1, S.rating - 0.2);
     feed('bad','The <b>'+a.carrier+'</b> driver dumped '+a.n+' box'+(a.n>1?'es':'')+' on the floor and left. Untrained.');
     dbg('driver '+a.carrier+' DUMPED n='+a.n);
