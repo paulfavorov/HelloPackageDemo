@@ -112,6 +112,7 @@
     opacity:0; transform:translateY(-6px); transition:all .25s ease; pointer-events:none;
   }
   #dtoast.show{ opacity:1; transform:translateY(0); }
+  #dtoast.skip{ background:var(--red); }
 
   /* ---------- arrival queue ---------- */
   #lane{ flex:1; padding:4px 14px 12px; display:flex; flex-direction:column; gap:8px; min-height:0; }
@@ -517,6 +518,7 @@
           <div class="statchip">ARRIVALS<b id="garr">0</b></div>
           <div class="statchip hot">FLOOR RATE<b id="gfloor">0%</b></div>
           <div class="statchip hot">MISSING<b id="gstolen">0</b></div>
+          <div class="statchip hot">NO CHECK-INS<b id="gskips">0</b></div>
           <div class="statchip">DRIVERS TRAINED<b id="gtrained">0</b></div>
           <div class="statchip">STAFF TIME<b id="gstaff">0H 00M</b></div>
           <div class="statchip hot">LABOR COST*<b id="gcost">$0</b></div>
@@ -634,16 +636,16 @@
   }
   function driverGapMs(h){
     var g = null;
-    if(h >= 7 && h < 10) g = 4200;
-    else if(h >= 10 && h < 14) g = 3000;
-    else if(h >= 14 && h < 18) g = 2200;
-    else if(h >= 18 && h < 21) g = 3400;
+    if(h >= 7 && h < 10) g = 3400;
+    else if(h >= 10 && h < 14) g = 2400;
+    else if(h >= 14 && h < 18) g = 1800;
+    else if(h >= 18 && h < 21) g = 2700;
     if(g == null) return null; /* overnight: deliveries stop */
     var dayFactor = Math.max(0.6, 1 - (simDay()-1)*0.15);
     return g * dayFactor * (DEBUG ? 3 : 1);
   }
   function dropCount(h){
-    if(h >= 14 && h < 18) return rnd(2,3);
+    if(h >= 14 && h < 18) return rnd(2,4);
     if(h >= 10 && h < 14) return rnd(1,2);
     if(h >= 18 && h < 21) return rnd(1,2);
     return 1;
@@ -664,6 +666,9 @@
     'Only 30% of U.S. apartments have structured package management'
   ];
   var QUEUE_MAX = 5;
+  /* Share of trained drivers who actually follow the check-in process.
+     60% is GENEROUS: verified industry participation is 30-40%. */
+  var CHECKIN_RATE = 0.6;
 
   /* ---------- state ---------- */
   var S = null;
@@ -678,7 +683,7 @@
       nextDriverAt:1400, nextPickupAt:9000, nextPirateAt:20000,
       pendingPickups:0, activeWalkers:0,
       trained:{}, pendingDrivers:[], dockActive:null, dockBarEl:null,
-      trainedCount:0, dumps:0, cascades:0,
+      trainedCount:0, dumps:0, cascades:0, skips:0,
       simMin:0, staffMin:0, prevNow:0, day:1, phase:-1,
       tickIdx:-1
     };
@@ -818,9 +823,10 @@
   }
 
   var toastTO = null;
-  function driverToast(carrier, label){
+  function driverToast(carrier, label, skip){
     $('#dtoasttxt').textContent = carrier + ' · ' + label;
     var t = $('#dtoast');
+    t.classList.toggle('skip', !!skip);
     t.classList.add('show');
     if(toastTO) clearTimeout(toastTO);
     toastTO = setTimeout(function(){ t.classList.remove('show'); }, 1600);
@@ -892,6 +898,21 @@
       S.pendingDrivers.push({ carrier:carrier, n:n });
       driverToast(carrier, 'NEW DRIVER');
       dbg('driver '+carrier+' UNTRAINED n='+n);
+      return;
+    }
+    if(Math.random() > CHECKIN_RATE){
+      /* trained, but skips the check-in protocol — boxes hit the floor unlogged */
+      S.skips++;
+      driverToast(carrier, 'NO CHECK-IN', true);
+      for(var i=0;i<n;i++){
+        var p = { id:++S.pkgSeq, code:uniqueCode(), size:rollSize(), carrier:carrier };
+        S.arrivals++; S.floored++;
+        addFloorBox(p);
+      }
+      S.rating = Math.max(1, S.rating - 0.1);
+      if(S.skips % 2 === 1) feed('bad','The <b>'+carrier+'</b> driver dropped '+n+' box'+(n>1?'es':'')+' and left — no check-in. Industry norm: only 30–40% follow process.');
+      dbg('driver '+carrier+' SKIPPED n='+n);
+      updateHUD();
       return;
     }
     driverToast(carrier, '+' + n);
@@ -1019,15 +1040,15 @@
     var b = el('span','fbox');
     var w = Math.round(d.w*0.85), h = Math.round(d.h*0.85);
     b.style.width = w+'px'; b.style.height = h+'px';
-    b.style.left = rnd(3,82) + '%';
-    b.style.bottom = rnd(6,34) + 'px';
+    b.style.left = rnd(2,84) + '%';
+    b.style.bottom = rnd(4,48) + 'px';
     b.style.transform = 'rotate(' + rnd(-16,16) + 'deg)';
     p.floorEl = b;
     S.floorPkgs.push(p);
     var pile = $('#pile');
     pile.appendChild(b);
     /* keep the DOM bounded as the pile grows into the dozens */
-    while(pile.children.length > 40) pile.removeChild(pile.firstChild);
+    while(pile.children.length > 56) pile.removeChild(pile.firstChild);
   }
   function removeFloorBox(p){
     var i = S.floorPkgs.indexOf(p);
@@ -1303,6 +1324,7 @@
     $('#gfloor').textContent = floorRate() + '%';
     $('#gfloor2').textContent = floorRate() + '%';
     $('#gstolen').textContent = S.stolen;
+    $('#gskips').textContent = S.skips;
     $('#gtrained').textContent = S.trainedCount;
     $('#gtrained2').textContent = S.trainedCount;
     $('#gstaff').textContent = fmtStaff(S.staffMin);
