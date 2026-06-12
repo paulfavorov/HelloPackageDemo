@@ -823,7 +823,7 @@
 
   /* ---------- driver dock: the manual training step ---------- */
   var WAIT_MS_BASE = 7000, TRAIN_MS = 2600;
-  function waitMs(){ return DEBUG ? 14000 : WAIT_MS_BASE; }
+  function waitMs(){ return DEBUG ? 25000 : WAIT_MS_BASE; }
   function renderDock(){
     var d = $('#ddock');
     var a = S.dockActive;
@@ -836,7 +836,7 @@
       d.innerHTML =
         '<div class="ddrive wait"><div class="dtop">'+
         '<span class="dcar mono">'+a.carrier+' DRIVER</span>'+
-        '<span class="dstate mono">UNTRAINED &middot; '+a.n+' BOXES</span></div>'+
+        '<span class="dstate mono">UNTRAINED &middot; '+a.n+' BOX'+(a.n>1?'ES':'')+'</span></div>'+
         '<div class="dmsg">Doesn&rsquo;t know your flow &mdash; about to dump and go.</div>'+
         '<button class="trainbtn" id="trainBtn">Train now</button>'+
         '<div class="dbar"><i id="dockbar"></i></div></div>';
