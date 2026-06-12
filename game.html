@@ -943,7 +943,7 @@
       addFloorBox(p);
     }
     S.rating = Math.max(1, S.rating - 0.2);
-    feed('bad','The <b>'+a.carrier+'</b> driver dumped '+a.n+' boxes on the floor and left. Untrained.');
+    feed('bad','The <b>'+a.carrier+'</b> driver dumped '+a.n+' box'+(a.n>1?'es':'')+' on the floor and left. Untrained.');
     dbg('driver '+a.carrier+' DUMPED n='+a.n);
     S.dockActive = null;
     renderDock(); updateHUD();
