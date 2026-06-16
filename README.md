@@ -14,7 +14,7 @@ Product demo site for HelloPackage — AI-powered package management for multifa
 
 | File | Purpose |
 |---|---|
-| `site.html` | Company overview deck — TAG-editorial scroll page |
+| `site.html` | Company overview deck — editorial scroll page |
 | `site_salesteam.html` | Sales team edition — exact copy of site.html, owned by Denise Burtz |
 | `deck.html` | Reveal.js slide deck (18 slides, fragment animations, speaker notes) |
 | `verifast-offer.html` | Reveal.js mini-deck (4 slides) — HelloPackage × Verifast partner incentive for pending contracts |
@@ -56,7 +56,7 @@ Product demo site for HelloPackage — AI-powered package management for multifa
 | Repo | Purpose | URL |
 |---|---|---|
 | `paulfavorov/HelloPackageDemo` | Primary demo site (this repo) | [github.com/paulfavorov/HelloPackageDemo](https://github.com/paulfavorov/HelloPackageDemo) |
-| `paulfavorov/paulfavorov.github.io` | Original TAG 2026 demo (legacy `index.html`) | [github.com/paulfavorov/paulfavorov.github.io](https://github.com/paulfavorov/paulfavorov.github.io) |
+| `paulfavorov/paulfavorov.github.io` | Original 2026 demo (legacy `index.html`) | [github.com/paulfavorov/paulfavorov.github.io](https://github.com/paulfavorov/paulfavorov.github.io) |
 
 ## Enabling GitHub Pages
 
@@ -69,7 +69,7 @@ Product demo site for HelloPackage — AI-powered package management for multifa
 
 - **Fonts**: Manrope (display 800-900), Inter (body 400-700), JetBrains Mono (eyebrows)
 - **Colors**: Red `#E71D25` (primary accent, italic), Cyan `#00AED5` (secondary), Navy `#0B1220` (text), Slate grays
-- **Aesthetic**: TAG editorial — white background, generous whitespace, massive headlines with italic-red accent word, monospace eyebrows with red line prefix
+- **Aesthetic**: Editorial — white background, generous whitespace, massive headlines with italic-red accent word, monospace eyebrows with red line prefix
 
 ## Deck Controls
 
