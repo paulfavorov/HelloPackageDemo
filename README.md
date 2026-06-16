@@ -4,8 +4,7 @@ Product demo site for HelloPackage — AI-powered package management for multifa
 
 ## Live URLs
 
-- **Pre-demo game** — `https://paulfavorov.github.io/HelloPackageDemo/game.html`
-- **Scroll page** — `https://paulfavorov.github.io/HelloPackageDemo/site.html`
+- **Company overview deck** — `https://paulfavorov.github.io/HelloPackageDemo/site.html`
 - **Slide deck** — `https://paulfavorov.github.io/HelloPackageDemo/deck.html`
 - **Verifast partner offer** — `https://paulfavorov.github.io/HelloPackageDemo/verifast-offer.html`
 - **Sales team edition** — `https://paulfavorov.github.io/HelloPackageDemo/site_salesteam.html`
@@ -15,8 +14,7 @@ Product demo site for HelloPackage — AI-powered package management for multifa
 
 | File | Purpose |
 |---|---|
-| `game.html` | Pre-demo warm-up — "a day in the life" package-room simulation (single-file vanilla JS) |
-| `site.html` | TAG-editorial scroll page (multi-section marketing site) |
+| `site.html` | Company overview deck — TAG-editorial scroll page |
 | `site_salesteam.html` | Sales team edition — exact copy of site.html, owned by Denise Burtz |
 | `deck.html` | Reveal.js slide deck (18 slides, fragment animations, speaker notes) |
 | `verifast-offer.html` | Reveal.js mini-deck (4 slides) — HelloPackage × Verifast partner incentive for pending contracts |
