@@ -56,7 +56,7 @@ Product demo site for HelloPackage — AI-powered package management for multifa
 | Repo | Purpose | URL |
 |---|---|---|
 | `paulfavorov/HelloPackageDemo` | Primary demo site (this repo) | [github.com/paulfavorov/HelloPackageDemo](https://github.com/paulfavorov/HelloPackageDemo) |
-| `paulfavorov/paulfavorov.github.io` | Original 2026 demo (legacy `index.html`) | [github.com/paulfavorov/paulfavorov.github.io](https://github.com/paulfavorov/paulfavorov.github.io) |
+| `paulfavorov/paulfavorov.github.io` | Showcase presentation for a new event (`index.html`) | [github.com/paulfavorov/paulfavorov.github.io](https://github.com/paulfavorov/paulfavorov.github.io) |
 
 ## Enabling GitHub Pages
 
