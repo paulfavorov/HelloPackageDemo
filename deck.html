@@ -325,6 +325,23 @@
     line-height: 1.5;
   }
 
+  /* ============== FUTURE-PROOFING VIDEO CARDS ============== */
+  .fp-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 24px; margin-top: 40px; min-height: 0; }
+  .fp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .fp-grid.row2 { grid-template-columns: repeat(2, 1fr); max-width: 66%; margin: 0 auto; width: 100%; }
+  .fp-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+  .fp-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--accent, var(--red)); z-index: 3; }
+  .fp-card.red { --accent: var(--red); }
+  .fp-card.cyan { --accent: var(--blue-bright); }
+  .fp-card.dark { --accent: var(--text); }
+  .fp-video { width: 100%; height: 140px; object-fit: cover; display: block; background: #06101D; }
+  .fp-body { padding: 16px 30px 24px; display: flex; flex-direction: column; }
+  .fp-card .obj-num { margin-top: 0; }
+  .fp-card.cyan .obj-num { color: var(--blue); }
+  .fp-card.dark .obj-num { color: var(--text); }
+  .fp-title { font-family: 'Manrope', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; margin: 10px 0 12px; color: var(--text); }
+  .fp-text { font-size: 17px; color: var(--text-2); line-height: 1.45; }
+
   /* ============== SLIDE 5: HOW IT WORKS ============== */
   .steps-grid {
     flex: 1; display: grid;
@@ -1551,33 +1568,50 @@
           <h2 class="display-title small">Future-proofing your <span class="accent-cyan">building.</span></h2>
         </div>
 
-        <div class="obj-grid" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, auto);">
-          <div class="obj-card red">
-            <span class="obj-num">Next 01</span>
-            <h3 class="obj-title">Robotic Package Room.</h3>
-            <p class="obj-body">Autonomous robots that organize, sort, and manage packages inside the room. No staff needed for routine operations.</p>
+        <div class="fp-wrap">
+          <div class="fp-grid">
+            <div class="fp-card red">
+              <video class="fp-video" autoplay muted loop playsinline><source src="external/RobotArms.mp4" type="video/mp4" /></video>
+              <div class="fp-body">
+                <span class="obj-num">Next 01</span>
+                <h3 class="fp-title">Robotic Package Room.</h3>
+                <p class="fp-text">Autonomous robots organize, sort, and manage packages inside the room — no staff needed for routine operations.</p>
+              </div>
+            </div>
+            <div class="fp-card dark">
+              <video class="fp-video" autoplay muted loop playsinline><source src="Security_bot.mp4" type="video/mp4" /></video>
+              <div class="fp-body">
+                <span class="obj-num">Partner · Undaunted</span>
+                <h3 class="fp-title">Robotics-Ready Security.</h3>
+                <p class="fp-text">Autonomous security patrols at multifamily communities 24/7. HelloPackage is wired to integrate from day one.</p>
+              </div>
+            </div>
+            <div class="fp-card cyan">
+              <video class="fp-video" autoplay muted loop playsinline><source src="Elevator.mp4" type="video/mp4" /></video>
+              <div class="fp-body">
+                <span class="obj-num">Partner · ReadyElevator</span>
+                <h3 class="fp-title">Elevator Controls.</h3>
+                <p class="fp-text">Universal elevator interface — any robot, any elevator, any manufacturer. Future-proof for every service robot.</p>
+              </div>
+            </div>
           </div>
-          <div class="obj-card dark">
-            <span class="obj-num">Partner · Undaunted</span>
-            <h3 class="obj-title">Robotics-Ready Security.</h3>
-            <p class="obj-body">Autonomous security patrols at multifamily communities 24/7. HelloPackage is wired to integrate from day one.</p>
-          </div>
-          <div class="obj-card cyan">
-            <span class="obj-num">Partner · ReadyElevator</span>
-            <h3 class="obj-title">Elevator Controls.</h3>
-            <p class="obj-body">Universal elevator interface — any robot, any elevator, any manufacturer. Future-proof for every service robot.</p>
-          </div>
-        </div>
-        <div class="obj-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 66%; margin: 24px auto 0;">
-          <div class="obj-card dark">
-            <span class="obj-num">Partner · Preview 3D</span>
-            <h3 class="obj-title">3D Scanning.</h3>
-            <p class="obj-body">Digital twins of every building via Preview 3D. Precise planning, remote audits, and automation routing.</p>
-          </div>
-          <div class="obj-card cyan">
-            <span class="obj-num">Next 05</span>
-            <h3 class="obj-title">Next-Gen Access Control.</h3>
-            <p class="obj-body">Biometric access, mobile credentials, AI-driven entry. Beyond the lock and key — access that adapts.</p>
+          <div class="fp-grid row2">
+            <div class="fp-card dark">
+              <video class="fp-video" autoplay muted loop playsinline><source src="3d_scan.mp4" type="video/mp4" /></video>
+              <div class="fp-body">
+                <span class="obj-num">Partner · Preview 3D</span>
+                <h3 class="fp-title">3D Scanning.</h3>
+                <p class="fp-text">Digital twins of every building via Preview 3D — precise planning, remote audits, and automation routing.</p>
+              </div>
+            </div>
+            <div class="fp-card cyan">
+              <video class="fp-video" autoplay muted loop playsinline><source src="external/AccessControl.mp4" type="video/mp4" /></video>
+              <div class="fp-body">
+                <span class="obj-num">Next 05</span>
+                <h3 class="fp-title">Next-Gen Access Control.</h3>
+                <p class="fp-text">Biometric access, mobile credentials, AI-driven entry. Beyond the lock and key — access that adapts.</p>
+              </div>
+            </div>
           </div>
         </div>
 
