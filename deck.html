@@ -342,6 +342,21 @@
   .fp-title { font-family: 'Manrope', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; margin: 10px 0 12px; color: var(--text); }
   .fp-text { font-size: 17px; color: var(--text-2); line-height: 1.45; }
 
+  /* ============== RISK / OBJECTION CARDS ============== */
+  .risk-grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; align-content: center; margin-top: 40px; }
+  .risk-card { padding: 30px 36px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; position: relative; overflow: hidden; }
+  .risk-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--accent, var(--blue-bright)); }
+  .risk-card.red { --accent: var(--red); }
+  .risk-num { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: var(--blue); }
+  .risk-card.red .risk-num { color: var(--red); }
+  .risk-title { font-family: 'Manrope', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.06; margin: 12px 0 12px; color: var(--text); }
+  .risk-body { font-size: 17px; color: var(--text-2); line-height: 1.5; }
+  .risk-body strong { color: var(--text); font-weight: 700; }
+  .verifast-banner { flex: none; margin-top: 24px; padding: 20px 28px; background: var(--blue-soft); border: 1px solid rgba(0,174,213,0.22); border-radius: 14px; display: flex; gap: 18px; align-items: center; }
+  .verifast-banner .vf-tag { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; color: var(--blue); flex: none; }
+  .verifast-banner .vf-text { font-size: 18px; color: var(--text-2); line-height: 1.45; }
+  .verifast-banner .vf-text strong { color: var(--text); font-weight: 700; }
+
   /* ============== SLIDE 5: HOW IT WORKS ============== */
   .steps-grid {
     flex: 1; display: grid;
@@ -1055,7 +1070,7 @@
 
         <div class="foot">
           <span>HelloPackage · Atlanta</span>
-          <span>01 / 18</span>
+          <span>01 / 20</span>
         </div>
       </div>
 
@@ -1109,7 +1124,7 @@
 
         <div class="foot">
           <span>The market</span>
-          <span>02 / 18</span>
+          <span>02 / 20</span>
         </div>
       </div>
 
@@ -1170,7 +1185,7 @@
 
         <div class="foot">
           <span>The problem</span>
-          <span>03 / 18</span>
+          <span>03 / 20</span>
         </div>
       </div>
 
@@ -1222,7 +1237,7 @@
 
         <div class="foot">
           <span>Three objectives</span>
-          <span>04 / 18</span>
+          <span>04 / 20</span>
         </div>
       </div>
 
@@ -1277,7 +1292,7 @@
 
         <div class="foot">
           <span>How it works</span>
-          <span>05 / 18</span>
+          <span>05 / 20</span>
         </div>
       </div>
 
@@ -1345,7 +1360,7 @@
 
         <div class="foot">
           <span>The platform</span>
-          <span>06 / 18</span>
+          <span>06 / 20</span>
         </div>
       </div>
 
@@ -1392,7 +1407,7 @@
 
         <div class="foot">
           <span>Product demo — Driver access</span>
-          <span>07 / 18</span>
+          <span>07 / 20</span>
         </div>
       </div>
 
@@ -1435,7 +1450,7 @@
 
         <div class="foot">
           <span>Product demo — Driver management</span>
-          <span>08 / 18</span>
+          <span>08 / 20</span>
         </div>
       </div>
 
@@ -1479,7 +1494,7 @@
 
         <div class="foot">
           <span>Product demo — Computer vision</span>
-          <span>09 / 18</span>
+          <span>09 / 20</span>
         </div>
       </div>
 
@@ -1535,7 +1550,7 @@
 
         <div class="foot">
           <span>Why HelloPackage</span>
-          <span>10 / 18</span>
+          <span>10 / 20</span>
         </div>
       </div>
 
@@ -1617,7 +1632,7 @@
 
         <div class="foot">
           <span>Future-proofing</span>
-          <span>11 / 18</span>
+          <span>11 / 20</span>
         </div>
       </div>
 
@@ -1678,7 +1693,7 @@
 
         <div class="foot">
           <span>Proven results</span>
-          <span>12 / 18</span>
+          <span>12 / 20</span>
         </div>
       </div>
 
@@ -1738,7 +1753,7 @@
 
         <div class="foot" style="color:rgba(255,255,255,0.35);border-color:rgba(255,255,255,0.1);">
           <span>Customer base</span>
-          <span>13 / 18</span>
+          <span>13 / 20</span>
         </div>
       </div>
 
@@ -1803,7 +1818,7 @@
 
         <div class="foot">
           <span>Customer voice</span>
-          <span>14 / 18</span>
+          <span>14 / 20</span>
         </div>
       </div>
 
@@ -1904,7 +1919,7 @@
 
         <div class="foot">
           <span>The competition</span>
-          <span>15 / 18</span>
+          <span>15 / 20</span>
         </div>
       </div>
 
@@ -2041,7 +2056,7 @@
 
         <div class="foot">
           <span>Pricing</span>
-          <span>16 / 18</span>
+          <span>16 / 20</span>
         </div>
       </div>
 
@@ -2102,7 +2117,7 @@
 
         <div class="foot">
           <span>Room configurations</span>
-          <span>17 / 18</span>
+          <span>17 / 20</span>
         </div>
       </div>
 
@@ -2119,7 +2134,92 @@
       </aside>
     </section>
 
-    <!-- ====== SLIDE 18: CLOSING ====== -->
+    <!-- ====== SLIDE 18: LOW-RISK BY DESIGN ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>Low-Risk</span></div>
+        </div>
+        <div class="head-block">
+          <span class="eyebrow cyan">Low-risk by design</span>
+          <h2 class="display-title small">Why it's safe to <span class="accent-cyan">say yes.</span></h2>
+        </div>
+        <div class="risk-grid">
+          <div class="risk-card">
+            <span class="risk-num">Reputation risk</span>
+            <h3 class="risk-title">A track record you can check.</h3>
+            <p class="risk-body">BBB A+ since 2020. One U.S. patent issued. 200+ communities and 70,000+ residents live at a 4.5/5 average rating. 12 of the NMHC Top 20 operators already trust HelloPackage.</p>
+          </div>
+          <div class="risk-card red">
+            <span class="risk-num">Budget risk</span>
+            <h3 class="risk-title">No capital budget? No problem.</h3>
+            <p class="risk-body">Cap Ex from $12K, monthly from $3.31/unit all-in, with Op Ex financing if capital is the blocker — all backed by a <strong>90-day money-back guarantee</strong>. 755 North switched from a pricier competitor with zero capital budget and came in under.</p>
+          </div>
+          <div class="risk-card">
+            <span class="risk-num">Performance risk</span>
+            <h3 class="risk-title">Don't take our word for it.</h3>
+            <p class="risk-body">PropTech IQ — an independent third party — validated impact across three communities: ~5% make-ready reduction, faster lease-up, and ~$40/unit/year in retention value. <strong>Verified, not claimed.</strong></p>
+          </div>
+          <div class="risk-card red">
+            <span class="risk-num">Deployment risk</span>
+            <h3 class="risk-title">No software fees until you're live.</h3>
+            <p class="risk-body">Software &amp; service fees start only once the room is installed and operational. For new construction, our <strong>new-development ramp</strong> aligns fees with lease-up. Typical install is a 3-week turnkey with a named CSM.</p>
+          </div>
+        </div>
+        <div class="verifast-banner">
+          <span class="vf-tag">Limited-time</span>
+          <span class="vf-text">Sign before <strong>September 30</strong> and your first three months of <strong>Verifast resident verification are on us</strong> — security that starts before move-in, at zero added cost.</span>
+        </div>
+        <div class="foot">
+          <span>Low-risk by design</span>
+          <span>18 / 20</span>
+        </div>
+      </div>
+      <aside class="notes">
+        Every reason a property hesitates, we've already answered — a process, a proof point, or a paid-for safety net. Reputation: BBB A+, patent, 200+/70k/4.5, 12 of NMHC Top 20. Budget: cap-ex from $12K, Op Ex financing, 90-day money-back; 755 North came in under with no capital budget. Performance: PropTech IQ validated ~5% make-ready cut, faster lease-up, ~$40/unit/yr. Deployment: software fees start at go-live; new-dev ramp; 3-week turnkey. Verifast: sign by Sept 30, first 3 months free.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 19: COMMON OBJECTIONS ====== -->
+    <section>
+      <div class="frame">
+        <div class="head">
+          <div class="brand-logo"></div>
+          <div class="meta"><span>Objections</span></div>
+        </div>
+        <div class="head-block">
+          <span class="eyebrow">Common objections</span>
+          <h2 class="display-title small">The big <span class="accent">hurdles.</span></h2>
+        </div>
+        <div class="risk-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="risk-card red">
+            <span class="risk-num">Hurdle 01</span>
+            <h3 class="risk-title">"We don't have the space."</h3>
+            <p class="risk-body">Unused interior square footage — lobbies, back-rooms, storage — we convert in a 3-week turnkey. None at all? We deliver a modular climate-controlled room. Avana Copper Springs: 366 units, no convertible space, we brought the room.</p>
+          </div>
+          <div class="risk-card">
+            <span class="risk-num">Hurdle 02</span>
+            <h3 class="risk-title">"We don't have the budget."</h3>
+            <p class="risk-body">Four tiers covering every profile. Cap Ex from $12K, monthly from $1.59/unit. Op Ex financing available. 755 North switched from a pricier competitor with no capital budget — and ended under budget.</p>
+          </div>
+          <div class="risk-card red">
+            <span class="risk-num">Hurdle 03</span>
+            <h3 class="risk-title">"We can't pass a resident fee."</h3>
+            <p class="risk-body">Charge residents, absorb it, or bundle into amenity fees — we support all three. Where fees apply, ~$480K modeled uplift per 250-unit asset. Where they don't, the 10–20 staff hrs/wk saved cover it.</p>
+          </div>
+        </div>
+        <div class="foot">
+          <span>Common objections</span>
+          <span>19 / 20</span>
+        </div>
+      </div>
+      <aside class="notes">
+        The three real hurdles, per Denise Burtz. Space: convert in 3 weeks, or a modular room (Avana Copper Springs, 366 units). Budget: four tiers, cap-ex from $12K, Op Ex financing; 755 North under budget with no capital. Resident fee: charge / absorb / bundle — ~$480K uplift per 250 units where fees apply; staff-time savings where they don't. Lockers solve storage; HelloPackage runs the process.
+      </aside>
+    </section>
+
+    <!-- ====== SLIDE 20: CLOSING ====== -->
     <section data-transition="fade">
       <div class="frame closing-frame">
         <div class="head">
@@ -2156,7 +2256,7 @@
 
         <div class="foot">
           <span>HelloPackage · packagesolutions.com</span>
-          <span>18 / 18</span>
+          <span>20 / 20</span>
         </div>
       </div>
 
@@ -2177,7 +2277,7 @@
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
   </button>
   <div class="nav-dots" id="navDots"></div>
-  <span class="nav-counter" id="navCounter">01 / 18</span>
+  <span class="nav-counter" id="navCounter">01 / 20</span>
   <button class="nav-btn" id="navNext" aria-label="Next">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
   </button>
