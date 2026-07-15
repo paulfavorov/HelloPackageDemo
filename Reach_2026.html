@@ -94,8 +94,8 @@
 
   /* STACK */
   .stack-grid{ flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.7rem; align-content:start; margin-top:1.1vh; }
-  .layer{ position:relative; background:var(--bg-card); border:1px solid var(--border); border-top:6px solid var(--red); border-radius:16px; padding:1.5rem 1.5rem 1.6rem; display:flex; flex-direction:column; }
-  .layer-img{ margin-top:1.1rem; width:100%; height:clamp(150px,24vh,300px); object-fit:cover; border-radius:10px; border:1px solid var(--border); display:block; }
+  .layer{ position:relative; background:var(--bg-card); border:1px solid var(--border); border-top:6px solid var(--red); border-radius:16px; padding:1.8rem 1.8rem 2rem; display:flex; flex-direction:column; }
+  .layer-img{ margin-top:1.2rem; width:100%; height:clamp(300px,44vh,560px); object-fit:cover; border-radius:10px; border:1px solid var(--border); display:block; }
   .layer.cyan{ border-top-color:var(--blue-bright); } .layer.dark{ border-top-color:var(--text); }
   .layer:not(:last-child)::after{ content:'\2192'; position:absolute; left:calc(100% + .2rem); top:50%; transform:translateY(-50%); font-family:'Manrope',sans-serif; font-weight:800; font-size:1.5rem; color:var(--text-3); z-index:5; }
   .layer-num{ font-family:'JetBrains Mono',monospace; font-size:.78rem; font-weight:600; text-transform:uppercase; letter-spacing:.16em; color:var(--red); }
@@ -196,17 +196,19 @@
   .tw-lbl{ font-family:'JetBrains Mono',monospace; font-size:.68rem; font-weight:600; text-transform:uppercase; letter-spacing:.12em; color:var(--text-3); margin-top:.5rem; line-height:1.3; }
 
   /* TRACTION+WHYNOW v2 - media boxes */
-  .tw2-grid{ flex:1; display:grid; grid-template-columns:repeat(2,1fr); gap:2rem; align-content:start; margin-top:3.2vh; }
+  .tw2-grid{ flex:1; display:grid; grid-template-columns:repeat(2,1fr); gap:2rem; align-content:start; margin-top:2vh; }
+  .tw-seg{ margin-top:1.7vh; font-size:clamp(.95rem,1.15vw,1.15rem); color:var(--text-2); line-height:1.45; }
+  .tw-seg b{ color:var(--text); font-weight:700; }
   .tw2-card{ background:var(--bg-card); border:1px solid var(--border); border-radius:18px; overflow:hidden; display:flex; flex-direction:column; position:relative; }
   .tw2-card::before{ content:''; position:absolute; top:0; left:0; width:100%; height:5px; background:var(--accent,var(--red)); z-index:3; }
   .tw2-card.cyan{ --accent:var(--blue-bright); }
-  .tw2-media{ height:19vh; width:100%; display:flex; align-items:center; justify-content:center; background:var(--ink); overflow:hidden; }
+  .tw2-media{ height:22vh; width:100%; display:flex; align-items:center; justify-content:center; background:var(--ink); overflow:hidden; }
   .tw2-media img{ width:100%; height:100%; object-fit:cover; display:block; }
   .tw2-stars-wrap{ text-align:center; }
   .tw2-stars{ font-size:clamp(2.4rem,3.6vw,3.4rem); color:#FFB400; letter-spacing:.18em; line-height:1; }
   .tw2-stars .half{ background:linear-gradient(90deg,#FFB400 50%,rgba(255,255,255,.28) 50%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
   .tw2-stars-label{ font-family:'JetBrains Mono',monospace; font-size:.8rem; font-weight:600; text-transform:uppercase; letter-spacing:.16em; color:#fff; margin-top:.9rem; }
-  .tw2-body{ padding:1.5rem 1.7rem 1.7rem; display:flex; flex-direction:column; }
+  .tw2-body{ padding:1.75rem 1.95rem 1.95rem; display:flex; flex-direction:column; }
   .tw2-num{ font-family:'JetBrains Mono',monospace; font-size:.76rem; font-weight:600; text-transform:uppercase; letter-spacing:.16em; color:var(--red); }
   .tw2-card.cyan .tw2-num{ color:var(--blue); }
   .tw2-name{ font-family:'Manrope',sans-serif; font-size:clamp(1.7rem,2.5vw,2.2rem); font-weight:800; letter-spacing:-.03em; line-height:1; margin:.5rem 0 .9rem; color:var(--text); }
@@ -215,6 +217,7 @@
   .tw2-lines li::before{ content:''; position:absolute; left:0; top:.55em; width:7px; height:7px; border-radius:2px; background:var(--red); }
   .tw2-card.cyan .tw2-lines li::before{ background:var(--blue); }
   .tw2-lines li b{ color:var(--text); font-weight:700; }
+  .pf-hl{ font-weight:800; color:var(--red); background:var(--red-soft); padding:.12rem .55rem; border-radius:6px; }
 
   /* CHAOS slide */
   .chaos-grid{ flex:1; display:grid; grid-template-columns:1fr 1fr; gap:3.4rem; align-items:center; min-height:0; margin-top:2vh; }
@@ -444,21 +447,18 @@
       <span class="layer-num">Layer 01</span>
       <h3 class="layer-name">Perception</h3>
       <div class="layer-tech">Computer vision · HP-Vision</div>
-      <p class="layer-lede">Turns raw camera feeds into structured visual events.</p>
       <img class="layer-img" src="https://paulfavorov.github.io/vision-cv.jpg" alt="Computer vision detecting packages and a pose-tracked person" />
     </div>
     <div class="layer cyan">
       <span class="layer-num">Layer 02</span>
       <h3 class="layer-name">Understanding</h3>
       <div class="layer-tech">Vision-language models</div>
-      <p class="layer-lede">Visual events fuse into one <b>live model of the room</b>.</p>
       <img class="layer-img" src="https://paulfavorov.github.io/security-alert.jpg" alt="HP-Vision flags a security anomaly and dispatches an alert" />
     </div>
     <div class="layer dark">
       <span class="layer-num">Layer 03</span>
       <h3 class="layer-name">Action</h3>
       <div class="layer-tech">Autonomous agents</div>
-      <p class="layer-lede">Agents act on that understanding — <b>orchestrating the room</b>.</p>
       <img class="layer-img" src="https://paulfavorov.github.io/agents.jpg" alt="Autonomous agents moving packages and guiding residents" />
     </div>
   </div>
@@ -511,6 +511,7 @@
     <div class="tw-cell"><div class="tw-val">$3.0M</div><div class="tw-lbl">ARR &middot; under contract</div></div>
     <div class="tw-cell"><div class="tw-val cyan">12 of 20</div><div class="tw-lbl">NMHC Top 20</div></div>
   </div>
+  <div class="tw-seg">Across segments &mdash; <b>Multifamily</b> &middot; Commercial: <b>Atlanta Tech Village</b> &middot; Condos &amp; HOAs: <b>FirstService Residential</b></div>
   <div class="tw2-grid">
     <div class="tw2-card">
       <div class="tw2-media">
@@ -523,9 +524,9 @@
         <span class="tw2-num">01 &middot; De-risked</span>
         <h3 class="tw2-name">Low risk</h3>
         <ul class="tw2-lines">
-          <li>Approved by the <b>#1 U.S. owner &amp; operator</b></li>
+          <li><b>Recommended-vendor agreement</b> with the #1 U.S. owner &amp; operator</li>
           <li>Backed by <b>NAR REACH</b> / Second Century Ventures</li>
-          <li><b>&lt;1% churn</b> &middot; profitable in ~6 months</li>
+          <li><span class="pf-hl">Profitable in ~6 months</span></li>
         </ul>
       </div>
     </div>
