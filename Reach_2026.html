@@ -257,6 +257,22 @@
   .bm-ml{ font-family:'JetBrains Mono',monospace; font-size:.78rem; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--text-2); line-height:1.4; }
   .bm-foot{ margin-top:2.6vh; padding:1.6rem 2rem; background:var(--blue-soft); border:1px solid rgba(0,174,213,.3); border-left:6px solid var(--blue); border-radius:14px; font-size:clamp(1.15rem,1.55vw,1.5rem); color:var(--text); line-height:1.45; }
   .bm-foot .bm-foot-lbl{ font-family:'Manrope',sans-serif; font-weight:800; color:var(--blue); margin-right:.5rem; }
+  .bm-grid-3{ grid-template-columns:1fr 1fr 1fr; gap:1.6rem; }
+  .bm-card.cyan .bm-eyebrow{ color:var(--blue); }
+  .bm-card.roi{ background:var(--red-soft); border-top-color:var(--red); }
+  .roi-calc{ margin-top:1rem; display:flex; flex-direction:column; gap:.5rem; }
+  .roi-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:clamp(.92rem,1.1vw,1.12rem); color:var(--text-2); border-bottom:1px dashed rgba(231,29,37,.28); padding-bottom:.5rem; }
+  .roi-row b{ font-family:'Manrope',sans-serif; font-weight:800; color:var(--text); }
+  .roi-net{ display:flex; justify-content:space-between; align-items:center; margin-top:.25rem; }
+  .roi-net span{ font-family:'JetBrains Mono',monospace; font-size:.78rem; font-weight:600; text-transform:uppercase; letter-spacing:.12em; color:var(--red); }
+  .roi-net b{ font-family:'Manrope',sans-serif; font-size:clamp(2.3rem,3.5vw,3.3rem); font-weight:900; letter-spacing:-.03em; color:var(--red); line-height:1; }
+  .roi-net b small{ font-family:'JetBrains Mono',monospace; font-size:.26em; font-weight:500; color:var(--text-3); letter-spacing:.04em; }
+  .roi-kicker{ margin-top:1rem; font-family:'JetBrains Mono',monospace; font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.07em; color:var(--text-2); line-height:1.55; }
+  .roi-kicker b{ color:var(--red); }
+  .mkt2{ display:flex; align-items:center; gap:1.1rem; margin-top:1.1rem; }
+  .mkt2-u{ font-family:'Manrope',sans-serif; font-size:clamp(2.2rem,3.4vw,3.2rem); font-weight:900; letter-spacing:-.03em; color:var(--blue); line-height:1; min-width:5rem; }
+  .mkt2-d{ font-family:'JetBrains Mono',monospace; font-size:.73rem; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--text-2); line-height:1.5; }
+  .mkt2-d b{ font-family:'Manrope',sans-serif; font-size:1.35em; font-weight:900; color:var(--blue); letter-spacing:-.02em; }
 
   /* PROVEN + WHY-NOW (map layout) */
   .pw-top{ display:grid; grid-template-columns:1fr 1.1fr; gap:2.4rem; align-items:center; margin-top:2vh; }
@@ -511,7 +527,7 @@
 
 
 
-<!-- ===== 6 - BUSINESS MODEL ===== [2:30-3:00] "How we make money: an all-in recurring subscription, about $3.80 per unit per month, cap ex from $24K. Strong unit economics - LTV/CAC 6 to 8x, payback under a year. Into a $650M+ recurring SAM, with a $150M+ near-term SOM across ~3M units. And we land-and-expand: core room to returns to door delivery to resident services to robotics." -->
+<!-- ===== 6 - BUSINESS MODEL ===== [2:30-3:00] "How we make money: an all-in subscription, about $3.80 per unit per month, cap ex from $24K - LTV/CAC 6 to 8x, payback under a year. And it is a profit center for the owner: charge residents about $10 a unit, keep roughly $6.20 - about $22K a year net on a 300-unit community. The market is huge - ~14M U.S. units and $650M+ recurring, with ~3M units and $150M+ near-term. And we land-and-expand: core room to returns to door delivery to resident services to robotics." -->
 <section class="slide" data-dur="12000">
   <div class="page-header">
     <div class="brand-logo" role="img" aria-label="HelloPackage"></div>
@@ -519,20 +535,35 @@
   </div>
   <div class="section-head" style="margin-top:2.6vh;">
     <span class="eyebrow">How we make money</span>
-    <h2 class="display h-title" style="margin-top:.8rem;">Recurring revenue, <span class="accent">per unit, per month.</span></h2>
-    <p class="lead" style="margin-top:.8rem; max-width:78ch;">An all-in subscription &mdash; software, AI &amp; on-site service &mdash; priced per unit, per month. Predictable, sticky, and it compounds as we add doors.</p>
+    <h2 class="display h-title" style="margin-top:.8rem;">Recurring for us &mdash; a <span class="accent">profit center for owners.</span></h2>
+    <p class="lead" style="margin-top:.8rem; max-width:82ch;">All-in subscription &mdash; software, AI &amp; on-site service &mdash; priced per unit, per month. We charge the property; the property bills residents and keeps the spread.</p>
   </div>
-  <div class="bm-grid">
+  <div class="bm-grid bm-grid-3">
     <div class="bm-card">
       <div class="bm-eyebrow">The model</div>
       <div class="bm-price">$3.80<small> / unit / mo</small></div>
       <div class="bm-sub">All-in &middot; Cap Ex from <b>$24K</b></div>
       <div class="bm-econ"><span class="bm-chip"><b>6&ndash;8&times;</b>&nbsp; LTV / CAC</span><span class="bm-chip"><b>&lt;12 mo</b>&nbsp; payback</span></div>
     </div>
+    <div class="bm-card roi">
+      <div class="bm-eyebrow">Owner ROI &middot; profit center</div>
+      <div class="roi-calc">
+        <div class="roi-row"><span>Resident amenity fee</span><b>$10.00</b></div>
+        <div class="roi-row"><span>Your HelloPackage cost</span><b>&minus;&thinsp;$3.80</b></div>
+        <div class="roi-net"><span>You keep</span><b>$6.20<small> /unit/mo</small></b></div>
+      </div>
+      <div class="roi-kicker">&asymp; <b>$74 /unit/yr</b> &middot; e.g. 300 units &rarr; <b>~$22K/yr net</b></div>
+    </div>
     <div class="bm-card cyan">
       <div class="bm-eyebrow">The market</div>
-      <div class="bm-mkt"><span class="bm-mv">$650M+</span><span class="bm-ml">recurring SAM &middot; ~14M U.S. units</span></div>
-      <div class="bm-mkt"><span class="bm-mv">$150M+</span><span class="bm-ml">near-term SOM &middot; ~3M units</span></div>
+      <div class="mkt2">
+        <div class="mkt2-u">~14M</div>
+        <div class="mkt2-d">U.S. units serviceable<br><b>$650M+</b> recurring revenue</div>
+      </div>
+      <div class="mkt2">
+        <div class="mkt2-u">~3M</div>
+        <div class="mkt2-d">units near-term &middot; SOM<br><b>$150M+</b> revenue</div>
+      </div>
     </div>
   </div>
   <div class="bm-foot"><span class="bm-foot-lbl">Land &amp; expand:</span> core package room &rarr; returns &rarr; door delivery &rarr; resident services &rarr; robotics. Every door compounds.</div>
