@@ -235,19 +235,19 @@
   .cc-img{ width:100%; height:100%; object-fit:cover; border-radius:16px; border:1px solid var(--border); box-shadow:0 24px 60px -30px rgba(15,23,42,.35); display:block; }
   .cc-locker{ grid-row:1 / 3; object-position:center 38%; }
   .cc-chaos{ grid-column:2; grid-row:1; }
-  .cc-stat{ grid-column:2; grid-row:2; background:var(--red-soft); border:1px solid rgba(231,29,37,.22); border-radius:16px; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; padding:.8rem 1.15rem; gap:.2rem; }
-  .cc-stat b{ font-family:'Manrope',sans-serif; font-size:clamp(1.5rem,2.5vw,2.3rem); font-weight:900; color:var(--red); letter-spacing:-.03em; line-height:.9; }
-  .cc-stat span{ font-family:'JetBrains Mono',monospace; font-size:.62rem; font-weight:600; text-transform:uppercase; letter-spacing:.13em; color:var(--text-2); line-height:1.45; }
+  .cc-stat{ grid-column:2; grid-row:2; background:var(--red-soft); border:1px solid rgba(231,29,37,.22); border-radius:16px; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; padding:1.2rem 1.5rem; gap:.5rem; }
+  .cc-stat b{ font-family:'Manrope',sans-serif; font-size:clamp(2.8rem,4.7vw,4.3rem); font-weight:900; color:var(--red); letter-spacing:-.03em; line-height:.9; }
+  .cc-stat span{ font-family:'JetBrains Mono',monospace; font-size:.84rem; font-weight:600; text-transform:uppercase; letter-spacing:.14em; color:var(--text-2); line-height:1.5; }
 
   /* BUSINESS MODEL v2 - simplified */
   .bm-grid{ display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:3vh; }
-  .bm-card{ background:var(--bg-card); border:1px solid var(--border); border-top:5px solid var(--red); border-radius:16px; padding:1.9rem 2.1rem; display:flex; flex-direction:column; justify-content:center; }
+  .bm-card{ background:var(--bg-card); border:1px solid var(--border); border-top:5px solid var(--red); border-radius:16px; padding:2.3rem 2.5rem; display:flex; flex-direction:column; justify-content:center; min-height:32vh; }
   .bm-card.cyan{ border-top-color:var(--blue-bright); }
-  .bm-eyebrow{ font-family:'JetBrains Mono',monospace; font-size:.78rem; font-weight:600; text-transform:uppercase; letter-spacing:.16em; color:var(--red); }
+  .bm-eyebrow{ font-family:'JetBrains Mono',monospace; font-size:.9rem; font-weight:600; text-transform:uppercase; letter-spacing:.16em; color:var(--red); }
   .bm-card.cyan .bm-eyebrow{ color:var(--blue); }
-  .bm-price{ font-family:'Manrope',sans-serif; font-size:clamp(3rem,5vw,4.4rem); font-weight:900; letter-spacing:-.04em; line-height:1; color:var(--red); margin-top:.8rem; }
+  .bm-price{ font-family:'Manrope',sans-serif; font-size:clamp(3.6rem,5.8vw,5.2rem); font-weight:900; letter-spacing:-.04em; line-height:1; color:var(--red); margin-top:1rem; }
   .bm-price small{ font-family:'JetBrains Mono',monospace; font-size:.26em; font-weight:500; color:var(--text-3); letter-spacing:.06em; }
-  .bm-sub{ font-size:clamp(1rem,1.2vw,1.2rem); color:var(--text-2); margin-top:.85rem; }
+  .bm-sub{ font-size:clamp(1.2rem,1.5vw,1.5rem); color:var(--text-2); margin-top:1.1rem; }
   .bm-sub b{ color:var(--text); font-weight:700; }
   .bm-econ{ display:flex; gap:.7rem; margin-top:1.4rem; flex-wrap:wrap; }
   .bm-chip{ font-family:'JetBrains Mono',monospace; font-size:.78rem; font-weight:500; text-transform:uppercase; letter-spacing:.08em; color:var(--text-2); background:var(--bg-soft); border:1px solid var(--border); border-radius:100px; padding:.5rem .95rem; }
@@ -255,23 +255,23 @@
   .bm-mkt{ display:flex; align-items:baseline; gap:1rem; margin-top:1.1rem; }
   .bm-mv{ font-family:'Manrope',sans-serif; font-size:clamp(2.1rem,3.2vw,3rem); font-weight:900; letter-spacing:-.03em; color:var(--blue); line-height:1; min-width:6rem; }
   .bm-ml{ font-family:'JetBrains Mono',monospace; font-size:.78rem; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--text-2); line-height:1.4; }
-  .bm-foot{ margin-top:2.6vh; padding:1.6rem 2rem; background:var(--blue-soft); border:1px solid rgba(0,174,213,.3); border-left:6px solid var(--blue); border-radius:14px; font-size:clamp(1.15rem,1.55vw,1.5rem); color:var(--text); line-height:1.45; }
+  .bm-foot{ margin-top:4.2vh; padding:1.6rem 2rem; background:var(--blue-soft); border:1px solid rgba(0,174,213,.3); border-left:6px solid var(--blue); border-radius:14px; font-size:clamp(1.15rem,1.55vw,1.5rem); color:var(--text); line-height:1.45; }
   .bm-foot .bm-foot-lbl{ font-family:'Manrope',sans-serif; font-weight:800; color:var(--blue); margin-right:.5rem; }
   .bm-grid-3{ grid-template-columns:1fr 1fr 1fr; gap:1.6rem; }
   .bm-card.cyan .bm-eyebrow{ color:var(--blue); }
   .bm-card.roi{ background:var(--red-soft); border-top-color:var(--red); }
   .roi-calc{ margin-top:1rem; display:flex; flex-direction:column; gap:.5rem; }
-  .roi-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:clamp(.92rem,1.1vw,1.12rem); color:var(--text-2); border-bottom:1px dashed rgba(231,29,37,.28); padding-bottom:.5rem; }
+  .roi-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:clamp(1.08rem,1.35vw,1.35rem); color:var(--text-2); border-bottom:1px dashed rgba(231,29,37,.28); padding-bottom:.6rem; }
   .roi-row b{ font-family:'Manrope',sans-serif; font-weight:800; color:var(--text); }
   .roi-net{ display:flex; justify-content:space-between; align-items:center; margin-top:.25rem; }
-  .roi-net span{ font-family:'JetBrains Mono',monospace; font-size:.78rem; font-weight:600; text-transform:uppercase; letter-spacing:.12em; color:var(--red); }
-  .roi-net b{ font-family:'Manrope',sans-serif; font-size:clamp(2.3rem,3.5vw,3.3rem); font-weight:900; letter-spacing:-.03em; color:var(--red); line-height:1; }
+  .roi-net span{ font-family:'JetBrains Mono',monospace; font-size:.92rem; font-weight:600; text-transform:uppercase; letter-spacing:.12em; color:var(--red); }
+  .roi-net b{ font-family:'Manrope',sans-serif; font-size:clamp(2.9rem,4.4vw,4.1rem); font-weight:900; letter-spacing:-.03em; color:var(--red); line-height:1; }
   .roi-net b small{ font-family:'JetBrains Mono',monospace; font-size:.26em; font-weight:500; color:var(--text-3); letter-spacing:.04em; }
   .roi-kicker{ margin-top:1rem; font-family:'JetBrains Mono',monospace; font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.07em; color:var(--text-2); line-height:1.55; }
   .roi-kicker b{ color:var(--red); }
   .mkt2{ display:flex; align-items:center; gap:1.1rem; margin-top:1.1rem; }
-  .mkt2-u{ font-family:'Manrope',sans-serif; font-size:clamp(2.2rem,3.4vw,3.2rem); font-weight:900; letter-spacing:-.03em; color:var(--blue); line-height:1; min-width:5rem; }
-  .mkt2-d{ font-family:'JetBrains Mono',monospace; font-size:.73rem; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--text-2); line-height:1.5; }
+  .mkt2-u{ font-family:'Manrope',sans-serif; font-size:clamp(2.7rem,4.1vw,3.9rem); font-weight:900; letter-spacing:-.03em; color:var(--blue); line-height:1; min-width:5.6rem; }
+  .mkt2-d{ font-family:'JetBrains Mono',monospace; font-size:.84rem; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--text-2); line-height:1.55; }
   .mkt2-d b{ font-family:'Manrope',sans-serif; font-size:1.35em; font-weight:900; color:var(--blue); letter-spacing:-.02em; }
 
   /* PROVEN + WHY-NOW (map layout) */
@@ -325,14 +325,17 @@
   .cta-item .val a{ color:var(--text); text-decoration:none; }
   .cta-item .val span{ display:block; font-weight:500; font-size:.8em; color:var(--text-2); margin-top:.3rem; }
   .cta-invest{ margin-top:2.4rem; display:inline-flex; align-items:center; gap:.7rem; padding:.9rem 1.5rem; background:var(--red); color:#fff; border-radius:100px; font-family:'Manrope',sans-serif; font-weight:800; font-size:clamp(1.05rem,1.6vw,1.4rem); letter-spacing:-.01em; width:fit-content; }
-  .cta-ask{ margin-bottom:2.2rem; }
-  .cta-ask-lbl{ font-family:'JetBrains Mono',monospace; font-size:.92rem; font-weight:700; text-transform:uppercase; letter-spacing:.2em; color:var(--red); margin-bottom:1.2rem; display:flex; align-items:center; gap:.75rem; }
+  .cta-ask{ margin-bottom:1.7rem; }
+  .cta-ask-lbl{ font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700; text-transform:uppercase; letter-spacing:.2em; color:var(--red); margin-bottom:1.4rem; display:flex; align-items:center; gap:.8rem; }
   .cta-ask-lbl::before{ content:''; width:34px; height:2px; background:var(--red); display:inline-block; }
-  .cta-ask-list{ list-style:none; display:flex; flex-direction:column; gap:1rem; }
-  .cta-ask-list li{ display:flex; align-items:baseline; gap:1.1rem; font-family:'Manrope',sans-serif; font-size:clamp(1.6rem,2.7vw,2.5rem); font-weight:800; letter-spacing:-.03em; line-height:1.12; color:var(--text); }
+  .cta-ask-list{ list-style:none; display:flex; flex-direction:column; gap:1.35rem; }
+  .cta-ask-list li{ display:flex; align-items:baseline; gap:1.2rem; font-family:'Manrope',sans-serif; font-size:clamp(2rem,3.4vw,3.15rem); font-weight:800; letter-spacing:-.03em; line-height:1.1; color:var(--text); }
   .cta-ask-list .n{ font-family:'JetBrains Mono',monospace; font-size:.42em; font-weight:700; color:var(--red); flex-shrink:0; transform:translateY(-.15em); }
   .cta-ask-list b{ color:var(--red); font-weight:900; }
   .cta-meta{ display:flex; flex-wrap:wrap; gap:3.2rem; align-items:flex-start; }
+  .cta-contact{ margin-top:1.7rem; font-family:'JetBrains Mono',monospace; font-size:.92rem; font-weight:500; letter-spacing:.03em; color:var(--text-3); }
+  .cta-contact b{ color:var(--text-2); font-weight:700; }
+  .cta-contact a{ color:var(--text-2); text-decoration:none; }
 
   /* NAV + ATTRACT */
   .nav-bar{ position:fixed; bottom:1.3rem; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:1rem; background:rgba(255,255,255,.92); backdrop-filter:blur(10px); border:1px solid var(--border); padding:.5rem .95rem; border-radius:100px; z-index:100; box-shadow:0 8px 32px -8px rgba(15,23,42,.16); }
@@ -355,7 +358,7 @@
 <div class="attract-bar" id="attractBar"></div>
 <div class="deck">
 
-<!-- ===== 1 · HERO / HOOK ===== [0:00–0:25] "Hi, I'm Paul Favorov, founder and CEO of HelloPackage. We turn wasted mailroom labor into AI- and robotics-managed logistics for high-density housing — live in 200+ communities. We taught the mailroom to see. Next, the robot runs the building." -->
+<!-- ===== 1 · HERO / HOOK ===== [0:00–0:25] "Hi, I'm Paul Favorov, CEO of HelloPackage. We turn wasted mailroom labor into AI- and robotics-managed logistics for high-density housing — live in 200+ communities. We taught the mailroom to see. Next, the robot runs the building." -->
 <section class="slide active" data-dur="10000">
   <div class="page-header">
     <div class="brand-logo" role="img" aria-label="HelloPackage"></div>
@@ -376,7 +379,7 @@
       </div>
       <div class="presenter-box">
         <div class="pb-label">The presenter</div>
-        <div class="pb-name">Paul Favorov <span>· Founder, CEO &amp; CTO</span></div>
+        <div class="pb-name">Paul Favorov <span>· CEO &amp; CTO</span></div>
         <div class="pb-cred">20+ years in technology · exited one PropTech company</div>
       </div>
     </div>
@@ -543,16 +546,14 @@
       <div class="bm-eyebrow">The model</div>
       <div class="bm-price">$3.80<small> / unit / mo</small></div>
       <div class="bm-sub">All-in &middot; Cap Ex from <b>$24K</b></div>
-      <div class="bm-econ"><span class="bm-chip"><b>6&ndash;8&times;</b>&nbsp; LTV / CAC</span><span class="bm-chip"><b>&lt;12 mo</b>&nbsp; payback</span></div>
     </div>
     <div class="bm-card roi">
       <div class="bm-eyebrow">Owner ROI &middot; profit center</div>
       <div class="roi-calc">
         <div class="roi-row"><span>Resident amenity fee</span><b>$10.00</b></div>
         <div class="roi-row"><span>Your HelloPackage cost</span><b>&minus;&thinsp;$3.80</b></div>
-        <div class="roi-net"><span>You keep</span><b>$6.20<small> /unit/mo</small></b></div>
+        <div class="roi-net"><span>Owner keeps</span><b>$6.20<small> /unit/mo</small></b></div>
       </div>
-      <div class="roi-kicker">&asymp; <b>$74 /unit/yr</b> &middot; e.g. 300 units &rarr; <b>~$22K/yr net</b></div>
     </div>
     <div class="bm-card cyan">
       <div class="bm-eyebrow">The market</div>
@@ -660,11 +661,8 @@
         <li><span class="n">02</span><span>Physical-AI <b>investors &amp; partners</b></span></li>
       </ul>
     </div>
-    <div class="cta-meta">
-      <div class="cta-item"><div class="lbl">Founder</div><div class="val">Paul Favorov<span>CEO &amp; CTO</span></div></div>
-      <div class="cta-item"><div class="lbl">Contact</div><div class="val"><a href="mailto:paulfavorov@packagesolutions.com">paulfavorov@packagesolutions.com</a><span>404.558.0668</span></div></div>
-    </div>
     <div class="cta-invest">Investing in physical-world AI? Let's talk &rarr;</div>
+    <div class="cta-contact"><b>Paul Favorov</b> &middot; CEO &amp; CTO &nbsp;&mdash;&nbsp; <a href="mailto:paulfavorov@packagesolutions.com">paulfavorov@packagesolutions.com</a> &middot; 404.558.0668</div>
   </div>
   <div class="page-footer"><span class="seg-label">HelloPackage · hellopackage.com</span><span class="counter-foot">09 / 09</span></div>
 </section>
